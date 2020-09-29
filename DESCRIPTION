@@ -43,7 +43,6 @@ Suggests:
     testthat
 Remotes:
     acidgenomics/acidgenerics,
-    acidgenomics/acidplots,
     acidgenomics/basejump,
     acidgenomics/goalie
 biocViews:
