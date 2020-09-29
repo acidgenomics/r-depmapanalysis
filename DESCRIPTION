@@ -1,0 +1,58 @@
+Package: DepMapAnalysis
+Title: DepMap Analysis Utilities
+Description: Cancer Dependency Map (DepMap) analysis toolkit.
+Version: 0.0.1
+Date: 2020-09-29
+Authors@R: c(
+    person(
+        given = "Michael",
+        family = "Steinbaugh",
+        email = "mike@steinbaugh.com",
+        role = c("aut", "cre"),
+        comment = c(ORCID = "0000-0002-2403-2221")
+    ),
+    person(
+        given = "Acid Genomics",
+        role = c("cph", "fnd")
+    ))
+URL:
+    https://depmapanalysis.acidgenomics.com/,
+    https://github.com/acidgenomics/DepMapAnalysis/
+BugReports: https://github.com/acidgenomics/DepMapAnalysis/issues/
+License: GPL-3
+Encoding: UTF-8
+LazyData: false
+Depends:
+    R (>= 4.0),
+    basejump (>= 0.12.16)
+Imports:
+    S4Vectors,
+    SummarizedExperiment,
+    acidgenerics (>= 0.3.11),
+    cli (>= 2.0),
+    ggplot2 (>= 3.3),
+    goalie (>= 0.4.8),
+    methods,
+    rlang (>= 0.4),
+    stats,
+    stringr (>= 1.4),
+    utils
+Suggests:
+    depmap,
+    roxygen2,
+    testthat
+Remotes:
+    acidgenomics/acidgenerics,
+    acidgenomics/acidplots,
+    acidgenomics/basejump,
+    acidgenomics/goalie
+biocViews:
+    CancerData,
+    CellCulture,
+    DiseaseModel,
+    GeneExpression,
+    RepositoryData,
+    Visualization
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.1.1
+VignetteBuilder: knitr
