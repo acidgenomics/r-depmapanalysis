@@ -26,6 +26,7 @@ Depends:
     R (>= 4.0),
     basejump (>= 0.12.16)
 Imports:
+    BiocFileCache,
     S4Vectors,
     SummarizedExperiment,
     acidgenerics (>= 0.3.11),
@@ -33,6 +34,7 @@ Imports:
     ggplot2 (>= 3.3),
     goalie (>= 0.4.8),
     methods,
+    rappdirs (>= 0.3),
     rlang (>= 0.4),
     stats,
     stringr (>= 1.4),
