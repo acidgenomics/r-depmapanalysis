@@ -1,15 +1,3 @@
-
-
-##path <- tempfile()
-##bfc <- BiocFileCache(path, ask = FALSE)
-
-##bfccache(bfc)
-##length(bfc)
-##show(bfc)
-##bfcinfo(bfc)
-
-
-
 #' Prepare BiocFileCache for package
 #'
 #' @note Updated 2020-09-30.
@@ -24,6 +12,69 @@
         ask = TRUE
     )
 }
+
+
+
+#' Download and cache a data file from DepMap into BiocFileCache
+#'
+#' @note Updated 2020-09-30.
+#' @noRd
+#'
+#' @param fileID `character(1)`.
+#'   DepMap file ID on figshare.com.
+#' @param fileName `character(1)`.
+#'   File name.
+#'
+#' @return `character(1)`.
+#'   Cached file path on disk.
+#'
+#' @examples
+#' fileName <- "sample_info.csv"
+#' fileID <- .depmap[["20q3"]][["cellular_models"]][[fileName]]
+#' .cacheDataFile(fileName = fileName, fileID = fileID)
+.cacheDataFile <- function(fileName, fileID, verbose = TRUE) {
+    urlStem <- .depmap[["url_stem"]]
+    assert(
+        isAURL(urlStem),
+        isFlag(verbose)
+    )
+    fileURL <- paste0(urlStem, fileID)
+    bfc <- .bfc()
+    rid <- bfcquery(
+        x = bfc,
+        query = fileName,
+        field = "rname",
+        exact = TRUE
+    )[["rid"]]
+    if (!hasLength(rid)) {
+        if (isTRUE(verbose)) {
+            cli_alert(sprintf(
+                "Caching {.file %s} at {.path %s}.",
+                fileName, bfccache(bfc)
+            ))
+        }
+        rid <- names(bfcadd(
+            x = bfc,
+            rname = fileName,
+            fpath = fileURL,
+            download = TRUE
+        ))
+    }
+    if (!isFALSE(bfcneedsupdate(x = bfc, rids = rid))) {
+        bfcdownload(x = bfc, rid = rid, ask = FALSE)
+    }
+    out <- unname(bfcrpath(x = bfc, rids = rid))
+    assert(isAFile(out))
+    out
+}
+
+
+
+#' Current DepMap (quarterly) release
+#'
+#' @note Updated 2020-09-30.
+#' @noRd
+.currentRelease <- "20Q3"
 
 
 
@@ -57,58 +108,3 @@
         )
     )
 )
-
-
-
-#' Download a data file into BiocFileCache
-#'
-#' @note Updated 2020-09-30.
-#' @noRd
-#'
-#' @param fileID `character(1)`.
-#'   DepMap file ID on figshare.com.
-#' @param fileName `character(1)`.
-#'   File name.
-#'
-#' @return `character(1)`.
-#'   Cached file path on disk.
-#'
-#' @examples
-#' fileName <- "sample_info.csv"
-#' fileID <- .depmap[["20q3"]][["cellular_models"]][[fileName]]
-#' .downloadDataFile(fileID = fileID, fileName = fileName)
-.downloadDataFile <- function(fileID, fileName, verbose = TRUE) {
-    urlStem <- .depmap[["url_stem"]]
-    assert(
-        isAURL(urlStem),
-        isFlag(verbose)
-    )
-    fileURL <- paste0(urlStem, fileID)
-    bfc <- .bfc()
-    rid <- bfcquery(
-        x = bfc,
-        query = fileName,
-        field = "rname",
-        exact = TRUE
-    )[["rid"]]
-    if (!hasLength(rid)) {
-        if (isTRUE(verbose)) {
-            cli_alert(sprintf(
-                "Caching {.file %s} at {.path %s}.",
-                fileName, bfccache(bfc)
-            ))
-        }
-        rid <- names(bfcadd(
-            x = bfc,
-            rname = fileName,
-            fpath = fileURL,
-            download = TRUE
-        ))
-    }
-    if (!isFALSE(bfcneedsupdate(x = bfc, rids = rid))) {
-        bfcdownload(x = bfc, rid = rid, ask = FALSE)
-    }
-    out <- bfcrpath(x = bfc, rids = rid)
-    assert(isAFile(out))
-    out
-}

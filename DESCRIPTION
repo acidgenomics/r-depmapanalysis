@@ -38,6 +38,7 @@ Imports:
     rlang (>= 0.4),
     stats,
     stringr (>= 1.4),
+    tibble,
     utils
 Suggests:
     depmap,
