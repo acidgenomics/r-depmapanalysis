@@ -3,6 +3,8 @@
 #' @export
 #' @note Updated 2020-09-30.
 #'
+#' @inheritParams params
+#'
 #' @return `AchillesGeneDependencyData`.
 #'
 #' @examples
@@ -28,6 +30,8 @@ AchillesGeneDependencyData <-  # nolint
 #' @export
 #' @note Updated 2020-09-30.
 #'
+#' @inheritParams params
+#'
 #' @return `AchillesGeneEffectData`.
 #'
 #' @examples
@@ -52,6 +56,8 @@ AchillesGeneEffectData <-  # nolint
 #'
 #' @export
 #' @note Updated 2020-09-30.
+#'
+#' @inheritParams params
 #'
 #' @return `CCLECopyNumberData`.
 #'

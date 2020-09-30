@@ -6,6 +6,11 @@
 \usage{
 AchillesGeneDependencyData(release = NULL)
 }
+\arguments{
+\item{release}{\code{character(1)} or \code{NULL}.
+DepMap quarterly release ID (e.g. \code{"20Q3"}).
+If left \code{NULL}, defaults to latest supported release.}
+}
 \value{
 \code{AchillesGeneDependencyData}.
 }
