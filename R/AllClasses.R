@@ -24,10 +24,42 @@ setClass(
 
 
 
+#' CCLE copy number data
+#'
+#' @note Updated 2020-09-30.
+#' @export
+#'
+#' @return `CCLECopyNumberData`.
+setClass(
+    Class = "CCLECopyNumberData",
+    contains = "DataFrame"
+)
 
-## CCLECopyNumberData
-## CCLEExpressionData
-## CCLEMutationData
+
+
+#' CCLE expression data
+#'
+#' @note Updated 2020-09-30.
+#' @export
+#'
+#' @return `CCLEExpressionData`.
+setClass(
+    Class = "CCLEExpressionData",
+    contains = "DataFrame"
+)
+
+
+
+#' CCLE mutation data
+#'
+#' @note Updated 2020-09-30.
+#' @export
+#'
+#' @return `CCLEMutationData`.
+setClass(
+    Class = "CCLEMutationData",
+    contains = "DataFrame"
+)
 
 
 
