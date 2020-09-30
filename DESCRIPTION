@@ -27,6 +27,7 @@ Depends:
     basejump (>= 0.12.16)
 Imports:
     BiocFileCache,
+    S4Vectors,
     cli (>= 2.0),
     goalie (>= 0.4.8),
     methods,
