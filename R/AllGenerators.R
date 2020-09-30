@@ -47,6 +47,82 @@ AchillesGeneEffectData <- function(release = NULL) {
 
 
 
+#' Import CCLE copy number data
+#'
+#' @export
+#' @note Updated 2020-09-30.
+#'
+#' @return `CCLECopyNumberData`.
+#'
+#' @examples
+#' object <- CCLECopyNumberData()
+#' dim(object)
+CCLECopyNumberData <- function(release = NULL) {
+    df <- .importDataFile(
+        fileName = "ccle_gene_cn.csv",
+        type = "cellular_models",
+        release = release,
+        rownamesCol = 1L
+    )
+    assert(is(df, "DataFrame"))
+    new("CCLECopyNumberData", df)
+}
+
+
+
+#' Import CCLE expression data
+#'
+#' @export
+#' @note Updated 2020-09-30.
+#'
+#' @inheritParams params
+#'
+#' @return `CCLEExpressionData`.
+#'
+#' @examples
+#' object <- CCLEExpressionData()
+#' dim(object)
+CCLEExpressionData <- function(release = NULL) {
+    df <- .importDataFile(
+        fileName = "ccle_expression.csv",
+        type = "cellular_models",
+        release = release,
+        rownamesCol = 1L
+    )
+    assert(is(df, "DataFrame"))
+    new("CCLEExpressionData", df)
+}
+
+
+
+#' Import CCLE mutation data
+#'
+#' @export
+#' @note Updated 2020-09-30.
+#'
+#' @inheritParams params
+#'
+#' @return `CCLEMutationData`.
+#'
+#' @examples
+#' object <- CCLEMutationData()
+#' dim(object)
+CCLEMutationData <- function(release = NULL) {
+    df <- .importDataFile(
+        fileName = "ccle_mutations.csv",
+        type = "cellular_models",
+        ## Note that this is a TSV, even though extension is CSV!
+        format = "tsv",
+        release = release,
+        ## Consider returning as SplitDataFrame or grouped tibble.
+        rownamesCol = NULL
+    )
+    assert(is(df, "DataFrame"))
+    new("CCLEMutationData", df)
+}
+
+
+
 #' Import cell line sample metadata
 #'
 #' @export
@@ -54,16 +130,42 @@ AchillesGeneEffectData <- function(release = NULL) {
 #'
 #' @inheritParams params
 #'
-#' @return `DataFrame`.
+#' @return `CellLineSampleData`.
 #'
 #' @examples
 #' object <- CellLineSampleData()
 #' dim(object)
 CellLineSampleData <- function(release = NULL) {
-    .importDataFile(
+    df <- .importDataFile(
         fileName = "sample_info.csv",
         type = "cellular_models",
         release = release,
         rownamesCol = 1L
     )
+    assert(is(df, "DataFrame"))
+    new("CellLineSampleData", df)
+}
+
+
+
+#' Import DEMETER2 RNAi screen gene effect data
+#'
+#' @export
+#' @note Updated 2020-09-30.
+#'
+#' @return `DEMETER2GeneEffectData`.
+#'
+#' @examples
+#' object <- DEMETER2GeneEffectData()
+#' dim(object)
+DEMETER2GeneEffectData <- function() {
+    mat <- .importDataFile(
+        fileName = "d2_combined_gene_dep_scores.csv",
+        type = "genetic_dependency",
+        release = "demeter2_data_v6",
+        rownamesCol = 1L,
+        return = "matrix"
+    )
+    assert(is.matrix(mat))
+    new("DEMETER2GeneEffectData", mat)
 }

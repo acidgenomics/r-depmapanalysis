@@ -12,7 +12,7 @@ DepMap quarterly release ID (e.g. \code{"20Q3"}).
 If left \code{NULL}, defaults to latest supported release.}
 }
 \value{
-\code{DataFrame}.
+\code{CellLineSampleData}.
 }
 \description{
 Import cell line sample metadata
