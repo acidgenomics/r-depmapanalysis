@@ -43,7 +43,7 @@
         EXPR = return,
         "DataFrame" = as(df, "DataFrame"),
         "matrix" = {
-            if (hasRownames(df)) df[[1L]] <- NULL
+            if (hasRownames(df)) df[[rownamesCol]] <- NULL
             as.matrix(df)
         }
     )
