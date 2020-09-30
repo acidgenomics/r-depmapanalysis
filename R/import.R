@@ -6,6 +6,7 @@
     fileName,
     release,
     type = c("cellular_models", "genetic_dependency"),
+    format = c("csv", "tsv"),
     rownamesCol = NULL
 ) {
     if (is.null(release)) {
@@ -18,14 +19,15 @@
         isScalar(rownamesCol) || is.null(rownamesCol)
     )
     type <- match.arg(type)
+    format <- match.arg(format)
     cli_alert(sprintf(
-        "Downloading {.file %s} from DepMap {.var %s} release.",
+        "Importing {.file %s} from DepMap {.var %s} release.",
         fileName, release
     ))
     fileID <- .depmap[[tolower(release)]][["cellular_models"]][[fileName]]
     file <- .cacheDataFile(fileName = fileName, fileID = fileID)
     suppressMessages({
-        df <- import(file = file, format = "csv")
+        df <- import(file = file, format = format)
     })
     df <- snakeCase(df)
     if (isScalar(rownamesCol)) {
@@ -33,7 +35,7 @@
             rownamesCol <- colnames(df)[[rownamesCol]]
         }
         assert(isSubset(rownamesCol, colnames(df)))
-        df <- column_to_rownames(df, rownamesCol)
+        rownames(df) <- df[[rownamesCol]]
         df <- makeDimnames(df)
     }
     df <- as(df, "DataFrame")
@@ -43,6 +45,26 @@
 
 
 ## Cellular models files =======================================================
+#' Import CCLE copy number data
+#'
+#' @export
+#' @note Updated 2020-09-30.
+#'
+#' @return `DataFrame`.
+#'
+#' @examples
+#' df <- importCCLECopyNumberData()
+importCCLECopyNumberData <- function(release = NULL) {
+    df <- .importDataFile(
+        fileName = "ccle_gene_cn.csv",
+        type = "cellular_models",
+        release = release,
+        rownamesCol = 1L
+    )
+}
+
+
+
 #' Import CCLE expression data
 #'
 #' @export
@@ -65,21 +87,28 @@ importCCLEExpressionData <- function(release = NULL) {
 
 
 
-#' Import CCLE copy number data
+## FIXME THIS IS A TSV, NOT CSV.
+
+#' Import CCLE mutation data
 #'
 #' @export
+#' @note This file is large and takes a while to import.
 #' @note Updated 2020-09-30.
+#'
+#' @inheritParams params
 #'
 #' @return `DataFrame`.
 #'
 #' @examples
-#' df <- importCCLECopyNumberData()
-importCCLECopyNumberData <- function(release = NULL) {
-    df <- .importDataFile(
-        fileName = "ccle_gene_cn.csv",
+#' ## This file is large and takes a while to import.
+#' df <- importCCLEMutationData()
+importCCLEMutationData <- function(release = NULL) {
+    .importDataFile(
+        fileName = "ccle_mutations.csv",
         type = "cellular_models",
+        format = "tsv",
         release = release,
-        rownamesCol = 1L
+        rownamesCol = NULL
     )
 }
 
@@ -108,12 +137,6 @@ importCellLineSampleInfo <- function(release = NULL) {
 
 
 ## Genetic dependency files ====================================================
-# "cellular_models" = list(
-#     "ccle_expression.csv" = "24613325",  # Expression
-#     "ccle_gene_cn.csv" = "24613352",     # Copy number
-#     "ccle_mutations.csv" = "24613355",   # Mutation
-#     "sample_info.csv" = "24613394"       # Cell line sample info
-# ),
 # "genetic_dependency" = list(
 #     "achilles_gene_dependency.csv" = "24613298",
 #     "achilles_gene_effect.csv" = "24613292"

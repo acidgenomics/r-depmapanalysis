@@ -5,6 +5,5 @@
 #' @importFrom goalie assert hasLength isAFile isAURL isFlag isScalar isString
 #'   isSubset
 #' @importFrom rappdirs user_cache_dir
-#' @importFrom tibble column_to_rownames
 #' @importFrom utils packageName
 NULL
