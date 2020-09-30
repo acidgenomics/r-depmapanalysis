@@ -27,24 +27,16 @@ Depends:
     basejump (>= 0.12.16)
 Imports:
     BiocFileCache,
-    S4Vectors,
-    SummarizedExperiment,
-    acidgenerics (>= 0.3.11),
     cli (>= 2.0),
-    ggplot2 (>= 3.3),
     goalie (>= 0.4.8),
     methods,
     rappdirs (>= 0.3),
-    rlang (>= 0.4),
-    stats,
-    stringr (>= 1.4),
     utils
 Suggests:
     depmap,
     roxygen2,
     testthat
 Remotes:
-    acidgenomics/acidgenerics,
     acidgenomics/basejump,
     acidgenomics/goalie
 biocViews:

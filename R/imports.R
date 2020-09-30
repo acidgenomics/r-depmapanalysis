@@ -1,6 +1,6 @@
 #' @importFrom BiocFileCache BiocFileCache bfcadd bfccache bfcdownload
 #'   bfcneedsupdate bfcquery bfcrpath
-#' @importFrom basejump import makeDimnames makeNames snakeCase
+#' @importFrom basejump import snakeCase
 #' @importFrom cli cli_alert
 #' @importFrom goalie assert hasLength hasRownames isAFile isAURL isFlag
 #'   isScalar isString isSubset
