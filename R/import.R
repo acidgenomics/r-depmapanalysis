@@ -51,7 +51,7 @@
 #' @examples
 #' df <- importCCLEExpressionData()
 importCCLEExpressionData <- function(release = NULL) {
-    df <- .importDataFile(
+    .importDataFile(
         fileName = "ccle_expression.csv",
         type = "cellular_models",
         release = release,
