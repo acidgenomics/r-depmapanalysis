@@ -87,8 +87,6 @@ importCCLEExpressionData <- function(release = NULL) {
 
 
 
-## FIXME THIS IS A TSV, NOT CSV.
-
 #' Import CCLE mutation data
 #'
 #' @export
@@ -106,8 +104,10 @@ importCCLEMutationData <- function(release = NULL) {
     .importDataFile(
         fileName = "ccle_mutations.csv",
         type = "cellular_models",
+        ## Note that this is a TSV, even though extension is CSV!
         format = "tsv",
         release = release,
+        ## Consider returning as SplitDataFrame or grouped tibble.
         rownamesCol = NULL
     )
 }
@@ -137,6 +137,19 @@ importCellLineSampleInfo <- function(release = NULL) {
 
 
 ## Genetic dependency files ====================================================
+#' Import Achilles gene dependency
+#'
+#' @export
+#' @note Updated 2020-09-30.
+#'
+#' @return `DataFrame`.
+#'
+#' @examples
+importAchillesGeneDependency <- function(release = NULL) {
+
+}
+
+
 # "genetic_dependency" = list(
 #     "achilles_gene_dependency.csv" = "24613298",
 #     "achilles_gene_effect.csv" = "24613292"
