@@ -4,6 +4,7 @@
 #' @importFrom cli cli_alert
 #' @importFrom goalie assert hasLength hasRownames isAFile isAURL isFlag
 #'   isScalar isString isSubset
+#' @importFrom methods setClass setValidity
 #' @importFrom rappdirs user_cache_dir
 #' @importFrom utils packageName
 NULL
