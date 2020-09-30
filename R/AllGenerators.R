@@ -111,10 +111,8 @@ CCLEMutationData <- function(release = NULL) {
     df <- .importDataFile(
         fileName = "ccle_mutations.csv",
         type = "cellular_models",
-        ## Note that this is a TSV, even though extension is CSV!
         format = "tsv",
         release = release,
-        ## Consider returning as SplitDataFrame or grouped tibble.
         rownamesCol = NULL
     )
     assert(is(df, "DataFrame"))
