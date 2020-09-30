@@ -30,14 +30,12 @@
     suppressMessages({
         df <- import(file = file, format = format)
     })
-    df <- snakeCase(df)
     if (isScalar(rownamesCol)) {
         if (!isString(rownamesCol)) {
             rownamesCol <- colnames(df)[[rownamesCol]]
         }
         assert(isSubset(rownamesCol, colnames(df)))
         rownames(df) <- df[[rownamesCol]]
-        df <- makeDimnames(df)
     }
     df <- switch(
         EXPR = return,
@@ -47,6 +45,7 @@
             as.matrix(df)
         }
     )
+    df <- snakeCase(df, rownames = TRUE, colnames = TRUE)
     df
 }
 
@@ -187,11 +186,21 @@ importAchillesGeneEffectData <- function(release = NULL) {
 
 
 
-# ## RNAi screens.
-# "demeter2_data_v6" = list(
-#     "genetic_dependency" = list(
-#         ## > "d2_achilles_gene_dep_scores.csv" = "11489669",
-#         ## > "d2_drive_gene_dep_scores.csv" = "11489693",
-#         "d2_combined_gene_dep_scores.csv" = "13515395"
-#     )
-# )
+#' Import DEMETER2 RNAi screen gene effect data
+#'
+#' @export
+#' @note Updated 2020-09-30.
+#'
+#' @return `matrix`.
+#'
+#' @examples
+#' mat <- importDEMETER2GeneEffectData()
+importDEMETER2GeneEffectData <- function() {
+    .importDataFile(
+        fileName = "d2_combined_gene_dep_scores.csv",
+        type = "genetic_dependency",
+        release = "demeter2_data_v6",
+        rownamesCol = 1L,
+        return = "matrix"
+    )
+}
