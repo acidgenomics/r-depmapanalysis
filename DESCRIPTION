@@ -2,7 +2,7 @@ Package: DepMapAnalysis
 Title: DepMap Analysis Utilities
 Description: Cancer Dependency Map (DepMap) analysis toolkit.
 Version: 0.0.1
-Date: 2020-09-29
+Date: 2020-09-30
 Authors@R: c(
     person(
         given = "Michael",
