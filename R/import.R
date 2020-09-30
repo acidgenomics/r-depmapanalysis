@@ -7,24 +7,25 @@
     release,
     type = c("cellular_models", "genetic_dependency"),
     format = c("csv", "tsv"),
-    rownamesCol = NULL
+    rownamesCol = NULL,
+    return = c("DataFrame", "matrix")
 ) {
     if (is.null(release)) {
         release <- .currentRelease
     }
     assert(
         isString(fileName),
-        isString(fileID),
         isString(release),
         isScalar(rownamesCol) || is.null(rownamesCol)
     )
     type <- match.arg(type)
     format <- match.arg(format)
+    return <- match.arg(return)
     cli_alert(sprintf(
         "Importing {.file %s} from DepMap {.var %s} release.",
         fileName, release
     ))
-    fileID <- .depmap[[tolower(release)]][["cellular_models"]][[fileName]]
+    fileID <- .depmap[[tolower(release)]][[type]][[fileName]]
     file <- .cacheDataFile(fileName = fileName, fileID = fileID)
     suppressMessages({
         df <- import(file = file, format = format)
@@ -38,7 +39,14 @@
         rownames(df) <- df[[rownamesCol]]
         df <- makeDimnames(df)
     }
-    df <- as(df, "DataFrame")
+    df <- switch(
+        EXPR = return,
+        "DataFrame" = as(df, "DataFrame"),
+        "matrix" = {
+            if (hasRownames(df)) df[[1L]] <- NULL
+            as.matrix(df)
+        }
+    )
     df
 }
 
@@ -137,24 +145,48 @@ importCellLineSampleInfo <- function(release = NULL) {
 
 
 ## Genetic dependency files ====================================================
-#' Import Achilles gene dependency
+#' Import Achilles gene dependency data
 #'
 #' @export
 #' @note Updated 2020-09-30.
 #'
-#' @return `DataFrame`.
+#' @return `matrix`.
 #'
 #' @examples
-importAchillesGeneDependency <- function(release = NULL) {
-
+#' mat <- importAchillesGeneDependencyData()
+importAchillesGeneDependencyData <- function(release = NULL) {
+    .importDataFile(
+        fileName = "achilles_gene_dependency.csv",
+        type = "genetic_dependency",
+        release = release,
+        rownamesCol = 1L,
+        return = "matrix"
+    )
 }
 
 
-# "genetic_dependency" = list(
-#     "achilles_gene_dependency.csv" = "24613298",
-#     "achilles_gene_effect.csv" = "24613292"
-# )
-# ),
+
+#' Import Achilles gene effect data
+#'
+#' @export
+#' @note Updated 2020-09-30.
+#'
+#' @return `matrix`.
+#'
+#' @examples
+#' mat <- importAchillesGeneEffectData()
+importAchillesGeneEffectData <- function(release = NULL) {
+    .importDataFile(
+        fileName = "achilles_gene_effect.csv",
+        type = "genetic_dependency",
+        release = release,
+        rownamesCol = 1L,
+        return = "matrix"
+    )
+}
+
+
+
 # ## RNAi screens.
 # "demeter2_data_v6" = list(
 #     "genetic_dependency" = list(
