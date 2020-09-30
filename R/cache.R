@@ -108,3 +108,56 @@
         )
     )
 )
+
+
+
+#' Import DepMap data file
+#'
+#' @note Updated 2020-09-30.
+#' @noRd
+.importDataFile <- function(
+    fileName,
+    release,
+    type = c("cellular_models", "genetic_dependency"),
+    format = c("csv", "tsv"),
+    rownamesCol = NULL,
+    return = c("DataFrame", "matrix")
+) {
+    if (is.null(release)) {
+        release <- .currentRelease
+    }
+    assert(
+        isString(fileName),
+        isString(release),
+        isScalar(rownamesCol) || is.null(rownamesCol)
+    )
+    type <- match.arg(type)
+    format <- match.arg(format)
+    return <- match.arg(return)
+    cli_alert(sprintf(
+        "Importing {.file %s} from DepMap {.var %s} release.",
+        fileName, release
+    ))
+    fileID <- .depmap[[tolower(release)]][[type]][[fileName]]
+    file <- .cacheDataFile(fileName = fileName, fileID = fileID)
+    suppressMessages({
+        df <- import(file = file, format = format)
+    })
+    if (isScalar(rownamesCol)) {
+        if (!isString(rownamesCol)) {
+            rownamesCol <- colnames(df)[[rownamesCol]]
+        }
+        assert(isSubset(rownamesCol, colnames(df)))
+        rownames(df) <- df[[rownamesCol]]
+    }
+    df <- switch(
+        EXPR = return,
+        "DataFrame" = as(df, "DataFrame"),
+        "matrix" = {
+            if (hasRownames(df)) df[[rownamesCol]] <- NULL
+            as.matrix(df)
+        }
+    )
+    df <- snakeCase(df, rownames = TRUE, colnames = TRUE)
+    df
+}
