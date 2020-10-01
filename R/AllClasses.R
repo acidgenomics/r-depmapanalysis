@@ -1,25 +1,18 @@
-#' Achilles gene dependency data
+#' Achilles CRISPR screening data
 #'
-#' @note Updated 2020-09-30.
+#' Scored using CERES algorithm.
+#'
+#' @note Updated 2020-10-01.
 #' @export
 #'
-#' @return `AchillesGeneDependencyData`.
-setClass(
-    Class = "AchillesGeneDependencyData",
-    contains = "matrix"
-)
-
-
-
-#' Achilles gene effect data
+#' @return `Achilles`.
 #'
-#' @note Updated 2020-09-30.
-#' @export
-#'
-#' @return `AchillesGeneEffectData`.
+#' @seealso
+#' - https://depmap.org/portal/achilles/
+#' - https://depmap.org/ceres/
 setClass(
-    Class = "AchillesGeneEffectData",
-    contains = "matrix"
+    Class = "Achilles",
+    contains = "SummarizedExperiment"
 )
 
 
@@ -78,11 +71,11 @@ setClass(
 
 #' DEMETER2 RNAi gene effect data
 #'
-#' @note Updated 2020-09-30.
+#' @note Updated 2020-10-01.
 #' @export
 #'
-#' @return `DEMETER2GeneEffectData`.
+#' @return `DEMETER2`.
 setClass(
-    Class = "DEMETER2GeneEffectData",
-    contains = "matrix"
+    Class = "DEMETER2",
+    contains = "SummarizedExperiment"
 )

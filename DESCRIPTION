@@ -28,6 +28,8 @@ Depends:
 Imports:
     BiocFileCache,
     S4Vectors,
+    SummarizedExperiment,
+    acidgenerics (>= 0.3.14),
     cellosaurus (>= 0.0.1),
     cli (>= 2.0),
     goalie (>= 0.4.8),
