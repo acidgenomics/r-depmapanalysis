@@ -1,6 +1,9 @@
 #' Achilles CRISPR screening data
 #'
+#' @details
 #' Scored using CERES algorithm.
+#'
+#' Cells in columns, genes in rows.
 #'
 #' @note Updated 2020-10-01.
 #' @export
@@ -56,20 +59,10 @@ setClass(
 
 
 
-#' Cell line sample metadata
-#'
-#' @note Updated 2020-09-30.
-#' @export
-#'
-#' @return `CellLineSampleData`.
-setClass(
-    Class = "CellLineSampleData",
-    contains = "DataFrame"
-)
-
-
-
 #' DEMETER2 RNAi gene effect data
+#'
+#' @details
+#' Cells in columns, genes in rows.
 #'
 #' @note Updated 2020-10-01.
 #' @export

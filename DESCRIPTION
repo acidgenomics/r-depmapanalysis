@@ -24,7 +24,7 @@ Encoding: UTF-8
 LazyData: false
 Depends:
     R (>= 4.0),
-    basejump (>= 0.12.16)
+    basejump (>= 0.12.17)
 Imports:
     BiocFileCache,
     S4Vectors,

@@ -39,6 +39,7 @@
         isFlag(verbose)
     )
     fileURL <- paste0(urlStem, fileID)
+    cli_dl(c("URL" = fileURL))
     bfc <- .bfc()
     rid <- bfcquery(
         x = bfc,
@@ -77,10 +78,17 @@
 .currentRelease <- "20Q3"
 
 
+#' Current DEMETER2 release
+#'
+#' @note Updated 2020-10-01.
+#' @noRd
+.currentDEMETERRelease <- "demeter2_data_v6"
+
+
 
 #' Popular (starred) DepMap file downloads
 #'
-#' @note Updated 2020-09-29.
+#' @note Updated 2020-10-01.
 #' @noRd
 #'
 #' @seealso https://depmap.org/portal/download/
@@ -88,26 +96,37 @@
     "url_stem" = "https://ndownloader.figshare.com/files/",
     ## CRISPR screens.
     "20q3" = list(
-        "cellular_models" = list(
-            "ccle_expression.csv" = "24613325",  # Expression
-            "ccle_gene_cn.csv" = "24613352",     # Copy number
-            "ccle_mutations.csv" = "24613355",   # Mutation
-            "sample_info.csv" = "24613394"       # Cell line sample info
-        ),
-        "genetic_dependency" = list(
-            "achilles_gene_dependency.csv" = "24613298",
-            "achilles_gene_effect.csv" = "24613292"
-        )
+        "achilles_gene_dependency.csv" = "24613298",
+        "achilles_gene_effect.csv" = "24613292",
+        "ccle_expression.csv" = "24613325",
+        "ccle_gene_cn.csv" = "24613352",
+        "ccle_mutations.csv" = "24613355",
+        "sample_info.csv" = "24613394"
     ),
     ## RNAi screens.
     "demeter2_data_v6" = list(
-        "genetic_dependency" = list(
-            ## > "d2_achilles_gene_dep_scores.csv" = "11489669",
-            ## > "d2_drive_gene_dep_scores.csv" = "11489693",
-            "d2_combined_gene_dep_scores.csv" = "13515395"
-        )
+        "d2_combined_gene_dep_scores.csv" = "13515395",
+        "sample_info.csv" = "11489717"
     )
 )
+
+
+
+#' Import cell line sample metadata
+#'
+#' @note Updated 2020-10-01.
+#' @noRd
+.importCellLineSampleData <-  # nolint
+    function(release = NULL) {
+        df <- .importDataFile(
+            fileName = "sample_info.csv",
+            release = release,
+            rownamesCol = 1L
+        )
+        assert(is(df, "DataFrame"))
+        df <- camelCase(df)
+        df
+    }
 
 
 
@@ -118,7 +137,6 @@
 .importDataFile <- function(
     fileName,
     release,
-    type = c("cellular_models", "genetic_dependency"),
     format = c("csv", "tsv"),
     rownamesCol = NULL,
     return = c("DataFrame", "matrix")
@@ -131,14 +149,13 @@
         isString(release),
         isScalar(rownamesCol) || is.null(rownamesCol)
     )
-    type <- match.arg(type)
     format <- match.arg(format)
     return <- match.arg(return)
     cli_alert(sprintf(
         "Importing {.file %s} from DepMap {.var %s} release.",
         fileName, release
     ))
-    fileID <- .depmap[[tolower(release)]][[type]][[fileName]]
+    fileID <- .depmap[[tolower(release)]][[fileName]]
     file <- .cacheDataFile(fileName = fileName, fileID = fileID)
     suppressMessages({
         df <- import(file = file, format = format)

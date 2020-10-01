@@ -1,6 +1,5 @@
-#' Map genes
-#'
 #' @name mapGenes
+#' @inherit acidgenerics::mapGenes
 #' @note Updated 2020-10-01.
 #'
 #' @inheritParams acidroxygen::params
@@ -26,10 +25,21 @@ NULL
 
 
 
+#' @rdname mapGenes
+#' @name mapGenes
+#' @importFrom acidgenerics mapGenes
+#' @usage mapGenes(object, ...)
+#' @export
+NULL
+
+
+
+## FIXME Need to rework this for SummarizedExperiment.
+
 ## Note that some gene names (i.e. HUGO symbols) may be outdated on DepMap, so
 ## match primarily using the Entrez identifier instead.
 ## Updated 2020-09-30.
-`mapGenes,AchillesGeneEffectData` <-  # nolint
+`mapGenes,Achilles` <-  # nolint
     function(
         object,
         GRanges,  # nolint
@@ -82,6 +92,6 @@ NULL
 #' @export
 setMethod(
     f = "mapGenes",
-    signature = signature("AchillesGeneEffectData"),
-    definition = `mapGenes,AchillesGeneEffectData`
+    signature = signature("Achilles"),
+    definition = `mapGenes,Achilles`
 )

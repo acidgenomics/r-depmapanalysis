@@ -1,8 +1,12 @@
+#' @importClassesFrom S4Vectors DataFrame
+#' @importClassesFrom SummarizedExperiment SummarizedExperiment
+#'
 #' @importFrom BiocFileCache BiocFileCache bfcadd bfccache bfcdownload
 #'   bfcneedsupdate bfcquery bfcrpath
 #' @importFrom S4Vectors mcols
-#' @importFrom basejump Ensembl2Entrez decode import snakeCase
-#' @importFrom cli cli_alert cli_alert_warning
+#' @importFrom basejump Ensembl2Entrez camelCase decode import
+#'   makeSummarizedExperiment snakeCase
+#' @importFrom cli cli_alert cli_alert_warning cli_dl
 #' @importFrom goalie assert hasLength hasRownames isAFile isAURL isCharacter
 #'   isFlag isScalar isString isSubset
 #' @importFrom methods as is new setClass setValidity
