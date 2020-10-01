@@ -15,7 +15,9 @@ If left \code{NULL}, defaults to latest supported release.}
 \code{AchillesGeneEffectData}.
 }
 \description{
-Import Achilles gene effect data
+\strong{CERES data} with principle components strongly related to known batch
+effects removed, then shifted and scaled per cell line so the median
+nonessential KO effect is 0 and the median essential KO effect is -1.
 }
 \note{
 Updated 2020-09-30.

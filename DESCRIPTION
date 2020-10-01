@@ -28,6 +28,7 @@ Depends:
 Imports:
     BiocFileCache,
     S4Vectors,
+    cellosaurus (>= 0.0.1),
     cli (>= 2.0),
     goalie (>= 0.4.8),
     methods,
@@ -40,7 +41,8 @@ Suggests:
     testthat
 Remotes:
     acidgenomics/basejump,
-    acidgenomics/goalie
+    acidgenomics/goalie,
+    acidgenomics/cellosaurus
 biocViews:
     CancerData,
     CellCulture,

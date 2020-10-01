@@ -1,5 +1,8 @@
 #' Import Achilles gene dependency data
 #'
+#' **Probability** that knocking out the gene has a real depletion effect using
+#' `gene_effect`.
+#'
 #' @export
 #' @note Updated 2020-09-30.
 #'
@@ -26,6 +29,10 @@ AchillesGeneDependencyData <-  # nolint
 
 
 #' Import Achilles gene effect data
+#'
+#' **CERES data** with principle components strongly related to known batch
+#' effects removed, then shifted and scaled per cell line so the median
+#' nonessential KO effect is 0 and the median essential KO effect is -1.
 #'
 #' @export
 #' @note Updated 2020-09-30.

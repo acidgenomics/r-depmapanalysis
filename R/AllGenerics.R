@@ -1,8 +1,8 @@
-#' @rdname matchGenes
+#' @rdname mapGenes
 #' @export
 setGeneric(
-    name = "matchGenes",
+    name = "mapGenes",
     def = function(object, ...) {
-        standardGeneric("matchGenes")
+        standardGeneric("mapGenes")
     }
 )

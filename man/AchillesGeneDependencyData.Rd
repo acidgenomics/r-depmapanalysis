@@ -15,7 +15,8 @@ If left \code{NULL}, defaults to latest supported release.}
 \code{AchillesGeneDependencyData}.
 }
 \description{
-Import Achilles gene dependency data
+\strong{Probability} that knocking out the gene has a real depletion effect using
+\code{gene_effect}.
 }
 \note{
 Updated 2020-09-30.

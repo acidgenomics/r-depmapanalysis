@@ -1,7 +1,7 @@
-#' Match genes
+#' Map genes
 #'
-#' @name matchGenes
-#' @note Updated 2020-09-30.
+#' @name mapGenes
+#' @note Updated 2020-10-01.
 #'
 #' @inheritParams acidroxygen::params
 #' @param GRanges `GRanges`.
@@ -17,7 +17,7 @@
 #' object <- AchillesGeneDependencyData()
 #' GRanges <- makeGRangesFromEnsembl("Homo sapiens")
 #' ids <- head(names(GRanges))
-#' matchGenes(
+#' mapGenes(
 #'     object = object,
 #'     GRanges = GRanges,
 #'     ids = ids
@@ -29,7 +29,7 @@ NULL
 ## Note that some gene names (i.e. HUGO symbols) may be outdated on DepMap, so
 ## match primarily using the Entrez identifier instead.
 ## Updated 2020-09-30.
-`matchGenes,AchillesGeneDependencyData` <-  # nolint
+`mapGenes,AchillesGeneEffectData` <-  # nolint
     function(
         object,
         GRanges,  # nolint
@@ -78,10 +78,10 @@ NULL
 
 
 
-#' @rdname matchGenes
+#' @rdname mapGenes
 #' @export
 setMethod(
-    f = "matchGenes",
-    signature = signature("AchillesGeneDependencyData"),
-    definition = `matchGenes,AchillesGeneDependencyData`
+    f = "mapGenes",
+    signature = signature("AchillesGeneEffectData"),
+    definition = `mapGenes,AchillesGeneEffectData`
 )
