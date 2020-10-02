@@ -19,7 +19,6 @@ DEMETER2 <-  # nolint
                 return = "matrix"
             )
         )
-        assert(is.matrix(mat))
         ## Need to map this to cell data in a future release.
         ## > colData <- .importCellLineSampleData(
         ## >     release = .currentDEMETERRelease
