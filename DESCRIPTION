@@ -29,7 +29,6 @@ Imports:
     BiocFileCache,
     S4Vectors,
     SummarizedExperiment,
-    acidplots (>= 0.2.35),
     cli (>= 2.0),
     ggplot2,
     goalie (>= 0.4.8),
@@ -44,7 +43,6 @@ Suggests:
     roxygen2,
     testthat
 Remotes:
-    acidgenomics/acidplots,
     acidgenomics/basejump,
     acidgenomics/goalie
 biocViews:
