@@ -18,14 +18,16 @@
 #'
 #' @examples
 #' object <- Achilles()
-#' dim(object)
+#' print(object)
 Achilles <-  # nolint
     function(
         release = NULL,
         rowRanges = TRUE,
         colData = TRUE
     ) {
-        if (is.null(release)) release <- .currentRelease
+        if (is.null(release)) {
+            release <- .currentRelease
+        }
         assert(
             isString(release),
             isFlag(rowRanges),
@@ -54,18 +56,62 @@ Achilles <-  # nolint
         } else {
             colData <- NULL
         }
-        assert(
-            identical(
-                x = dimnames(assays[["effect"]]),
-                y = dimnames(assays[["probability"]])
-            ),
-            isSubset(
-                x = colnames(assays[[1L]]),
-                y = rownames(colData)
-            )
-        )
         if (isTRUE(rowRanges)) {
-            ## FIXME IMPORT FROM INTERNAL MAPPINGS.
+            entrez <- as.integer(str_extract(
+                string = rownames(assays[[1L]]),
+                pattern = "[0-9]+$"
+            ))
+            entrez2ensembl <-readRDS(system.file(
+                "extdata", "entrez2ensembl.rds",
+                package = "DepMapAnalysis"
+            ))
+            assert(
+                is(entrez2ensembl, "DataFrame"),
+                identical(
+                    x = colnames(entrez2ensembl),
+                    y = c("entrez", "ensembl", "retired")
+                ),
+                isSubset(entrez, entrez2ensembl[["entrez"]])
+            )
+            idx <- match(x = entrez, table = entrez2ensembl[["entrez"]])
+            assert(!any(is.na(idx)))
+            entrez2ensembl <- entrez2ensembl[idx, ]
+            ## Drop any retired genes from analysis.
+            entrez2ensembl[["retired"]][
+                is.na(entrez2ensembl[["retired"]])] <- FALSE
+            drop <- entrez2ensembl[["retired"]]
+            if (any(drop)) {
+                keep <- !drop
+                retired <- rownames(assays[[1L]])[drop]
+                cli_alert_warning(sprintf(
+                    "Dropping %d retired %s: %s.",
+                    length(retired),
+                    ngettext(
+                        n = length(retired),
+                        msg1 = "gene",
+                        msg2 = "genes"
+                    ),
+                    toString(retired, width = 200L)
+                ))
+                entrez2ensembl <- entrez2ensembl[keep, ]
+                assays <- lapply(
+                    X = assays,
+                    FUN = function(assay) {
+                        assay[keep, ]
+                    }
+                )
+            }
+            rowRanges <- makeGRangesFromEnsembl(
+                organism = "Homo sapiens",
+                release = 101L
+            )
+            idx <- match(
+                x = entrez2ensembl[["ensembl"]],
+                table = names(rowRanges)
+            )
+            assert(!any(is.na(idx)))
+            rowRanges <- rowRanges[idx]
+            names(rowRanges) <- rownames(assays[[1L]])
         } else {
             rowRanges <- NULL
         }

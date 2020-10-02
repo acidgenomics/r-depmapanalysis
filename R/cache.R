@@ -109,7 +109,7 @@
             rownamesCol = 1L
         )
         assert(is(df, "DataFrame"))
-        df <- camelCase(df)
+        df <- snakeCase(df)
         df
     }
 

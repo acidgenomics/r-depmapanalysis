@@ -15,20 +15,21 @@ entrez <- sort(as.integer(str_extract(
     string = rownames(achilles),
     pattern = "[0-9]+$"
 )))
+
 ## There are some Entrez IDs missing in the OrgDb that we need to map.
 ## Look up at https://www.ncbi.nlm.nih.gov/gene/
 manualEntrez <-
     import("manual-entrez-ids.csv") %>%
     as_tibble() %>%
     camelCase() %>%
-    select(entrezID, ensemblID) %>%
+    select(entrezID, ensemblID, retired) %>%
     rename(
         entrez = entrezID,
         ensembl = ensemblID
     )
 
-badKeys <- manualEntrez[["entrez"]]
 ## Skipping the bad keys, let's map primarily using the OrgDb lookup.
+badKeys <- manualEntrez[["entrez"]]
 entrez2ensembl <- Entrez2Ensembl(
     object = setdiff(entrez, badKeys),
     organism = organism,
@@ -40,7 +41,7 @@ entrez2ensembl <- Entrez2Ensembl(
 ## contains Ensembl-to-Entrez identifier mappings.
 ## > gr <- makeGRangesFromEnsembl(
 ## >     organism = organism,
-## >     release = 100L
+## >     release = 101L
 ## > )
 ## > ensembl2entrez <- Ensembl2Entrez(
 ## >     object = gr,
