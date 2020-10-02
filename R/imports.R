@@ -10,8 +10,8 @@
 #' @importFrom cli cli_alert cli_alert_warning cli_dl
 #' @importFrom ggplot2 aes coord_flip facet_wrap geom_boxplot geom_density
 #'   geom_hline geom_vline ggplot labs scale_x_discrete
-#' @importFrom goalie assert hasLength hasRownames isAFile isAURL isCharacter
-#'   isFlag isScalar isString isSubset
+#' @importFrom goalie assert hasDimnames hasLength hasRownames isAFile isAURL
+#'   isCharacter isFlag isScalar isString isSubset validate validateClasses
 #' @importFrom methods as is new setClass setValidity
 #' @importFrom rappdirs user_cache_dir
 #' @importFrom rlang !! sym
