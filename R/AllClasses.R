@@ -15,7 +15,7 @@
 #' - https://depmap.org/ceres/
 setClass(
     Class = "Achilles",
-    contains = "SummarizedExperiment"
+    contains = "RangedSummarizedExperiment"
 )
 
 
