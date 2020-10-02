@@ -5,7 +5,7 @@
 #'
 #' Cells in columns, genes in rows.
 #'
-#' @note Updated 2020-10-01.
+#' @note Updated 2020-10-02.
 #' @export
 #'
 #' @return `Achilles`.
@@ -21,7 +21,6 @@ setValidity(
     Class = "Achilles",
     method = function(object) {
         metadata <- metadata(object)
-        ## Return invalid for all objects older than v0.0.2.
         version <- metadata[["version"]]
         ok <- validate(
             is(version, "package_version"),
