@@ -115,7 +115,16 @@ Achilles <-  # nolint
         } else {
             rowRanges <- NULL
         }
+        commonEssentials <-
+            .importCommonEssentials(release = release)
+        controlCommonEssentials <-
+            .importControlCommonEssentials(release = release)
+        controlNonessentials <-
+            .importControlNonessentials(release = release)
         metadata <- list(
+            commonEssentials = commonEssentials,
+            controlCommonEssentials = controlCommonEssentials,
+            controlNonessentials = controlNonessentials,
             release = release,
             version = .version
         )
