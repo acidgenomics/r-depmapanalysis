@@ -71,21 +71,6 @@
 
 
 
-#' Current DepMap (quarterly) release
-#'
-#' @note Updated 2020-09-30.
-#' @noRd
-.currentRelease <- "20Q3"
-
-
-#' Current DEMETER2 release
-#'
-#' @note Updated 2020-10-01.
-#' @noRd
-.currentDEMETERRelease <- "demeter2_data_v6"
-
-
-
 #' Popular (starred) DepMap file downloads
 #'
 #' @note Updated 2020-10-01.
@@ -175,6 +160,6 @@
             as.matrix(df)
         }
     )
-    df <- snakeCase(df, rownames = TRUE, colnames = TRUE)
+    df <- makeDimnames(df)
     df
 }

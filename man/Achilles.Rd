@@ -4,12 +4,18 @@
 \alias{Achilles}
 \title{Import Project Achilles CRISPR gene effect data}
 \usage{
-Achilles(release = NULL)
+Achilles(release = NULL, rowRanges = TRUE, colData = TRUE)
 }
 \arguments{
 \item{release}{\code{character(1)} or \code{NULL}.
 DepMap quarterly release ID (e.g. \code{"20Q3"}).
 If left \code{NULL}, defaults to latest supported release.}
+
+\item{rowRanges}{\code{logical(1)}.
+Include gene annotations as genomic ranges.}
+
+\item{colData}{\code{logical(1)}.
+Include cell line metadata.}
 }
 \value{
 \code{Achilles}.

@@ -20,8 +20,17 @@
 #' object <- Achilles()
 #' dim(object)
 Achilles <-  # nolint
-    function(release = NULL) {
+    function(
+        release = NULL,
+        rowRanges = TRUE,
+        colData = TRUE
+    ) {
         if (is.null(release)) release <- .currentRelease
+        assert(
+            isString(release),
+            isFlag(rowRanges),
+            isFlag(colData)
+        )
         ## CSV formatting: genes in columns, cells in rows. Transposing here to
         ## match DEMETER2 formatting, and standard SummarizedExperiment
         ## conventions for NGS data.
@@ -40,7 +49,11 @@ Achilles <-  # nolint
             )
         )
         assays <- lapply(X = assays, FUN = t)
-        colData <- .importCellLineSampleData(release = release)
+        if (isTRUE(colData)) {
+            colData <- .importCellLineSampleData(release = release)
+        } else {
+            colData <- NULL
+        }
         assert(
             identical(
                 x = dimnames(assays[["effect"]]),
@@ -51,11 +64,24 @@ Achilles <-  # nolint
                 y = rownames(colData)
             )
         )
-        ## FIXME Getting an invalid names (row resizing issue) here.
-        se <- makeSummarizedExperiment(
-            assays = assays,
-            colData = colData,
-            metadata = list(release = release)
+        if (isTRUE(rowRanges)) {
+            ## FIXME IMPORT FROM INTERNAL MAPPINGS.
+        } else {
+            rowRanges <- NULL
+        }
+        metadata <- list(
+            release = release,
+            version = .version
         )
+        args <- list(
+            assays = assays,
+            rowRanges = rowRanges,
+            colData = colData,
+            metadata = metadata
+        )
+        args <- Filter(Negate(is.null), args)
+        se <- do.call(what = makeSummarizedExperiment, args = args)
+        rownames(se) <- tolower(rownames(se))
+        colnames(se) <- tolower(colnames(se))
         new("Achilles", se)
     }

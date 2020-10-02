@@ -4,9 +4,15 @@
 \alias{params}
 \title{Shared parameter documentation}
 \arguments{
+\item{colData}{\code{logical(1)}.
+Include cell line metadata.}
+
 \item{release}{\code{character(1)} or \code{NULL}.
 DepMap quarterly release ID (e.g. \code{"20Q3"}).
 If left \code{NULL}, defaults to latest supported release.}
+
+\item{rowRanges}{\code{logical(1)}.
+Include gene annotations as genomic ranges.}
 }
 \value{
 No value.
