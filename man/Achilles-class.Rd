@@ -16,7 +16,7 @@ Scored using CERES algorithm.
 Cells in columns, genes in rows.
 }
 \note{
-Updated 2020-10-01.
+Updated 2020-10-02.
 }
 \seealso{
 \itemize{
