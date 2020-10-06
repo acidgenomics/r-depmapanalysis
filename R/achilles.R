@@ -1,3 +1,7 @@
+## FIXME SLOT ANY DEAD GENES REMOVED IN THE METADATA.
+
+
+
 #' Import Project Achilles CRISPR gene effect data
 #'
 #' @section Assays:
