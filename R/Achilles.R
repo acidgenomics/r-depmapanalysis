@@ -17,7 +17,7 @@
 #' @return `Achilles`.
 #'
 #' @examples
-#' object <- Achilles()
+#' object <- Achilles(rowRanges = FALSE, colData = FALSE)
 #' print(object)
 Achilles <-  # nolint
     function(
@@ -25,6 +25,7 @@ Achilles <-  # nolint
         rowRanges = TRUE,
         colData = TRUE
     ) {
+        retired <- NULL
         if (is.null(release)) {
             release <- .currentRelease
         }
@@ -51,11 +52,13 @@ Achilles <-  # nolint
             )
         )
         assays <- lapply(X = assays, FUN = t)
+        ## Sample metadata.
         if (isTRUE(colData)) {
             colData <- .importCellLineSampleData(release = release)
         } else {
             colData <- NULL
         }
+        ## Gene metadata.
         if (isTRUE(rowRanges)) {
             entrez <- as.integer(str_extract(
                 string = rownames(assays[[1L]]),
@@ -100,8 +103,6 @@ Achilles <-  # nolint
                         assay[keep, ]
                     }
                 )
-            } else {
-                retired <- NULL
             }
             rowRanges <- makeGRangesFromEnsembl(
                 organism = "Homo sapiens",
@@ -132,6 +133,7 @@ Achilles <-  # nolint
             controlNonessentials = controlNonessentials,
             retired = retired
         )
+        metadata <- Filter(Negate(is.null), metadata)
         args <- list(
             assays = assays,
             rowRanges = rowRanges,
