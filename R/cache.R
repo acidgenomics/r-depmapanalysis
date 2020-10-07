@@ -1,23 +1,6 @@
-#' Prepare BiocFileCache for package
-#'
-#' @note Updated 2020-09-30.
-#' @noRd
-#'
-#' @seealso
-#' https://www.bioconductor.org/packages/release/bioc/vignettes/
-#'     BiocFileCache/inst/doc/BiocFileCache.html
-.bfc <- function(pkg = packageName()) {
-    BiocFileCache(
-        cache = user_cache_dir(appname = pkg),
-        ask = TRUE
-    )
-}
-
-
-
 #' Download and cache a data file from DepMap into BiocFileCache
 #'
-#' @note Updated 2020-09-30.
+#' @note Updated 2020-10-07.
 #' @noRd
 #'
 #' @param fileID `character(1)`.
@@ -38,35 +21,14 @@
         isAURL(urlStem),
         isFlag(verbose)
     )
-    fileURL <- paste0(urlStem, fileID)
-    cli_dl(c("URL" = fileURL))
-    bfc <- .bfc()
-    rid <- bfcquery(
-        x = bfc,
-        query = fileName,
-        field = "rname",
-        exact = TRUE
-    )[["rid"]]
-    if (!hasLength(rid)) {
-        if (isTRUE(verbose)) {
-            cli_alert(sprintf(
-                "Caching {.file %s} at {.path %s}.",
-                fileName, bfccache(bfc)
-            ))
-        }
-        rid <- names(bfcadd(
-            x = bfc,
-            rname = fileName,
-            fpath = fileURL,
-            download = TRUE
-        ))
-    }
-    if (!isFALSE(bfcneedsupdate(x = bfc, rids = rid))) {
-        bfcdownload(x = bfc, rid = rid, ask = FALSE)
-    }
-    out <- unname(bfcrpath(x = bfc, rids = rid))
-    assert(isAFile(out))
-    out
+    url <- paste0(urlStem, fileID)
+    file <- cacheURL(
+        url = url,
+        fileName = fileName,
+        verbose = verbose
+    )
+    assert(isAFile(file))
+    file
 }
 
 
