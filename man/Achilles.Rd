@@ -39,6 +39,6 @@ depletion effect using \code{gene_effect}.
 }
 
 \examples{
-object <- Achilles()
+object <- Achilles(rowRanges = FALSE, colData = FALSE)
 print(object)
 }

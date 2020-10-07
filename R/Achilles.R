@@ -141,8 +141,11 @@ Achilles <-  # nolint
             metadata = metadata
         )
         args <- Filter(Negate(is.null), args)
-        se <- do.call(what = makeSummarizedExperiment, args = args)
-        rownames(se) <- tolower(rownames(se))
-        colnames(se) <- tolower(colnames(se))
-        new("Achilles", se)
+        ## FIXME NEED TO FORCE THIS TO RETURN AS RSE, NOT SE.
+        ## FIXME This doesn't return as expected when rowRanges = FALSE.
+        rse <- do.call(what = makeSummarizedExperiment, args = args)
+        assert(is(rse, "RangedSummarizedExperiment"))
+        rownames(rse) <- tolower(rownames(rse))
+        colnames(rse) <- tolower(colnames(rse))
+        new("Achilles", rse)
     }

@@ -1,3 +1,12 @@
+## DepMapAnalysis 0.0.3 (2020-10-07)
+
+### Minor changes
+
+- `Achilles`: Gene synonyms are now fetched automatically, based on the new
+  `makeGRangesFromEnsembl` update in basejump.
+- Simplified internal BiocFileCache handling, using new `cacheURL` function
+  defined in pipette package.
+
 ## DepMapAnalysis 0.0.2 (2020-10-02)
 
 ### New functions

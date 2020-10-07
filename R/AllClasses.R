@@ -1,3 +1,10 @@
+## FIXME Seeing a weird initialize error when rowRanges and colData are FALSE.
+## Error in validObject(.Object) : invalid class "Achilles" object:
+## 'NAMES' slot must be set to NULL at all time
+## Calls: new -> initialize -> initialize -> validObject
+
+
+
 #' Achilles CRISPR screening data
 #'
 #' @details
