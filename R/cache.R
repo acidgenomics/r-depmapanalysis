@@ -25,6 +25,7 @@
     file <- cacheURL(
         url = url,
         fileName = fileName,
+        pkg = packageName(),
         verbose = verbose
     )
     assert(isAFile(file))
@@ -114,9 +115,7 @@
     ))
     fileID <- .depmap[[tolower(release)]][[fileName]]
     file <- .cacheDataFile(fileName = fileName, fileID = fileID)
-    suppressMessages({
-        df <- import(file = file, format = format)
-    })
+    df <- import(file = file, format = format)
     if (isScalar(rownamesCol)) {
         if (!isString(rownamesCol)) {
             rownamesCol <- colnames(df)[[rownamesCol]]

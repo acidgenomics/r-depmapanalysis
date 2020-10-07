@@ -1,7 +1,3 @@
-## FIXME SLOT ANY DEAD GENES REMOVED IN THE METADATA.
-
-
-
 #' Import Project Achilles CRISPR gene effect data
 #'
 #' @section Assays:
@@ -14,7 +10,7 @@
 #'   depletion effect using `gene_effect`.
 #'
 #' @export
-#' @note Updated 2020-10-01.
+#' @note Updated 2020-10-07.
 #'
 #' @inheritParams params
 #'
@@ -104,10 +100,13 @@ Achilles <-  # nolint
                         assay[keep, ]
                     }
                 )
+            } else {
+                retired <- NULL
             }
             rowRanges <- makeGRangesFromEnsembl(
                 organism = "Homo sapiens",
-                release = 101L
+                release = 101L,
+                synonyms = TRUE
             )
             idx <- match(
                 x = entrez2ensembl[["ensembl"]],
@@ -126,11 +125,12 @@ Achilles <-  # nolint
         controlNonessentials <-
             .importControlNonessentials(release = release)
         metadata <- list(
+            version = .version,
+            release = release,
             commonEssentials = commonEssentials,
             controlCommonEssentials = controlCommonEssentials,
             controlNonessentials = controlNonessentials,
-            release = release,
-            version = .version
+            retired = retired
         )
         args <- list(
             assays = assays,
