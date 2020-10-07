@@ -1,8 +1,8 @@
 Package: DepMapAnalysis
 Title: DepMap Analysis Utilities
 Description: Cancer Dependency Map (DepMap) analysis toolkit.
-Version: 0.0.2
-Date: 2020-10-02
+Version: 0.0.4
+Date: 2020-10-07
 Authors@R: c(
     person(
         given = "Michael",
@@ -24,16 +24,14 @@ Encoding: UTF-8
 LazyData: false
 Depends:
     R (>= 4.0),
-    basejump (>= 0.12.17)
+    basejump (>= 0.13.0)
 Imports:
-    BiocFileCache,
     S4Vectors,
     SummarizedExperiment,
     cli (>= 2.0),
     ggplot2,
-    goalie (>= 0.4.8),
+    goalie (>= 0.4.9),
     methods,
-    rappdirs (>= 0.3),
     rlang,
     stringr,
     utils
@@ -42,9 +40,6 @@ Suggests:
     knitr,
     roxygen2,
     testthat
-Remotes:
-    acidgenomics/basejump,
-    acidgenomics/goalie
 biocViews:
     CancerData,
     CellCulture,

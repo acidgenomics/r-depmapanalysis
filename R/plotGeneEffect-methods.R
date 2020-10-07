@@ -3,7 +3,7 @@
 #' @name plotGeneEffect
 #' @note Updated 2020-10-02.
 #'
-#' @inheritParams acidroxygen::params
+#' @inheritParams AcidRoxygen::params
 #'
 #' @return `ggplot`.
 NULL
