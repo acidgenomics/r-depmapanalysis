@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>News • DepMapAnalysis</title>
+<title>Achilles example data set — ach • DepMapAnalysis</title>
 
 
 <!-- jquery -->
@@ -41,7 +41,8 @@
   <link href="../extra.css" rel="stylesheet">
   
 
-<meta property="og:title" content="News" />
+<meta property="og:title" content="Achilles example data set — ach" />
+<meta property="og:description" content="Achilles example data set" />
 
 
 
@@ -60,7 +61,7 @@
   </head>
 
   <body data-spy="scroll" data-target="#toc">
-    <div class="container template-news-index">
+    <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -116,16 +117,48 @@
       </header>
 
 <div class="row">
-  <div class="contents col-md-9">
+  <div class="col-md-9 contents">
     <div class="page-header">
-      <h1>Release notes</h1>
+    <h1>Achilles example data set</h1>
+    <small class="dont-index">Source: <a href='https://github.com/acidgenomics/DepMapAnalysis/blob/master/R/data.R'><code>R/data.R</code></a></small>
+    <div class="hidden name"><code>ach.Rd</code></div>
     </div>
-    <ul>
-    <li><a href="news-0.0.html">Version 0.0</a></li>
-    </ul>
+
+    <div class="ref-description">
+    <p>Achilles example data set</p>
+    </div>
+
+    <pre class="usage"><span class='va'>ach</span></pre>
+
+
+    <h2 class="hasAnchor" id="format"><a class="anchor" href="#format"></a>Format</h2>
+
+    <p>An object of class <code>Achilles</code> with 100 rows and 50 columns.</p>
+    <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
+
+    <p>Updated 2020-10-07.</p>
+    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
+
+    <p>Michael Steinbaugh</p>
+
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='va'>ach</span><span class='op'>)</span>
+<span class='va'>ach</span>
+</div><div class='output co'>#&gt; class: Achilles 
+#&gt; dim: 100 50 
+#&gt; metadata(8): commonEssentials controlCommonEssentials ... version wd
+#&gt; assays(2): effect probability
+#&gt; rownames(100): a1bg_1 a1cf_29974 ... abi2_10152 abi3_51225
+#&gt; rowData names(0):
+#&gt; colnames(50): ach_000004 ach_000005 ... ach_000098 ach_000099
+#&gt; colData names(0):</div></pre>
+  </div>
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
+    <nav id="toc" data-toggle="toc" class="sticky-top">
+      <h2 data-toc-skip>Contents</h2>
+    </nav>
   </div>
 </div>
-
 
 
       <footer>
