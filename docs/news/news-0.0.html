@@ -73,7 +73,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DepMapAnalysis</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.3</span>
       </span>
     </div>
 
@@ -126,6 +126,39 @@
 <h2 class="hasAnchor">
 <a href="#depmapanalysis-001-2020-10-02" class="anchor"></a>DepMapAnalysis 0.0.1 (2020-10-02)</h2>
 <p>Initial release.</p>
+</div>
+    <div id="depmapanalysis-002-2020-10-02" class="section level2">
+<h2 class="hasAnchor">
+<a href="#depmapanalysis-002-2020-10-02" class="anchor"></a>DepMapAnalysis 0.0.2 (2020-10-02)</h2>
+<div id="new-functions" class="section level3">
+<h3 class="hasAnchor">
+<a href="#new-functions" class="anchor"></a>New functions</h3>
+<ul>
+<li>
+<code>plotGeneEffect</code>: Plot effect of gene knockdown as a boxplot or density plot.</li>
+</ul>
+</div>
+<div id="major-changes" class="section level3">
+<h3 class="hasAnchor">
+<a href="#major-changes" class="anchor"></a>Major changes</h3>
+<ul>
+<li>
+<code>Achilles</code> object now requires slotting of common essential genes from DepMap. These are now imported automatically in the main <code><a href="../reference/Achilles.html">Achilles()</a></code> call.</li>
+</ul>
+</div>
+</div>
+    <div id="depmapanalysis-003-2020-10-07" class="section level2">
+<h2 class="hasAnchor">
+<a href="#depmapanalysis-003-2020-10-07" class="anchor"></a>DepMapAnalysis 0.0.3 (2020-10-07)</h2>
+<div id="minor-changes" class="section level3">
+<h3 class="hasAnchor">
+<a href="#minor-changes" class="anchor"></a>Minor changes</h3>
+<ul>
+<li>
+<code>Achilles</code>: Gene synonyms are now fetched automatically, based on the new <code>makeGRangesFromEnsembl</code> update in basejump.</li>
+<li>Simplified internal BiocFileCache handling, using new <code>cacheURL</code> function defined in pipette package.</li>
+</ul>
+</div>
 </div>
   </div>
 

@@ -10,14 +10,14 @@
 #'   depletion effect using `gene_effect`.
 #'
 #' @export
-#' @note Updated 2020-10-01.
+#' @note Updated 2020-10-07.
 #'
 #' @inheritParams params
 #'
 #' @return `Achilles`.
 #'
 #' @examples
-#' object <- Achilles()
+#' object <- Achilles(rowRanges = FALSE, colData = FALSE)
 #' print(object)
 Achilles <-  # nolint
     function(
@@ -25,6 +25,7 @@ Achilles <-  # nolint
         rowRanges = TRUE,
         colData = TRUE
     ) {
+        retired <- NULL
         if (is.null(release)) {
             release <- .currentRelease
         }
@@ -33,9 +34,7 @@ Achilles <-  # nolint
             isFlag(rowRanges),
             isFlag(colData)
         )
-        ## CSV formatting: genes in columns, cells in rows. Transposing here to
-        ## match DEMETER2 formatting, and standard SummarizedExperiment
-        ## conventions for NGS data.
+        ## CSV formatting: genes in columns, cells in rows.
         assays <- list(
             "effect" = .importDataFile(
                 fileName = "achilles_gene_effect.csv",
@@ -50,12 +49,16 @@ Achilles <-  # nolint
                 return = "matrix"
             )
         )
+        ## Transposing here to match DEMETER2 formatting, and standard
+        ## SummarizedExperiment conventions for NGS data.
         assays <- lapply(X = assays, FUN = t)
+        ## Sample metadata.
         if (isTRUE(colData)) {
             colData <- .importCellLineSampleData(release = release)
         } else {
             colData <- NULL
         }
+        ## Gene metadata.
         if (isTRUE(rowRanges)) {
             entrez <- as.integer(str_extract(
                 string = rownames(assays[[1L]]),
@@ -103,7 +106,8 @@ Achilles <-  # nolint
             }
             rowRanges <- makeGRangesFromEnsembl(
                 organism = "Homo sapiens",
-                release = 101L
+                release = 101L,
+                synonyms = TRUE
             )
             idx <- match(
                 x = entrez2ensembl[["ensembl"]],
@@ -122,12 +126,14 @@ Achilles <-  # nolint
         controlNonessentials <-
             .importControlNonessentials(release = release)
         metadata <- list(
+            version = .version,
+            release = release,
             commonEssentials = commonEssentials,
             controlCommonEssentials = controlCommonEssentials,
             controlNonessentials = controlNonessentials,
-            release = release,
-            version = .version
+            retired = retired
         )
+        metadata <- Filter(Negate(is.null), metadata)
         args <- list(
             assays = assays,
             rowRanges = rowRanges,
@@ -135,8 +141,16 @@ Achilles <-  # nolint
             metadata = metadata
         )
         args <- Filter(Negate(is.null), args)
-        se <- do.call(what = makeSummarizedExperiment, args = args)
-        rownames(se) <- tolower(rownames(se))
-        colnames(se) <- tolower(colnames(se))
-        new("Achilles", se)
+        rse <- do.call(what = makeSummarizedExperiment, args = args)
+        if (
+            is(rse, "SummarizedExperiment") &&
+            !is(rse, "RangedSummarizedExperiment")
+        ) {
+            rse <- as(rse, "RangedSummarizedExperiment")
+        }
+        assert(is(rse, "RangedSummarizedExperiment"))
+        rownames(rse) <- tolower(rownames(rse))
+        colnames(rse) <- tolower(colnames(rse))
+        validObject(rse)
+        new("Achilles", rse)
     }

@@ -5,7 +5,7 @@
 #'
 #' Cells in columns, genes in rows.
 #'
-#' @note Updated 2020-10-01.
+#' @note Updated 2020-10-07.
 #' @export
 #'
 #' @return `Achilles`.
@@ -16,6 +16,50 @@
 setClass(
     Class = "Achilles",
     contains = "RangedSummarizedExperiment"
+)
+setValidity(
+    Class = "Achilles",
+    method = function(object) {
+        metadata <- metadata(object)
+        version <- metadata[["version"]]
+        ok <- validate(
+            is(version, "package_version"),
+            version >= "0.0.2"
+        )
+        if (!isTRUE(ok)) return(ok)
+        ok <- validate(
+            is(object, "RangedSummarizedExperiment"),
+            hasDimnames(object)
+        )
+        if (!isTRUE(ok)) return(ok)
+
+        ## Metadata ------------------------------------------------------------
+        ok <- validateClasses(
+            object = metadata,
+            expected = list(
+                commonEssentials = "character",
+                controlCommonEssentials = "character",
+                controlNonessentials = "character",
+                date = "Date",
+                release = "character",
+                sessionInfo = "session_info",
+                version = "package_version",
+                wd = "character"
+            ),
+            subset = TRUE
+        )
+        if (!isTRUE(ok)) return(ok)
+
+        ## Assays --------------------------------------------------------------
+        assayNames <- assayNames(object)
+        ok <- validate(isSubset(
+            x = c("effect", "probability"),
+            y = assayNames
+        ))
+        if (!isTRUE(ok)) return(ok)
+
+        TRUE
+    }
 )
 
 
