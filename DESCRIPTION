@@ -33,6 +33,7 @@ Imports:
     goalie (>= 0.4.9),
     methods,
     rlang,
+    stats,
     stringr,
     utils
 Suggests:
