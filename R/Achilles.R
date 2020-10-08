@@ -64,9 +64,9 @@ Achilles <-  # nolint
                 string = rownames(assays[[1L]]),
                 pattern = "[0-9]+$"
             ))
-            entrez2ensembl <-readRDS(system.file(
+            entrez2ensembl <- readRDS(system.file(
                 "extdata", "entrez2ensembl.rds",
-                package = "DepMapAnalysis"
+                package = packageName()
             ))
             assert(
                 is(entrez2ensembl, "DataFrame"),
