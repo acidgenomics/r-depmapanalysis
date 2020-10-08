@@ -1,16 +1,22 @@
 #' Plot gene effect
 #'
 #' @name plotGeneEffect
-#' @note Updated 2020-10-02.
+#' @note Updated 2020-10-07.
 #'
 #' @inheritParams AcidRoxygen::params
 #'
 #' @return `ggplot`.
+#'
+#' @examples
+#' data(ach)
+#'
+#' ## Achilles ====
+#' plotGeneEffect(ach, genes = rownames(ach)[seq_len(5L)])
 NULL
 
 
 
-## Updated 2020-10-02.
+## Updated 2020-10-07.
 `plotGeneEffect,Achilles` <-  # nolint
     function(
         object,
@@ -19,7 +25,10 @@ NULL
     ) {
         validObject(object)
         geom <- match.arg(geom)
-        assert(isCharacter(genes))
+        assert(
+            isCharacter(genes),
+            length(genes) <= 100L
+        )
         mat <- assay(object, i = "effect")
         rownames <- mapGenesToRownames(object, genes = genes)
         mat <- mat[rownames, , drop = FALSE]

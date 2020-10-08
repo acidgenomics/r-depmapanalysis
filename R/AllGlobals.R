@@ -14,4 +14,4 @@
 #'
 #' @note Updated 2020-10-01.
 #' @noRd
-.version <- packageVersion("DepMapAnalysis")
+.version <- packageVersion(packageName())

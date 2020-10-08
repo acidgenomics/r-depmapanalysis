@@ -28,5 +28,11 @@ the first argument in the \code{character} vector.}
 Plot gene effect
 }
 \note{
-Updated 2020-10-02.
+Updated 2020-10-07.
+}
+\examples{
+data(ach)
+
+## Achilles ====
+plotGeneEffect(ach, genes = rownames(ach)[seq_len(5L)])
 }

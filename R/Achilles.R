@@ -34,9 +34,7 @@ Achilles <-  # nolint
             isFlag(rowRanges),
             isFlag(colData)
         )
-        ## CSV formatting: genes in columns, cells in rows. Transposing here to
-        ## match DEMETER2 formatting, and standard SummarizedExperiment
-        ## conventions for NGS data.
+        ## CSV formatting: genes in columns, cells in rows.
         assays <- list(
             "effect" = .importDataFile(
                 fileName = "achilles_gene_effect.csv",
@@ -51,6 +49,8 @@ Achilles <-  # nolint
                 return = "matrix"
             )
         )
+        ## Transposing here to match DEMETER2 formatting, and standard
+        ## SummarizedExperiment conventions for NGS data.
         assays <- lapply(X = assays, FUN = t)
         ## Sample metadata.
         if (isTRUE(colData)) {
@@ -141,11 +141,16 @@ Achilles <-  # nolint
             metadata = metadata
         )
         args <- Filter(Negate(is.null), args)
-        ## FIXME NEED TO FORCE THIS TO RETURN AS RSE, NOT SE.
-        ## FIXME This doesn't return as expected when rowRanges = FALSE.
         rse <- do.call(what = makeSummarizedExperiment, args = args)
+        if (
+            is(rse, "SummarizedExperiment") &&
+            !is(rse, "RangedSummarizedExperiment")
+        ) {
+            rse <- as(rse, "RangedSummarizedExperiment")
+        }
         assert(is(rse, "RangedSummarizedExperiment"))
         rownames(rse) <- tolower(rownames(rse))
         colnames(rse) <- tolower(colnames(rse))
+        validObject(rse)
         new("Achilles", rse)
     }

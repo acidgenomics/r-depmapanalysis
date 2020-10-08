@@ -15,5 +15,5 @@
 #' @importFrom rlang !! sym
 #' @importFrom stats reorder
 #' @importFrom stringr str_extract
-#' @importFrom utils packageName
+#' @importFrom utils packageName packageVersion
 NULL
