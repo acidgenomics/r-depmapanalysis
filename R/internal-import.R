@@ -34,42 +34,6 @@
 
 
 
-#' Popular (starred) DepMap file downloads
-#'
-#' @note Updated 2020-10-01.
-#' @noRd
-#'
-#' @seealso https://depmap.org/portal/download/
-.depmap <- list(
-    "url_stem" = "https://ndownloader.figshare.com/files/",
-    ## CRISPR screens.
-    "20q3" = list(
-        ## List of genes identified as dependencies in all lines, one per line.
-        "achilles_common_essentials.csv" = "24613283",
-        "achilles_gene_dependency.csv" = "24613298",
-        "achilles_gene_effect.csv" = "24613292",
-        "ccle_expression.csv" = "24613325",
-        "ccle_gene_cn.csv" = "24613352",
-        "ccle_mutations.csv" = "24613355",
-        ## List of genes used as positive controls, intersection of Biomen
-        ## (2014) and Hart (2015) essentials in the format "HUGO (Entrez)". Each
-        ## entry is separated by a newline.The scores of these genes are used as
-        ## the dependent distribution for inferring dependency probability.
-        "common_essentials.csv" = "24613385",
-        ## List of genes used as negative controls (Hart (2014) nonessentials)
-        ## in the format "HUGO (Entrez)". Each entry is separated by a newline.
-        "nonessentials.csv" = "24613388",
-        "sample_info.csv" = "24613394"
-    ),
-    ## RNAi screens.
-    "demeter2_data_v6" = list(
-        "d2_combined_gene_dep_scores.csv" = "13515395",
-        "sample_info.csv" = "11489717"
-    )
-)
-
-
-
 #' Import cell line sample metadata
 #'
 #' @note Updated 2020-10-01.
@@ -84,6 +48,48 @@
         assert(is(df, "DataFrame"))
         df <- snakeCase(df)
         df
+    }
+
+
+
+#' Import common essential genes
+#'
+#' @note Updated 2020-10-02.
+#' @noRd
+.importCommonEssentials <-
+    function(release) {
+        .importGeneDataFile(
+            fileName = "achilles_common_essentials.csv",
+            release = release
+        )
+    }
+
+
+
+#' Import control essential genes
+#'
+#' @note Updated 2020-10-02.
+#' @noRd
+.importControlCommonEssentials <-
+    function(release) {
+        .importGeneDataFile(
+            fileName = "common_essentials.csv",
+            release = release
+        )
+    }
+
+
+
+#' Import control non-essential genes
+#'
+#' @note Updated 2020-10-02.
+#' @noRd
+.importControlNonessentials <-
+    function(release) {
+        .importGeneDataFile(
+            fileName = "nonessentials.csv",
+            release = release
+        )
     }
 
 
@@ -134,3 +140,21 @@
     df <- makeDimnames(df)
     df
 }
+
+
+
+#' Import a DepMap file containing gene identifiers
+#'
+#' @note Updated 2020-10-02
+#' @noRd
+.importGeneDataFile <-
+    function(fileName, release) {
+        df <- .importDataFile(
+            fileName = fileName,
+            release = release,
+            return = "DataFrame"
+        )
+        assert(isCharacter(df[["gene"]]))
+        vec <- sort(df[["gene"]])
+        vec
+    }
