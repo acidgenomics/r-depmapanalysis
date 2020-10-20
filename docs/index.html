@@ -80,6 +80,25 @@
 <div class="page-header"><h1 class="hasAnchor">
 <a href="#depmapanalysis" class="anchor"></a>DepMapAnalysis</h1></div>
 <p>Cancer Dependency Map (DepMap) analysis toolkit</p>
+<div id="installation" class="section level2">
+<h2 class="hasAnchor">
+<a href="#installation" class="anchor"></a>Installation</h2>
+<div id="r-method" class="section level3">
+<h3 class="hasAnchor">
+<a href="#r-method" class="anchor"></a><a href="https://www.r-project.org/">R</a> method</h3>
+<div class="sourceCode" id="cb1"><pre class="downlit">
+<span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/ns-load.html">requireNamespace</a></span><span class="op">(</span><span class="st">"BiocManager"</span>, quietly <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
+    <span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="st">"BiocManager"</span><span class="op">)</span>
+<span class="op">}</span>
+<span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span>
+    pkgs <span class="op">=</span> <span class="st">"DepMapAnalysis"</span>,
+    repos <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span>
+        <span class="st">"r.acidgenomics.com"</span>,
+        <span class="fu">BiocManager</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/BiocManager/man/repositories.html">repositories</a></span><span class="op">(</span><span class="op">)</span>
+    <span class="op">)</span>
+<span class="op">)</span></pre></div>
+</div>
+</div>
 </div>
   </div>
 
