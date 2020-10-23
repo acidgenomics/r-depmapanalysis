@@ -1,6 +1,6 @@
 # DepMapAnalysis
 
-Cancer Dependency Map (DepMap) analysis toolkit
+[Cancer Dependency Map (DepMap)][depmap] analysis toolkit.
 
 ## Installation
 
@@ -13,10 +13,11 @@ if (!requireNamespace("BiocManager", quietly = TRUE)) {
 install.packages(
     pkgs = "DepMapAnalysis",
     repos = c(
-        "r.acidgenomics.com",
+        "https://r.acidgenomics.com",
         BiocManager::repositories()
     )
 )
 ```
 
+[depmap]: https://depmap.org/
 [r]: https://www.r-project.org/
