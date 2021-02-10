@@ -58,7 +58,6 @@ Achilles <-  # nolint
         ## SummarizedExperiment conventions for NGS data.
         assays <- lapply(X = assays, FUN = t)
         ## Sample metadata.
-        ## FIXME NEED TO DEAL WITH VROOM PARSING ISSUES HERE.
         if (isTRUE(colData)) {
             colData <- .importCellLineSampleData(release = release)
         } else {

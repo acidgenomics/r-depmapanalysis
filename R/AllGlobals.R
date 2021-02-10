@@ -1,7 +1,3 @@
-## FIXME NEED TO UPDATE THE MAPPING TO THE LIST BELOW...
-
-
-
 #' Current DepMap (quarterly) release
 #'
 #' @note Updated 2021-02-10.
