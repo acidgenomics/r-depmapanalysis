@@ -114,13 +114,16 @@
     )
     format <- match.arg(format)
     return <- match.arg(return)
-    cli_alert(sprintf(
+    alert(sprintf(
         "Importing {.file %s} from DepMap {.var %s} release.",
         fileName, release
     ))
     fileId <- .depmap[[tolower(release)]][[fileName]]
     file <- .cacheDataFile(fileName = fileName, fileId = fileId)
-    df <- import(file = file, format = format)
+    ## Parsing issues can pop up with `sample_info.csv`, for example.
+    suppressWarnings({
+        df <- import(file = file, format = format)
+    })
     if (isScalar(rownamesCol)) {
         if (!isString(rownamesCol)) {
             rownamesCol <- colnames(df)[[rownamesCol]]
