@@ -1,7 +1,7 @@
 #' Import DEMETER2 RNAi screen gene effect data
 #'
 #' @export
-#' @note Updated 2020-10-01.
+#' @note Updated 2021-02-10.
 #'
 #' @return `DEMETER2`.
 #'
@@ -19,7 +19,7 @@ DEMETER2 <-  # nolint
                 return = "matrix"
             )
         )
-        ## Need to map this to cell data in a future release.
+        ## FIXME Need to map this to cell data in a future release.
         ## > colData <- .importCellLineSampleData(
         ## >     release = .currentDEMETERRelease
         ## > )
