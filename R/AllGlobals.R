@@ -6,17 +6,7 @@
 #'
 #' @note Updated 2021-02-10.
 #' @noRd
-.currentRelease <- "21Q1"
-
-
-
-## FIXME NEED TO UPDATE THE MAPPING TO THE LIST BELOW...
-
-#' Current DEMETER2 release
-#'
-#' @note Updated 2020-10-01.
-#' @noRd
-.currentDEMETERRelease <- "demeter2_data_v6"
+.currentDepMapRelease <- "21Q1"
 
 
 

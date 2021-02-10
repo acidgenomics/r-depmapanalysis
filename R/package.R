@@ -1,3 +1,9 @@
+#' DepMapAnalysis
+#'
+#' Cancer Dependency Map (DepMap) analysis toolkit.
+#'
+#' @keywords internal
+
 #' @importClassesFrom basejump DataFrame RangedSummarizedExperiment
 #'   SummarizedExperiment
 #'
@@ -12,4 +18,4 @@
 #' @importFrom methods as is new setClass setValidity validObject
 #' @importFrom rlang !! sym
 #' @importFrom stringr str_extract
-NULL
+"_PACKAGE"

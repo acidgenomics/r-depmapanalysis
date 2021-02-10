@@ -1,9 +1,11 @@
 ## Internal Entrez-to-Ensembl identifier mappings.
 ## Updated 2020-10-02.
 
-library(basejump)        # 0.12.17
+## FIXME UPDATE THIS.
+
+library(basejump)        # 0.14.3
 library(tidyverse)       # 1.3.0
-library(DepMapAnalysis)  # 0.0.1
+library(DepMapAnalysis)  # 0.0.4
 
 organism <- "Homo sapiens"
 

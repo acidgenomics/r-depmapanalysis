@@ -1,6 +1,6 @@
 #' Download and cache a data file from DepMap into BiocFileCache
 #'
-#' @note Updated 2020-10-07.
+#' @note Updated 2021-02-10.
 #' @noRd
 #'
 #' @param fileId `character(1)`.
@@ -24,7 +24,6 @@
     url <- paste0(urlStem, fileId)
     file <- cacheURL(
         url = url,
-        fileName = fileName,
         pkg = packageName(),
         verbose = verbose
     )
@@ -106,7 +105,7 @@
     return = c("DataFrame", "matrix")
 ) {
     if (is.null(release)) {
-        release <- .currentRelease
+        release <- .currentDepMapRelease
     }
     assert(
         isString(fileName),

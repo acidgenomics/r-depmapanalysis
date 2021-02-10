@@ -27,7 +27,8 @@ Achilles <-  # nolint
     ) {
         retired <- NULL
         if (is.null(release)) {
-            release <- .currentRelease
+            ## FIXME NEED TO REWORK THE RELEASE MAPPING HERE.
+            release <- .currentDepMapRelease
         }
         assert(
             isString(release),
@@ -86,7 +87,7 @@ Achilles <-  # nolint
             if (any(drop)) {
                 keep <- !drop
                 retired <- rownames(assays[[1L]])[drop]
-                cli_alert_warning(sprintf(
+                alertWarning(sprintf(
                     "Dropping %d retired %s: %s.",
                     length(retired),
                     ngettext(
