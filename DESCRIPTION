@@ -25,16 +25,12 @@ LazyData: false
 Depends:
     R (>= 4.0)
 Imports:
-    S4Vectors,
-    SummarizedExperiment,
     basejump (>= 0.14.3),
     ggplot2 (>= 3.3),
     goalie (>= 0.4.14),
     methods,
     rlang (>= 0.4),
-    stats,
-    stringr (>= 1.4),
-    utils
+    stringr (>= 1.4)
 Suggests:
     depmap,
     testthat
