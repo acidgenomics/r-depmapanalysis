@@ -10,7 +10,7 @@
 #'   depletion effect using `gene_effect`.
 #'
 #' @export
-#' @note Updated 2020-10-07.
+#' @note Updated 2021-02-10.
 #'
 #' @inheritParams params
 #'
@@ -27,7 +27,6 @@ Achilles <-  # nolint
     ) {
         retired <- NULL
         if (is.null(release)) {
-            ## FIXME NEED TO REWORK THE RELEASE MAPPING HERE.
             release <- .currentDepMapRelease
         }
         assert(
@@ -35,6 +34,11 @@ Achilles <-  # nolint
             isFlag(rowRanges),
             isFlag(colData)
         )
+        ## e.g. "depmap_public_21q1", "depmap_public_20q4v2".
+        release <- snakeCase(paste(
+            "depmap", "public",
+            gsub(pattern = " ", replacement = "", x = tolower(release))
+        ))
         ## CSV formatting: genes in columns, cells in rows.
         assays <- list(
             "effect" = .importDataFile(
@@ -97,7 +101,7 @@ Achilles <-  # nolint
                     ),
                     toString(retired, width = 200L)
                 ))
-                entrez2ensembl <- entrez2ensembl[keep, ]
+                entrez2ensembl <- entrez2ensembl[keep, , drop = FALSE]
                 assays <- lapply(
                     X = assays,
                     FUN = function(assay) {
@@ -107,7 +111,9 @@ Achilles <-  # nolint
             }
             rowRanges <- makeGRangesFromEnsembl(
                 organism = "Homo sapiens",
-                release = 101L,
+                level = "genes",
+                release = 102L,
+                ignoreVersion = TRUE,
                 synonyms = TRUE
             )
             idx <- match(
@@ -127,19 +133,19 @@ Achilles <-  # nolint
         controlNonessentials <-
             .importControlNonessentials(release = release)
         metadata <- list(
-            version = .version,
-            release = release,
-            commonEssentials = commonEssentials,
-            controlCommonEssentials = controlCommonEssentials,
-            controlNonessentials = controlNonessentials,
-            retired = retired
+            "version" = .version,
+            "release" = release,
+            "commonEssentials" = commonEssentials,
+            "controlCommonEssentials" = controlCommonEssentials,
+            "controlNonessentials" = controlNonessentials,
+            "retired" = retired
         )
         metadata <- Filter(Negate(is.null), metadata)
         args <- list(
-            assays = assays,
-            rowRanges = rowRanges,
-            colData = colData,
-            metadata = metadata
+            "assays" = assays,
+            "rowRanges" = rowRanges,
+            "colData" = colData,
+            "metadata" = metadata
         )
         args <- Filter(Negate(is.null), args)
         rse <- do.call(what = makeSummarizedExperiment, args = args)
@@ -155,3 +161,6 @@ Achilles <-  # nolint
         validObject(rse)
         new("Achilles", rse)
     }
+
+#' @include AllGlobals.R
+formals(Achilles)[["release"]] <- .currentDepMapRelease

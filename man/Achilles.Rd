@@ -4,7 +4,7 @@
 \alias{Achilles}
 \title{Import Project Achilles CRISPR gene effect data}
 \usage{
-Achilles(release = NULL, rowRanges = TRUE, colData = TRUE)
+Achilles(release = "21Q1", rowRanges = TRUE, colData = TRUE)
 }
 \arguments{
 \item{release}{\code{character(1)} or \code{NULL}.
@@ -24,7 +24,7 @@ Include cell line metadata.}
 Import Project Achilles CRISPR gene effect data
 }
 \note{
-Updated 2020-10-07.
+Updated 2021-02-10.
 }
 \section{Assays}{
 
