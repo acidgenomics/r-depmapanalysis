@@ -1,3 +1,9 @@
+## DepMapAnalysis 0.0.4 (2021-02-10)
+
+### Major changes
+
+- Added support for 21Q1, 20Q4 v2, and 20Q4 releases.
+
 ## DepMapAnalysis 0.0.3 (2020-10-07)
 
 ### Minor changes
