@@ -22,11 +22,7 @@
         isFlag(verbose)
     )
     url <- paste0(urlStem, fileId)
-    file <- cacheURL(
-        url = url,
-        pkg = packageName(),
-        verbose = verbose
-    )
+    file <- cacheURL(url = url, pkg = .pkgName, verbose = verbose)
     assert(isAFile(file))
     file
 }

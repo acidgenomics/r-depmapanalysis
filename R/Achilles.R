@@ -65,13 +65,14 @@ Achilles <-  # nolint
         }
         ## Gene metadata.
         if (isTRUE(rowRanges)) {
-            entrez <- as.integer(str_extract(
+            entrezIds <- as.integer(str_extract(
                 string = rownames(assays[[1L]]),
                 pattern = "[0-9]+$"
             ))
+            ## FIXME THIS IS MISSING FROM CURRENT PACKAGE, NEED TO RESAVE.
             entrez2ensembl <- readRDS(system.file(
                 "extdata", "entrez2ensembl.rds",
-                package = packageName()
+                package = .pkgName
             ))
             assert(
                 is(entrez2ensembl, "DataFrame"),
@@ -81,9 +82,10 @@ Achilles <-  # nolint
                 ),
                 isSubset(entrez, entrez2ensembl[["entrez"]])
             )
-            idx <- match(x = entrez, table = entrez2ensembl[["entrez"]])
+            ## FIXME NEED TO RENAME THE COLUMN ID HERE.
+            idx <- match(x = entrezIds, table = entrez2ensembl[["entrez"]])
             assert(!any(is.na(idx)))
-            entrez2ensembl <- entrez2ensembl[idx, ]
+            entrez2ensembl <- entrez2ensembl[idx, , drop = FALSE]
             ## Drop any retired genes from analysis.
             entrez2ensembl[["retired"]][
                 is.na(entrez2ensembl[["retired"]])] <- FALSE
@@ -105,7 +107,7 @@ Achilles <-  # nolint
                 assays <- lapply(
                     X = assays,
                     FUN = function(assay) {
-                        assay[keep, ]
+                        assay[keep, , drop = FALSE]
                     }
                 )
             }
