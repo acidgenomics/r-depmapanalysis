@@ -21,11 +21,12 @@ entrez <- sort(as.integer(str_extract(
 manualEntrez <-
     import("manual-entrez-ids.csv") %>%
     as_tibble() %>%
-    camelCase() %>%
-    select(entrezID, ensemblID, retired) %>%
+    camelCase(strict = TRUE) %>%
+    select(entrezId, ensemblId, retired) %>%
+    ## FIXME RETHINK THIS STEP?
     rename(
-        entrez = entrezID,
-        ensembl = ensemblID
+        entrez = entrezId,
+        ensembl = ensemblId
     )
 
 ## Skipping the bad keys, let's map primarily using the OrgDb lookup.

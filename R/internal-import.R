@@ -3,8 +3,8 @@
 #' @note Updated 2020-10-07.
 #' @noRd
 #'
-#' @param fileID `character(1)`.
-#'   DepMap file ID on figshare.com.
+#' @param fileId `character(1)`.
+#'   DepMap file identifier on figshare.com.
 #' @param fileName `character(1)`.
 #'   File name.
 #'
@@ -13,15 +13,15 @@
 #'
 #' @examples
 #' fileName <- "sample_info.csv"
-#' fileID <- .depmap[["20q3"]][["cellular_models"]][[fileName]]
-#' .cacheDataFile(fileName = fileName, fileID = fileID)
-.cacheDataFile <- function(fileName, fileID, verbose = TRUE) {
+#' fileId <- .depmap[["20q3"]][["cellular_models"]][[fileName]]
+#' .cacheDataFile(fileName = fileName, fileId = fileId)
+.cacheDataFile <- function(fileName, fileId, verbose = TRUE) {
     urlStem <- .depmap[["url_stem"]]
     assert(
         isAURL(urlStem),
         isFlag(verbose)
     )
-    url <- paste0(urlStem, fileID)
+    url <- paste0(urlStem, fileId)
     file <- cacheURL(
         url = url,
         fileName = fileName,
@@ -119,8 +119,8 @@
         "Importing {.file %s} from DepMap {.var %s} release.",
         fileName, release
     ))
-    fileID <- .depmap[[tolower(release)]][[fileName]]
-    file <- .cacheDataFile(fileName = fileName, fileID = fileID)
+    fileId <- .depmap[[tolower(release)]][[fileName]]
+    file <- .cacheDataFile(fileName = fileName, fileId = fileId)
     df <- import(file = file, format = format)
     if (isScalar(rownamesCol)) {
         if (!isString(rownamesCol)) {
