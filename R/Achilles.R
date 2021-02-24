@@ -79,7 +79,7 @@ Achilles <-  # nolint
             )
             assert(
                 is(rowData, "EntrezGeneInfo"),
-                isSubset("geneId", colnames(rowData))
+                isSubset(c("geneId", "geneName"), colnames(rowData))
             )
             rowData <- as(rowData, "DataFrame")
             ## Retired NCBI Entrez gene identifiers will return NA here.
@@ -90,7 +90,7 @@ Achilles <-  # nolint
             ## Inform the user regarding any retired gene identifiers.
             if (any(is.na(idx))) {
                 keep <- !is.na(idx)
-                retired <- entrezIds[!keep]
+                retired <- sort(match[!keep, 1L, drop = TRUE])
                 alertWarning(sprintf(
                     "%d retired NCBI Entrez %s in data set: %s.",
                     length(retired),
@@ -99,7 +99,7 @@ Achilles <-  # nolint
                         msg1 = "identifier",
                         msg2 = "identifiers"
                     ),
-                    toString(sort(retired), width = 100L)
+                    toString(retired, width = 200L)
                 ))
                 assays <- lapply(
                     X = assays,
@@ -120,20 +120,18 @@ Achilles <-  # nolint
                 )
                 assert(!any(is.na(idx)))
                 rowData <- rowData[idx, , drop = FALSE]
+                rownames(rowData) <- match[, 1L, drop = TRUE]
             }
         } else {
             rowData <- NULL
         }
-        commonEssentials <-
-            .importCommonEssentials(release = release)
-        controlCommonEssentials <-
-            .importControlCommonEssentials(release = release)
-        controlNonessentials <-
-            .importControlNonessentials(release = release)
         metadata <- list(
-            "commonEssentials" = commonEssentials,
-            "controlCommonEssentials" = controlCommonEssentials,
-            "controlNonessentials" = controlNonessentials,
+            "commonEssentials" =
+                .importCommonEssentials(release = release),
+            "controlCommonEssentials" =
+                .importControlCommonEssentials(release = release),
+            "controlNonessentials" =
+                .importControlNonessentials(release = release),
             "packageVersion" = .pkgVersion,
             "release" = release,
             "retired" = retired

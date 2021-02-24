@@ -23,9 +23,9 @@ License: AGPL-3
 Encoding: UTF-8
 LazyData: false
 Depends:
-    R (>= 4.0)
+    R (>= 4.0),
+    basejump (>= 0.14.14)
 Imports:
-    basejump (>= 0.14.14),
     ggplot2 (>= 3.3),
     goalie (>= 0.5.0),
     methods,

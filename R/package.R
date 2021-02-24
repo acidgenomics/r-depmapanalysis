@@ -16,5 +16,5 @@
 #'   isCharacter isFlag isScalar isString isSubset validate validateClasses
 #' @importFrom methods as is new setClass setValidity validObject
 #' @importFrom rlang !! sym
-#' @importFrom stringr str_extract str_match
+#' @importFrom stringr str_match
 "_PACKAGE"

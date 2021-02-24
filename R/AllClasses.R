@@ -27,10 +27,7 @@ setValidity(
             isTRUE(packageVersion >= "0.0.2")
         )
         if (!isTRUE(ok)) return(ok)
-        ok <- validate(
-            is(object, "RangedSummarizedExperiment"),
-            hasDimnames(object)
-        )
+        ok <- validate(hasDimnames(object))
         if (!isTRUE(ok)) return(ok)
         ## Metadata ------------------------------------------------------------
         ok <- validateClasses(
@@ -55,7 +52,6 @@ setValidity(
             y = assayNames
         ))
         if (!isTRUE(ok)) return(ok)
-
         TRUE
     }
 )
