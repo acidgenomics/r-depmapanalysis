@@ -1,11 +1,8 @@
 ## Internal Entrez-to-Ensembl identifier mappings.
-## Updated 2020-10-02.
+## Updated 2021-02-24.
 
-## FIXME UPDATE THIS.
-
-library(basejump)        # 0.14.3
+library(basejump)        # 0.14.13
 library(DepMapAnalysis)  # 0.0.4
-library(tidyverse)       # 1.3.0
 
 ## Download the latest version of the Achilles dataset.
 achilles <- Achilles(
@@ -13,52 +10,45 @@ achilles <- Achilles(
     rowRanges = FALSE,
     colData = FALSE
 )
-
-## Map the Entrez identifiers to Ensembl using NCBI OrgDb from AnnotationHub.
-entrezIds <- sort(as.integer(str_extract(
-    string = rownames(achilles),
-    pattern = "[0-9]+$"
-)))
+## Extract the NCBI Entrez identifiers, so we can map to Ensembl below.
+entrezIds <-
+    gsub(
+        pattern = "(.+)_([0-9]+)$",
+        replacement = "\\2",
+        x = rownames(achilles)
+    )
+entrezIds <- sort(as.integer(entrezIds))
+rm(achilles)
 
 ## There are some Entrez IDs missing in the OrgDb that we need to map.
 ## Look up at https://www.ncbi.nlm.nih.gov/gene/
 manual <-
-    import("manual-entrez-ids.csv") %>%
+    import("entrez2ensembl.csv") %>%
     camelCase(strict = TRUE) %>%
     .[, c("entrezId", "ensemblId", "ensemblRetired")]
 colnames(manual)[colnames(manual) == "ensemblRetired"] <- "retired"
 
 ## Skipping the bad keys, let's map primarily using the OrgDb lookup.
 keys <- setdiff(x = entrezIds, y = manual[["entrezId"]])
+
 ## NOTE If you encounter match failures here, add them to the manual Entrez
 ## CSV file above.
+## FIXME THIS STEP IS GETTING STUCK WHEN RUNNING IN SCRIPT.
+## SOME SORT OF BIOCONDUCTOR NAMESPACE ISSUE?
+## FIXME NEED TO IMPROVE THE PROGRESS FOR THIS STEP.
 orgdb <- Entrez2Ensembl(
     object = keys,
     organism = "Homo sapiens",
     format = "1:1"
 )
 
-## As a fall back, get the genomic ranges from Ensembl Ensdb, which also
-## contains Ensembl-to-Entrez identifier mappings.
-## > gr <- makeGRangesFromEnsembl(
-## >     organism = organism,
-## >     release = 102L
-## > )
-## > ensembl2entrez <- Ensembl2Entrez(
-## >     object = gr,
-## >     format = "long"
-## > )
-## Double checking, none of these Entrez IDs map from ensembldb either.
-## > any(badKeys %in% ensembl2entrez[["entrez"]])
-## FALSE
-
 ## Now we're ready to combine the automatic mappings with our manual ones.
 out <-
-    bind_rows(
+    dplyr::bind_rows(
         as_tibble(orgdb, rownames = NULL),
         as_tibble(manual, rownames = NULL)
     ) %>%
-    arrange_all() %>%
+    dplyr::arrange_all() %>%
     as("DataFrame")
 stopifnot(
     !any(is.na(out[["entrezId"]])),
