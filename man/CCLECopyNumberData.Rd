@@ -4,7 +4,7 @@
 \alias{CCLECopyNumberData}
 \title{Import CCLE copy number data}
 \usage{
-CCLECopyNumberData(release = NULL)
+CCLECopyNumberData(release = "21Q1")
 }
 \arguments{
 \item{release}{\code{character(1)} or \code{NULL}.
@@ -18,7 +18,7 @@ If left \code{NULL}, defaults to latest supported release.}
 Import CCLE copy number data
 }
 \note{
-Updated 2020-09-30.
+Updated 2021-02-24.
 }
 \examples{
 object <- CCLECopyNumberData()

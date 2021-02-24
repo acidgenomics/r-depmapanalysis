@@ -100,9 +100,6 @@
     rownamesCol = NULL,
     return = c("DataFrame", "matrix")
 ) {
-    if (is.null(release)) {
-        release <- .currentDepMapRelease
-    }
     assert(
         isString(fileName),
         isString(release),
@@ -156,3 +153,18 @@
         vec <- sort(df[["gene"]])
         vec
     }
+
+
+
+## Updated 2021-02-24.
+.matchDepMapRelease <- function(release = NULL) {
+    if (is.null(release)) {
+        release <- .currentDepMapRelease
+    }
+    assert(isString(release))
+    release <- snakeCase(paste(
+        "depmap", "public",
+        gsub(pattern = " ", replacement = "", x = tolower(release))
+    ))
+    release
+}

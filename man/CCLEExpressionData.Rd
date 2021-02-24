@@ -4,7 +4,7 @@
 \alias{CCLEExpressionData}
 \title{Import CCLE expression data}
 \usage{
-CCLEExpressionData(release = NULL)
+CCLEExpressionData(release = "21Q1")
 }
 \arguments{
 \item{release}{\code{character(1)} or \code{NULL}.
@@ -18,7 +18,7 @@ If left \code{NULL}, defaults to latest supported release.}
 Import CCLE expression data
 }
 \note{
-Updated 2020-09-30.
+Updated 2021-02-24.
 }
 \examples{
 object <- CCLEExpressionData()

@@ -25,19 +25,13 @@ Achilles <-  # nolint
         rowData = TRUE,
         colData = TRUE
     ) {
-        if (is.null(release)) {
-            release <- .currentDepMapRelease
-        }
+        ## e.g. "depmap_public_21q1", "depmap_public_20q4v2".
+        release <- .matchDepMapRelease(release)
         assert(
             isString(release),
             isFlag(rowData),
             isFlag(colData)
         )
-        ## e.g. "depmap_public_21q1", "depmap_public_20q4v2".
-        release <- snakeCase(paste(
-            "depmap", "public",
-            gsub(pattern = " ", replacement = "", x = tolower(release))
-        ))
         ## CSV formatting: genes in columns, cells in rows.
         assays <- list(
             "effect" = .importDataFile(

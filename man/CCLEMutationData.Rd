@@ -4,7 +4,7 @@
 \alias{CCLEMutationData}
 \title{Import CCLE mutation data}
 \usage{
-CCLEMutationData(release = NULL)
+CCLEMutationData(release = "21Q1")
 }
 \arguments{
 \item{release}{\code{character(1)} or \code{NULL}.
@@ -18,7 +18,7 @@ If left \code{NULL}, defaults to latest supported release.}
 Import CCLE mutation data
 }
 \note{
-Updated 2020-09-30.
+Updated 2021-02-24.
 }
 \examples{
 object <- CCLEMutationData()
