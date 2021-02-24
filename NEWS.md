@@ -3,6 +3,10 @@
 ### Major changes
 
 - Added support for 21Q1, 20Q4 v2, and 20Q4 releases.
+- Switched `Achilles` object to inherit from `SummarizedExperiment` instead of
+  `RangedSummarizedExperiment`.
+- Gene metadata now comes from NCBI FTP server.
+- `DEMETER2` class objects now support `colData` and `rowData`.
 
 ## DepMapAnalysis 0.0.3 (2020-10-07)
 
