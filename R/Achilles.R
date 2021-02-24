@@ -1,3 +1,8 @@
+## NOTE Be sure to update 'entrez2ensembl' mapping data inside 'inst/extdata'
+## for a DepMap release update.
+
+
+
 #' Import Project Achilles CRISPR gene effect data
 #'
 #' @section Assays:
@@ -10,7 +15,7 @@
 #'   depletion effect using `gene_effect`.
 #'
 #' @export
-#' @note Updated 2021-02-10.
+#' @note Updated 2021-02-24.
 #'
 #' @inheritParams params
 #'
@@ -69,27 +74,25 @@ Achilles <-  # nolint
                 string = rownames(assays[[1L]]),
                 pattern = "[0-9]+$"
             ))
-            ## FIXME THIS IS MISSING FROM CURRENT PACKAGE, NEED TO RESAVE.
-            entrez2ensembl <- readRDS(system.file(
+            ## FIXME ENSG00000286169 in here?
+            e2e <- readRDS(system.file(
                 "extdata", "entrez2ensembl.rds",
                 package = .pkgName
             ))
             assert(
-                is(entrez2ensembl, "DataFrame"),
+                is(e2e, "DataFrame"),
                 identical(
-                    x = colnames(entrez2ensembl),
-                    y = c("entrez", "ensembl", "retired")
+                    x = colnames(e2e),
+                    y = c("entrezId", "ensemblId", "retired")
                 ),
-                isSubset(entrez, entrez2ensembl[["entrez"]])
+                isSubset(entrezIds, e2e[["entrezId"]])
             )
-            ## FIXME NEED TO RENAME THE COLUMN ID HERE.
-            idx <- match(x = entrezIds, table = entrez2ensembl[["entrez"]])
+            idx <- match(x = entrezIds, table = e2e[["entrezId"]])
             assert(!any(is.na(idx)))
-            entrez2ensembl <- entrez2ensembl[idx, , drop = FALSE]
+            e2e <- e2e[idx, , drop = FALSE]
             ## Drop any retired genes from analysis.
-            entrez2ensembl[["retired"]][
-                is.na(entrez2ensembl[["retired"]])] <- FALSE
-            drop <- entrez2ensembl[["retired"]]
+            e2e[["retired"]][is.na(e2e[["retired"]])] <- FALSE
+            drop <- e2e[["retired"]]
             if (any(drop)) {
                 keep <- !drop
                 retired <- rownames(assays[[1L]])[drop]
@@ -103,7 +106,7 @@ Achilles <-  # nolint
                     ),
                     toString(retired, width = 200L)
                 ))
-                entrez2ensembl <- entrez2ensembl[keep, , drop = FALSE]
+                e2e <- e2e[keep, , drop = FALSE]
                 assays <- lapply(
                     X = assays,
                     FUN = function(assay) {
@@ -116,13 +119,18 @@ Achilles <-  # nolint
                 level = "genes",
                 release = 102L,
                 ignoreVersion = TRUE,
-                synonyms = TRUE
+                synonyms = TRUE  # FIXME REVERT TO TRUE HERE.
             )
-            idx <- match(
-                x = entrez2ensembl[["ensembl"]],
-                table = names(rowRanges)
-            )
-            assert(!any(is.na(idx)))
+            idx <- match(x = e2e[["ensemblId"]], table = names(rowRanges))
+            ## If you encounter any mismatches here (e.g. "ENSG00000286169"),
+            ## need to update our internal database.
+            if (any(is.na(idx))) {
+                fail <- e2e[["ensemblId"]][is.na(idx)]
+                stop(sprintf(
+                    "Failed to match Ensembl genes: %s.",
+                    toString(fail, width = 200L)
+                ))
+            }
             rowRanges <- rowRanges[idx]
             names(rowRanges) <- rownames(assays[[1L]])
         } else {
@@ -135,11 +143,11 @@ Achilles <-  # nolint
         controlNonessentials <-
             .importControlNonessentials(release = release)
         metadata <- list(
-            "version" = .version,
-            "release" = release,
             "commonEssentials" = commonEssentials,
             "controlCommonEssentials" = controlCommonEssentials,
             "controlNonessentials" = controlNonessentials,
+            "packageVersion" = .pkgVersion,
+            "release" = release,
             "retired" = retired
         )
         metadata <- Filter(Negate(is.null), metadata)
