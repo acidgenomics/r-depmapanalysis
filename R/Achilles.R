@@ -17,7 +17,7 @@
 #' @return `Achilles`.
 #'
 #' @examples
-#' object <- Achilles(rowRanges = FALSE, colData = FALSE)
+#' object <- Achilles()
 #' print(object)
 Achilles <-  # nolint
     function(
