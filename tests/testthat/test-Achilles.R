@@ -3,6 +3,53 @@ context("Achilles")
 test_that("21Q1", {
     object <- Achilles(release = "21Q1")
     expect_identical(
+        object = head(colnames(object), n = 3L),
+        expected = c("ach_000004", "ach_000005", "ach_000007")
+    )
+    expect_identical(
+        object = head(rownames(object), n = 3L),
+        expected = c("a1bg_1", "a1cf_29974", "a2m_2")
+    )
+    expect_identical(
+        object = names(assays(object)),
+        expected = c("effect", "probability")
+    )
+    expect_equal(
+        object = colData(object)["ach_000004", ],
+        expected = DataFrame(
+            "achillesNReplicates" = 2,
+            "age" = 30,
+            "alias" = NA_character_,
+            "cas9Activity" = 52.4,
+            "ccleName" = "HEL_HAEMATOPOIETIC_AND_LYMPHOID_TISSUE",
+            "cellLineName" = "HEL",
+            "cellLineNnmd" = -3.079202,  # NOTE causes `identical()` to fail.
+            "cosmicid"= 907053,
+            "cultureMedium" = "RPMI + 10% FBS",
+            "cultureType" = "Suspension",
+            "depMapId" = "ACH-000004",
+            "depmapPublicComments" = NA,
+            "lineage" = "blood",
+            "lineageMolecularSubtype" = NA_character_,
+            "lineageSubSubtype" = "M6",
+            "lineageSubtype" = "AML",
+            "primaryDisease" = "Leukemia",
+            "primaryOrMetastasis" = NA_character_,
+            "rrid" = "CVCL_0001",
+            "sampleCollectionSite" = "haematopoietic_and_lymphoid_tissue",
+            "sangerModelId" = "SIDM00594",
+            "sex" = "Male",
+            "source" = "DSMZ",
+            "strippedCellLineName" = "HEL",
+            "subtype" = paste(
+                "Acute Myelogenous Leukemia (AML),",
+                "M6 (Erythroleukemia)"
+            ),
+            "wtsiMasterCellId" = 783,
+            row.names = "ach_000004"
+        )
+    )
+    expect_identical(
         object = metadata(object)[["release"]],
         expected = "depmap_public_21q1"
     )
