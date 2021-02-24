@@ -1,8 +1,3 @@
-## NOTE Be sure to update 'entrez2ensembl' mapping data inside 'inst/extdata'
-## for a DepMap release update.
-
-
-
 #' Import Project Achilles CRISPR gene effect data
 #'
 #' @section Assays:
@@ -27,7 +22,7 @@
 Achilles <-  # nolint
     function(
         release = NULL,
-        rowRanges = TRUE,
+        rowData = TRUE,
         colData = TRUE
     ) {
         retired <- NULL
@@ -36,7 +31,7 @@ Achilles <-  # nolint
         }
         assert(
             isString(release),
-            isFlag(rowRanges),
+            isFlag(rowData),
             isFlag(colData)
         )
         ## e.g. "depmap_public_21q1", "depmap_public_20q4v2".
@@ -60,7 +55,8 @@ Achilles <-  # nolint
             )
         )
         ## Transposing here to match DEMETER2 formatting, and standard
-        ## SummarizedExperiment conventions for NGS data.
+        ## SummarizedExperiment conventions for NGS data, with samples (i.e.
+        ## cells) in the columns and features (i.e. genes) in the rows.
         assays <- lapply(X = assays, FUN = t)
         ## Sample metadata.
         if (isTRUE(colData)) {
@@ -69,72 +65,64 @@ Achilles <-  # nolint
             colData <- NULL
         }
         ## Gene metadata.
-        if (isTRUE(rowRanges)) {
-            entrezIds <- as.integer(str_extract(
+        if (isTRUE(rowData)) {
+            ## Extract the NCBI Entrez identifiers from the row names.
+            match <- str_match(
                 string = rownames(assays[[1L]]),
-                pattern = "[0-9]+$"
-            ))
-            ## FIXME ENSG00000286169 in here?
-            e2e <- readRDS(system.file(
-                "extdata", "entrez2ensembl.rds",
-                package = .pkgName
-            ))
-            assert(
-                is(e2e, "DataFrame"),
-                identical(
-                    x = colnames(e2e),
-                    y = c("entrezId", "ensemblId", "retired")
-                ),
-                isSubset(entrezIds, e2e[["entrezId"]])
+                pattern = "^(.+)_([0-9]+)$"
             )
-            idx <- match(x = entrezIds, table = e2e[["entrezId"]])
-            assert(!any(is.na(idx)))
-            e2e <- e2e[idx, , drop = FALSE]
-            ## Drop any retired genes from analysis.
-            e2e[["retired"]][is.na(e2e[["retired"]])] <- FALSE
-            drop <- e2e[["retired"]]
-            if (any(drop)) {
-                keep <- !drop
-                retired <- rownames(assays[[1L]])[drop]
+            entrezIds <- as.integer(match[, 3L, drop = TRUE])
+            assert(!any(is.na(entrezIds)))
+            rowData <- EntrezGeneInfo(
+                organism = "Homo sapiens",
+                taxonomicGroup = "Mammalia"
+            )
+            assert(
+                is(rowData, "EntrezGeneInfo"),
+                isSubset("geneId", colnames(rowData))
+            )
+            rowData <- as(rowData, "DataFrame")
+            ## Retired NCBI Entrez gene identifiers will return NA here.
+            idx <- match(
+                x = entrezIds,
+                table = as.integer(rowData[["geneId"]])
+            )
+            ## Inform the user regarding any retired gene identifiers.
+            if (any(is.na(idx))) {
+                keep <- !is.na(idx)
+                retired <- entrezIds[!keep]
                 alertWarning(sprintf(
-                    "Dropping %d retired %s: %s.",
+                    "%d retired NCBI Entrez %s in data set: %s.",
                     length(retired),
                     ngettext(
                         n = length(retired),
-                        msg1 = "gene",
-                        msg2 = "genes"
+                        msg1 = "identifier",
+                        msg2 = "identifiers"
                     ),
-                    toString(retired, width = 200L)
+                    toString(sort(retired), width = 100L)
                 ))
-                e2e <- e2e[keep, , drop = FALSE]
                 assays <- lapply(
                     X = assays,
-                    FUN = function(assay) {
-                        assay[keep, , drop = FALSE]
+                    keep = keep,
+                    FUN = function(x, keep) {
+                        x[keep, , drop = FALSE]
                     }
                 )
+                match <- str_match(
+                    string = rownames(assays[[1L]]),
+                    pattern = "^(.+)_([0-9]+)$"
+                )
+                entrezIds <- as.integer(match[, 3L, drop = TRUE])
+                assert(!any(is.na(entrezIds)))
+                idx <- match(
+                    x = entrezIds,
+                    table = as.integer(rowData[["geneId"]])
+                )
+                assert(!any(is.na(idx)))
+                rowData <- rowData[idx, , drop = FALSE]
             }
-            rowRanges <- makeGRangesFromEnsembl(
-                organism = "Homo sapiens",
-                level = "genes",
-                release = 102L,
-                ignoreVersion = TRUE,
-                synonyms = TRUE  # FIXME REVERT TO TRUE HERE.
-            )
-            idx <- match(x = e2e[["ensemblId"]], table = names(rowRanges))
-            ## If you encounter any mismatches here (e.g. "ENSG00000286169"),
-            ## need to update our internal database.
-            if (any(is.na(idx))) {
-                fail <- e2e[["ensemblId"]][is.na(idx)]
-                stop(sprintf(
-                    "Failed to match Ensembl genes: %s.",
-                    toString(fail, width = 200L)
-                ))
-            }
-            rowRanges <- rowRanges[idx]
-            names(rowRanges) <- rownames(assays[[1L]])
         } else {
-            rowRanges <- NULL
+            rowData <- NULL
         }
         commonEssentials <-
             .importCommonEssentials(release = release)
@@ -153,23 +141,17 @@ Achilles <-  # nolint
         metadata <- Filter(Negate(is.null), metadata)
         args <- list(
             "assays" = assays,
-            "rowRanges" = rowRanges,
             "colData" = colData,
-            "metadata" = metadata
+            "metadata" = metadata,
+            "rowData" = rowData
         )
         args <- Filter(Negate(is.null), args)
-        rse <- do.call(what = makeSummarizedExperiment, args = args)
-        if (
-            is(rse, "SummarizedExperiment") &&
-            !is(rse, "RangedSummarizedExperiment")
-        ) {
-            rse <- as(rse, "RangedSummarizedExperiment")
-        }
-        assert(is(rse, "RangedSummarizedExperiment"))
-        rownames(rse) <- tolower(rownames(rse))
-        colnames(rse) <- tolower(colnames(rse))
-        validObject(rse)
-        new("Achilles", rse)
+        se <- do.call(what = makeSummarizedExperiment, args = args)
+        assert(is(se, "SummarizedExperiment"))
+        rownames(se) <- tolower(rownames(se))
+        colnames(se) <- tolower(colnames(se))
+        validObject(se)
+        new("Achilles", se)
     }
 
 #' @include AllGlobals.R
