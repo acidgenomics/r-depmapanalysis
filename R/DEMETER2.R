@@ -46,7 +46,7 @@ DEMETER2 <-  # nolint
             retired <- l[["retired"]]
             rowData <- l[["rowData"]]
         } else {
-            retired = NULL
+            retired <- NULL
             rowData <- NULL
         }
         metadata <- list(
