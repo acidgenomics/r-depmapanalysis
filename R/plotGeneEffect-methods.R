@@ -8,10 +8,15 @@
 #' @return `ggplot`.
 #'
 #' @examples
-#' data(ach)
+#' data(ach, dem)
 #'
 #' ## Achilles ====
-#' plotGeneEffect(ach, genes = rownames(ach)[seq_len(5L)])
+#' object <- ach
+#' plotGeneEffect(object, genes = rownames(object)[seq_len(5L)])
+#'
+#' ## DEMETER2 ====
+#' object <- dem
+#' plotGeneEffect(object, genes = rownames(object)[seq_len(5L)])
 NULL
 
 
@@ -62,7 +67,10 @@ NULL
                 scale_x_discrete(limits = rev) +
                 coord_flip() +
                 labs(
-                    title = "Achilles gene effect",
+                    title = paste(
+                        class(object)[[1L]],
+                        "gene effect"
+                    ),
                     x = "gene",
                     y = "gene effect"
                 )
@@ -105,4 +113,20 @@ setMethod(
     f = "plotGeneEffect",
     signature = signature("Achilles"),
     definition = `plotGeneEffect,Achilles`
+)
+
+
+
+## Updated 2021-02-24.
+`plotGeneEffect,DEMETER2` <-  # nolint
+    `plotGeneEffect,Achilles`
+
+
+
+#' @rdname plotGeneEffect
+#' @export
+setMethod(
+    f = "plotGeneEffect",
+    signature = signature("DEMETER2"),
+    definition = `plotGeneEffect,DEMETER2`
 )

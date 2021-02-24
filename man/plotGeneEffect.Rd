@@ -3,11 +3,14 @@
 \name{plotGeneEffect}
 \alias{plotGeneEffect}
 \alias{plotGeneEffect,Achilles-method}
+\alias{plotGeneEffect,DEMETER2-method}
 \title{Plot gene effect}
 \usage{
 plotGeneEffect(object, ...)
 
 \S4method{plotGeneEffect}{Achilles}(object, genes, geom = c("boxplot", "density"))
+
+\S4method{plotGeneEffect}{DEMETER2}(object, genes, geom = c("boxplot", "density"))
 }
 \arguments{
 \item{object}{Object.}
@@ -31,8 +34,13 @@ Plot gene effect
 Updated 2020-10-07.
 }
 \examples{
-data(ach)
+data(ach, dem)
 
 ## Achilles ====
-plotGeneEffect(ach, genes = rownames(ach)[seq_len(5L)])
+object <- ach
+plotGeneEffect(object, genes = rownames(object)[seq_len(5L)])
+
+## DEMETER2 ====
+object <- dem
+plotGeneEffect(object, genes = rownames(object)[seq_len(5L)])
 }
