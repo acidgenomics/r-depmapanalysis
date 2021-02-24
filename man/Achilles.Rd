@@ -24,7 +24,7 @@ Include cell line metadata.}
 Import Project Achilles CRISPR gene effect data
 }
 \note{
-Updated 2021-02-10.
+Updated 2021-02-24.
 }
 \section{Assays}{
 
