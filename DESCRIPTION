@@ -2,7 +2,7 @@ Package: DepMapAnalysis
 Title: DepMap Analysis Utilities
 Description: Cancer Dependency Map (DepMap) analysis toolkit.
 Version: 0.0.4
-Date: 2021-02-10
+Date: 2021-02-24
 Authors@R: c(
     person(
         given = "Michael",
@@ -19,15 +19,15 @@ URL:
     https://depmapanalysis.acidgenomics.com/,
     https://github.com/acidgenomics/DepMapAnalysis/
 BugReports: https://github.com/acidgenomics/DepMapAnalysis/issues/
-License: GPL-3
+License: AGPL-3
 Encoding: UTF-8
 LazyData: false
 Depends:
     R (>= 4.0)
 Imports:
-    basejump (>= 0.14.3),
+    basejump (>= 0.14.13),
     ggplot2 (>= 3.3),
-    goalie (>= 0.4.14),
+    goalie (>= 0.5.0),
     methods,
     rlang (>= 0.4),
     stringr (>= 1.4)
