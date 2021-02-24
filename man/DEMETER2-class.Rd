@@ -14,5 +14,5 @@ DEMETER2 RNAi gene effect data
 Cells in columns, genes in rows.
 }
 \note{
-Updated 2020-10-01.
+Updated 2021-02-24.
 }

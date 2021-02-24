@@ -25,7 +25,6 @@ Achilles <-  # nolint
         rowData = TRUE,
         colData = TRUE
     ) {
-        retired <- NULL
         if (is.null(release)) {
             release <- .currentDepMapRelease
         }
@@ -58,7 +57,7 @@ Achilles <-  # nolint
         ## SummarizedExperiment conventions for NGS data, with samples (i.e.
         ## cells) in the columns and features (i.e. genes) in the rows.
         assays <- lapply(X = assays, FUN = t)
-        ## Sample metadata.
+        ## Sample (i.e. cell line) metadata.
         if (isTRUE(colData)) {
             colData <- .importCellLineSampleData(release = release)
         } else {
@@ -66,63 +65,19 @@ Achilles <-  # nolint
         }
         ## Gene metadata.
         if (isTRUE(rowData)) {
-            ## Extract the NCBI Entrez identifiers from the row names.
-            match <- str_match(
-                string = rownames(assays[[1L]]),
-                pattern = "^(.+)_([0-9]+)$"
-            )
-            entrezIds <- as.integer(match[, 3L, drop = TRUE])
-            assert(!any(is.na(entrezIds)))
-            rowData <- EntrezGeneInfo(
-                organism = "Homo sapiens",
-                taxonomicGroup = "Mammalia"
-            )
+            l <- .rowDataFromEntrez(assays = assays)
             assert(
-                is(rowData, "EntrezGeneInfo"),
-                isSubset(c("geneId", "geneName"), colnames(rowData))
+                is.list(l),
+                identical(
+                    x = names(l),
+                    y = c("assays", "retired", "rowData")
+                )
             )
-            rowData <- as(rowData, "DataFrame")
-            ## Retired NCBI Entrez gene identifiers will return NA here.
-            idx <- match(
-                x = entrezIds,
-                table = as.integer(rowData[["geneId"]])
-            )
-            ## Inform the user regarding any retired gene identifiers.
-            if (any(is.na(idx))) {
-                keep <- !is.na(idx)
-                retired <- sort(match[!keep, 1L, drop = TRUE])
-                alertWarning(sprintf(
-                    "%d retired NCBI Entrez %s in data set: %s.",
-                    length(retired),
-                    ngettext(
-                        n = length(retired),
-                        msg1 = "identifier",
-                        msg2 = "identifiers"
-                    ),
-                    toString(retired, width = 200L)
-                ))
-                assays <- lapply(
-                    X = assays,
-                    keep = keep,
-                    FUN = function(x, keep) {
-                        x[keep, , drop = FALSE]
-                    }
-                )
-                match <- str_match(
-                    string = rownames(assays[[1L]]),
-                    pattern = "^(.+)_([0-9]+)$"
-                )
-                entrezIds <- as.integer(match[, 3L, drop = TRUE])
-                assert(!any(is.na(entrezIds)))
-                idx <- match(
-                    x = entrezIds,
-                    table = as.integer(rowData[["geneId"]])
-                )
-                assert(!any(is.na(idx)))
-                rowData <- rowData[idx, , drop = FALSE]
-                rownames(rowData) <- match[, 1L, drop = TRUE]
-            }
+            assays <- l[["assays"]]
+            retired <- l[["retired"]]
+            rowData <- l[["rowData"]]
         } else {
+            retired = NULL
             rowData <- NULL
         }
         metadata <- list(
@@ -133,8 +88,8 @@ Achilles <-  # nolint
             "controlNonessentials" =
                 .importControlNonessentials(release = release),
             "packageVersion" = .pkgVersion,
-            "release" = release,
-            "retired" = retired
+            "retired" = retired,
+            "release" = release
         )
         metadata <- Filter(Negate(is.null), metadata)
         args <- list(

@@ -102,7 +102,7 @@ setClass(
 #' @details
 #' Cells in columns, genes in rows.
 #'
-#' @note Updated 2020-10-01.
+#' @note Updated 2021-02-24.
 #' @export
 #'
 #' @return `DEMETER2`.

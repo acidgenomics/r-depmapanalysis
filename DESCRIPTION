@@ -53,6 +53,7 @@ Collate:
     'DEMETER2.R'
     'data.R'
     'internal-import.R'
+    'internal-rowData.R'
     'package.R'
     'params.R'
     'plotGeneEffect-methods.R'
