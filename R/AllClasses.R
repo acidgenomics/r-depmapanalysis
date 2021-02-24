@@ -5,7 +5,7 @@
 #'
 #' Cells in columns, genes in rows.
 #'
-#' @note Updated 2020-10-07.
+#' @note Updated 2021-02-24.
 #' @export
 #'
 #' @return `Achilles`.
@@ -21,10 +21,10 @@ setValidity(
     Class = "Achilles",
     method = function(object) {
         metadata <- metadata(object)
-        version <- metadata[["version"]]
+        packageVersion <- metadata[["packageVersion"]]
         ok <- validate(
-            is(version, "package_version"),
-            version >= "0.0.2"
+            is(packageVersion, "package_version"),
+            isTRUE(packageVersion >= "0.0.2")
         )
         if (!isTRUE(ok)) return(ok)
         ok <- validate(
@@ -32,24 +32,22 @@ setValidity(
             hasDimnames(object)
         )
         if (!isTRUE(ok)) return(ok)
-
         ## Metadata ------------------------------------------------------------
         ok <- validateClasses(
             object = metadata,
             expected = list(
-                commonEssentials = "character",
-                controlCommonEssentials = "character",
-                controlNonessentials = "character",
-                date = "Date",
-                release = "character",
-                sessionInfo = "session_info",
-                version = "package_version",
-                wd = "character"
+                "commonEssentials" = "character",
+                "controlCommonEssentials" = "character",
+                "controlNonessentials" = "character",
+                "date" = "Date",
+                "packageVersion" = "package_version",
+                "release" = "character",
+                "sessionInfo" = "session_info",
+                "wd" = "character"
             ),
             subset = TRUE
         )
         if (!isTRUE(ok)) return(ok)
-
         ## Assays --------------------------------------------------------------
         assayNames <- assayNames(object)
         ok <- validate(isSubset(
