@@ -107,9 +107,4 @@
 
 
 .pkgName <- packageName()
-
-#' Current package versions
-#'
-#' @note Updated 2020-10-01.
-#' @noRd
-.version <- packageVersion(.pkgName)
+.pkgVersion <- packageVersion(.pkgName)
