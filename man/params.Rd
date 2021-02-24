@@ -11,7 +11,7 @@ Include cell line metadata.}
 DepMap quarterly release ID (e.g. \code{"20Q3"}).
 If left \code{NULL}, defaults to latest supported release.}
 
-\item{rowRanges}{\code{logical(1)}.
+\item{rowData}{\code{logical(1)}.
 Include gene annotations as genomic ranges.}
 }
 \value{
