@@ -1,3 +1,10 @@
+## DepMapAnalysis 0.0.5 (2021-02-25)
+
+### Major changes
+
+- Improved metadata support for some CCLE functions, returning as
+  `SummarizedExperiment` instead of `DataFrame`, when possible.
+
 ## DepMapAnalysis 0.0.4 (2021-02-10)
 
 ### Major changes
