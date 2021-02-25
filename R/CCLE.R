@@ -111,7 +111,11 @@ formals(CCLECopyNumberData)[["release"]] <- .currentDepMapRelease
 #' object <- CCLEExpressionData()
 #' dim(object)
 CCLEExpressionData <-  # nolint
-    function(release = NULL) {
+    function(
+        release = NULL,
+        rowData = TRUE,
+        colData = TRUE
+    ) {
         .makeCcle(
             class = "CCLEExpressionData",
             assayName = "expression",
