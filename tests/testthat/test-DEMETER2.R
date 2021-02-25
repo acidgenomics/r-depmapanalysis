@@ -2,6 +2,7 @@ context("DEMETER2")
 
 test_that("demeter2_data_v6", {
     object <- DEMETER2()
+    expect_s4_class(object, "DEMETER2")
     expect_identical(
         object = head(colnames(object), n = 3L),
         expected = c(

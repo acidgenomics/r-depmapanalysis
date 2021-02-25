@@ -1,9 +1,13 @@
-context("CCLECopyNumberData")
+context("CCLE")
 
+test_that("CCLECopyNumberData", {
+    object <- CCLECopyNumberData(release = depMapRelease)
+})
 
+test_that("CCLEExpressionData", {
+    object <- CCLEExpressionData(release = depMapRelease)
+})
 
-context("CCLEExpressionData")
-
-
-
-context("CCLEMutationData")
+test_that("CCLEMutationData", {
+    object <- CCLEMutationData(release = depMapRelease)
+})

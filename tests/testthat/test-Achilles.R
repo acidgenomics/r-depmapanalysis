@@ -1,7 +1,8 @@
 context("Achilles")
 
 test_that("21Q1", {
-    object <- Achilles(release = "21Q1")
+    object <- Achilles(release = depMapRelease)
+    expect_s4_class(object, "Achilles")
     expect_identical(
         object = head(colnames(object), n = 3L),
         expected = c("ach_000004", "ach_000005", "ach_000007")

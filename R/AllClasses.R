@@ -5,7 +5,7 @@
 #'
 #' Cells in columns, genes in rows.
 #'
-#' @note Updated 2021-02-24.
+#' @note Updated 2021-02-25.
 #' @export
 #'
 #' @return `Achilles`.
@@ -29,7 +29,6 @@ setValidity(
         if (!isTRUE(ok)) return(ok)
         ok <- validate(hasDimnames(object))
         if (!isTRUE(ok)) return(ok)
-        ## Metadata ------------------------------------------------------------
         ok <- validateClasses(
             object = metadata,
             expected = list(
@@ -45,7 +44,6 @@ setValidity(
             subset = TRUE
         )
         if (!isTRUE(ok)) return(ok)
-        ## Assays --------------------------------------------------------------
         assayNames <- assayNames(object)
         ok <- validate(isSubset(
             x = c("effect", "probability"),
