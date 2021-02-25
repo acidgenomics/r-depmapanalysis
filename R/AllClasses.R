@@ -65,7 +65,6 @@ setClass(
     Class = "CCLECopyNumberData",
     contains = "SummarizedExperiment"
 )
-## FIXME Needs validity method.
 
 
 
@@ -83,7 +82,6 @@ setClass(
     Class = "CCLEExpressionData",
     contains = "SummarizedExperiment"
 )
-## FIXME Needs validity method.
 
 
 
@@ -101,7 +99,6 @@ setClass(
     Class = "CCLEMutationData",
     contains = "DataFrame"
 )
-## FIXME Needs validity method.
 
 
 
@@ -119,4 +116,3 @@ setClass(
     Class = "DEMETER2",
     contains = "SummarizedExperiment"
 )
-## FIXME Needs validity method.

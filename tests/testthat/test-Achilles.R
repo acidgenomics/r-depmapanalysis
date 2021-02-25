@@ -15,6 +15,7 @@ test_that("21Q1", {
         object = names(assays(object)),
         expected = c("effect", "probability")
     )
+    ## nolint start
     expect_equal(
         object = colData(object)["ach_000004", ],
         expected = DataFrame(
@@ -50,6 +51,7 @@ test_that("21Q1", {
             row.names = "ach_000004"
         )
     )
+    ## nolint end
     rowData <- rowData(object)[
         "a1bg_1",
         ,
