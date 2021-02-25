@@ -140,14 +140,19 @@ formals(CCLEExpressionData)[["release"]] <- .currentDepMapRelease
 #' dim(object)
 CCLEMutationData <-  # nolint
     function(release = NULL) {
+        release <- .matchDepMapRelease(release)
         df <- .importDataFile(
             fileName = "ccle_mutations.csv",
             format = "csv",
-            release = .matchDepMapRelease(release),
+            release = release,
             rownamesCol = NULL
         )
         assert(is(df, "DataFrame"))
         colnames(df) <- camelCase(colnames(df), strict = TRUE)
+        metadata(df) <- list(
+            "packageVersion" = .pkgVersion,
+            "release" = release
+        )
         new("CCLEMutationData", df)
     }
 
