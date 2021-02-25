@@ -108,7 +108,7 @@ test_that("21Q1", {
                 "PALM2_114299",
                 "SPHAR_10638"
             ),
-            y = metadata(object)[["retired"]]
+            y = metadata(object)[["retiredGenes"]]
         )
     )
 })

@@ -75,7 +75,7 @@ test_that("demeter2_data_v6", {
                     sep = "_and_"
                 )
             ),
-            y = metadata(object)[["retired"]]
+            y = metadata(object)[["retiredGenes"]]
         )
     )
 })
