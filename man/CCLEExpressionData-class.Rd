@@ -11,5 +11,5 @@
 CCLE expression data
 }
 \note{
-Updated 2020-09-30.
+Updated 2021-02-25.
 }
