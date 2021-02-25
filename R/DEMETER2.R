@@ -1,7 +1,7 @@
 #' Import DEMETER2 RNAi screen gene effect data
 #'
 #' @export
-#' @note Updated 2021-02-24.
+#' @note Updated 2021-02-25.
 #'
 #' @inheritParams params
 #'
@@ -39,19 +39,19 @@ DEMETER2 <-  # nolint
                 is.list(l),
                 identical(
                     x = names(l),
-                    y = c("assays", "retired", "rowData")
+                    y = c("assays", "retiredGenes", "rowData")
                 )
             )
             assays <- l[["assays"]]
-            retired <- l[["retired"]]
+            retiredGenes <- l[["retiredGenes"]]
             rowData <- l[["rowData"]]
         } else {
-            retired <- NULL
+            retiredGenes <- NULL
             rowData <- NULL
         }
         metadata <- list(
             "release" = release,
-            "retired" = retired
+            "retiredGenes" = retiredGenes
         )
         .makeSummarizedExperiment(
             assays = assays,

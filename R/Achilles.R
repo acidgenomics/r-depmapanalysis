@@ -62,14 +62,14 @@ Achilles <-  # nolint
                 is.list(l),
                 identical(
                     x = names(l),
-                    y = c("assays", "retired", "rowData")
+                    y = c("assays", "retiredGenes", "rowData")
                 )
             )
             assays <- l[["assays"]]
-            retired <- l[["retired"]]
+            retiredGenes <- l[["retiredGenes"]]
             rowData <- l[["rowData"]]
         } else {
-            retired <- NULL
+            retiredGenes <- NULL
             rowData <- NULL
         }
         metadata <- list(
@@ -79,8 +79,8 @@ Achilles <-  # nolint
                 .importControlCommonEssentials(release = release),
             "controlNonessentials" =
                 .importControlNonessentials(release = release),
-            "retired" = retired,
-            "release" = release
+            "release" = release,
+            "retiredGenes" = retiredGenes
         )
         .makeSummarizedExperiment(
             assays = assays,

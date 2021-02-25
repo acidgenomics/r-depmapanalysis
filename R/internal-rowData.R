@@ -1,7 +1,7 @@
-## Updated 2021-02-24.
+## Updated 2021-02-25.
 .rowDataFromEntrez <- function(assays) {
     assert(is.list(assays))
-    retired <- NULL
+    retiredGenes <- NULL
     ## Extract the NCBI Entrez identifiers from the row names.
     match <- str_match(
         string = rownames(assays[[1L]]),
@@ -26,16 +26,16 @@
     keep <- !is.na(idx)
     ## Inform the user regarding any retired gene identifiers.
     if (!all(keep)) {
-        retired <- sort(match[!keep, 1L, drop = TRUE])
+        retiredGenes <- sort(match[!keep, 1L, drop = TRUE])
         alertWarning(sprintf(
             "%d retired NCBI Entrez %s in data set: %s.",
-            length(retired),
+            length(retiredGenes),
             ngettext(
-                n = length(retired),
+                n = length(retiredGenes),
                 msg1 = "identifier",
                 msg2 = "identifiers"
             ),
-            toString(retired, width = 200L)
+            toString(retiredGenes, width = 200L)
         ))
     }
     assays <- lapply(
@@ -60,7 +60,7 @@
     rownames(rowData) <- match[, 1L, drop = TRUE]
     list(
         "assays" = assays,
-        "retired" = retired,
+        "retiredGenes" = retiredGenes,
         "rowData" = rowData
     )
 }
