@@ -1,11 +1,11 @@
 ## Updated 2021-02-25.
 .makeCcle <- function(
-    class = "CCLECopyNumberData",
+    class,
     assayName,
     fileName,
-    release = NULL,
-    rowData = TRUE,
-    colData = TRUE
+    release,
+    rowData,
+    colData
 ) {
     ## e.g. returns "depmap_public_21q1".
     release <- .matchDepMapRelease(release)
@@ -79,7 +79,7 @@
         rowData = rowData,
         colData = colData,
         metadata = metadata,
-        class = "CCLECopyNumberData"
+        class = class
     )
 }
 
