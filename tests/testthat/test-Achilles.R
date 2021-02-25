@@ -49,6 +49,54 @@ test_that("21Q1", {
             row.names = "ach_000004"
         )
     )
+    rowData <- rowData(object)[
+        "a1bg_1",
+        ,
+        drop = FALSE
+    ]
+    rowData <- decode(rowData)
+    metadata(rowData) <- list()
+    attr(class(rowData[["dbXrefs"]]), "package") <- "IRanges"
+    attr(class(rowData[["geneSynonyms"]]), "package") <- "IRanges"
+    expect_identical(
+        object = rowData,
+        expected = DataFrame(
+            "chromosome" = "19",
+            ## FIXME CLASS IS FAILING...
+            "dbXrefs" = CharacterList(c(
+                "Ensembl:ENSG00000121410",
+                "HGNC:HGNC:5",
+                "MIM:138670"
+            )),
+            "description" = "alpha-1-B glycoprotein",
+            "featureType" = NA_character_,
+            ## FIXME TAKE THIS OUT? DUPLICATED.
+            "fullNameFromNomenclatureAuthority" = "alpha-1-B glycoprotein",
+            "geneId" = 1L,
+            "geneName" = "A1BG",
+            ## FIXME CLASS IS FAILING...
+            "geneSynonyms" = CharacterList(c(
+                "A1B", "ABG", "GAB", "HYST2477"
+            )),
+            "mapLocation" = "19q13.43",
+            "modificationDate" = 20210129,  # nolint
+            "nomenclatureStatus" = "O",
+            ## FIXME NEED TO SPLIT THIS IN ACIDGENOMES...
+            "otherDesignations" = paste(
+                "alpha-1B-glycoprotein",
+                "HEL-S-163pA",
+                "epididymis secretory sperm binding protein Li 163pA",
+                sep = "|"
+            ),
+            ## FIXME TAKE THIS OUT? DUPLICATED.
+            "symbolFromNomenclatureAuthority" = "A1BG",
+            "typeOfGene" = "protein-coding",
+            "xTaxId" = 9606,  # nolint
+            row.names = "a1bg_1"
+        )
+    )
+
+
     expect_identical(
         object = metadata(object)[["release"]],
         expected = "depmap_public_21q1"
