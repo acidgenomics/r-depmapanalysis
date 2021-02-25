@@ -1,7 +1,7 @@
 #' Import CCLE copy number data
 #'
 #' @export
-#' @note Updated 2021-02-24.
+#' @note Updated 2021-02-25.
 #'
 #' @inheritParams params
 #'
@@ -9,16 +9,64 @@
 #'
 #' @examples
 #' object <- CCLECopyNumberData()
-#' dim(object)
+#' print(object)
 CCLECopyNumberData <-  # nolint
-    function(release = NULL) {
-        df <- .importDataFile(
-            fileName = "ccle_gene_cn.csv",
-            release = .matchDepMapRelease(release),
-            rownamesCol = 1L
+    function(
+        release = NULL,
+        rowData = TRUE,
+        colData = TRUE
+    ) {
+        ## e.g. returns "depmap_public_21q1".
+        release <- .matchDepMapRelease(release)
+        assert(
+            isString(release),
+            isFlag(rowData),
+            isFlag(colData)
         )
-        assert(is(df, "DataFrame"))
-        new("CCLECopyNumberData", df)
+        assays <- list(
+            "copyNumber" = .importDataFile(
+                fileName = "ccle_gene_cn.csv",
+                release = release,
+                rownamesCol = 1L,
+                return = "matrix"
+            )
+        )
+        ## Cells in columns, genes in rows.
+        assays <- lapply(X = assays, FUN = t)
+        ## Cell line metadata.
+        if (isTRUE(colData)) {
+            colData <- .importCellLineSampleData(release = release)
+        } else {
+            colData <- NULL
+        }
+        ## Gene metadata.
+        if (isTRUE(rowData)) {
+            l <- .rowDataFromEntrez(assays = assays)
+            assert(
+                is.list(l),
+                identical(
+                    x = names(l),
+                    y = c("assays", "retired", "rowData")
+                )
+            )
+            assays <- l[["assays"]]
+            retired <- l[["retired"]]
+            rowData <- l[["rowData"]]
+        } else {
+            retired <- NULL
+            rowData <- NULL
+        }
+        metadata <- list(
+            "retired" = retired,
+            "release" = release
+        )
+        .makeSummarizedExperiment(
+            assays = assays,
+            rowData = rowData,
+            colData = colData,
+            metadata = metadata,
+            class = "CCLECopyNumberData"
+        )
     }
 
 formals(CCLECopyNumberData)[["release"]] <- .currentDepMapRelease

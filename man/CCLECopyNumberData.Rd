@@ -4,12 +4,18 @@
 \alias{CCLECopyNumberData}
 \title{Import CCLE copy number data}
 \usage{
-CCLECopyNumberData(release = "21Q1")
+CCLECopyNumberData(release = "21Q1", rowData = TRUE, colData = TRUE)
 }
 \arguments{
 \item{release}{\code{character(1)} or \code{NULL}.
 DepMap quarterly release ID (e.g. \code{"20Q3"}).
 If left \code{NULL}, defaults to latest supported release.}
+
+\item{rowData}{\code{logical(1)}.
+Include gene annotations as genomic ranges.}
+
+\item{colData}{\code{logical(1)}.
+Include cell line metadata.}
 }
 \value{
 \code{CCLECopyNumberData}.
@@ -18,9 +24,9 @@ If left \code{NULL}, defaults to latest supported release.}
 Import CCLE copy number data
 }
 \note{
-Updated 2021-02-24.
+Updated 2021-02-25.
 }
 \examples{
 object <- CCLECopyNumberData()
-dim(object)
+print(object)
 }

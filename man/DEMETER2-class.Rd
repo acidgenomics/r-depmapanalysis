@@ -11,8 +11,9 @@
 DEMETER2 RNAi gene effect data
 }
 \details{
+Inherits from \code{SummarizedExperiment}.
 Cells in columns, genes in rows.
 }
 \note{
-Updated 2021-02-24.
+Updated 2021-02-25.
 }

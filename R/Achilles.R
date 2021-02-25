@@ -10,7 +10,7 @@
 #'   depletion effect using `gene_effect`.
 #'
 #' @export
-#' @note Updated 2021-02-24.
+#' @note Updated 2021-02-25.
 #'
 #' @inheritParams params
 #'
@@ -25,7 +25,7 @@ Achilles <-  # nolint
         rowData = TRUE,
         colData = TRUE
     ) {
-        ## e.g. "depmap_public_21q1", "depmap_public_20q4v2".
+        ## e.g. "depmap_public_21q1".
         release <- .matchDepMapRelease(release)
         assert(
             isString(release),
@@ -47,11 +47,9 @@ Achilles <-  # nolint
                 return = "matrix"
             )
         )
-        ## Transposing here to match DEMETER2 formatting, and standard
-        ## SummarizedExperiment conventions for NGS data, with samples (i.e.
-        ## cells) in the columns and features (i.e. genes) in the rows.
+        ## Cells in columns, genes in rows.
         assays <- lapply(X = assays, FUN = t)
-        ## Sample (i.e. cell line) metadata.
+        ## Cell line metadata.
         if (isTRUE(colData)) {
             colData <- .importCellLineSampleData(release = release)
         } else {
@@ -81,24 +79,16 @@ Achilles <-  # nolint
                 .importControlCommonEssentials(release = release),
             "controlNonessentials" =
                 .importControlNonessentials(release = release),
-            "packageVersion" = .pkgVersion,
             "retired" = retired,
             "release" = release
         )
-        metadata <- Filter(Negate(is.null), metadata)
-        args <- list(
-            "assays" = assays,
-            "colData" = colData,
-            "metadata" = metadata,
-            "rowData" = rowData
+        .makeSummarizedExperiment(
+            assays = assays,
+            rowData = rowData,
+            colData = colData,
+            metadata = metadata,
+            class = "Achilles"
         )
-        args <- Filter(Negate(is.null), args)
-        se <- do.call(what = makeSummarizedExperiment, args = args)
-        assert(is(se, "SummarizedExperiment"))
-        rownames(se) <- tolower(rownames(se))
-        colnames(se) <- tolower(colnames(se))
-        validObject(se)
-        new("Achilles", se)
     }
 
 #' @include AllGlobals.R

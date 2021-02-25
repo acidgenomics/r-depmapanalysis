@@ -156,15 +156,17 @@
 
 
 
-## Updated 2021-02-24.
+## Updated 2021-02-25.
 .matchDepMapRelease <- function(release = NULL) {
     if (is.null(release)) {
         release <- .currentDepMapRelease
     }
     assert(isString(release))
-    release <- snakeCase(paste(
-        "depmap", "public",
-        gsub(pattern = " ", replacement = "", x = tolower(release))
-    ))
+    if (!isTRUE(grepl(pattern = "^depmap_", x = release))) {
+        release <- snakeCase(paste(
+            "depmap", "public",
+            gsub(pattern = " ", replacement = "", x = tolower(release))
+        ))
+    }
     release
 }

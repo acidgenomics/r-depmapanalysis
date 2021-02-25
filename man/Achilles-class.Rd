@@ -13,6 +13,7 @@ Achilles CRISPR screening data
 \details{
 Scored using CERES algorithm.
 
+Inherits from \code{SummarizedExperiment}.
 Cells in columns, genes in rows.
 }
 \note{

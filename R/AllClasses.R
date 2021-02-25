@@ -3,6 +3,7 @@
 #' @details
 #' Scored using CERES algorithm.
 #'
+#' Inherits from `SummarizedExperiment`.
 #' Cells in columns, genes in rows.
 #'
 #' @note Updated 2021-02-25.
@@ -20,14 +21,14 @@ setClass(
 setValidity(
     Class = "Achilles",
     method = function(object) {
+        assayNames <- assayNames(object)
         metadata <- metadata(object)
         packageVersion <- metadata[["packageVersion"]]
         ok <- validate(
+            isSubset(c("effect", "probability"), assayNames),
             is(packageVersion, "package_version"),
-            isTRUE(packageVersion >= "0.0.2")
+            hasDimnames(object)
         )
-        if (!isTRUE(ok)) return(ok)
-        ok <- validate(hasDimnames(object))
         if (!isTRUE(ok)) return(ok)
         ok <- validateClasses(
             object = metadata,
@@ -44,12 +45,6 @@ setValidity(
             subset = TRUE
         )
         if (!isTRUE(ok)) return(ok)
-        assayNames <- assayNames(object)
-        ok <- validate(isSubset(
-            x = c("effect", "probability"),
-            y = assayNames
-        ))
-        if (!isTRUE(ok)) return(ok)
         TRUE
     }
 )
@@ -58,49 +53,65 @@ setValidity(
 
 #' CCLE copy number data
 #'
-#' @note Updated 2020-09-30.
+#' @details
+#' Inherits from `SummarizedExperiment`.
+#' Cells in columns, genes in rows.
+#'
+#' @note Updated 2021-02-25.
 #' @export
 #'
 #' @return `CCLECopyNumberData`.
 setClass(
     Class = "CCLECopyNumberData",
-    contains = "DataFrame"
+    contains = "SummarizedExperiment"
 )
+## FIXME Needs validity method.
 
 
 
 #' CCLE expression data
 #'
-#' @note Updated 2020-09-30.
+#' @details
+#' Inherits from `SummarizedExperiment`.
+#' Cells in columns, genes in rows.
+#'
+#' @note Updated 2021-02-25.
 #' @export
 #'
 #' @return `CCLEExpressionData`.
 setClass(
     Class = "CCLEExpressionData",
-    contains = "DataFrame"
+    contains = "SummarizedExperiment"
 )
+## FIXME Needs validity method.
 
 
 
 #' CCLE mutation data
 #'
-#' @note Updated 2020-09-30.
+#' @details
+#' Inherits from `SummarizedExperiment`.
+#' Cells in columns, genes in rows.
+#'
+#' @note Updated 2021-02-25.
 #' @export
 #'
 #' @return `CCLEMutationData`.
 setClass(
     Class = "CCLEMutationData",
-    contains = "DataFrame"
+    contains = "SummarizedExperiment"
 )
+## FIXME Needs validity method.
 
 
 
 #' DEMETER2 RNAi gene effect data
 #'
 #' @details
+#' Inherits from `SummarizedExperiment`.
 #' Cells in columns, genes in rows.
 #'
-#' @note Updated 2021-02-24.
+#' @note Updated 2021-02-25.
 #' @export
 #'
 #' @return `DEMETER2`.
@@ -108,3 +119,4 @@ setClass(
     Class = "DEMETER2",
     contains = "SummarizedExperiment"
 )
+## FIXME Needs validity method.

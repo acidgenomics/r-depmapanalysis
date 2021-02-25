@@ -26,7 +26,7 @@ DEMETER2 <-  # nolint
                 return = "matrix"
             )
         )
-        ## Sample (i.e. cell line) metadata.
+        ## Cell line metadata.
         if (isTRUE(colData)) {
             colData <- .importCellLineSampleData(release = release)
         } else {
@@ -50,21 +50,14 @@ DEMETER2 <-  # nolint
             rowData <- NULL
         }
         metadata <- list(
-            "packageVersion" = .pkgVersion,
             "release" = release,
             "retired" = retired
         )
-        args <- list(
-            "assays" = assays,
-            "colData" = colData,
-            "metadata" = metadata,
-            "rowData" = rowData
+        .makeSummarizedExperiment(
+            assays = assays,
+            rowData = rowData,
+            colData = colData,
+            metadata = metadata,
+            class = "DEMETER2"
         )
-        args <- Filter(Negate(is.null), args)
-        se <- do.call(what = makeSummarizedExperiment, args = args)
-        assert(is(se, "SummarizedExperiment"))
-        rownames(se) <- tolower(rownames(se))
-        colnames(se) <- tolower(colnames(se))
-        validObject(se)
-        new("DEMETER2", se)
     }

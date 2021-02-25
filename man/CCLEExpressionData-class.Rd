@@ -10,6 +10,10 @@
 \description{
 CCLE expression data
 }
+\details{
+Inherits from \code{SummarizedExperiment}.
+Cells in columns, genes in rows.
+}
 \note{
 Updated 2021-02-25.
 }
