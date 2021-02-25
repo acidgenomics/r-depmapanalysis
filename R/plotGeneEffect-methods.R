@@ -12,11 +12,13 @@
 #'
 #' ## Achilles ====
 #' object <- ach
-#' plotGeneEffect(object, genes = rownames(object)[seq_len(5L)])
+#' genes <- rownames(object)[seq_len(5L)]
+#' plotGeneEffect(object, genes = genes)
 #'
 #' ## DEMETER2 ====
 #' object <- dem
-#' plotGeneEffect(object, genes = rownames(object)[seq_len(5L)])
+#' genes <- rownames(object)[seq_len(5L)]
+#' plotGeneEffect(object, genes = genes)
 NULL
 
 
