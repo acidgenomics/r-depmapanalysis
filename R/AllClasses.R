@@ -99,7 +99,7 @@ setClass(
 #' @return `CCLEMutationData`.
 setClass(
     Class = "CCLEMutationData",
-    contains = "SummarizedExperiment"
+    contains = "DataFrame"
 )
 ## FIXME Needs validity method.
 

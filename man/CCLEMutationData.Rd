@@ -18,7 +18,7 @@ If left \code{NULL}, defaults to latest supported release.}
 Import CCLE mutation data
 }
 \note{
-Updated 2021-02-24.
+Updated 2021-02-25.
 }
 \examples{
 object <- CCLEMutationData()

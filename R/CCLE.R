@@ -1,3 +1,71 @@
+## Updated 2021-02-25.
+.makeCcle <- function(
+    class = "CCLECopyNumberData",
+    assayName,
+    fileName,
+    release = NULL,
+    rowData = TRUE,
+    colData = TRUE
+) {
+    ## e.g. returns "depmap_public_21q1".
+    release <- .matchDepMapRelease(release)
+    assert(
+        isString(class),
+        isString(assayName),
+        isString(fileName),
+        isString(release),
+        isFlag(rowData),
+        isFlag(colData)
+    )
+    assays <- list(
+        .importDataFile(
+            fileName = fileName,
+            release = release,
+            rownamesCol = 1L,
+            return = "matrix"
+        )
+    )
+    names(assays) <- assayName
+    ## Cells in columns, genes in rows.
+    assays <- lapply(X = assays, FUN = t)
+    ## Cell line metadata.
+    if (isTRUE(colData)) {
+        colData <- .importCellLineSampleData(release = release)
+    } else {
+        colData <- NULL
+    }
+    ## Gene metadata.
+    if (isTRUE(rowData)) {
+        l <- .rowDataFromEntrez(assays = assays)
+        assert(
+            is.list(l),
+            identical(
+                x = names(l),
+                y = c("assays", "retired", "rowData")
+            )
+        )
+        assays <- l[["assays"]]
+        retired <- l[["retired"]]
+        rowData <- l[["rowData"]]
+    } else {
+        retired <- NULL
+        rowData <- NULL
+    }
+    metadata <- list(
+        "retired" = retired,
+        "release" = release
+    )
+    .makeSummarizedExperiment(
+        assays = assays,
+        rowData = rowData,
+        colData = colData,
+        metadata = metadata,
+        class = "CCLECopyNumberData"
+    )
+}
+
+
+
 #' Import CCLE copy number data
 #'
 #' @export
@@ -16,56 +84,13 @@ CCLECopyNumberData <-  # nolint
         rowData = TRUE,
         colData = TRUE
     ) {
-        ## e.g. returns "depmap_public_21q1".
-        release <- .matchDepMapRelease(release)
-        assert(
-            isString(release),
-            isFlag(rowData),
-            isFlag(colData)
-        )
-        assays <- list(
-            "copyNumber" = .importDataFile(
-                fileName = "ccle_gene_cn.csv",
-                release = release,
-                rownamesCol = 1L,
-                return = "matrix"
-            )
-        )
-        ## Cells in columns, genes in rows.
-        assays <- lapply(X = assays, FUN = t)
-        ## Cell line metadata.
-        if (isTRUE(colData)) {
-            colData <- .importCellLineSampleData(release = release)
-        } else {
-            colData <- NULL
-        }
-        ## Gene metadata.
-        if (isTRUE(rowData)) {
-            l <- .rowDataFromEntrez(assays = assays)
-            assert(
-                is.list(l),
-                identical(
-                    x = names(l),
-                    y = c("assays", "retired", "rowData")
-                )
-            )
-            assays <- l[["assays"]]
-            retired <- l[["retired"]]
-            rowData <- l[["rowData"]]
-        } else {
-            retired <- NULL
-            rowData <- NULL
-        }
-        metadata <- list(
-            "retired" = retired,
-            "release" = release
-        )
-        .makeSummarizedExperiment(
-            assays = assays,
+        .makeCcle(
+            class = "CCLECopyNumberData",
+            assayName = "copyNumber",
+            fileName = "ccle_gene_cn.csv",
+            release = release,
             rowData = rowData,
-            colData = colData,
-            metadata = metadata,
-            class = "CCLECopyNumberData"
+            colData = colData
         )
     }
 
@@ -76,7 +101,7 @@ formals(CCLECopyNumberData)[["release"]] <- .currentDepMapRelease
 #' Import CCLE expression data
 #'
 #' @export
-#' @note Updated 2021-02-24.
+#' @note Updated 2021-02-25.
 #'
 #' @inheritParams params
 #'
@@ -87,13 +112,14 @@ formals(CCLECopyNumberData)[["release"]] <- .currentDepMapRelease
 #' dim(object)
 CCLEExpressionData <-  # nolint
     function(release = NULL) {
-        df <- .importDataFile(
+        .makeCcle(
+            class = "CCLEExpressionData",
+            assayName = "expression",
             fileName = "ccle_expression.csv",
-            release = .matchDepMapRelease(release),
-            rownamesCol = 1L
+            release = release,
+            rowData = rowData,
+            colData = colData
         )
-        assert(is(df, "DataFrame"))
-        new("CCLEExpressionData", df)
     }
 
 formals(CCLEExpressionData)[["release"]] <- .currentDepMapRelease
@@ -103,7 +129,7 @@ formals(CCLEExpressionData)[["release"]] <- .currentDepMapRelease
 #' Import CCLE mutation data
 #'
 #' @export
-#' @note Updated 2021-02-24.
+#' @note Updated 2021-02-25.
 #'
 #' @inheritParams params
 #'
@@ -116,11 +142,12 @@ CCLEMutationData <-  # nolint
     function(release = NULL) {
         df <- .importDataFile(
             fileName = "ccle_mutations.csv",
-            format = "tsv",
+            format = "csv",
             release = .matchDepMapRelease(release),
             rownamesCol = NULL
         )
         assert(is(df, "DataFrame"))
+        colnames(df) <- camelCase(colnames(df), strict = TRUE)
         new("CCLEMutationData", df)
     }
 
