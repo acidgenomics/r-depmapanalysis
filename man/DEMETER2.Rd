@@ -20,7 +20,7 @@ Include cell line metadata.}
 Import DEMETER2 RNAi screen gene effect data
 }
 \note{
-Updated 2021-02-24.
+Updated 2021-02-25.
 }
 \examples{
 object <- DEMETER2()

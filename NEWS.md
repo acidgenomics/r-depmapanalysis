@@ -1,3 +1,9 @@
+## DepMapAnalysis 0.0.6 (2021-03-12)
+
+### Minor changes
+
+- Updated basejump dependencies, and removed now unnecessary stringr import.
+
 ## DepMapAnalysis 0.0.5 (2021-02-25)
 
 ### Major changes
