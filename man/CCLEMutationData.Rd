@@ -4,7 +4,7 @@
 \alias{CCLEMutationData}
 \title{Import CCLE mutation data}
 \usage{
-CCLEMutationData(release = "21Q1")
+CCLEMutationData(release = "21Q2")
 }
 \arguments{
 \item{release}{\code{character(1)} or \code{NULL}.

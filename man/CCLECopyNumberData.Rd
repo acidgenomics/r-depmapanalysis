@@ -4,7 +4,7 @@
 \alias{CCLECopyNumberData}
 \title{Import CCLE copy number data}
 \usage{
-CCLECopyNumberData(release = "21Q1", rowData = TRUE, colData = TRUE)
+CCLECopyNumberData(release = "21Q2", rowData = TRUE, colData = TRUE)
 }
 \arguments{
 \item{release}{\code{character(1)} or \code{NULL}.

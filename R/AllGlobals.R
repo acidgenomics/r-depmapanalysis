@@ -1,8 +1,8 @@
 #' Current DepMap (quarterly) release
 #'
-#' @note Updated 2021-02-10.
+#' @note Updated 2021-05-19.
 #' @noRd
-.currentDepMapRelease <- "21Q1"
+.currentDepMapRelease <- "21Q2"
 
 
 
@@ -38,6 +38,19 @@
 .depmap <- list(
     "url_stem" = "https://ndownloader.figshare.com/files/",
     ## CRISPR screens.
+    "depmap_public_21q2" = list(
+        "achilles_common_essentials.csv" = "27902028",
+        "achilles_gene_dependency.csv" = "27902040",
+        "achilles_gene_effect.csv" = "27902046",
+        "ccle_expression.csv" = "27902091",
+        "ccle_gene_cn.csv" = "27902124",
+        "ccle_mutations.csv" = "27902118",
+        "common_essentials.csv" = "27902160",
+        "nonessentials.csv" = "27902370",
+        "readme.txt" = "27902373",
+        "sample_info.csv" = "27902376"
+    ),
+
     "depmap_public_21q1" = list(
         "achilles_common_essentials.csv" = "26261275",
         "achilles_gene_dependency.csv" = "26261290",

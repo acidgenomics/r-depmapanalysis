@@ -4,7 +4,7 @@
 \alias{CCLEExpressionData}
 \title{Import CCLE expression data}
 \usage{
-CCLEExpressionData(release = "21Q1", rowData = TRUE, colData = TRUE)
+CCLEExpressionData(release = "21Q2", rowData = TRUE, colData = TRUE)
 }
 \arguments{
 \item{release}{\code{character(1)} or \code{NULL}.

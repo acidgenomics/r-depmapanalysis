@@ -11,9 +11,9 @@ Cancer Dependency Map (DepMap) analysis toolkit.
 \seealso{
 Useful links:
 \itemize{
-  \item \url{https://depmapanalysis.acidgenomics.com/}
-  \item \url{https://github.com/acidgenomics/DepMapAnalysis/}
-  \item Report bugs at \url{https://github.com/acidgenomics/DepMapAnalysis/issues/}
+  \item \url{https://r.acidgenomics.com/packages/depmapanalysis/}
+  \item \url{https://github.com/acidgenomics/r-depmapanalysis/}
+  \item Report bugs at \url{https://github.com/acidgenomics/r-depmapanalysis/issues/}
 }
 
 }
