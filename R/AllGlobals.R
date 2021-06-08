@@ -6,35 +6,17 @@
 
 
 
-## FIXME Reorganize the hierarchy here, for consistency...
-
 #' DepMap file downloads
 #'
 #' @note Updated 2021-06-08.
 #' @noRd
 #'
 #' @details
-#' List of genes identified as dependencies in all lines, one per line:
+#' @section Combination of Broad and Sanger scoring data:
 #'
-#' - `achilles_common_essentials.csv`
-#' - `achilles_gene_dependency.csv`
-#' - `achilles_gene_effect.csv`
-#' - `ccle_expression.csv`
-#' - `ccle_gene_cn.csv`
-#' - `ccle_mutations.csv`
-#'
-#' List of genes used as positive controls, intersection of Biomen
-#' (2014) and Hart (2015) essentials in the format "HUGO (Entrez)". Each
-#' entry is separated by a newline.The scores of these genes are used as
-#' the dependent distribution for inferring dependency probability:
-#'
-#' - `common_essentials.csv`
-#'
-#' List of genes used as negative controls (Hart (2014) nonessentials)
-#' in the format "HUGO (Entrez)". Each entry is separated by a newline:
-#'
-#' - `nonessentials.csv`
-#' - `sample_info.csv`
+#' Combined Achilles and Sanger SCORE Chronos data using Harmonia. This batch
+#' correction pipeline is described in:
+#' https://www.biorxiv.org/content/10.1101/2020.05.22.110247v3.
 #'
 #' @section Chronos vs. CERES scoring:
 #'
@@ -47,15 +29,40 @@
 #' Pre-print manuscript:
 #' https://www.biorxiv.org/content/10.1101/2021.02.25.432728v1.abstract
 #'
-#' @section Combination of Broad and Sanger scoring data:
+#' @section Descriptions of file downloads:
 #'
-#' Combined Achilles and Sanger SCORE Chronos data using Harmonia. This batch
-#' correction pipeline is described in:
-#' https://www.biorxiv.org/content/10.1101/2020.05.22.110247v3.
+#' Harmonia data (Broad Achilles and Sanger Project Score combined);
+#' post-Chronos scoring (current preferred method):
 #'
-#' @section File descriptions:
+#' - `crispr_common_essentials_chronos.csv`:
+#'       List of genes identified as dependencies in all lines, one per line.
+#' - `crispr_gene_dependency_chronos.csv`:
+#'       Probability that knocking out the gene has a real depletion effect
+#'       using 'CRISPR_gene_effect_Chronos'.
+#'       - Columns: genes in the format "HUGO (Entrez)".
+#'       - Rows: cell lines (Broad IDs).
+#' - `crispr_gene_effect_chronos.csv`:
+#'       Combined Achilles and Sanger SCORE Chronos data using Harmonia.
+#'       - Columns: genes in the format "HUGO (Entrez)".
+#'       - Rows: cell lines (Broad IDs).
 #'
-#' Achilles data, post-Chronos scoring:
+#' Harmonia data (Broad Achilles and Sanger Project Score combined);
+#' post-CERES scoring (deprecated in favor of Chronos):
+#'
+#' - `crispr_common_essentials.csv`:
+#'       List of genes identified as dependencies in all lines, one per line.
+#' - `crispr_gene_dependency.csv`:
+#'       Probability that knocking out the gene has a real depletion effect
+#'       using 'CRISPR_gene_effect'.
+#'       - Columns: genes in the format "HUGO (Entrez)".
+#'       - Rows: cell lines (Broad IDs).
+#' - `crispr_gene_effect.csv`:
+#'       Combined Achilles and Sanger SCORE Chronos data using Harmonia.
+#'       - Columns: genes in the format "HUGO (Entrez)".
+#'       - Rows: cell lines (Broad IDs).
+#'
+#' Achilles data (deprecated in favor of Harmonia);
+#' post-Chronos scoring:
 #'
 #' - `achilles_common_essentials_chronos.csv`:
 #'       List of genes identified as pan-essentials using Chronos.
@@ -69,7 +76,8 @@
 #'       - Columns: genes in the format "HUGO (Entrez)".
 #'       - Rows: cell lines (Broad IDs).
 #'
-#' Achilles data, post-CERES scoring (deprecated in favor of Chronos):
+#' Achilles data (deprecated in favor of Harmonia);
+#' post-CERES scoring (deprecated in favor of Chronos):
 #'
 #' - `achilles_common_essentials.csv`:
 #'       List of genes identified as dependencies in all lines, one per line.
@@ -85,105 +93,69 @@
 #'       - Columns: genes in the format "HUGO (Entrez)".
 #'       - Rows: cell lines (Broad IDs).
 #'
-#' Harmonia data (Broad Achilles and Sanger Project Score combined),
-#' post-Chronos scoring:
+#' Pre-CERES (and Chronos) scoring control files:
 #'
-#' - `crispr_common_essentials_chronos.csv`:
-#'       List of genes identified as dependencies in all lines, one per line.
-#' - `crispr_gene_dependency_chronos.csv`:
-#'       Probability that knocking out the gene has a real depletion effect
-#'       using 'CRISPR_gene_effect_Chronos'.
-#'       - Columns: genes in the format "HUGO (Entrez)".
-#'       - Rows: cell lines (Broad IDs).
-#' - `crispr_gene_effect_chronos.csv`:
-#'       Combined Achilles and Sanger SCORE Chronos data using Harmonia.
-#'       - Columns: genes in the format "HUGO (Entrez)".
-#'       - Rows: cell lines (Broad IDs).
+#' - `common_essentials.csv`:
+#'       List of genes used as positive controls, intersection of
+#'       Biomen (2014) and Hart (2015) essentials in the format "HUGO (Entrez)".
+#'       Each entry is separated by a newline. The scores of these genes are
+#'       used as the dependent distribution for inferring dependency
+#'       probability.
+#' - `nonessentials.csv`:
+#'       List of genes used as negative controls (Hart (2014) nonessentials)
+#'       in the format "HUGO (Entrez)". Each entry is separated by a newline.
 #'
-#' @seealso
-#' - https://depmap.org/portal/download/
-.depmap <- list(
-    "url_stem" = "https://ndownloader.figshare.com/files/",
-    ## CRISPR screens.
-    ## FIXME Consider reorganizing the structure here
-    ## achilles / harmonia
-    "depmap_public_21q2" = list(
-        ## Post-Chronos files (recommended) ====================================
-        "achilles_common_essentials_chronos.csv" = "27902031",
-        "achilles_gene_dependency_chronos.csv" = "27902049",
-        "achilles_gene_effect_chronos.csv" = "27902043",
-        "crispr_common_essentials_chronos.csv" = "27902166",
-        "crispr_gene_dependency_chronos.csv" = "27902175",
-        "crispr_gene_effect_chronos.csv" = "27902229",
-        ## Post-CERES files (deprecated) =======================================
-        "achilles_common_essentials.csv" = "27902028",
-        "achilles_gene_dependency.csv" = "27902040",
-        "achilles_gene_effect.csv" = "27902046",
-        "crispr_common_essentials.csv" = "27902163",
-        "crispr_gene_dependency.csv" = "27902169",
-        "crispr_gene_effect.csv" = "27902226",
-        ## Pre-CERES (and Chronos) files =======================================
-        ## List of genes used as positive controls, intersection of
-        ## Biomen (2014) and Hart (2015) essentials in the format
-        ## "HUGO (Entrez)". Each entry is separated by a newline. The scores of
-        ## these genes are used as the dependent distribution for inferring
-        ## dependency probability.
-        "common_essentials.csv" = "27902160",
-        ## List of genes used as negative controls (Hart (2014) nonessentials)
-        ## in the format "HUGO (Entrez)". Each entry is separated by a newline.
-        "nonessentials.csv" = "27902370",
-        ## CCLE files ==========================================================
-        ## RNAseq TPM gene expression data for just protein coding genes using
-        ## RSEM. Log2 transformed, using a pseudo-count of 1.
-        ## - Rows: cell lines (Broad IDs).
-        ## - Columns: genes (HGNC symbol and Entrez ID).
-        "ccle_expression.csv" = "27902091",
-        ## Gene level copy number data, log2 transformed with a pseudo count
-        ## of 1. This is generated by mapping genes onto the segment level
-        ## calls.
-        ## - Rows: cell lines (Broad IDs).
-        ## - Columns: genes (HGNC symbol and Entrez ID).
-        "ccle_gene_cn.csv" = "27902124",
-        ## MAF of gene mutations.
-        ##
-        ## For all columns with AC, the allelic ratio is
-        ## presented as [ALTERNATE:REFERENCE].
-        ##
-        ## Columns:
-        ## - CGA_WES_AC:
-        ##       the allelic ratio for this variant in all our
-        ##       WES/WGS(exon only) using a cell line adapted version of the
-        ##       2019 CGA pipeline that includes germline filtering.
-        ## - SangerWES_AC:
-        ##       in Sanger WES (called by sanger) (legacy).
-        ## - SangerRecalibWES_AC:
-        ##       in Sanger WES after realignment at Broad (legacy).
-        ## - RNAseq_AC:
-        ##       in Broad RNAseq data from the CCLE2 project (legacy).
-        ## - HC_AC:
-        ##       in Broad Hybrid capture data from the CCLE2 project (legacy).
-        ## - RD_AC: in Broad Raindance data from the CCLE2 project (legacy).
-        ## - legacy_wgs_exon_only:
-        ##       in Broad WGS data from the CCLE2 project (legacy).
-        ## - isTCGAhotspot:
-        ##       is this mutation commonly found in TCGA.
-        ## - TCGAhsCnt:
-        ##       number of times this mutation is observed in TCGA.
-        ## - isCOSMIChotspot:
-        ##       is this mutation commonly found in COSMIC.
-        ## - COSMIChsCnt:
-        ##       number of samples in COSMIC with this mutation.
-        ## - ExAC_AF:
-        ##       the allelic frequency in the Exome Aggregation
-        ##       Consortium (ExAC).
-        ##
-        ## Descriptions of the remaining columns in the MAF can be found here:
-        ## https://docs.gdc.cancer.gov/Data/File_Formats/MAF_Format/
-        "ccle_mutations.csv" = "27902118",
-        ## Other ===============================================================
-        ## Description of all files contained in this release.
-        "readme.txt" = "27902373",
-        ## Cell line information definitions:
+#' CCLE files:
+#'
+#' - `ccle_expression.csv`:
+#'       RNAseq TPM gene expression data for just protein coding genes using
+#'       RSEM. Log2 transformed, using a pseudo-count of 1.
+#'       - Rows: cell lines (Broad IDs).
+#'       - Columns: genes (HGNC symbol and Entrez ID).
+#' - `ccle_gene_cn.csv`:
+#'       Gene level copy number data, log2 transformed with a pseudo count
+#'       of 1. This is generated by mapping genes onto the segment level calls.
+#'       - Rows: cell lines (Broad IDs).
+#'       - Columns: genes (HGNC symbol and Entrez ID).
+#' - `ccle_mutations.csv`:
+#'       MAF of gene mutations. For all columns with AC, the allelic ratio is
+#'       presented as [ALTERNATE:REFERENCE].
+#'       Columns:
+#'       - CGA_WES_AC:
+#'             the allelic ratio for this variant in all our WES/WGS(exon only)
+#'             using a cell line adapted version of the 2019 CGA pipeline that
+#'             includes germline filtering.
+#'       - SangerWES_AC:
+#'             in Sanger WES (called by sanger) (legacy).
+#'       - SangerRecalibWES_AC:
+#'             in Sanger WES after realignment at Broad (legacy).
+#'       - RNAseq_AC:
+#'             in Broad RNAseq data from the CCLE2 project (legacy).
+#'       - HC_AC:
+#'             in Broad Hybrid capture data from the CCLE2 project (legacy).
+#'       - RD_AC: in Broad Raindance data from the CCLE2 project (legacy).
+#'       - legacy_wgs_exon_only:
+#'             in Broad WGS data from the CCLE2 project (legacy).
+#'       - isTCGAhotspot:
+#'             is this mutation commonly found in TCGA.
+#'       - TCGAhsCnt:
+#'             number of times this mutation is observed in TCGA.
+#'       - isCOSMIChotspot:
+#'             is this mutation commonly found in COSMIC.
+#'       - COSMIChsCnt:
+#'             number of samples in COSMIC with this mutation.
+#'       - ExAC_AF:
+#'             the allelic frequency in the Exome Aggregation
+#'             Consortium (ExAC).
+#'       Descriptions of the remaining columns in the MAF can be found here:
+#'       https://docs.gdc.cancer.gov/Data/File_Formats/MAF_Format/
+#'
+#' Other files:
+#'
+#' - `readme.txt`:
+#'       Description of all files contained in this release.
+#' - `sample_info.csv`:
+#'       Cell line information definitions:
         ## [1] "DepMap_ID"
         ##         Static primary key assigned by DepMap to each cell line.
         ## [2] "cell_line_name"
@@ -239,7 +211,53 @@
         ## [25] "lineage_sub_subtype"
         ## [26] "lineage_molecular_subtype"
         ##         Cancer type classifications in a standardized form.
-        "sample_info.csv" = "27902376"
+#'
+#' @seealso
+#' - https://depmap.org/portal/download/
+.depmap <- list(
+    "url_stem" = "https://ndownloader.figshare.com/files/",
+    "demeter2_data_v6" = list(
+        "d2_combined_gene_dep_scores.csv" = "13515395",
+        "sample_info.csv" = "11489717"
+    ),
+    "depmap_public_21q2" = list(
+        "achilles" = list(
+            "ceres" = list(
+                "achilles_common_essentials.csv" = "27902028",
+                "achilles_gene_dependency.csv" = "27902040",
+                "achilles_gene_effect.csv" = "27902046"
+            ),
+            "chronos" = list(
+                "achilles_common_essentials_chronos.csv" = "27902031",
+                "achilles_gene_dependency_chronos.csv" = "27902049",
+                "achilles_gene_effect_chronos.csv" = "27902043"
+            )
+        ),
+        "harmonia" = list(
+            "ceres" = list(
+                "crispr_common_essentials.csv" = "27902163",
+                "crispr_gene_dependency.csv" = "27902169",
+                "crispr_gene_effect.csv" = "27902226"
+            ),
+            "chronos" = list(
+                "crispr_common_essentials_chronos.csv" = "27902166",
+                "crispr_gene_dependency_chronos.csv" = "27902175",
+                "crispr_gene_effect_chronos.csv" = "27902229"
+            )
+        ),
+        "controls" = list(
+            "common_essentials.csv" = "27902160",
+            "nonessentials.csv" = "27902370",
+        ),
+        "ccle" = list(
+            "ccle_expression.csv" = "27902091",
+            "ccle_gene_cn.csv" = "27902124",
+            "ccle_mutations.csv" = "27902118"
+        ),
+        "other" = list(
+            "readme.txt" = "27902373",
+            "sample_info.csv" = "27902376"
+        )
     ),
     "depmap_public_21q1" = list(
         "achilles_common_essentials.csv" = "26261275",
@@ -266,6 +284,7 @@
         "sample_info.csv" = "25494443"
     ),
     "depmap_public_20q4" = list(
+        ## NOTE "readme.txt" missing.
         "achilles_common_essentials.csv" = "XXX",
         "achilles_gene_dependency.csv" = "XXX",
         "achilles_gene_effect.csv" = "XXX",
@@ -274,10 +293,10 @@
         "ccle_mutations.csv" = "XXX",
         "common_essentials.csv" = "XXX",
         "nonessentials.csv" = "XXX",
-        ## NOTE "readme.txt"
         "sample_info.csv" = "XXX"
     ),
     "depmap_public_20q3" = list(
+        ## NOTE "readme.txt" missing.
         "achilles_common_essentials.csv" = "24613283",
         "achilles_gene_dependency.csv" = "24613298",
         "achilles_gene_effect.csv" = "24613292",
@@ -286,25 +305,19 @@
         "ccle_mutations.csv" = "24613355",
         "common_essentials.csv" = "24613385",
         "nonessentials.csv" = "24613388",
-        ## NOTE "readme.txt"
         "sample_info.csv" = "24613394"
     ),
-    ## NOTE depmap_public_20q3
-    ## NOTE depmap_public_20q2
-    ## NOTE depmap_public_20q1
-    ## NOTE depmap_public_19q4
-    ## NOTE depmap_public_19q3
-    ## NOTE depmap_public_19q2
-    ## NOTE depmap_public_19q1
-    ## NOTE depmap_public_18q4
-    ## NOTE depmap_public_18q3
-    ## NOTE depmap_public_18q2
-    ## NOTE depmap_public_18q1
-    ## RNAi screens.
-    "demeter2_data_v6" = list(
-        "d2_combined_gene_dep_scores.csv" = "13515395",
-        "sample_info.csv" = "11489717"
-    )
+    ## FIXME depmap_public_20q3
+    ## FIXME depmap_public_20q2
+    ## FIXME depmap_public_20q1
+    ## FIXME depmap_public_19q4
+    ## FIXME depmap_public_19q3
+    ## FIXME depmap_public_19q2
+    ## FIXME depmap_public_19q1
+    ## FIXME depmap_public_18q4
+    ## FIXME depmap_public_18q3
+    ## FIXME depmap_public_18q2
+    ## FIXME depmap_public_18q1
 )
 
 
