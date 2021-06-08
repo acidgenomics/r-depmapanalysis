@@ -1,7 +1,3 @@
-## FIXME Failing to load clean for 21Q1.
-
-
-
 #' Import Project Achilles CRISPR gene effect data
 #'
 #' @section Assays:
@@ -76,7 +72,6 @@ Achilles <-  # nolint
             retiredGenes <- NULL
             rowData <- NULL
         }
-        ## FIXME Hitting an error here.
         metadata <- list(
             "commonEssentials" =
                 .importCommonEssentials(release = release),
