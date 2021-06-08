@@ -1,7 +1,8 @@
-## FIXME Consider making a Harmonia object, which combines Broad Achilles
-## data along with Sanger SCORE data.
+## FIXME Rename this to CRISPR...
 
-## FIXME Consider renaming this, so we can use Harmonia data...
+## FIXME Need to add support for scoringMethod
+## ceres or chronos
+
 
 
 
@@ -29,6 +30,10 @@
 Achilles <-  # nolint
     function(
         release = NULL,
+        scoringMethod = c(
+            "chronos",
+            "ceres"
+        ),
         rowData = TRUE,
         colData = TRUE
     ) {
@@ -39,6 +44,8 @@ Achilles <-  # nolint
             isFlag(rowData),
             isFlag(colData)
         )
+        ## FIXME Need to add support for this.
+        scoringMethod <- match.arg(scoringMethod)
         ## CSV formatting: genes in columns, cells in rows.
         assays <- list(
             "effect" = .importDataFile(

@@ -1,3 +1,7 @@
+## FIXME Consider defining Harmonia object (should this extend Achilles?)
+
+
+
 #' Achilles CRISPR screening data
 #'
 #' @details

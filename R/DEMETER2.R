@@ -1,3 +1,7 @@
+## FIXME Rename this to RNAi???
+
+
+
 #' Import DEMETER2 RNAi screen gene effect data
 #'
 #' @export

@@ -6,6 +6,8 @@
 
 
 
+## FIXME Reorganize the hierarchy here, for consistency...
+
 #' DepMap file downloads
 #'
 #' @note Updated 2021-06-08.
@@ -45,59 +47,92 @@
 #' Pre-print manuscript:
 #' https://www.biorxiv.org/content/10.1101/2021.02.25.432728v1.abstract
 #'
-#' @section Combination of Broad and Sanger scoring data
+#' @section Combination of Broad and Sanger scoring data:
 #'
 #' Combined Achilles and Sanger SCORE Chronos data using Harmonia. This batch
 #' correction pipeline is described in:
-## https://www.biorxiv.org/content/10.1101/2020.05.22.110247v3.
+#' https://www.biorxiv.org/content/10.1101/2020.05.22.110247v3.
+#'
+#' @section File descriptions:
+#'
+#' Achilles data, post-Chronos scoring:
+#'
+#' - `achilles_common_essentials_chronos.csv`:
+#'       List of genes identified as pan-essentials using Chronos.
+#' - `achilles_gene_dependency_chronos.csv`:
+#'       Probability that knocking out the gene has a real depletion effect
+#'       using 'gene_effect_Chronos'.
+#'       - Columns: genes in the format "HUGO (Entrez)".
+#'       - Rows: cell lines (Broad IDs).
+#' - `achilles_gene_effect_chronos.csv`:
+#'       Chronos data, copy number corrected.
+#'       - Columns: genes in the format "HUGO (Entrez)".
+#'       - Rows: cell lines (Broad IDs).
+#'
+#' Achilles data, post-CERES scoring (deprecated in favor of Chronos):
+#'
+#' - `achilles_common_essentials.csv`:
+#'       List of genes identified as dependencies in all lines, one per line.
+#' - `achilles_gene_dependency.csv`:
+#'       Probability that knocking out the gene has a real depletion effect
+#'       using 'gene_effect'.
+#'       - Columns: genes in the format "HUGO (Entrez)".
+#'       - Rows: cell lines (Broad IDs).
+#' - `achilles_gene_effect.csv`:
+#'       CERES data with principle components strongly related to known batch
+#'       effects removed, then shifted and scaled per cell line so the median
+#'       nonessential KO effect is 0 and the median essential KO effect is -1.
+#'       - Columns: genes in the format "HUGO (Entrez)".
+#'       - Rows: cell lines (Broad IDs).
+#'
+#' Harmonia data (Broad Achilles and Sanger Project Score combined),
+#' post-Chronos scoring:
+#'
+#' - `crispr_common_essentials_chronos.csv`:
+#'       List of genes identified as dependencies in all lines, one per line.
+#' - `crispr_gene_dependency_chronos.csv`:
+#'       Probability that knocking out the gene has a real depletion effect
+#'       using 'CRISPR_gene_effect_Chronos'.
+#'       - Columns: genes in the format "HUGO (Entrez)".
+#'       - Rows: cell lines (Broad IDs).
+#' - `crispr_gene_effect_chronos.csv`:
+#'       Combined Achilles and Sanger SCORE Chronos data using Harmonia.
+#'       - Columns: genes in the format "HUGO (Entrez)".
+#'       - Rows: cell lines (Broad IDs).
 #'
 #' @seealso
 #' - https://depmap.org/portal/download/
 .depmap <- list(
     "url_stem" = "https://ndownloader.figshare.com/files/",
     ## CRISPR screens.
+    ## FIXME Consider reorganizing the structure here
+    ## achilles / harmonia
     "depmap_public_21q2" = list(
         ## Post-Chronos files (recommended) ====================================
-        ## Chronos data, copy number corrected.
-        ## - Columns: genes in the format "HUGO (Entrez)".
-        ## - Rows: cell lines (Broad IDs).
-        "achilles_gene_effect_chronos.csv" = "27902043",
-        ## Probability that knocking out the gene has a real depletion effect
-        ## using 'gene_effect_Chronos'.
-        ## - Columns: genes in the format "HUGO (Entrez)".
-        ## - Rows: cell lines (Broad IDs).
-        "achilles_gene_dependency_chronos.csv" = "27902049",
-        ## List of genes identified as pan-essentials using Chronos.
         "achilles_common_essentials_chronos.csv" = "27902031",
-        ## Columns:
-        ## - sgrna (nucleotides).
-        ## - efficacy: Chronos inferred efficacy for the guide.
-        "achilles_guide_efficacy_chronos.csv" = "27902058",
-        ## Combined Achilles and Sanger SCORE Chronos data using Harmonia.
-        ## - Columns: genes in the format "HUGO (Entrez)".
-        ## - Rows: cell lines (Broad IDs).
-        "crispr_gene_effect_chronos.csv" = "27902229",
-        ## Probability that knocking out the gene has a real depletion effect
-        ## using 'CRISPR_gene_effect_Chronos'.
-        ## - Columns: genes in the format "HUGO (Entrez)".
-        ## - Rows: cell lines (Broad IDs).
-        "crispr_gene_dependency_chronos.csv" = "27902175",
-        ## List of genes identified as dependencies in all lines, one per line.
+        "achilles_gene_dependency_chronos.csv" = "27902049",
+        "achilles_gene_effect_chronos.csv" = "27902043",
         "crispr_common_essentials_chronos.csv" = "27902166",
+        "crispr_gene_dependency_chronos.csv" = "27902175",
+        "crispr_gene_effect_chronos.csv" = "27902229",
         ## Post-CERES files (deprecated) =======================================
-        ## List of genes identified as dependencies in all lines, one per line.
         "achilles_common_essentials.csv" = "27902028",
-        ## Probability that knocking out the gene has a real depletion effect
-        ## using 'gene_effect'.
-        ## - Columns: genes in the format "HUGO (Entrez)".
-        ## - Rows: cell lines (Broad IDs).
         "achilles_gene_dependency.csv" = "27902040",
-        ## CERES data with principle components strongly related to known batch
-        ## effects removed, then shifted and scaled per cell line so the median
-        ## nonessential KO effect is 0 and the median essential KO effect is -1.
-        ## - Columns: genes in the format "HUGO (Entrez)".
-        ## - Rows: cell lines (Broad IDs).
         "achilles_gene_effect.csv" = "27902046",
+        "crispr_common_essentials.csv" = "27902163",
+        "crispr_gene_dependency.csv" = "27902169",
+        "crispr_gene_effect.csv" = "27902226",
+        ## Pre-CERES (and Chronos) files =======================================
+        ## List of genes used as positive controls, intersection of
+        ## Biomen (2014) and Hart (2015) essentials in the format
+        ## "HUGO (Entrez)". Each entry is separated by a newline. The scores of
+        ## these genes are used as the dependent distribution for inferring
+        ## dependency probability.
+        "common_essentials.csv" = "27902160",
+        ## List of genes used as negative controls (Hart (2014) nonessentials)
+        ## in the format "HUGO (Entrez)". Each entry is separated by a newline.
+        "nonessentials.csv" = "27902370",
+        ## CCLE files ==========================================================
         ## RNAseq TPM gene expression data for just protein coding genes using
         ## RSEM. Log2 transformed, using a pseudo-count of 1.
         ## - Rows: cell lines (Broad IDs).
@@ -145,16 +180,6 @@
         ## Descriptions of the remaining columns in the MAF can be found here:
         ## https://docs.gdc.cancer.gov/Data/File_Formats/MAF_Format/
         "ccle_mutations.csv" = "27902118",
-        ## Pre-CERES files =====================================================
-        ## List of genes used as positive controls, intersection of
-        ## Biomen (2014) and Hart (2015) essentials in the format
-        ## "HUGO (Entrez)". Each entry is separated by a newline. The scores of
-        ## these genes are used as the dependent distribution for inferring
-        ## dependency probability.
-        "common_essentials.csv" = "27902160",
-        ## List of genes used as negative controls (Hart (2014) nonessentials)
-        ## in the format "HUGO (Entrez)". Each entry is separated by a newline.
-        "nonessentials.csv" = "27902370",
         ## Other ===============================================================
         ## Description of all files contained in this release.
         "readme.txt" = "27902373",
