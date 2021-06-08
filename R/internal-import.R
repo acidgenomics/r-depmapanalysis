@@ -98,12 +98,14 @@
     release,
     format = c("csv", "tsv"),
     rownamesCol = NULL,
+    engine = "data.table",
     return = c("DataFrame", "matrix")
 ) {
     assert(
         isString(fileName),
         isString(release),
-        isScalar(rownamesCol) || is.null(rownamesCol)
+        isScalar(rownamesCol) || is.null(rownamesCol),
+        isString(engine)
     )
     format <- match.arg(format)
     return <- match.arg(return)
@@ -113,10 +115,7 @@
     ))
     fileId <- .depmap[[tolower(release)]][[fileName]]
     file <- .cacheDataFile(fileName = fileName, fileId = fileId)
-    ## Parsing issues can pop up with `sample_info.csv`, for example.
-    suppressWarnings({
-        df <- import(file = file, format = format)
-    })
+    df <- import(file = file, format = format, engine = engine)
     if (isScalar(rownamesCol)) {
         if (!isString(rownamesCol)) {
             rownamesCol <- colnames(df)[[rownamesCol]]
@@ -140,13 +139,15 @@
 
 #' Import a DepMap file containing gene identifiers
 #'
-#' @note Updated 2020-10-02
+#' @note Updated 2021-06-08.
 #' @noRd
 .importGeneDataFile <-
     function(fileName, release) {
         df <- .importDataFile(
             fileName = fileName,
             release = release,
+            ## Don't use 'data.table' here.
+            engine = "base",
             return = "DataFrame"
         )
         assert(isCharacter(df[["gene"]]))

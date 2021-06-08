@@ -1,3 +1,7 @@
+## FIXME Failing to load clean for 21Q1.
+
+
+
 #' Import Project Achilles CRISPR gene effect data
 #'
 #' @section Assays:
@@ -10,7 +14,7 @@
 #'   depletion effect using `gene_effect`.
 #'
 #' @export
-#' @note Updated 2021-05-19.
+#' @note Updated 2021-06-08.
 #'
 #' @inheritParams params
 #'
@@ -25,7 +29,7 @@ Achilles <-  # nolint
         rowData = TRUE,
         colData = TRUE
     ) {
-        ## e.g. "depmap_public_21q1".
+        ## e.g. "depmap_public_21q2".
         release <- .matchDepMapRelease(release)
         assert(
             isString(release),
@@ -72,6 +76,7 @@ Achilles <-  # nolint
             retiredGenes <- NULL
             rowData <- NULL
         }
+        ## FIXME Hitting an error here.
         metadata <- list(
             "commonEssentials" =
                 .importCommonEssentials(release = release),
