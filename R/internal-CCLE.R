@@ -1,4 +1,4 @@
-## Updated 2021-02-25.
+## Updated 2021-06-09.
 .makeCcle <- function(
     class,
     assayName,
@@ -69,9 +69,11 @@
         rowData <- NULL
     }
     metadata <- list(
+        "dataset" = dataset,
         "missingCells" = missingCells,
-        "retiredGenes" = retiredGenes,
-        "dataset" = dataset
+        "packageName" = .pkgName,
+        "packageVersion" = .pkgVersion,
+        "retiredGenes" = retiredGenes
     )
     .makeSummarizedExperiment(
         assays = assays,

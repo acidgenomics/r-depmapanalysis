@@ -78,6 +78,31 @@ setClass(
     Class = "CCLECopyNumberData",
     contains = "SummarizedExperiment"
 )
+setValidity(
+    Class = "CCLECopyNumberData",
+    method = function(object) {
+        ok <- validate(
+            isSubset(c("copyNumber"), assayNames(object))
+        )
+        if (!isTRUE(ok)) return(ok)
+        ok <- validateClasses(
+            object = metadata(object),
+            expected = list(
+                ## > "missingCells" = "character",
+                "dataset" = "character",
+                "date" = "Date",
+                "packageName" = "character",
+                "packageVersion" = "numeric_version",
+                "retiredGenes" = "character",
+                "sessionInfo" = "session_info",
+                "wd" = "character"
+            ),
+            subset = TRUE
+        )
+        if (!isTRUE(ok)) return(ok)
+        TRUE
+    }
+)
 
 
 
@@ -95,6 +120,8 @@ setClass(
     Class = "CCLEExpressionData",
     contains = "SummarizedExperiment"
 )
+
+## FIXME This needs validity checks.
 
 
 

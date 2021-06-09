@@ -24,9 +24,9 @@ CCLEMutationData <-  # nolint
         colnames(df) <- camelCase(colnames(df), strict = TRUE)
         df <- encode(df)
         metadata(df) <- list(
+            "dataset" = dataset,
             "packageName" = .pkgName,
-            "packageVersion" = .pkgVersion,
-            "dataset" = dataset
+            "packageVersion" = .pkgVersion
         )
         new("CCLEMutationData", df)
     }
