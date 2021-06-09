@@ -12,8 +12,9 @@
 #' dim(object)
 CCLEMutationData <-  # nolint
     function(dataset) {
+        dataset <- match.arg(dataset)
         df <- .importDataFile(
-            dataset = match.arg(dataset),
+            dataset = dataset,
             keys = "ccle",
             fileName = "ccle_mutations.csv",
             format = "csv",
@@ -21,11 +22,12 @@ CCLEMutationData <-  # nolint
         )
         assert(is(df, "DataFrame"))
         colnames(df) <- camelCase(colnames(df), strict = TRUE)
+        df <- encode(df)
         metadata(df) <- list(
+            "packageName" = .pkgName,
             "packageVersion" = .pkgVersion,
             "dataset" = dataset
         )
-        df <- encode(df)
         new("CCLEMutationData", df)
     }
 
