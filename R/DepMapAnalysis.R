@@ -49,6 +49,10 @@ DepMapAnalysis <-  # nolint
         dataset <- match.arg(dataset)
         project <- match.arg(project)
         scoringMethod <- match.arg(scoringMethod)
+        ## Handle DEMETER2 scoring edge case for RNAi dataset gracefully.
+        if (isTRUE(grepl(pattern = "demeter2_", x = dataset))) {
+            scoringMethod <- "demeter2"
+        }
         keys <- c(project, scoringMethod)
         if (isTRUE(grepl(pattern = "^depmap_", x = dataset))) {
             libraryType <- "crispr"
@@ -87,13 +91,7 @@ DepMapAnalysis <-  # nolint
             )
         } else if (isTRUE(grepl(pattern = "^demeter2_", x = dataset))) {
             libraryType <- "rnai"
-
-            ceFile
-            effectFile
-            probFile
-
-        } else {
-            stop(sprintf("Unsupported dataset: '%s'.", dataset))
+            effectFile <- paste0("d2_", project, "_gene_dep_scores.csv")
         }
         ## CSV formatting: genes in columns, cells in rows.
         assays <- list()
@@ -114,9 +112,11 @@ DepMapAnalysis <-  # nolint
             )
         }
         ## Cells in columns, genes in rows.
-        assays <- lapply(X = assays, FUN = t)
+        ## Don't need to transpose for DEMETER2 RNAi dataset.
+        if (identical(libraryType, "crispr")) {
+            assays <- lapply(X = assays, FUN = t)
+        }
         ## Cell line metadata.
-        ## FIXME Need to standardize this with `.makeCCLE()` importer.
         missingCells <- NULL
         colData <- .importCellLineSampleData(dataset = dataset)
         assert(areIntersectingSets(colnames(assays[[1L]]), rownames(colData)))
