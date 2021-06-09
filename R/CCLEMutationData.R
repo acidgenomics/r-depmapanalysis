@@ -13,9 +13,10 @@
 CCLEMutationData <-  # nolint
     function(dataset) {
         df <- .importDataFile(
+            dataset = match.arg(dataset),
+            keys = "ccle",
             fileName = "ccle_mutations.csv",
             format = "csv",
-            dataset = dataset,
             rownamesCol = NULL
         )
         assert(is(df, "DataFrame"))
@@ -24,6 +25,7 @@ CCLEMutationData <-  # nolint
             "packageVersion" = .pkgVersion,
             "dataset" = dataset
         )
+        df <- encode(df)
         new("CCLEMutationData", df)
     }
 
