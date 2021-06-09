@@ -5,7 +5,7 @@
 \alias{DepMapAnalysis-class}
 \title{Cancer cell line dependency map analysis}
 \value{
-\code{CERES}.
+\code{DepMapAnalysis}.
 }
 \description{
 Cancer cell line dependency map analysis

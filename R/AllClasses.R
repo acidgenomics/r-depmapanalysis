@@ -2,6 +2,14 @@
 ## FIXME Need to rework and add in support for DEMETER2 here.
 ## FIXME Need to add support for show method, indicating CRISPR here.
 
+
+
+## FIXME Want to return this type of metadata.
+## CRISPR (DepMap 21Q2 Public+Score); CERES
+## RNAi (Achilles+DRIVE+Marcotte); DEMETER2
+
+
+
 #' Cancer cell line dependency map analysis
 #'
 #' @details
@@ -11,7 +19,7 @@
 #' @note Updated 2021-06-09.
 #' @export
 #'
-#' @return `CERES`.
+#' @return `DepMapAnalysis`.
 #'
 #' @seealso
 #' - https://depmap.org/portal/achilles/
@@ -35,12 +43,15 @@ setValidity(
         ok <- validateClasses(
             object = metadata,
             expected = list(
+                ## FIXME Might not be able to return all of these for RNAi.
                 "commonEssentials" = "character",
                 "controlCommonEssentials" = "character",
                 "controlNonessentials" = "character",
                 "dataset" = "character",
                 "date" = "Date",
                 "packageVersion" = "package_version",
+                ## Can allow: Chronos, CERES, DEMETER2
+                "scoringMethod" = "FIXME",
                 "sessionInfo" = "session_info",
                 "wd" = "character"
             ),
