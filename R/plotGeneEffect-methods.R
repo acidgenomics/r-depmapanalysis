@@ -12,7 +12,7 @@
 #'
 #' ## DepMapAnalysis ====
 #' object <- crispr
-#' genes <- rownames(object)[seq_len(5L)]
+#' genes <- head(rownames(object), n = 5L)
 #' plotGeneEffect(object, genes = genes)
 NULL
 
@@ -26,16 +26,22 @@ NULL
         geom = c("boxplot", "density")
     ) {
         validObject(object)
-        geom <- match.arg(geom)
         assert(
             isCharacter(genes),
             length(genes) <= 100L
         )
-        mat <- assay(object, i = "effect")
-        rownames <- mapGenesToRownames(object, genes = genes)
-        mat <- mat[rownames, , drop = FALSE]
+        geom <- match.arg(geom)
+        se <- as(object, "SummarizedExperiment")
+        rownames <- mapGenesToRownames(
+            object = se,
+            genes = genes,
+            strict = TRUE
+        )
+        se <- se[rownames, , drop = FALSE]
+        mat <- assay(se, i = "effect")
+        rownames(mat) <- as.character(rowData(se)[["geneName"]])
         data <- as_tibble(melt(mat))
-        data <- data[complete.cases(data), ]
+        data <- data[complete.cases(data), , drop = FALSE]
         if (identical(geom, "boxplot")) {
             p <- ggplot(
                 data = data,

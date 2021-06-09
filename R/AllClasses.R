@@ -1,3 +1,7 @@
+## FIXME Need to fix documentation duplicates here.
+
+
+
 #' CCLE copy number data
 #'
 #' @details
