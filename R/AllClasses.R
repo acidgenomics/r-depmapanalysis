@@ -112,3 +112,59 @@ setClass(
     Class = "CCLEMutationData",
     contains = "DataFrame"
 )
+setValidity(
+    Class = "CCLEMutationData",
+    method = function(object) {
+        ok <- validate(
+            isSubset(
+                x = c(
+                    "annotationTranscript",
+                    "cDnaChange",
+                    "cgaWesAc",
+                    "chromosome",
+                    "codonChange",
+                    "cosmiChsCnt",
+                    "dbSnpRs",
+                    "dbSnpValStatus",
+                    "depMapId",
+                    "endPosition",
+                    "entrezGeneId",
+                    "exAcAf",
+                    "genomeChange",
+                    "hcAc",
+                    "hugoSymbol",
+                    "isCosmiChotspot",
+                    "isDeleterious",
+                    "isTcgAhotspot",
+                    "ncbiBuild",
+                    "proteinChange",
+                    "rdAc",
+                    "referenceAllele",
+                    "rnAseqAc",
+                    "sangerWesAc",
+                    "startPosition",
+                    "strand",
+                    "tcgAhsCnt",
+                    "tumorSeqAllele1",
+                    "variantAnnotation",
+                    "variantClassification",
+                    "variantType",
+                    "wgsAc"
+                ),
+                y = colnames(object)
+            )
+        )
+        if (!isTRUE(ok)) return(ok)
+        ok <- validateClasses(
+            object = metadata(object),
+            expected = list(
+                dataset = "character",
+                packageName = "character",
+                packageVersion = "package_version"
+            ),
+            subset = TRUE
+        )
+        if (!isTRUE(ok)) return(ok)
+        TRUE
+    }
+)
