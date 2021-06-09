@@ -223,76 +223,76 @@
     "depmap_public_21q2" = list(
         "achilles" = list(
             "ceres" = list(
-                "achilles_common_essentials.csv" = "27902028",
-                "achilles_gene_dependency.csv" = "27902040",
-                "achilles_gene_effect.csv" = "27902046"
+                "achilles_common_essentials.csv" = 27902028L,
+                "achilles_gene_dependency.csv" = 27902040L,
+                "achilles_gene_effect.csv" = 27902046L
             ),
             "chronos" = list(
-                "achilles_common_essentials_chronos.csv" = "27902031",
-                "achilles_gene_dependency_chronos.csv" = "27902049",
-                "achilles_gene_effect_chronos.csv" = "27902043"
+                "achilles_common_essentials_chronos.csv" = 27902031L,
+                "achilles_gene_dependency_chronos.csv" = 27902049L,
+                "achilles_gene_effect_chronos.csv" = 27902043L
             )
         ),
         "harmonia" = list(
             "ceres" = list(
-                "crispr_common_essentials.csv" = "27902163",
-                "crispr_gene_dependency.csv" = "27902169",
-                "crispr_gene_effect.csv" = "27902226"
+                "crispr_common_essentials.csv" = 27902163L,
+                "crispr_gene_dependency.csv" = 27902169L,
+                "crispr_gene_effect.csv" = 27902226L
             ),
             "chronos" = list(
-                "crispr_common_essentials_chronos.csv" = "27902166",
-                "crispr_gene_dependency_chronos.csv" = "27902175",
-                "crispr_gene_effect_chronos.csv" = "27902229"
+                "crispr_common_essentials_chronos.csv" = 27902166L,
+                "crispr_gene_dependency_chronos.csv" = 27902175L,
+                "crispr_gene_effect_chronos.csv" = 27902229L
             )
         ),
         "controls" = list(
-            "common_essentials.csv" = "27902160",
-            "nonessentials.csv" = "27902370"
+            "common_essentials.csv" = 27902160L,
+            "nonessentials.csv" = 27902370L
         ),
         "ccle" = list(
-            "ccle_expression.csv" = "27902091",
-            "ccle_gene_cn.csv" = "27902124",
-            "ccle_mutations.csv" = "27902118"
+            "ccle_expression.csv" = 27902091L,
+            "ccle_gene_cn.csv" = 27902124L,
+            "ccle_mutations.csv" = 27902118L
         ),
         "metadata" = list(
-            "readme.txt" = "27902373",
-            "sample_info.csv" = "27902376"
+            "readme.txt" = 27902373L,
+            "sample_info.csv" = 27902376L
         )
     ),
     "depmap_public_21q1" = list(
         # FIXME This is missing harmonia data (first to include it).
         "achilles" = list(
             "ceres" = list(
-                "achilles_common_essentials.csv" = "26261275",
-                "achilles_gene_dependency.csv" = "26261290",
-                "achilles_gene_effect.csv" = "26261293"
+                "achilles_common_essentials.csv" = 26261275L,
+                "achilles_gene_dependency.csv" = 26261290L,
+                "achilles_gene_effect.csv" = 26261293L
             )
         ),
         "controls" = list(
-            "common_essentials.csv" = "26261545",
-            "nonessentials.csv" = "26261557"
+            "common_essentials.csv" = 26261545L,
+            "nonessentials.csv" = 26261557L
         ),
         "ccle" = list(
-            "ccle_expression.csv" = "26261476",
-            "ccle_gene_cn.csv" = "26261524",
-            "ccle_mutations.csv" = "26261527"
+            "ccle_expression.csv" = 26261476L,
+            "ccle_gene_cn.csv" = 26261524L,
+            "ccle_mutations.csv" = 26261527L
         ),
         "metadata" = list(
-            "readme.txt" = "26261566",
-            "sample_info.csv" = "26261569"
+            "readme.txt" = 26261566L,
+            "sample_info.csv" = 26261569L
         )
     ),
     "depmap_public_20q4v2" = list(
-        "achilles_common_essentials.csv" = "25770002",
-        "achilles_gene_dependency.csv" = "25770032",
-        "achilles_gene_effect.csv" = "25770029",
-        "ccle_expression.csv" = "25797011",
-        "ccle_gene_cn.csv" = "25770017",
-        "ccle_mutations.csv" = "25494419",
-        "common_essentials.csv" = "25494434",
-        "nonessentials.csv" = "25494437",
-        "readme.txt" = "25797005",
-        "sample_info.csv" = "25494443"
+        "achilles_common_essentials.csv" = 25770002L,
+        "achilles_gene_dependency.csv" = 25770032L,
+        "achilles_gene_effect.csv" = 25770029L,
+        "ccle_expression.csv" = 25797011L,
+        "ccle_gene_cn.csv" = 25770017L,
+        "ccle_mutations.csv" = 25494419L,
+        "common_essentials.csv" = 25494434L,
+        "nonessentials.csv" = 25494437L,
+        "readme.txt" = 25797005L,
+        "sample_info.csv" = 25494443L
     ),
     "depmap_public_20q4" = list(
         "achilles" = list(
@@ -319,23 +319,23 @@
     "depmap_public_20q3" = list(
         "achilles" = list(
             "ceres" = list(
-                "achilles_common_essentials.csv" = "24613283",
-                "achilles_gene_dependency.csv" = "24613298",
-                "achilles_gene_effect.csv" = "24613292"
+                "achilles_common_essentials.csv" = 24613283L,
+                "achilles_gene_dependency.csv" = 24613298L,
+                "achilles_gene_effect.csv" = 24613292L
             )
         ),
         "controls" = list(
-            "common_essentials.csv" = "24613385",
-            "nonessentials.csv" = "24613388"
+            "common_essentials.csv" = 24613385L,
+            "nonessentials.csv" = 24613388L
         ),
         "ccle" = list(
-            "ccle_expression.csv" = "24613325",
-            "ccle_gene_cn.csv" = "24613352",
-            "ccle_mutations.csv" = "24613355"
+            "ccle_expression.csv" = 24613325L,
+            "ccle_gene_cn.csv" = 24613352L,
+            "ccle_mutations.csv" = 24613355L
         ),
         "metadata" = list(
             ## NOTE "readme.txt" missing.
-            "sample_info.csv" = "24613394"
+            "sample_info.csv" = 24613394L
         )
     ),
     ## FIXME depmap_public_20q3
@@ -351,8 +351,8 @@
     ## FIXME depmap_public_18q1
     ## RNAi screens.
     "demeter2_data_v6" = list(
-        "d2_combined_gene_dep_scores.csv" = "13515395",
-        "sample_info.csv" = "11489717"
+        "d2_combined_gene_dep_scores.csv" = 13515395L,
+        "sample_info.csv" = 11489717L
     )
 )
 
