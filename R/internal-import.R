@@ -13,15 +13,17 @@
 #'
 #' @examples
 #' fileName <- "sample_info.csv"
-#' fileId <- .depmap[["20q3"]][["cellular_models"]][[fileName]]
+#' fileId <- .datasets[["depmap_public_21q2"]][["metadata"]][[fileName]]
 #' .cacheDataFile(fileName = fileName, fileId = fileId)
 .cacheDataFile <- function(fileName, fileId, verbose = TRUE) {
     urlStem <- .urlStem
     assert(
+        isString(fileName),
+        isInt(fileId),
         isAURL(urlStem),
         isFlag(verbose)
     )
-    url <- pasteURL(urlStem, fileId)
+    url <- pasteURL(urlStem, as.character(fileId))
     file <- cacheURL(url = url, pkg = .pkgName, verbose = verbose)
     assert(isAFile(file))
     file
@@ -34,10 +36,11 @@
 #' @note Updated 2020-10-01.
 #' @noRd
 .importCellLineSampleData <-  # nolint
-    function(release) {
+    function(dataset) {
         df <- .importDataFile(
             fileName = "sample_info.csv",
-            release = release,
+            keys = "metadata",
+            dataset = dataset,
             rownamesCol = 1L
         )
         assert(is(df, "DataFrame"))
@@ -52,10 +55,10 @@
 #' @note Updated 2020-10-02.
 #' @noRd
 .importCommonEssentials <-
-    function(release) {
+    function(dataset) {
         .importGeneDataFile(
             fileName = "achilles_common_essentials.csv",
-            release = release
+            dataset = dataset
         )
     }
 
@@ -66,10 +69,10 @@
 #' @note Updated 2020-10-02.
 #' @noRd
 .importControlCommonEssentials <-
-    function(release) {
+    function(dataset) {
         .importGeneDataFile(
             fileName = "common_essentials.csv",
-            release = release
+            dataset = dataset
         )
     }
 
@@ -80,41 +83,63 @@
 #' @note Updated 2020-10-02.
 #' @noRd
 .importControlNonessentials <-
-    function(release) {
+    function(dataset) {
         .importGeneDataFile(
             fileName = "nonessentials.csv",
-            release = release
+            dataset = dataset
         )
     }
 
 
 
-#' Import DepMap data file
+#' Import a DepMap data file
 #'
-#' @note Updated 2020-09-30.
+#' @note Updated 2021-06-09.
 #' @noRd
 .importDataFile <- function(
+    dataset,
+    keys,
     fileName,
-    release,
+    ## FIXME Consider adding lines support here?
+    ## FIXME We can do this for genes file and then remove the first element...
     format = c("csv", "tsv"),
     rownamesCol = NULL,
     engine = "data.table",
+    ## FIXME Allow character return if format is lines?
     return = c("DataFrame", "matrix")
 ) {
     assert(
+        isString(dataset),
+        isCharacter(keys),
         isString(fileName),
-        isString(release),
         isScalar(rownamesCol) || is.null(rownamesCol),
-        isString(engine)
+        isString(engine),
+        is.list(.datasets)
     )
     format <- match.arg(format)
     return <- match.arg(return)
+    dataset <- snakeCase(dataset)
+    keys <- c(dataset, keys, fileName)
     alert(sprintf(
-        "Importing {.file %s} from DepMap {.var %s} release.",
-        fileName, release
+        "Importing {.file %s} from {.var %s} dataset.",
+        fileName, dataset
     ))
-    fileId <- .depmap[[tolower(release)]][[fileName]]
+
+    ## FIXME For key, allow multiple levels.
+    ## This currently won't traverse down multiple levels...how to do this
+    ## with a while/break approach?
+    ## e.g. harmonia, chromos/ceres
+
+    assert(
+        isSubset(dataset, names(.datasets)),
+        msg = "Unsupported dataset."
+    )
+    fileId <- `[[`(.datasets, keys)
+    assert(isInt(fileId))
     file <- .cacheDataFile(fileName = fileName, fileId = fileId)
+
+
+
     df <- import(file = file, format = format, engine = engine)
     if (isScalar(rownamesCol)) {
         if (!isString(rownamesCol)) {
@@ -142,10 +167,10 @@
 #' @note Updated 2021-06-08.
 #' @noRd
 .importGeneDataFile <-
-    function(fileName, release) {
+    function(fileName, dataset) {
         df <- .importDataFile(
             fileName = fileName,
-            release = release,
+            dataset = dataset,
             ## Don't use 'data.table' here.
             engine = "base",
             return = "DataFrame"

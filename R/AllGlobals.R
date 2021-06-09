@@ -109,6 +109,15 @@
 #'       List of genes used as negative controls (Hart (2014) nonessentials)
 #'       in the format "HUGO (Entrez)". Each entry is separated by a newline.
 #'
+#' RNAi screening with DEMETER2 scoring:
+#'
+#' - `d2_combined_gene_dep_scores.csv`:
+#'       Source: Broad Institute, Novartis, Marcotte et al.
+#'       - 17309 Genes
+#'       - 712 Cell Lines
+#'       - 31 Primary Diseases
+#'       - 31 Lineages
+#'
 #' CCLE files:
 #'
 #' - `ccle_expression.csv`:
@@ -221,6 +230,18 @@
 .datasets <- list(
     ## CRISPR screens.
     "depmap_public_21q2" = list(
+        "combined" = list(
+            "ceres" = list(
+                "crispr_common_essentials.csv" = 27902163L,
+                "crispr_gene_dependency.csv" = 27902169L,
+                "crispr_gene_effect.csv" = 27902226L
+            ),
+            "chronos" = list(
+                "crispr_common_essentials_chronos.csv" = 27902166L,
+                "crispr_gene_dependency_chronos.csv" = 27902175L,
+                "crispr_gene_effect_chronos.csv" = 27902229L
+            )
+        ),
         "achilles" = list(
             "ceres" = list(
                 "achilles_common_essentials.csv" = 27902028L,
@@ -231,18 +252,6 @@
                 "achilles_common_essentials_chronos.csv" = 27902031L,
                 "achilles_gene_dependency_chronos.csv" = 27902049L,
                 "achilles_gene_effect_chronos.csv" = 27902043L
-            )
-        ),
-        "harmonia" = list(
-            "ceres" = list(
-                "crispr_common_essentials.csv" = 27902163L,
-                "crispr_gene_dependency.csv" = 27902169L,
-                "crispr_gene_effect.csv" = 27902226L
-            ),
-            "chronos" = list(
-                "crispr_common_essentials_chronos.csv" = 27902166L,
-                "crispr_gene_dependency_chronos.csv" = 27902175L,
-                "crispr_gene_effect_chronos.csv" = 27902229L
             )
         ),
         "controls" = list(
@@ -260,7 +269,13 @@
         )
     ),
     "depmap_public_21q1" = list(
-        # FIXME This is missing harmonia data (first to include it).
+        "combined" = list(
+            "ceres" = list(
+                "crispr_common_essentials.csv" = "FIXME",
+                "crispr_gene_dependency.csv" = "FIXME",
+                "crispr_gene_effect.csv" = "FIXME"
+            )
+        ),
         "achilles" = list(
             "ceres" = list(
                 "achilles_common_essentials.csv" = 26261275L,
@@ -283,16 +298,26 @@
         )
     ),
     "depmap_public_20q4v2" = list(
-        "achilles_common_essentials.csv" = 25770002L,
-        "achilles_gene_dependency.csv" = 25770032L,
-        "achilles_gene_effect.csv" = 25770029L,
-        "ccle_expression.csv" = 25797011L,
-        "ccle_gene_cn.csv" = 25770017L,
-        "ccle_mutations.csv" = 25494419L,
-        "common_essentials.csv" = 25494434L,
-        "nonessentials.csv" = 25494437L,
-        "readme.txt" = 25797005L,
-        "sample_info.csv" = 25494443L
+        "achilles" = list(
+            "ceres" = list(
+                "achilles_common_essentials.csv" = 25770002L,
+                "achilles_gene_dependency.csv" = 25770032L,
+                "achilles_gene_effect.csv" = 25770029L
+            )
+        ),
+        "controls" = list(
+            "common_essentials.csv" = 25494434L,
+            "nonessentials.csv" = 25494437L
+        ),
+        "ccle" = list(
+            "ccle_expression.csv" = 25797011L,
+            "ccle_gene_cn.csv" = 25770017L,
+            "ccle_mutations.csv" = 25494419L
+        ),
+        "metadata" = list(
+            "readme.txt" = 25797005L,
+            "sample_info.csv" = 25494443L
+        )
     ),
     "depmap_public_20q4" = list(
         "achilles" = list(
@@ -351,8 +376,15 @@
     ## FIXME depmap_public_18q1
     ## RNAi screens.
     "demeter2_data_v6" = list(
-        "d2_combined_gene_dep_scores.csv" = 13515395L,
-        "sample_info.csv" = 11489717L
+        "combined" = list(
+            "demeter2" = list(
+                "d2_combined_gene_dep_scores.csv" = 13515395L
+            )
+        ),
+        "metadata" = list(
+            "readme.txt" = 13515380L,
+            "sample_info.csv" = 11489717L
+        )
     )
 )
 
