@@ -57,6 +57,6 @@ depletion effect using \code{gene_effect}.
 }
 
 \examples{
-object <- Achilles()
+object <- DepMapAnalysis()
 print(object)
 }

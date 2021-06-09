@@ -30,7 +30,7 @@
 #' @return `DepMapAnalysis`.
 #'
 #' @examples
-#' object <- Achilles()
+#' object <- DepMapAnalysis()
 #' print(object)
 DepMapAnalysis <-  # nolint
     function(

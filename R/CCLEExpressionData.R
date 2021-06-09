@@ -16,9 +16,7 @@ CCLEExpressionData <-  # nolint
             class = "CCLEExpressionData",
             assayName = "log2Tpm",
             fileName = "ccle_expression.csv",
-            dataset = match.arg(dataset),
-            rowData = TRUE,
-            colData = TRUE
+            dataset = match.arg(dataset)
         )
     }
 

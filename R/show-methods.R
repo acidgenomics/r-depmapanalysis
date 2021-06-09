@@ -7,7 +7,6 @@
 ## -RNAi: Achilles+DRIVE+Marcotte
 ##
 
-
 ## FIXME Want to return this type of metadata.
 ## CRISPR (DepMap 21Q2 Public+Score); CERES
 ## RNAi (Achilles+DRIVE+Marcotte); DEMETER2

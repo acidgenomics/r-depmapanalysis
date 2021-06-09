@@ -16,9 +16,7 @@ CCLECopyNumberData <-  # nolint
             class = "CCLECopyNumberData",
             assayName = "log2CopyNumber",
             fileName = "ccle_gene_cn.csv",
-            dataset = match.arg(dataset),
-            rowData = TRUE,
-            colData = TRUE
+            dataset = match.arg(dataset)
         )
     }
 

@@ -1,20 +1,18 @@
-## FIXME Move the DEMETER2 dataset test here.
-
 context("DepMapAnalysis")
 
-test_that("depmap_public_21q2", {
-    object <- DepMapAnalysis(dataset = depMapRelease)
+test_that("CRISPR : depmap_public_21q2", {
+    object <- DepMapAnalysis(dataset = "depmap_public_21q2")
     expect_s4_class(object, "DepMapAnalysis")
     expect_identical(
         object = head(colnames(object), n = 3L),
-        expected = c("ach_000004", "ach_000005", "ach_000007")
+        expected = c("ach_000001", "ach_000004", "ach_000005")
     )
     expect_identical(
         object = head(rownames(object), n = 3L),
         expected = c("a1bg_1", "a1cf_29974", "a2m_2")
     )
     expect_identical(
-        object = names(assays(object)),
+        object = assayNames(object),
         expected = c("effect", "probability")
     )
     ## nolint start
@@ -32,7 +30,7 @@ test_that("depmap_public_21q2", {
             "cultureMedium" = "RPMI + 10% FBS",
             "cultureType" = "Suspension",
             "depMapId" = "ACH-000004",
-            "depmapPublicComments" = NA,
+            "depmapPublicComments" = NA_character_,
             "lineage" = "blood",
             "lineageMolecularSubtype" = NA_character_,
             "lineageSubSubtype" = "M6",
@@ -54,17 +52,13 @@ test_that("depmap_public_21q2", {
         )
     )
     ## nolint end
-    rowData <- rowData(object)[
-        "a1bg_1",
-        ,
-        drop = FALSE
-    ]
+    rowData <- rowData(object)["a1bg_1", , drop = FALSE]
     rowData <- decode(rowData)
     metadata(rowData) <- list()
     attr(class(rowData[["dbXrefs"]]), "package") <- "IRanges"
     attr(class(rowData[["geneSynonyms"]]), "package") <- "IRanges"
     attr(class(rowData[["otherDesignations"]]), "package") <- "IRanges"
-    expect_identical(
+    expect_equal(
         object = rowData,
         expected = DataFrame(
             "chromosome" = "19",
@@ -81,7 +75,7 @@ test_that("depmap_public_21q2", {
                 "A1B", "ABG", "GAB", "HYST2477"
             )),
             "mapLocation" = "19q13.43",
-            "modificationDate" = 20210129,  # nolint
+            "modificationDate" = 20210518,  # nolint
             "nomenclatureStatus" = "O",
             "otherDesignations" = CharacterList(c(
                 "alpha-1B-glycoprotein",
@@ -94,8 +88,8 @@ test_that("depmap_public_21q2", {
         )
     )
     expect_identical(
-        object = metadata(object)[["release"]],
-        expected = "depmap_public_21q1"
+        object = metadata(object)[["dataset"]],
+        expected = dataset
     )
     expect_true(
         isSubset(
@@ -106,29 +100,17 @@ test_that("depmap_public_21q2", {
                 "C17orf47_284083",
                 "CRIPAK_285464",
                 "KIAA1107_23285",
-                "OCLM_10896",
-                "PALM2_114299",
-                "SPHAR_10638"
+                "MICALCL_84953",
+                "PALM2_114299"
             ),
             y = metadata(object)[["retiredGenes"]]
         )
     )
 })
 
-
-
-
-
-
-
-
-## FIXME Rework this...
-
-context("DEMETER2")
-
-test_that("demeter2_data_v6", {
-    object <- DEMETER2()
-    expect_s4_class(object, "DEMETER2")
+test_that("RNAi : demeter2_data_v6", {
+    object <- DepMapAnalysis(dataset = "demeter2_data_v6")
+    expect_s4_class(object, "DepMapAnalysis")
     expect_identical(
         object = head(colnames(object), n = 3L),
         expected = c(
@@ -142,7 +124,7 @@ test_that("demeter2_data_v6", {
         expected = c("a1bg_1", "a1cf_29974", "a2m_2")
     )
     expect_identical(
-        object = names(assays(object)),
+        object = assayNames(object),
         expected = "effect"
     )
     expect_identical(
@@ -150,6 +132,8 @@ test_that("demeter2_data_v6", {
         expected = DataFrame(
             "ccleId" = "A101D_SKIN",
             "disease" = "skin",
+            # FIXME Need to sanitizeNA here better in import...
+            # FIXME May need to update pipette to handle this better...
             "diseaseSubSubtype" = NA_character_,
             "diseaseSubtype" = "melanoma",
             "inAchilles" = FALSE,

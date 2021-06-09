@@ -1,4 +1,4 @@
 data(ach, dem, envir = environment())
 
-depMapRelease <- "21Q1"
+dataset <- "depmap_public_21q2"
 isSubset <- goalie::isSubset
