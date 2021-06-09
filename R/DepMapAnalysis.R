@@ -149,16 +149,6 @@ DepMapAnalysis <-  # nolint
         retiredGenes <- l[["retiredGenes"]]
         rowData <- l[["rowData"]]
         metadata <- list(
-            "commonEssentials" =
-                .importGeneDataFile(
-                    dataset = dataset,
-                    keys = keys,
-                    fileName = ceFile
-                ),
-            "controlCommonEssentials" =
-                .importControlCommonEssentials(dataset = dataset),
-            "controlNonessentials" =
-                .importControlNonessentials(dataset = dataset),
             "dataset" = dataset,
             "libraryType" = libraryType,
             "missingCells" = missingCells,
@@ -166,6 +156,18 @@ DepMapAnalysis <-  # nolint
             "retiredGenes" = retiredGenes,
             "scoringMethod" = scoringMethod
         )
+        if (identical(libraryType, "crispr")) {
+            metadata[["commonEssentials"]] <-
+                .importGeneDataFile(
+                    dataset = dataset,
+                    keys = keys,
+                    fileName = ceFile
+                )
+            metadata[["controlCommonEssentials"]] <-
+                .importControlCommonEssentials(dataset = dataset)
+            metadata[["controlNonessentials"]] <-
+                .importControlNonessentials(dataset = dataset)
+        }
         .makeSummarizedExperiment(
             assays = assays,
             rowData = rowData,
