@@ -43,15 +43,16 @@ setValidity(
         ok <- validateClasses(
             object = metadata,
             expected = list(
-                ## FIXME Might not be able to return all of these for RNAi.
+                ## > "missingCells" = "character",
                 "commonEssentials" = "character",
                 "controlCommonEssentials" = "character",
                 "controlNonessentials" = "character",
                 "dataset" = "character",
                 "date" = "Date",
                 "packageVersion" = "package_version",
-                ## Can allow: Chronos, CERES, DEMETER2
-                "scoringMethod" = "FIXME",
+                "project" = "character",
+                "retiredGenes" = "character",
+                "scoringMethod" = "character",
                 "sessionInfo" = "session_info",
                 "wd" = "character"
             ),

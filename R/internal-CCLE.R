@@ -24,6 +24,7 @@
     ## Cells in columns, genes in rows.
     assays <- lapply(X = assays, FUN = t)
     ## Cell line metadata.
+    ## FIXME Need to standardize this with `DepMapAnalysis()` generator.
     missingCells <- NULL
     colData <- .importCellLineSampleData(dataset = dataset)
     assert(areIntersectingSets(colnames(assays[[1L]]), rownames(colData)))

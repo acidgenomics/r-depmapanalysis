@@ -1,11 +1,3 @@
-## FIXME Rename this to CRISPR...
-
-## FIXME Need to add support for scoringMethod
-## ceres or chronos
-
-
-
-
 #' Import cancer cell line dependency map data
 #'
 #' @section Assays:
@@ -94,7 +86,6 @@ DepMapAnalysis <-  # nolint
             )
         }
         ## CSV formatting: genes in columns, cells in rows.
-        ## FIXME Need to rethink the naming here...
         assays <- list(
             "effect" = .importDataFile(
                 dataset = dataset,
@@ -114,7 +105,26 @@ DepMapAnalysis <-  # nolint
         ## Cells in columns, genes in rows.
         assays <- lapply(X = assays, FUN = t)
         ## Cell line metadata.
+        ## FIXME Need to standardize this with `.makeCCLE()` importer.
+        missingCells <- NULL
         colData <- .importCellLineSampleData(dataset = dataset)
+        assert(areIntersectingSets(colnames(assays[[1L]]), rownames(colData)))
+        if (!isSubset(colnames(assays[[1L]]), rownames(colData))) {
+            missingCells <- setdiff(colnames(assays[[1L]]), rownames(colData))
+            alertWarning(sprintf(
+                "%d missing cell %s in {.var %s}: %s.",
+                length(missingCells),
+                ngettext(
+                    n = length(missingCells),
+                    msg1 = "line",
+                    msg2 = "lines"
+                ),
+                "colData",
+                toString(missingCells, width = 100L)
+            ))
+            colData[missingCells, ] <- NA
+            assert(isSubset(colnames(assays[[1L]]), rownames(colData)))
+        }
         ## Gene metadata.
         l <- .rowDataFromEntrez(assays = assays)
         assert(
@@ -127,14 +137,6 @@ DepMapAnalysis <-  # nolint
         assays <- l[["assays"]]
         retiredGenes <- l[["retiredGenes"]]
         rowData <- l[["rowData"]]
-
-        ## FIXME Need to support retiredCells here too...
-        ## FIXME Failing here due to ACH_002315 not in sample_info.csv.
-        ## Is this due to combined with Sanger?
-        ## Removed in 2021-02-01.
-        ## Need to handle this edge case better?
-        ## https://depmap.org/portal/announcements/
-
         metadata <- list(
             "commonEssentials" =
                 .importGeneDataFile(
@@ -147,6 +149,7 @@ DepMapAnalysis <-  # nolint
             "controlNonessentials" =
                 .importControlNonessentials(dataset = dataset),
             "dataset" = dataset,
+            "missingCells" = missingCells,
             "project" = project,
             "retiredGenes" = retiredGenes,
             "scoringMethod" = scoringMethod
