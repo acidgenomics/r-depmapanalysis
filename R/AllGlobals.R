@@ -1,3 +1,10 @@
+.pkgName <- packageName()
+.pkgVersion <- packageVersion(.pkgName)
+
+
+
+## FIXME Rethink this.
+
 #' Current DepMap (quarterly) release
 #'
 #' @note Updated 2021-05-19.
@@ -11,7 +18,6 @@
 #' @note Updated 2021-06-08.
 #' @noRd
 #'
-#' @details
 #' @section Combination of Broad and Sanger scoring data:
 #'
 #' Combined Achilles and Sanger SCORE Chronos data using Harmonia. This batch
@@ -156,61 +162,61 @@
 #'       Description of all files contained in this release.
 #' - `sample_info.csv`:
 #'       Cell line information definitions:
-        ## [1] "DepMap_ID"
-        ##         Static primary key assigned by DepMap to each cell line.
-        ## [2] "cell_line_name"
-        ## [3] "stripped_cell_line_name"
-        ##         Cell line name with alphanumeric characters only.
-        ## [4] "CCLE_Name"
-        ##         Previous naming system that used the stripped cell line name
-        ##         followed by the lineage; no longer assigned to new cell
-        ##         lines.
-        ## [5] "alias"
-        ##         Additional cell line identifiers (not a comprehensive list).
-        ## [6] "COSMICID"
-        ##         Cell line ID used in Cosmic cancer database
-        ## [7] "sex"
-        ##         Sex of tissue donor if known.
-        ## [8] "source"
-        ##         Source of cell line vial used by DepMap.
-        ## [9] "Achilles_n_replicates"
-        ##         Number of replicates used in Achilles CRISPR screen
-        ##         passing QC.
-        ## [10] "cell_line_NNMD"
-        ##         Difference in the means of positive and negative controls
-        ##         normalized by the standard deviation of the negative control
-        ##         distribution.
-        ## [11] "culture_type"
-        ##         Growth pattern of cell line (Adherent, Suspension, Mixed
-        ##         adherent and suspension, 3D, or Adherent (requires
-        ##         laminin coating)).
-        ## [12] "culture_medium"
-        ##         Medium used to grow cell line.
-        ## [13] "cas9_activity"
-        ##         Percentage of cells remaining GFP positive on days 12-14 of
-        ##         cas9 activity assay as measured by FACS.
-        ## [14] "RRID"
-        ##         Cellosaurus research resource identifier.
-        ## [15] "WTSI_Master_Cell_ID"
-        ## [16] "sample_collection_site"
-        ##         Tissue collection site.
-        ## [17] "primary_or_metastasis"
-        ##         Indicates whether tissue sample is from primary or
-        ##         metastatic site.
-        ## [18] "primary_disease"
-        ##         General cancer lineage category.
-        ## [19] "Subtype"
-        ##         Subtype of disease; specific disease name.
-        ## [20] "age"
-        ##         If known, age of tissue donor at time of sample collection.
-        ## [21] "Sanger_Model_ID"
-        ##         Sanger Institute Cell Model Passport ID.
-        ## [22] "depmap_public_comments"
-        ## [23] "lineage"
-        ## [24] "lineage_subtype"
-        ## [25] "lineage_sub_subtype"
-        ## [26] "lineage_molecular_subtype"
-        ##         Cancer type classifications in a standardized form.
+#'       - [1] "DepMap_ID"
+#'                 Static primary key assigned by DepMap to each cell line.
+#'       - [2] "cell_line_name"
+#'       - [3] "stripped_cell_line_name"
+#'                  Cell line name with alphanumeric characters only.
+#'       - [4] "CCLE_Name"
+#'                  Previous naming system that used the stripped cell line name
+#'                  followed by the lineage; no longer assigned to new cell
+#'                  lines.
+#'       - [5] "alias"
+#'                  Additional cell line identifiers (not a comprehensive list).
+#'       - [6] "COSMICID"
+#'                  Cell line ID used in Cosmic cancer database
+#'       - [7] "sex"
+#'                  Sex of tissue donor if known.
+#'       - [8] "source"
+#'                  Source of cell line vial used by DepMap.
+#'       - [9] "Achilles_n_replicates"
+#'                 Number of replicates used in Achilles CRISPR screen
+#'                 passing QC.
+#'      -  [10] "cell_line_NNMD"
+#'                 Difference in the means of positive and negative controls
+#'                 normalized by the standard deviation of the negative control
+#'                 distribution.
+#'      -  [11] "culture_type"
+#'                 Growth pattern of cell line (Adherent, Suspension, Mixed
+#'                 adherent and suspension, 3D, or Adherent (requires
+#'                 laminin coating)).
+#'      -  [12] "culture_medium"
+#'                 Medium used to grow cell line.
+#'      -  [13] "cas9_activity"
+#'                 Percentage of cells remaining GFP positive on days 12-14 of
+#'                 cas9 activity assay as measured by FACS.
+#'      -  [14] "RRID"
+#'                 Cellosaurus research resource identifier.
+#'      -  [15] "WTSI_Master_Cell_ID"
+#'      -  [16] "sample_collection_site"
+#'                 Tissue collection site.
+#'      -  [17] "primary_or_metastasis"
+#'                 Indicates whether tissue sample is from primary or
+#'                 metastatic site.
+#'      -  [18] "primary_disease"
+#'                 General cancer lineage category.
+#'      -  [19] "Subtype"
+#'                 Subtype of disease; specific disease name.
+#'      -  [20] "age"
+#'                 If known, age of tissue donor at time of sample collection.
+#'      -  [21] "Sanger_Model_ID"
+#'                 Sanger Institute Cell Model Passport ID.
+#'      -  [22] "depmap_public_comments"
+#'      -  [23] "lineage"
+#'      -  [24] "lineage_subtype"
+#'      -  [25] "lineage_sub_subtype"
+#'      -  [26] "lineage_molecular_subtype"
+#'                  Cancer type classifications in a standardized form.
 #'
 #' @seealso
 #' - https://depmap.org/portal/download/
@@ -247,29 +253,40 @@
         ),
         "controls" = list(
             "common_essentials.csv" = "27902160",
-            "nonessentials.csv" = "27902370",
+            "nonessentials.csv" = "27902370"
         ),
         "ccle" = list(
             "ccle_expression.csv" = "27902091",
             "ccle_gene_cn.csv" = "27902124",
             "ccle_mutations.csv" = "27902118"
         ),
-        "other" = list(
+        "metadata" = list(
             "readme.txt" = "27902373",
             "sample_info.csv" = "27902376"
         )
     ),
     "depmap_public_21q1" = list(
-        "achilles_common_essentials.csv" = "26261275",
-        "achilles_gene_dependency.csv" = "26261290",
-        "achilles_gene_effect.csv" = "26261293",
-        "ccle_expression.csv" = "26261476",
-        "ccle_gene_cn.csv" = "26261524",
-        "ccle_mutations.csv" = "26261527",
-        "common_essentials.csv" = "26261545",
-        "nonessentials.csv" = "26261557",
-        "readme.txt" = "26261566",
-        "sample_info.csv" = "26261569"
+        # FIXME This is missing harmonia data (first to include it).
+        "achilles" = list(
+            "ceres" = list(
+                "achilles_common_essentials.csv" = "26261275",
+                "achilles_gene_dependency.csv" = "26261290",
+                "achilles_gene_effect.csv" = "26261293"
+            )
+        ),
+        "controls" = list(
+            "common_essentials.csv" = "26261545",
+            "nonessentials.csv" = "26261557"
+        ),
+        "ccle" = list(
+            "ccle_expression.csv" = "26261476",
+            "ccle_gene_cn.csv" = "26261524",
+            "ccle_mutations.csv" = "26261527"
+        ),
+        "metadata" = list(
+            "readme.txt" = "26261566",
+            "sample_info.csv" = "26261569"
+        )
     ),
     "depmap_public_20q4v2" = list(
         "achilles_common_essentials.csv" = "25770002",
@@ -284,29 +301,49 @@
         "sample_info.csv" = "25494443"
     ),
     "depmap_public_20q4" = list(
-        ## NOTE "readme.txt" missing.
-        "achilles_common_essentials.csv" = "XXX",
-        "achilles_gene_dependency.csv" = "XXX",
-        "achilles_gene_effect.csv" = "XXX",
-        "ccle_expression.csv" = "XXX",
-        "ccle_gene_cn.csv" = "XXX",
-        "ccle_mutations.csv" = "XXX",
-        "common_essentials.csv" = "XXX",
-        "nonessentials.csv" = "XXX",
-        "sample_info.csv" = "XXX"
+        "achilles" = list(
+            "ceres" = list(
+                "achilles_common_essentials.csv" = "FIXME",
+                "achilles_gene_dependency.csv" = "FIXME",
+                "achilles_gene_effect.csv" = "FIXME"
+            )
+        ),
+        "controls" = list(
+            "common_essentials.csv" = "FIXME",
+            "nonessentials.csv" = "FIXME"
+        ),
+        "ccle" = list(
+            "ccle_expression.csv" = "FIXME",
+            "ccle_gene_cn.csv" = "FIXME",
+            "ccle_mutations.csv" = "FIXME"
+        ),
+        "metadata" = list(
+            ## NOTE "readme.txt" missing.
+            "sample_info.csv" = "FIXME"
+        )
     ),
     "depmap_public_20q3" = list(
-        ## NOTE "readme.txt" missing.
-        "achilles_common_essentials.csv" = "24613283",
-        "achilles_gene_dependency.csv" = "24613298",
-        "achilles_gene_effect.csv" = "24613292",
-        "ccle_expression.csv" = "24613325",
-        "ccle_gene_cn.csv" = "24613352",
-        "ccle_mutations.csv" = "24613355",
-        "common_essentials.csv" = "24613385",
-        "nonessentials.csv" = "24613388",
-        "sample_info.csv" = "24613394"
-    ),
+        "achilles" = list(
+            "ceres" = list(
+                "achilles_common_essentials.csv" = "24613283",
+                "achilles_gene_dependency.csv" = "24613298",
+                "achilles_gene_effect.csv" = "24613292"
+            )
+        ),
+        "controls" = list(
+            "common_essentials.csv" = "24613385",
+            "nonessentials.csv" = "24613388"
+        ),
+        "ccle" = list(
+            "ccle_expression.csv" = "24613325",
+            "ccle_gene_cn.csv" = "24613352",
+            "ccle_mutations.csv" = "24613355"
+        ),
+        "metadata" = list(
+            ## NOTE "readme.txt" missing.
+            "sample_info.csv" = "24613394"
+        )
+    )
     ## FIXME depmap_public_20q3
     ## FIXME depmap_public_20q2
     ## FIXME depmap_public_20q1
@@ -319,8 +356,3 @@
     ## FIXME depmap_public_18q2
     ## FIXME depmap_public_18q1
 )
-
-
-
-.pkgName <- packageName()
-.pkgVersion <- packageVersion(.pkgName)

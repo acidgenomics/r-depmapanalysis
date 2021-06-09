@@ -5,7 +5,7 @@
 \alias{dem}
 \title{DEMETER2 example data set}
 \format{
-An object of class \code{DEMETER2} with 100 rows and 50 columns.
+An object of class \code{DEMETER2} of length 1.
 }
 \usage{
 dem

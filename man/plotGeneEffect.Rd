@@ -2,15 +2,12 @@
 % Please edit documentation in R/AllGenerics.R, R/plotGeneEffect-methods.R
 \name{plotGeneEffect}
 \alias{plotGeneEffect}
-\alias{plotGeneEffect,Achilles-method}
-\alias{plotGeneEffect,DEMETER2-method}
+\alias{plotGeneEffect,DepMapAnalysis-method}
 \title{Plot gene effect}
 \usage{
 plotGeneEffect(object, ...)
 
-\S4method{plotGeneEffect}{Achilles}(object, genes, geom = c("boxplot", "density"))
-
-\S4method{plotGeneEffect}{DEMETER2}(object, genes, geom = c("boxplot", "density"))
+\S4method{plotGeneEffect}{DepMapAnalysis}(object, genes, geom = c("boxplot", "density"))
 }
 \arguments{
 \item{object}{Object.}
@@ -31,18 +28,13 @@ the first argument in the \code{character} vector.}
 Plot gene effect
 }
 \note{
-Updated 2020-10-07.
+Updated 2021-06-09.
 }
 \examples{
-data(ach, dem)
+data(dep)
 
-## Achilles ====
-object <- ach
-genes <- rownames(object)[seq_len(5L)]
-plotGeneEffect(object, genes = genes)
-
-## DEMETER2 ====
-object <- dem
+## DepMapAnalysis ====
+object <- dep
 genes <- rownames(object)[seq_len(5L)]
 plotGeneEffect(object, genes = genes)
 }

@@ -37,12 +37,12 @@ Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.1
 Additional_repositories: https://r.acidgenomics.com
 Collate: 
-    'AllGlobals.R'
-    'Achilles.R'
     'AllClasses.R'
     'AllGenerics.R'
+    'AllGlobals.R'
     'CCLE.R'
     'DEMETER2.R'
+    'DepMapAnalysis.R'
     'data.R'
     'internal-SE.R'
     'internal-import.R'

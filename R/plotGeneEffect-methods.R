@@ -1,30 +1,25 @@
 #' Plot gene effect
 #'
 #' @name plotGeneEffect
-#' @note Updated 2020-10-07.
+#' @note Updated 2021-06-09.
 #'
 #' @inheritParams AcidRoxygen::params
 #'
 #' @return `ggplot`.
 #'
 #' @examples
-#' data(ach, dem)
+#' data(dep)
 #'
-#' ## Achilles ====
-#' object <- ach
-#' genes <- rownames(object)[seq_len(5L)]
-#' plotGeneEffect(object, genes = genes)
-#'
-#' ## DEMETER2 ====
-#' object <- dem
+#' ## DepMapAnalysis ====
+#' object <- dep
 #' genes <- rownames(object)[seq_len(5L)]
 #' plotGeneEffect(object, genes = genes)
 NULL
 
 
 
-## Updated 2020-10-07.
-`plotGeneEffect,Achilles` <-  # nolint
+## Updated 2021-06-09.
+`plotGeneEffect,DepMapAnalysis` <-  # nolint
     function(
         object,
         genes,
@@ -113,22 +108,6 @@ NULL
 #' @export
 setMethod(
     f = "plotGeneEffect",
-    signature = signature("Achilles"),
-    definition = `plotGeneEffect,Achilles`
-)
-
-
-
-## Updated 2021-02-24.
-`plotGeneEffect,DEMETER2` <-  # nolint
-    `plotGeneEffect,Achilles`
-
-
-
-#' @rdname plotGeneEffect
-#' @export
-setMethod(
-    f = "plotGeneEffect",
-    signature = signature("DEMETER2"),
-    definition = `plotGeneEffect,DEMETER2`
+    signature = signature("DepMapAnalysis"),
+    definition = `plotGeneEffect,DepMapAnalysis`
 )

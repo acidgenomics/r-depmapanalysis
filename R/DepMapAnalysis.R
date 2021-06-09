@@ -6,7 +6,7 @@
 
 
 
-#' Import Project Achilles CRISPR gene effect data
+#' Import cancer cell line dependency map data
 #'
 #' @section Assays:
 #'
@@ -18,17 +18,18 @@
 #'   depletion effect using `gene_effect`.
 #'
 #' @export
-#' @note Updated 2021-06-08.
+#' @note Updated 2021-06-09.
 #'
 #' @inheritParams params
 #'
-#' @return `Achilles`.
+#' @return `DepMapAnalysis`.
 #'
 #' @examples
 #' object <- Achilles()
 #' print(object)
-Achilles <-  # nolint
+DepMapAnalysis <-  # nolint
     function(
+        ## FIXME Rename release to dataset
         release = NULL,
         scoringMethod = c(
             "chronos",
@@ -38,6 +39,7 @@ Achilles <-  # nolint
         colData = TRUE
     ) {
         ## e.g. "depmap_public_21q2".
+        ## FIXME Set up the formal to use default DepMapRelease
         release <- .matchDepMapRelease(release)
         assert(
             isString(release),
@@ -105,5 +107,8 @@ Achilles <-  # nolint
         )
     }
 
+## FIXME Rework this approach.
+## FIXME Use formalsList and dataset instead of release.
+
 #' @include AllGlobals.R
-formals(Achilles)[["release"]] <- .currentDepMapRelease
+formals(DepMapAnalysis)[["release"]] <- .currentDepMapRelease

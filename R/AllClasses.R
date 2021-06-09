@@ -1,29 +1,27 @@
-## FIXME Consider defining Harmonia object (should this extend Achilles?)
+## FIXME Use Chronos as default method instead of CERES.
+## FIXME Need to rework and add in support for DEMETER2 here.
+## FIXME Need to add support for show method, indicating CRISPR here.
 
-
-
-#' Achilles CRISPR screening data
+#' Cancer cell line dependency map analysis
 #'
 #' @details
-#' Scored using CERES algorithm.
-#'
 #' Inherits from `SummarizedExperiment`.
 #' Cells in columns, genes in rows.
 #'
-#' @note Updated 2021-02-25.
+#' @note Updated 2021-06-09.
 #' @export
 #'
-#' @return `Achilles`.
+#' @return `CERES`.
 #'
 #' @seealso
 #' - https://depmap.org/portal/achilles/
 #' - https://depmap.org/ceres/
 setClass(
-    Class = "Achilles",
+    Class = "DepMapAnalysis",
     contains = "SummarizedExperiment"
 )
 setValidity(
-    Class = "Achilles",
+    Class = "DepMapAnalysis",
     method = function(object) {
         assayNames <- assayNames(object)
         metadata <- metadata(object)
@@ -102,21 +100,4 @@ setClass(
 setClass(
     Class = "CCLEMutationData",
     contains = "DataFrame"
-)
-
-
-
-#' DEMETER2 RNAi gene effect data
-#'
-#' @details
-#' Inherits from `SummarizedExperiment`.
-#' Cells in columns, genes in rows.
-#'
-#' @note Updated 2021-02-25.
-#' @export
-#'
-#' @return `DEMETER2`.
-setClass(
-    Class = "DEMETER2",
-    contains = "SummarizedExperiment"
 )
