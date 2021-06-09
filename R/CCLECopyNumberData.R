@@ -12,7 +12,7 @@
 #' print(object)
 CCLECopyNumberData <-  # nolint
     function(
-        dataset = NULL,
+        dataset,
         rowData = TRUE,
         colData = TRUE
     ) {

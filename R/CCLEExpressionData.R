@@ -12,7 +12,7 @@
 #' dim(object)
 CCLEExpressionData <-  # nolint
     function(
-        dataset = NULL,
+        dataset,
         rowData = TRUE,
         colData = TRUE
     ) {
@@ -26,4 +26,4 @@ CCLEExpressionData <-  # nolint
         )
     }
 
-formals(CCLECopyNumberData)[["dataset"]] <- .formalsList[["depmapDataset"]]
+formals(CCLEExpressionData)[["dataset"]] <- .formalsList[["depmapDataset"]]

@@ -11,7 +11,7 @@
 #' object <- CCLEMutationData()
 #' dim(object)
 CCLEMutationData <-  # nolint
-    function(dataset = NULL) {
+    function(dataset) {
         df <- .importDataFile(
             fileName = "ccle_mutations.csv",
             format = "csv",
@@ -27,4 +27,4 @@ CCLEMutationData <-  # nolint
         new("CCLEMutationData", df)
     }
 
-formals(CCLECopyNumberData)[["dataset"]] <- .formalsList[["depmapDataset"]]
+formals(CCLEMutationData)[["dataset"]] <- .formalsList[["depmapDataset"]]
