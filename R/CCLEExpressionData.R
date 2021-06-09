@@ -20,7 +20,7 @@ CCLEExpressionData <-  # nolint
             class = "CCLEExpressionData",
             assayName = "expression",
             fileName = "ccle_expression.csv",
-            dataset = dataset,
+            dataset = match.arg(dataset),
             rowData = rowData,
             colData = colData
         )
