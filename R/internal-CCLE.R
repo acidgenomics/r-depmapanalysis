@@ -17,8 +17,9 @@
     )
     assays <- list(
         .importDataFile(
-            fileName = fileName,
             dataset = dataset,
+            keys = "ccle",
+            fileName = fileName,
             rownamesCol = 1L,
             return = "matrix"
         )
@@ -80,100 +81,3 @@
         class = class
     )
 }
-
-
-
-#' Import CCLE copy number data
-#'
-#' @export
-#' @note Updated 2021-02-25.
-#'
-#' @inheritParams params
-#'
-#' @return `CCLECopyNumberData`.
-#'
-#' @examples
-#' object <- CCLECopyNumberData()
-#' print(object)
-CCLECopyNumberData <-  # nolint
-    function(
-        dataset = NULL,
-        rowData = TRUE,
-        colData = TRUE
-    ) {
-        .makeCcle(
-            class = "CCLECopyNumberData",
-            assayName = "copyNumber",
-            fileName = "ccle_gene_cn.csv",
-            dataset = dataset,
-            rowData = rowData,
-            colData = colData
-        )
-    }
-
-formals(CCLECopyNumberData)[["dataset"]] <- .formalsList[["dataset"]]
-
-
-
-#' Import CCLE expression data
-#'
-#' @export
-#' @note Updated 2021-02-25.
-#'
-#' @inheritParams params
-#'
-#' @return `CCLEExpressionData`.
-#'
-#' @examples
-#' object <- CCLEExpressionData()
-#' dim(object)
-CCLEExpressionData <-  # nolint
-    function(
-        dataset = NULL,
-        rowData = TRUE,
-        colData = TRUE
-    ) {
-        .makeCcle(
-            class = "CCLEExpressionData",
-            assayName = "expression",
-            fileName = "ccle_expression.csv",
-            dataset = dataset,
-            rowData = rowData,
-            colData = colData
-        )
-    }
-
-formals(CCLEExpressionData)[["dataset"]] <- .formalsList[["dataset"]]
-
-
-
-#' Import CCLE mutation data
-#'
-#' @export
-#' @note Updated 2021-02-25.
-#'
-#' @inheritParams params
-#'
-#' @return `CCLEMutationData`.
-#'
-#' @examples
-#' object <- CCLEMutationData()
-#' dim(object)
-CCLEMutationData <-  # nolint
-    function(dataset = NULL) {
-        df <- .importDataFile(
-            fileName = "ccle_mutations.csv",
-            format = "csv",
-            dataset = dataset,
-            rownamesCol = NULL
-        )
-        assert(is(df, "DataFrame"))
-        colnames(df) <- camelCase(colnames(df), strict = TRUE)
-        metadata(df) <- list(
-            "packageVersion" = .pkgVersion,
-            "dataset" = dataset
-        )
-        new("CCLEMutationData", df)
-    }
-
-formals(CCLEMutationData)[["dataset"]] <- .formalsList[["dataset"]]
