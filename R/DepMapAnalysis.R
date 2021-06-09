@@ -21,6 +21,15 @@
 #' @note Updated 2021-06-09.
 #'
 #' @inheritParams params
+#' @param project `character(1)`.
+#'   Project name.
+#'   Defaults to a combination of multiple projects (`"combined"`):
+#'   - CRISPR: Broad DepMap Public, Sanger Project Score
+#'     (e.g. for `depmap_public_21q2`).
+#'   - RNAi: Achilles, DRIVE, Marcotte
+#'     (e.g. for `demeter2_data_v6`).
+#'
+#' @param scoringMethod `character(1)`.
 #'
 #' @return `DepMapAnalysis`.
 #'
@@ -29,22 +38,29 @@
 #' print(object)
 DepMapAnalysis <-  # nolint
     function(
-        dataset = NULL,
+        dataset,
+        project = c(
+            "combined",
+            "achilles"
+        ),
         scoringMethod = c(
             "chronos",
-            "ceres"
+            "ceres",
+            "demeter2"
         ),
         rowData = TRUE,
         colData = TRUE
     ) {
         assert(
-            isString(dataset),
             isFlag(rowData),
             isFlag(colData)
         )
+        dataset <- match.arg(dataset)
+        project <- match.arg(project)
         ## FIXME Need to add support for this.
         scoringMethod <- match.arg(scoringMethod)
         ## CSV formatting: genes in columns, cells in rows.
+        ## FIXME Need to work the variable input here...
         assays <- list(
             "effect" = .importDataFile(
                 fileName = "achilles_gene_effect.csv",

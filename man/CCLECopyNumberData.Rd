@@ -5,7 +5,8 @@
 \title{Import CCLE copy number data}
 \usage{
 CCLECopyNumberData(
-  dataset = "depmap_public_21q2",
+  dataset = c("depmap_public_21q2", "depmap_public_21q1", "depmap_public_20q4v2",
+    "depmap_public_20q4", "depmap_public_20q3"),
   rowData = TRUE,
   colData = TRUE
 )

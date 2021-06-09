@@ -5,8 +5,10 @@
 \title{Import cancer cell line dependency map data}
 \usage{
 DepMapAnalysis(
-  dataset = "depmap_public_21q2",
-  scoringMethod = c("chronos", "ceres"),
+  dataset = c("depmap_public_21q2", "depmap_public_21q1", "depmap_public_20q4v2",
+    "depmap_public_20q4", "depmap_public_20q3", "demeter2_data_v6"),
+  project = c("combined", "achilles"),
+  scoringMethod = c("chronos", "ceres", "demeter2"),
   rowData = TRUE,
   colData = TRUE
 )
@@ -15,6 +17,18 @@ DepMapAnalysis(
 \item{dataset}{\code{character(1)} or \code{NULL}.
 DepMap dataset release name.
 If left \code{NULL}, defaults to latest supported dataset.}
+
+\item{project}{\code{character(1)}.
+Project name.
+Defaults to a combination of multiple projects (\code{"combined"}):
+\itemize{
+\item CRISPR: Broad DepMap Public, Sanger Project Score
+(e.g. for \code{depmap_public_21q2}).
+\item RNAi: Achilles, DRIVE, Marcotte
+(e.g. for \code{demeter2_data_v6}).
+}}
+
+\item{scoringMethod}{\code{character(1)}.}
 
 \item{rowData}{\code{logical(1)}.
 Include gene annotations as genomic ranges.}

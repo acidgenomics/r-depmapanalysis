@@ -391,5 +391,10 @@
 
 
 .formalsList <- list(
-    "dataset" = names(.datasets)[[1L]]
+    "dataset" = names(.datasets),
+    "depmapDataset" = grep(
+        pattern = "^depmap_",
+        x = names(.datasets),
+        value = TRUE
+    )
 )

@@ -27,4 +27,4 @@ CCLEMutationData <-  # nolint
         new("CCLEMutationData", df)
     }
 
-formals(CCLEMutationData)[["dataset"]] <- .formalsList[["dataset"]]
+formals(CCLECopyNumberData)[["dataset"]] <- .formalsList[["depmapDataset"]]
