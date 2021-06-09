@@ -18,7 +18,7 @@ CCLECopyNumberData <-  # nolint
     ) {
         .makeCcle(
             class = "CCLECopyNumberData",
-            assayName = "copyNumber",
+            assayName = "log2CopyNumber",
             fileName = "ccle_gene_cn.csv",
             dataset = match.arg(dataset),
             rowData = rowData,

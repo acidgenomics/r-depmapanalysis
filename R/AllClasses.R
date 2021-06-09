@@ -82,7 +82,7 @@ setValidity(
     Class = "CCLECopyNumberData",
     method = function(object) {
         ok <- validate(
-            isSubset(c("copyNumber"), assayNames(object))
+            isSubset(c("log2CopyNumber"), assayNames(object))
         )
         if (!isTRUE(ok)) return(ok)
         ok <- validateClasses(
