@@ -3,17 +3,13 @@
     class,
     assayName,
     fileName,
-    dataset,
-    rowData,
-    colData
+    dataset
 ) {
     assert(
         isString(class),
         isString(assayName),
         isString(fileName),
-        isString(dataset),
-        isFlag(rowData),
-        isFlag(colData)
+        isString(dataset)
     )
     assays <- list(
         .importDataFile(
@@ -29,45 +25,36 @@
     assays <- lapply(X = assays, FUN = t)
     ## Cell line metadata.
     missingCells <- NULL
-    if (isTRUE(colData)) {
-        colData <- .importCellLineSampleData(dataset = dataset)
-        assert(areIntersectingSets(colnames(assays[[1L]]), rownames(colData)))
-        if (!isSubset(colnames(assays[[1L]]), rownames(colData))) {
-            missingCells <- setdiff(colnames(assays[[1L]]), rownames(colData))
-            alertWarning(sprintf(
-                "%d missing cell %s in {.var %s}: %s.",
-                length(missingCells),
-                ngettext(
-                    n = length(missingCells),
-                    msg1 = "line",
-                    msg2 = "lines"
-                ),
-                "colData",
-                toString(missingCells, width = 100L)
-            ))
-            colData[missingCells, ] <- NA
-            assert(isSubset(colnames(assays[[1L]]), rownames(colData)))
-        }
-    } else {
-        colData <- NULL
+    colData <- .importCellLineSampleData(dataset = dataset)
+    assert(areIntersectingSets(colnames(assays[[1L]]), rownames(colData)))
+    if (!isSubset(colnames(assays[[1L]]), rownames(colData))) {
+        missingCells <- setdiff(colnames(assays[[1L]]), rownames(colData))
+        alertWarning(sprintf(
+            "%d missing cell %s in {.var %s}: %s.",
+            length(missingCells),
+            ngettext(
+                n = length(missingCells),
+                msg1 = "line",
+                msg2 = "lines"
+            ),
+            "colData",
+            toString(missingCells, width = 100L)
+        ))
+        colData[missingCells, ] <- NA
+        assert(isSubset(colnames(assays[[1L]]), rownames(colData)))
     }
     ## Gene metadata.
-    if (isTRUE(rowData)) {
-        l <- .rowDataFromEntrez(assays = assays)
-        assert(
-            is.list(l),
-            identical(
-                x = names(l),
-                y = c("assays", "retiredGenes", "rowData")
-            )
+    l <- .rowDataFromEntrez(assays = assays)
+    assert(
+        is.list(l),
+        identical(
+            x = names(l),
+            y = c("assays", "retiredGenes", "rowData")
         )
-        assays <- l[["assays"]]
-        retiredGenes <- l[["retiredGenes"]]
-        rowData <- l[["rowData"]]
-    } else {
-        retiredGenes <- NULL
-        rowData <- NULL
-    }
+    )
+    assays <- l[["assays"]]
+    retiredGenes <- l[["retiredGenes"]]
+    rowData <- l[["rowData"]]
     metadata <- list(
         "dataset" = dataset,
         "missingCells" = missingCells,

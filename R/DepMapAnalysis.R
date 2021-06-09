@@ -28,8 +28,12 @@
 #'     (e.g. for `depmap_public_21q2`).
 #'   - RNAi: Achilles, DRIVE, Marcotte
 #'     (e.g. for `demeter2_data_v6`).
-#'
 #' @param scoringMethod `character(1)`.
+#'   Scoring method name to use.
+#'   - CRISPR: `"chronos"` (as of 2021 Q1) or `"ceres"`
+#'     (e.g. `depmap_public_21q2` dataset).
+#'   - RNAi: `"demeter2"`
+#'     (e.g. `demeter2_data_v6` dataset).
 #'
 #' @return `DepMapAnalysis`.
 #'
@@ -51,20 +55,58 @@ DepMapAnalysis <-  # nolint
     ) {
         dataset <- match.arg(dataset)
         project <- match.arg(project)
-        ## FIXME Need to add support for this.
         scoringMethod <- match.arg(scoringMethod)
+        keys <- c(project, scoringMethod)
+        ## FIXME This needs to add support for DEMETER2 RNAi dataset.
+        if (isTRUE(grepl(pattern = "^depmap_", x = dataset))) {
+            switch(
+                EXPR = project,
+                "combined" = {
+                    switch(
+                        EXPR = scoringMethod,
+                        "chronos" = {
+                            ceFile <- "crispr_common_essentials_chronos.csv"
+                            effectFile <- "crispr_gene_effect_chronos.csv"
+                            probFile <- "crispr_gene_dependency_chronos.csv"
+                        },
+                        "ceres" = {
+                            ceFile <- "crispr_common_essentials.csv"
+                            effectFile <- "crispr_gene_effect.csv"
+                            probFile <- "crispr_gene_dependency.csv"
+                        }
+                    )
+                },
+                "achilles" = {
+                    switch(
+                        EXPR = scoringMethod,
+                        "chronos" = {
+                            ceFile <- "achilles_common_essentials_chronos.csv"
+                            effectFile <- "achilles_gene_effect_chronos.csv"
+                            probFile <- "achilles_gene_dependency_chronos.csv"
+                        },
+                        "ceres" = {
+                            ceFile <- "achilles_common_essentials.csv"
+                            effectFile <- "achilles_gene_effect.csv"
+                            probFile <- "achilles_gene_dependency.csv"
+                        }
+                    )
+                }
+            )
+        }
         ## CSV formatting: genes in columns, cells in rows.
-        ## FIXME Need to work the variable input here...
+        ## FIXME Need to rethink the naming here...
         assays <- list(
             "effect" = .importDataFile(
-                fileName = "achilles_gene_effect.csv",
                 dataset = dataset,
+                keys = keys,
+                fileName = effectFile,
                 rownamesCol = 1L,
                 return = "matrix"
             ),
             "probability" = .importDataFile(
-                fileName = "achilles_gene_dependency.csv",
                 dataset = dataset,
+                keys = keys,
+                fileName = probFile,
                 rownamesCol = 1L,
                 return = "matrix"
             )
@@ -85,15 +127,29 @@ DepMapAnalysis <-  # nolint
         assays <- l[["assays"]]
         retiredGenes <- l[["retiredGenes"]]
         rowData <- l[["rowData"]]
+
+        ## FIXME Need to support retiredCells here too...
+        ## FIXME Failing here due to ACH_002315 not in sample_info.csv.
+        ## Is this due to combined with Sanger?
+        ## Removed in 2021-02-01.
+        ## Need to handle this edge case better?
+        ## https://depmap.org/portal/announcements/
+
         metadata <- list(
             "commonEssentials" =
-                .importCommonEssentials(dataset = dataset),
+                .importGeneDataFile(
+                    dataset = dataset,
+                    keys = keys,
+                    fileName = ceFile
+                ),
             "controlCommonEssentials" =
                 .importControlCommonEssentials(dataset = dataset),
             "controlNonessentials" =
                 .importControlNonessentials(dataset = dataset),
             "dataset" = dataset,
-            "retiredGenes" = retiredGenes
+            "project" = project,
+            "retiredGenes" = retiredGenes,
+            "scoringMethod" = scoringMethod
         )
         .makeSummarizedExperiment(
             assays = assays,

@@ -38,28 +38,14 @@
 .importCellLineSampleData <-  # nolint
     function(dataset) {
         df <- .importDataFile(
-            fileName = "sample_info.csv",
-            keys = "metadata",
             dataset = dataset,
+            keys = "metadata",
+            fileName = "sample_info.csv",
             rownamesCol = 1L
         )
         assert(is(df, "DataFrame"))
         df <- snakeCase(df)
         df
-    }
-
-
-
-#' Import common essential genes
-#'
-#' @note Updated 2020-10-02.
-#' @noRd
-.importCommonEssentials <-
-    function(dataset) {
-        .importGeneDataFile(
-            fileName = "achilles_common_essentials.csv",
-            dataset = dataset
-        )
     }
 
 
@@ -71,8 +57,9 @@
 .importControlCommonEssentials <-
     function(dataset) {
         .importGeneDataFile(
-            fileName = "common_essentials.csv",
-            dataset = dataset
+            dataset = dataset,
+            keys = "controls",
+            fileName = "common_essentials.csv"
         )
     }
 
@@ -85,8 +72,9 @@
 .importControlNonessentials <-
     function(dataset) {
         .importGeneDataFile(
-            fileName = "nonessentials.csv",
-            dataset = dataset
+            dataset = dataset,
+            keys = "controls",
+            fileName = "nonessentials.csv"
         )
     }
 
@@ -124,22 +112,16 @@
         "Importing {.file %s} from {.var %s} dataset.",
         fileName, dataset
     ))
-
-    ## FIXME For key, allow multiple levels.
-    ## This currently won't traverse down multiple levels...how to do this
-    ## with a while/break approach?
-    ## e.g. harmonia, chromos/ceres
-
     assert(
         isSubset(dataset, names(.datasets)),
         msg = "Unsupported dataset."
     )
     fileId <- `[[`(.datasets, keys)
-    assert(isInt(fileId))
+    assert(
+        isInt(fileId),
+        msg = sprintf("Unsupported dataset: %s", toString(keys))
+    )
     file <- .cacheDataFile(fileName = fileName, fileId = fileId)
-
-
-
     df <- import(file = file, format = format, engine = engine)
     if (isScalar(rownamesCol)) {
         if (!isString(rownamesCol)) {
@@ -167,10 +149,11 @@
 #' @note Updated 2021-06-08.
 #' @noRd
 .importGeneDataFile <-
-    function(fileName, dataset) {
+    function(dataset, keys, fileName) {
         df <- .importDataFile(
-            fileName = fileName,
             dataset = dataset,
+            keys = keys,
+            fileName = fileName,
             ## Don't use 'data.table' here.
             engine = "base",
             return = "DataFrame"

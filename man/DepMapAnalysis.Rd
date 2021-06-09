@@ -26,7 +26,14 @@ Defaults to a combination of multiple projects (\code{"combined"}):
 (e.g. for \code{demeter2_data_v6}).
 }}
 
-\item{scoringMethod}{\code{character(1)}.}
+\item{scoringMethod}{\code{character(1)}.
+Scoring method name to use.
+\itemize{
+\item CRISPR: \code{"chronos"} (as of 2021 Q1) or \code{"ceres"}
+(e.g. \code{depmap_public_21q2} dataset).
+\item RNAi: \code{"demeter2"}
+(e.g. \code{demeter2_data_v6} dataset).
+}}
 }
 \value{
 \code{DepMapAnalysis}.
