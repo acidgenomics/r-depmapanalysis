@@ -3,7 +3,6 @@
 export(CCLECopyNumberData)
 export(CCLEExpressionData)
 export(CCLEMutationData)
-export(DEMETER2)
 export(DepMapAnalysis)
 export(plotGeneEffect)
 exportClasses(CCLECopyNumberData)

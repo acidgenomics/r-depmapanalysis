@@ -381,6 +381,16 @@
                 "d2_combined_gene_dep_scores.csv" = 13515395L
             )
         ),
+        "achilles" = list(
+            "demeter2" = list(
+                "d2_achilles_gene_dep_scores.csv" = 11489669L
+            )
+        ),
+        "drive" = list(
+            "demeter2" = list(
+                "d2_drive_gene_dep_scores.csv" = 11489693L
+            )
+        ),
         "metadata" = list(
             "readme.txt" = 13515380L,
             "sample_info.csv" = 11489717L

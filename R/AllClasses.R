@@ -1,67 +1,3 @@
-## FIXME Use Chronos as default method instead of CERES.
-## FIXME Need to rework and add in support for DEMETER2 here.
-## FIXME Need to add support for show method, indicating CRISPR here.
-
-
-
-## FIXME Want to return this type of metadata.
-## CRISPR (DepMap 21Q2 Public+Score); CERES
-## RNAi (Achilles+DRIVE+Marcotte); DEMETER2
-
-
-
-#' Cancer cell line dependency map analysis
-#'
-#' @details
-#' Inherits from `SummarizedExperiment`.
-#' Cells in columns, genes in rows.
-#'
-#' @export
-#' @note Updated 2021-06-09.
-#'
-#' @return `DepMapAnalysis`.
-#'
-#' @seealso
-#' - https://depmap.org/portal/achilles/
-#' - https://depmap.org/ceres/
-setClass(
-    Class = "DepMapAnalysis",
-    contains = "SummarizedExperiment"
-)
-setValidity(
-    Class = "DepMapAnalysis",
-    method = function(object) {
-        ok <- validate(
-            isSubset(c("effect", "probability"), assayNames(object)),
-            hasDimnames(object)
-        )
-        if (!isTRUE(ok)) return(ok)
-        ok <- validateClasses(
-            object = metadata(object),
-            expected = list(
-                ## > "missingCells" = "character",
-                "commonEssentials" = "character",
-                "controlCommonEssentials" = "character",
-                "controlNonessentials" = "character",
-                "dataset" = "character",
-                "date" = "Date",
-                "libraryType" = "character",
-                "packageVersion" = "package_version",
-                "project" = "character",
-                "retiredGenes" = "character",
-                "scoringMethod" = "character",
-                "sessionInfo" = "session_info",
-                "wd" = "character"
-            ),
-            subset = TRUE
-        )
-        if (!isTRUE(ok)) return(ok)
-        TRUE
-    }
-)
-
-
-
 #' CCLE copy number data
 #'
 #' @details
@@ -139,11 +75,11 @@ setValidity(
             object = metadata(object),
             expected = list(
                 ## > "missingCells" = "character",
+                ## > "retiredGenes" = "character",
                 "dataset" = "character",
                 "date" = "Date",
                 "packageName" = "character",
                 "packageVersion" = "numeric_version",
-                "retiredGenes" = "character",
                 "sessionInfo" = "session_info",
                 "wd" = "character"
             ),
@@ -233,12 +169,12 @@ setValidity(
         ok <- validateClasses(
             object = metadata(object),
             expected = list(
+                ## > "missingCells" = "character",
+                ## > "retiredGenes" = "character",
                 "dataset" = "character",
                 "date" = "Date",
-                "missingCells" = "character",
                 "packageName" = "character",
                 "packageVersion" = "numeric_version",
-                "retiredGenes" = "character",
                 "sessionInfo" = "session_info",
                 "wd" = "character"
             ),
@@ -311,9 +247,63 @@ setValidity(
         ok <- validateClasses(
             object = metadata(object),
             expected = list(
-                dataset = "character",
-                packageName = "character",
-                packageVersion = "package_version"
+                "dataset" = "character",
+                "packageName" = "character",
+                "packageVersion" = "package_version"
+            ),
+            subset = TRUE
+        )
+        if (!isTRUE(ok)) return(ok)
+        TRUE
+    }
+)
+
+
+
+#' Cancer cell line dependency map analysis
+#'
+#' @details
+#' Inherits from `SummarizedExperiment`.
+#' Cells in columns, genes in rows.
+#'
+#' @export
+#' @note Updated 2021-06-09.
+#'
+#' @return `DepMapAnalysis`.
+#'
+#' @seealso
+#' - https://depmap.org/portal/achilles/
+#' - https://depmap.org/ceres/
+setClass(
+    Class = "DepMapAnalysis",
+    contains = "SummarizedExperiment"
+)
+setValidity(
+    Class = "DepMapAnalysis",
+    method = function(object) {
+        ## The "probability" assay is specific to CRISPR.
+        ok <- validate(
+            isSubset("effect", assayNames(object)),
+            hasDimnames(object)
+        )
+        if (!isTRUE(ok)) return(ok)
+        ok <- validateClasses(
+            object = metadata(object),
+            expected = list(
+                ## > "missingCells" = "character",
+                ## > "retiredGenes" = "character",
+                ## CRISPR-specific:
+                ## > "commonEssentials" = "character",
+                ## > "controlCommonEssentials" = "character",
+                ## > "controlNonessentials" = "character",
+                "dataset" = "character",
+                "date" = "Date",
+                "libraryType" = "character",
+                "packageVersion" = "package_version",
+                "project" = "character",
+                "scoringMethod" = "character",
+                "sessionInfo" = "session_info",
+                "wd" = "character"
             ),
             subset = TRUE
         )

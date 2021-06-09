@@ -37,7 +37,8 @@ DepMapAnalysis <-  # nolint
         dataset,
         project = c(
             "combined",
-            "achilles"
+            "achilles",
+            "drive"
         ),
         scoringMethod = c(
             "chronos",
@@ -49,10 +50,8 @@ DepMapAnalysis <-  # nolint
         project <- match.arg(project)
         scoringMethod <- match.arg(scoringMethod)
         keys <- c(project, scoringMethod)
-        ## FIXME This needs to add support for DEMETER2 RNAi dataset.
-        ## libraryType <- "RNAi"
         if (isTRUE(grepl(pattern = "^depmap_", x = dataset))) {
-            libraryType <- "CRISPR"
+            libraryType <- "crispr"
             switch(
                 EXPR = project,
                 "combined" = {
@@ -86,24 +85,34 @@ DepMapAnalysis <-  # nolint
                     )
                 }
             )
+        } else if (isTRUE(grepl(pattern = "^demeter2_", x = dataset))) {
+            libraryType <- "rnai"
+
+            ceFile
+            effectFile
+            probFile
+
+        } else {
+            stop(sprintf("Unsupported dataset: '%s'.", dataset))
         }
         ## CSV formatting: genes in columns, cells in rows.
-        assays <- list(
-            "effect" = .importDataFile(
-                dataset = dataset,
-                keys = keys,
-                fileName = effectFile,
-                rownamesCol = 1L,
-                return = "matrix"
-            ),
-            "probability" = .importDataFile(
+        assays <- list()
+        assays[["effect"]] <- .importDataFile(
+            dataset = dataset,
+            keys = keys,
+            fileName = effectFile,
+            rownamesCol = 1L,
+            return = "matrix"
+        )
+        if (identical(libraryType, "crispr")) {
+            assays[["probability"]] <- .importDataFile(
                 dataset = dataset,
                 keys = keys,
                 fileName = probFile,
                 rownamesCol = 1L,
                 return = "matrix"
             )
-        )
+        }
         ## Cells in columns, genes in rows.
         assays <- lapply(X = assays, FUN = t)
         ## Cell line metadata.

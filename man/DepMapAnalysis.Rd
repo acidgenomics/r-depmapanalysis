@@ -7,7 +7,7 @@
 DepMapAnalysis(
   dataset = c("depmap_public_21q2", "depmap_public_21q1", "depmap_public_20q4v2",
     "depmap_public_20q4", "depmap_public_20q3", "demeter2_data_v6"),
-  project = c("combined", "achilles"),
+  project = c("combined", "achilles", "drive"),
   scoringMethod = c("chronos", "ceres", "demeter2")
 )
 }
