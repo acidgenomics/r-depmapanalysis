@@ -281,10 +281,9 @@ setClass(
 setValidity(
     Class = "DepMapAnalysis",
     method = function(object) {
-        ## The "probability" assay is specific to CRISPR.
         ok <- validate(
-            isSubset("effect", assayNames(object)),
-            hasDimnames(object)
+            hasDimnames(object),
+            isSubset("effect", assayNames(object))
         )
         if (!isTRUE(ok)) return(ok)
         ok <- validateClasses(
@@ -292,10 +291,6 @@ setValidity(
             expected = list(
                 ## > "missingCells" = "character",
                 ## > "retiredGenes" = "character",
-                ## CRISPR-specific:
-                ## > "commonEssentials" = "character",
-                ## > "controlCommonEssentials" = "character",
-                ## > "controlNonessentials" = "character",
                 "dataset" = "character",
                 "date" = "Date",
                 "libraryType" = "character",
@@ -308,6 +303,80 @@ setValidity(
             subset = TRUE
         )
         if (!isTRUE(ok)) return(ok)
+        switch(
+            EXPR = metadata(object)[["libraryType"]],
+            "crispr" = {
+                ok <- validate(
+                    isSubset("probability", assayNames(object)),
+                    isSubset(
+                        x = c(
+                            "achillesNReplicates",
+                            "age",
+                            "alias",
+                            "cas9Activity",
+                            "ccleName",
+                            "cellLineName",
+                            "cellLineNnmd",
+                            "cosmicid",
+                            "cultureMedium",
+                            "cultureType",
+                            "depMapId",
+                            "depmapPublicComments",
+                            "lineage",
+                            "lineageMolecularSubtype",
+                            "lineageSubSubtype",
+                            "lineageSubtype",
+                            "primaryDisease",
+                            "primaryOrMetastasis",
+                            "rrid",
+                            "sampleCollectionSite",
+                            "sangerModelId",
+                            "sex",
+                            "source",
+                            "strippedCellLineName",
+                            "subtype",
+                            "wtsiMasterCellId"
+                        ),
+                        y = colnames(colData(object))
+                    )
+                )
+                if (!isTRUE(ok)) return(ok)
+                ok <- validateClasses(
+                    object = metadata(object),
+                    expected = list(
+                        "commonEssentials" = "character",
+                        "controlCommonEssentials" = "character",
+                        "controlNonessentials" = "character"
+                    ),
+                    subset = TRUE
+                )
+                if (!isTRUE(ok)) return(ok)
+            },
+            "rnai" = {
+                ok <- validate(
+                    isSubset(
+                        x = c(
+                            "ccleId",
+                            "disease",
+                            "diseaseSubSubtype",
+                            "diseaseSubtype",
+                            "inAchilles",
+                            "inDrive",
+                            "inMarcotte",
+                            "marcotteName",
+                            "marcotteSubtypeIntrinsic",
+                            "marcotteSubtypeNeve",
+                            "marcotteSubtypeThreeReceptor",
+                            "novartisName",
+                            "novartisPathologistAnnotation",
+                            "novartisPrimarySite"
+                        ),
+                        y = colnames(colData(object))
+                    )
+                )
+                if (!isTRUE(ok)) return(ok)
+            }
+        )
         TRUE
     }
 )

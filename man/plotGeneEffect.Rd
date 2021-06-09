@@ -31,10 +31,10 @@ Plot gene effect
 Updated 2021-06-09.
 }
 \examples{
-data(dep)
+data(crispr)
 
 ## DepMapAnalysis ====
-object <- dep
+object <- crispr
 genes <- rownames(object)[seq_len(5L)]
 plotGeneEffect(object, genes = genes)
 }

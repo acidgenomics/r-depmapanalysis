@@ -8,10 +8,10 @@
 #' @return `ggplot`.
 #'
 #' @examples
-#' data(dep)
+#' data(crispr)
 #'
 #' ## DepMapAnalysis ====
-#' object <- dep
+#' object <- crispr
 #' genes <- rownames(object)[seq_len(5L)]
 #' plotGeneEffect(object, genes = genes)
 NULL
@@ -64,10 +64,7 @@ NULL
                 scale_x_discrete(limits = rev) +
                 coord_flip() +
                 labs(
-                    title = paste(
-                        class(object)[[1L]],
-                        "gene effect"
-                    ),
+                    title = "gene effect",
                     x = "gene",
                     y = "gene effect"
                 )
@@ -95,7 +92,7 @@ NULL
                     scales = "fixed"
                 ) +
                 labs(
-                    title = "Achilles gene effect",
+                    title = "gene effect",
                     x = "gene effect"
                 )
         }

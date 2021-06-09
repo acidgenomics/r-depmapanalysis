@@ -43,7 +43,6 @@ Collate:
     'CCLECopyNumberData.R'
     'CCLEExpressionData.R'
     'CCLEMutationData.R'
-    'DEMETER2.R'
     'DepMapAnalysis.R'
     'data.R'
     'internal-CCLE.R'
