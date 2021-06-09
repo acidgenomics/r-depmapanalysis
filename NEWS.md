@@ -1,3 +1,15 @@
+## DepMapAnalysis 0.1.0 (2021-06-09)
+
+### Major changes
+
+- Initial release version suitable for use on Shiny Server.
+- Reworked object approach to now use `DepMapAnalysis` for both CRISPR and RNAi
+  gene effect datasets. Previously, these were classed as `Achilles` and
+  `DEMETER2`, which is confusing. Now both CRISPR and RNAi experiments keep
+  track of project source and scoring method more clearly.
+- Simplifed internal code to improve consistency between import of gene effect
+  and gene expression from CCLE.
+
 ## DepMapAnalysis 0.0.6 (2021-03-12)
 
 ### Minor changes

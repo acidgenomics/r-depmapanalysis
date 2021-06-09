@@ -1,7 +1,8 @@
 context("DepMapAnalysis")
 
 test_that("CRISPR : depmap_public_21q2", {
-    object <- DepMapAnalysis(dataset = "depmap_public_21q2")
+    dataset <- "depmap_public_21q2"
+    object <- DepMapAnalysis(dataset = dataset)
     expect_s4_class(object, "DepMapAnalysis")
     expect_identical(
         object = head(colnames(object), n = 3L),
@@ -109,7 +110,8 @@ test_that("CRISPR : depmap_public_21q2", {
 })
 
 test_that("RNAi : demeter2_data_v6", {
-    object <- DepMapAnalysis(dataset = "demeter2_data_v6")
+    dataset <- "demeter2_data_v6"
+    object <- DepMapAnalysis(dataset = dataset)
     expect_s4_class(object, "DepMapAnalysis")
     expect_identical(
         object = head(colnames(object), n = 3L),
@@ -132,10 +134,10 @@ test_that("RNAi : demeter2_data_v6", {
         expected = DataFrame(
             "ccleId" = "A101D_SKIN",
             "disease" = "skin",
-            # FIXME Need to sanitizeNA here better in import...
-            # FIXME May need to update pipette to handle this better...
             "diseaseSubSubtype" = NA_character_,
             "diseaseSubtype" = "melanoma",
+            ## FIXME This is currently failing for pipette when calling
+            ## sanitizeNA now...
             "inAchilles" = FALSE,
             "inDrive" = TRUE,
             "inMarcotte" = FALSE,
@@ -160,7 +162,7 @@ test_that("RNAi : demeter2_data_v6", {
         )
     )
     expect_identical(
-        object = metadata(object)[["release"]],
+        object = metadata(object)[["dataset"]],
         expected = "demeter2_data_v6"
     )
     expect_true(
