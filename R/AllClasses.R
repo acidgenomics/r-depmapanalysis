@@ -19,7 +19,7 @@ setValidity(
     Class = "CCLECopyNumberData",
     method = function(object) {
         ok <- validate(
-            isSubset(c("log2CopyNumber"), assayNames(object)),
+            isSubset("log2CopyNumber", assayNames(object)),
             isSubset(
                 x = c(
                     "chromosome",
@@ -114,7 +114,7 @@ setValidity(
     Class = "CCLEExpressionData",
     method = function(object) {
         ok <- validate(
-            isSubset(c("log2Tpm"), assayNames(object)),
+            isSubset("log2Tpm", assayNames(object)),
             isSubset(
                 x = c(
                     "chromosome",

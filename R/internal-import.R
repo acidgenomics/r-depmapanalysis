@@ -88,12 +88,9 @@
     dataset,
     keys,
     fileName,
-    ## FIXME Consider adding lines support here?
-    ## FIXME We can do this for genes file and then remove the first element...
     format = c("csv", "tsv"),
     rownamesCol = NULL,
     engine = "data.table",
-    ## FIXME Allow character return if format is lines?
     return = c("DataFrame", "matrix")
 ) {
     assert(
