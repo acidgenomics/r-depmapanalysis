@@ -6,21 +6,13 @@
 \usage{
 CCLECopyNumberData(
   dataset = c("depmap_public_21q2", "depmap_public_21q1", "depmap_public_20q4v2",
-    "depmap_public_20q4", "depmap_public_20q3"),
-  rowData = TRUE,
-  colData = TRUE
+    "depmap_public_20q4", "depmap_public_20q3")
 )
 }
 \arguments{
 \item{dataset}{\code{character(1)} or \code{NULL}.
 DepMap dataset release name.
 If left \code{NULL}, defaults to latest supported dataset.}
-
-\item{rowData}{\code{logical(1)}.
-Include gene annotations as genomic ranges.}
-
-\item{colData}{\code{logical(1)}.
-Include cell line metadata.}
 }
 \value{
 \code{CCLECopyNumberData}.

@@ -11,9 +11,12 @@
 CCLE expression data
 }
 \details{
+RNA-seq TPM gene expression data for just protein coding genes using RSEM.
+Log2 transformed, using a pseudo-count of 1.
+
 Inherits from \code{SummarizedExperiment}.
 Cells in columns, genes in rows.
 }
 \note{
-Updated 2021-02-25.
+Updated 2021-06-09.
 }

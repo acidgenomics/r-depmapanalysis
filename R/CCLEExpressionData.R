@@ -11,18 +11,14 @@
 #' object <- CCLEExpressionData()
 #' dim(object)
 CCLEExpressionData <-  # nolint
-    function(
-        dataset,
-        rowData = TRUE,
-        colData = TRUE
-    ) {
+    function(dataset) {
         .makeCcle(
             class = "CCLEExpressionData",
-            assayName = "expression",
+            assayName = "log2Tpm",
             fileName = "ccle_expression.csv",
             dataset = match.arg(dataset),
-            rowData = rowData,
-            colData = colData
+            rowData = TRUE,
+            colData = TRUE
         )
     }
 

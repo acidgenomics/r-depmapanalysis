@@ -11,18 +11,14 @@
 #' object <- CCLECopyNumberData()
 #' print(object)
 CCLECopyNumberData <-  # nolint
-    function(
-        dataset,
-        rowData = TRUE,
-        colData = TRUE
-    ) {
+    function(dataset) {
         .makeCcle(
             class = "CCLECopyNumberData",
             assayName = "log2CopyNumber",
             fileName = "ccle_gene_cn.csv",
             dataset = match.arg(dataset),
-            rowData = rowData,
-            colData = colData
+            rowData = TRUE,
+            colData = TRUE
         )
     }
 

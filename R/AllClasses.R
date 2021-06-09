@@ -16,8 +16,8 @@
 #' Inherits from `SummarizedExperiment`.
 #' Cells in columns, genes in rows.
 #'
-#' @note Updated 2021-06-09.
 #' @export
+#' @note Updated 2021-06-09.
 #'
 #' @return `DepMapAnalysis`.
 #'
@@ -73,8 +73,8 @@ setValidity(
 #' Inherits from `SummarizedExperiment`.
 #' Cells in columns, genes in rows.
 #'
-#' @note Updated 2021-06-09.
 #' @export
+#' @note Updated 2021-06-09.
 #'
 #' @return `CCLECopyNumberData`.
 setClass(
@@ -85,7 +85,56 @@ setValidity(
     Class = "CCLECopyNumberData",
     method = function(object) {
         ok <- validate(
-            isSubset(c("log2CopyNumber"), assayNames(object))
+            isSubset(c("log2CopyNumber"), assayNames(object)),
+            isSubset(
+                x = c(
+                    "chromosome",
+                    "dbXrefs",
+                    "description",
+                    "featureType",
+                    "geneId",
+                    "geneName",
+                    "geneSynonyms",
+                    "mapLocation",
+                    "modificationDate",
+                    "nomenclatureStatus",
+                    "otherDesignations",
+                    "typeOfGene",
+                    "xTaxId"
+                ),
+                y = colnames(rowData(object))
+            ),
+            isSubset(
+                x = c(
+                    "achillesNReplicates",
+                    "age",
+                    "alias",
+                    "cas9Activity",
+                    "ccleName",
+                    "cellLineName",
+                    "cellLineNnmd",
+                    "cosmicid",
+                    "cultureMedium",
+                    "cultureType",
+                    "depMapId",
+                    "depmapPublicComments",
+                    "lineage",
+                    "lineageMolecularSubtype",
+                    "lineageSubSubtype",
+                    "lineageSubtype",
+                    "primaryDisease",
+                    "primaryOrMetastasis",
+                    "rrid",
+                    "sampleCollectionSite",
+                    "sangerModelId",
+                    "sex",
+                    "source",
+                    "strippedCellLineName",
+                    "subtype",
+                    "wtsiMasterCellId"
+                ),
+                y = colnames(colData(object))
+            )
         )
         if (!isTRUE(ok)) return(ok)
         ok <- validateClasses(
@@ -112,19 +161,95 @@ setValidity(
 #' CCLE expression data
 #'
 #' @details
+#'
+#' RNA-seq TPM gene expression data for just protein coding genes using RSEM.
+#' Log2 transformed, using a pseudo-count of 1.
+#'
 #' Inherits from `SummarizedExperiment`.
 #' Cells in columns, genes in rows.
 #'
-#' @note Updated 2021-02-25.
 #' @export
+#' @note Updated 2021-06-09.
 #'
 #' @return `CCLEExpressionData`.
 setClass(
     Class = "CCLEExpressionData",
     contains = "SummarizedExperiment"
 )
-
-## FIXME This needs validity checks.
+setValidity(
+    Class = "CCLEExpressionData",
+    method = function(object) {
+        ok <- validate(
+            isSubset(c("log2Tpm"), assayNames(object)),
+            isSubset(
+                x = c(
+                    "chromosome",
+                    "dbXrefs",
+                    "description",
+                    "featureType",
+                    "geneId",
+                    "geneName",
+                    "geneSynonyms",
+                    "mapLocation",
+                    "modificationDate",
+                    "nomenclatureStatus",
+                    "otherDesignations",
+                    "typeOfGene",
+                    "xTaxId"
+                ),
+                y = colnames(rowData(object))
+            ),
+            isSubset(
+                x = c(
+                    "achillesNReplicates",
+                    "age",
+                    "alias",
+                    "cas9Activity",
+                    "ccleName",
+                    "cellLineName",
+                    "cellLineNnmd",
+                    "cosmicid",
+                    "cultureMedium",
+                    "cultureType",
+                    "depMapId",
+                    "depmapPublicComments",
+                    "lineage",
+                    "lineageMolecularSubtype",
+                    "lineageSubSubtype",
+                    "lineageSubtype",
+                    "primaryDisease",
+                    "primaryOrMetastasis",
+                    "rrid",
+                    "sampleCollectionSite",
+                    "sangerModelId",
+                    "sex",
+                    "source",
+                    "strippedCellLineName",
+                    "subtype",
+                    "wtsiMasterCellId"
+                ),
+                y = colnames(colData(object))
+            )
+        )
+        if (!isTRUE(ok)) return(ok)
+        ok <- validateClasses(
+            object = metadata(object),
+            expected = list(
+                "dataset" = "character",
+                "date" = "Date",
+                "missingCells" = "character",
+                "packageName" = "character",
+                "packageVersion" = "numeric_version",
+                "retiredGenes" = "character",
+                "sessionInfo" = "session_info",
+                "wd" = "character"
+            ),
+            subset = TRUE
+        )
+        if (!isTRUE(ok)) return(ok)
+        TRUE
+    }
+)
 
 
 
