@@ -38,8 +38,8 @@ NULL
         m <- metadata(object)
         list <- list(
             "dataset" = m[["dataset"]],
-            "project" = m[["project"]],
             "libraryType" = m[["libraryType"]],
+            "project" = m[["project"]],
             "scoringMethod" = m[["scoringMethod"]]
         )
         showSlotInfo(list)
