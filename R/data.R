@@ -1,21 +1,21 @@
-#' Achilles example data set
+#' CRISPR example data set
 #'
 #' @author Michael Steinbaugh
-#' @note Updated 2021-02-24.
+#' @note Updated 2021-06-09.
 #'
 #' @examples
-#' data(ach)
-#' ach
-"ach"
+#' data(crispr)
+#' crispr
+"crispr"
 
 
 
-#' DEMETER2 example data set
-#'
-#' @author Michael Steinbaugh
-#' @note Updated 2021-02-24.
-#'
-#' @examples
-#' data(dem)
-#' dem
-"dem"
+## FIXME Need to add this.
+## #' RNAi example data set
+## #'
+## #' @author Michael Steinbaugh
+## #' @note Updated 2021-06-09.
+## #'
+## #' @examples
+## #' data(rnai)
+## "rnai"

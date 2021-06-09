@@ -31,17 +31,13 @@ setClass(
 setValidity(
     Class = "DepMapAnalysis",
     method = function(object) {
-        assayNames <- assayNames(object)
-        metadata <- metadata(object)
-        packageVersion <- metadata[["packageVersion"]]
         ok <- validate(
-            isSubset(c("effect", "probability"), assayNames),
-            is(packageVersion, "package_version"),
+            isSubset(c("effect", "probability"), assayNames(object)),
             hasDimnames(object)
         )
         if (!isTRUE(ok)) return(ok)
         ok <- validateClasses(
-            object = metadata,
+            object = metadata(object),
             expected = list(
                 ## > "missingCells" = "character",
                 "commonEssentials" = "character",
@@ -49,6 +45,7 @@ setValidity(
                 "controlNonessentials" = "character",
                 "dataset" = "character",
                 "date" = "Date",
+                "libraryType" = "character",
                 "packageVersion" = "package_version",
                 "project" = "character",
                 "retiredGenes" = "character",

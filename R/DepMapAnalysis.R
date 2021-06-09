@@ -50,7 +50,9 @@ DepMapAnalysis <-  # nolint
         scoringMethod <- match.arg(scoringMethod)
         keys <- c(project, scoringMethod)
         ## FIXME This needs to add support for DEMETER2 RNAi dataset.
+        ## libraryType <- "RNAi"
         if (isTRUE(grepl(pattern = "^depmap_", x = dataset))) {
+            libraryType <- "CRISPR"
             switch(
                 EXPR = project,
                 "combined" = {
@@ -149,6 +151,7 @@ DepMapAnalysis <-  # nolint
             "controlNonessentials" =
                 .importControlNonessentials(dataset = dataset),
             "dataset" = dataset,
+            "libraryType" = libraryType,
             "missingCells" = missingCells,
             "project" = project,
             "retiredGenes" = retiredGenes,
