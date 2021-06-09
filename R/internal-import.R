@@ -113,7 +113,18 @@
         isSubset(dataset, names(.datasets)),
         msg = "Unsupported dataset."
     )
-    fileId <- `[[`(.datasets, keys)
+    tryCatch(
+        expr = {
+            fileId <- `[[`(.datasets, keys)
+        },
+        error = function(e) {
+            stop(sprintf(
+                "Unsupported dataset: %s",
+                toString(keys)
+            ))
+        }
+    )
+
     assert(
         isInt(fileId),
         msg = sprintf("Unsupported dataset: %s", toString(keys))

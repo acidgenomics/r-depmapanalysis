@@ -1,5 +1,31 @@
 context("DepMapAnalysis")
 
+## Add extra coverage for these in the future:
+##
+## > DepMapAnalysis(
+## >     dataset = "depmap_public_21q1",
+## >     project = "combined",
+## >     scoringMethod = "ceres"
+## > )
+##
+## > DepMapAnalysis(
+## >     dataset = "depmap_public_21q1",
+## >     project = "achilles",
+## >     scoringMethod = "ceres"
+## > )
+##
+## > DepMapAnalysis(
+## >     dataset = "demeter2_data_v6",
+## >     project = "combined",
+## >     scoringMethod = "demeter2"
+## > )
+##
+## > DepMapAnalysis(
+## >     dataset = "demeter2_data_v6",
+## >     project = "drive",
+## >     scoringMethod = "demeter2"
+## > )
+
 test_that("CRISPR : depmap_public_21q2", {
     dataset <- "depmap_public_21q2"
     object <- DepMapAnalysis(dataset = dataset)
@@ -136,8 +162,6 @@ test_that("RNAi : demeter2_data_v6", {
             "disease" = "skin",
             "diseaseSubSubtype" = NA_character_,
             "diseaseSubtype" = "melanoma",
-            ## FIXME This is currently failing for pipette when calling
-            ## sanitizeNA now...
             "inAchilles" = FALSE,
             "inDrive" = TRUE,
             "inMarcotte" = FALSE,

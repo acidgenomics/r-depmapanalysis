@@ -1,7 +1,3 @@
-## FIXME Add show method for CCLE classes...
-
-
-
 #' @name show
 #' @inherit AcidGenerics::show
 #' @note Updated 2021-06-09.
@@ -25,7 +21,9 @@ NULL
             "genes" = length(unique(object[["entrezGeneId"]])),
             "transcripts" = length(unique(object[["annotationTranscript"]])),
             "ncbiBuild" = unique(object[["ncbiBuild"]]),
-            "variantClassification" = sort(unique(object[["variantClassification"]]))
+            "variantClassification" = sort(unique(
+                object[["variantClassification"]]
+            ))
         )
         showSlotInfo(list)
     }

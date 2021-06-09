@@ -17,6 +17,6 @@
 #' @importFrom goalie areIntersectingSets assert hasDimnames hasLength
 #'   hasRownames isAFile isAURL isCharacter isFlag isInt isScalar isString
 #'   isSubset validate validateClasses
-#' @importFrom methods as is new setClass setValidity validObject
+#' @importFrom methods as is new setClass setValidity show validObject
 #' @importFrom rlang !! sym
 "_PACKAGE"

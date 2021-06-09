@@ -271,9 +271,9 @@
     "depmap_public_21q1" = list(
         "combined" = list(
             "ceres" = list(
-                "crispr_common_essentials.csv" = "FIXME",
-                "crispr_gene_dependency.csv" = "FIXME",
-                "crispr_gene_effect.csv" = "FIXME"
+                "crispr_common_essentials.csv" = 26261551L,
+                "crispr_gene_dependency.csv" = 26261554L,
+                "crispr_gene_effect.csv" = 26261563L
             )
         ),
         "achilles" = list(
@@ -322,23 +322,23 @@
     "depmap_public_20q4" = list(
         "achilles" = list(
             "ceres" = list(
-                "achilles_common_essentials.csv" = "FIXME",
-                "achilles_gene_dependency.csv" = "FIXME",
-                "achilles_gene_effect.csv" = "FIXME"
+                "achilles_common_essentials.csv" = "-",
+                "achilles_gene_dependency.csv" = "-",
+                "achilles_gene_effect.csv" = "-"
             )
         ),
         "controls" = list(
-            "common_essentials.csv" = "FIXME",
-            "nonessentials.csv" = "FIXME"
+            "common_essentials.csv" = "-",
+            "nonessentials.csv" = "-"
         ),
         "ccle" = list(
-            "ccle_expression.csv" = "FIXME",
-            "ccle_gene_cn.csv" = "FIXME",
-            "ccle_mutations.csv" = "FIXME"
+            "ccle_expression.csv" = "-",
+            "ccle_gene_cn.csv" = "-",
+            "ccle_mutations.csv" = "-"
         ),
         "metadata" = list(
             ## NOTE "readme.txt" missing.
-            "sample_info.csv" = "FIXME"
+            "sample_info.csv" = "-"
         )
     ),
     "depmap_public_20q3" = list(
@@ -363,17 +363,18 @@
             "sample_info.csv" = 24613394L
         )
     ),
-    ## FIXME depmap_public_20q3
-    ## FIXME depmap_public_20q2
-    ## FIXME depmap_public_20q1
-    ## FIXME depmap_public_19q4
-    ## FIXME depmap_public_19q3
-    ## FIXME depmap_public_19q2
-    ## FIXME depmap_public_19q1
-    ## FIXME depmap_public_18q4
-    ## FIXME depmap_public_18q3
-    ## FIXME depmap_public_18q2
-    ## FIXME depmap_public_18q1
+    ## Add these in future update:
+    ## - depmap_public_20q3
+    ## - depmap_public_20q2
+    ## - depmap_public_20q1
+    ## - depmap_public_19q4
+    ## - depmap_public_19q3
+    ## - depmap_public_19q2
+    ## - depmap_public_19q1
+    ## - depmap_public_18q4
+    ## - depmap_public_18q3
+    ## - depmap_public_18q2
+    ## - depmap_public_18q1
     ## RNAi screens.
     "demeter2_data_v6" = list(
         "combined" = list(
