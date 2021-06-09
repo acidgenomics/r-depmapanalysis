@@ -6,13 +6,6 @@
 \usage{
 DEMETER2(rowData = TRUE, colData = TRUE)
 }
-\arguments{
-\item{rowData}{\code{logical(1)}.
-Include gene annotations as genomic ranges.}
-
-\item{colData}{\code{logical(1)}.
-Include cell line metadata.}
-}
 \value{
 \code{DEMETER2}.
 }

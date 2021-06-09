@@ -4,15 +4,9 @@
 \alias{params}
 \title{Shared parameter documentation}
 \arguments{
-\item{colData}{\code{logical(1)}.
-Include cell line metadata.}
-
 \item{dataset}{\code{character(1)} or \code{NULL}.
 DepMap dataset release name.
 If left \code{NULL}, defaults to latest supported dataset.}
-
-\item{rowData}{\code{logical(1)}.
-Include gene annotations as genomic ranges.}
 }
 \value{
 No value.

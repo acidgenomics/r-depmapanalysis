@@ -47,14 +47,8 @@ DepMapAnalysis <-  # nolint
             "chronos",
             "ceres",
             "demeter2"
-        ),
-        rowData = TRUE,
-        colData = TRUE
-    ) {
-        assert(
-            isFlag(rowData),
-            isFlag(colData)
         )
+    ) {
         dataset <- match.arg(dataset)
         project <- match.arg(project)
         ## FIXME Need to add support for this.
@@ -78,28 +72,19 @@ DepMapAnalysis <-  # nolint
         ## Cells in columns, genes in rows.
         assays <- lapply(X = assays, FUN = t)
         ## Cell line metadata.
-        if (isTRUE(colData)) {
-            colData <- .importCellLineSampleData(dataset = dataset)
-        } else {
-            colData <- NULL
-        }
+        colData <- .importCellLineSampleData(dataset = dataset)
         ## Gene metadata.
-        if (isTRUE(rowData)) {
-            l <- .rowDataFromEntrez(assays = assays)
-            assert(
-                is.list(l),
-                identical(
-                    x = names(l),
-                    y = c("assays", "retiredGenes", "rowData")
-                )
+        l <- .rowDataFromEntrez(assays = assays)
+        assert(
+            is.list(l),
+            identical(
+                x = names(l),
+                y = c("assays", "retiredGenes", "rowData")
             )
-            assays <- l[["assays"]]
-            retiredGenes <- l[["retiredGenes"]]
-            rowData <- l[["rowData"]]
-        } else {
-            retiredGenes <- NULL
-            rowData <- NULL
-        }
+        )
+        assays <- l[["assays"]]
+        retiredGenes <- l[["retiredGenes"]]
+        rowData <- l[["rowData"]]
         metadata <- list(
             "commonEssentials" =
                 .importCommonEssentials(dataset = dataset),

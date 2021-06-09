@@ -8,9 +8,7 @@ DepMapAnalysis(
   dataset = c("depmap_public_21q2", "depmap_public_21q1", "depmap_public_20q4v2",
     "depmap_public_20q4", "depmap_public_20q3", "demeter2_data_v6"),
   project = c("combined", "achilles"),
-  scoringMethod = c("chronos", "ceres", "demeter2"),
-  rowData = TRUE,
-  colData = TRUE
+  scoringMethod = c("chronos", "ceres", "demeter2")
 )
 }
 \arguments{
@@ -29,12 +27,6 @@ Defaults to a combination of multiple projects (\code{"combined"}):
 }}
 
 \item{scoringMethod}{\code{character(1)}.}
-
-\item{rowData}{\code{logical(1)}.
-Include gene annotations as genomic ranges.}
-
-\item{colData}{\code{logical(1)}.
-Include cell line metadata.}
 }
 \value{
 \code{DepMapAnalysis}.
