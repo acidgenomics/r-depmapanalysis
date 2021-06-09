@@ -3,17 +3,15 @@
 
 
 
-## FIXME Rethink this.
-
-#' Current DepMap (quarterly) release
+#' DepMap Figshare URL file download stem
 #'
-#' @note Updated 2021-05-19.
+#' @note Updated 2021-06-09.
 #' @noRd
-.currentDepMapRelease <- "21Q2"
+.urlStem <- "https://ndownloader.figshare.com/files"
 
 
 
-#' DepMap file downloads
+#' DepMap dataset URLs
 #'
 #' @note Updated 2021-06-08.
 #' @noRd
@@ -220,12 +218,8 @@
 #'
 #' @seealso
 #' - https://depmap.org/portal/download/
-.depmap <- list(
-    "url_stem" = "https://ndownloader.figshare.com/files/",
-    "demeter2_data_v6" = list(
-        "d2_combined_gene_dep_scores.csv" = "13515395",
-        "sample_info.csv" = "11489717"
-    ),
+.datasets <- list(
+    ## CRISPR screens.
     "depmap_public_21q2" = list(
         "achilles" = list(
             "ceres" = list(
@@ -343,7 +337,7 @@
             ## NOTE "readme.txt" missing.
             "sample_info.csv" = "24613394"
         )
-    )
+    ),
     ## FIXME depmap_public_20q3
     ## FIXME depmap_public_20q2
     ## FIXME depmap_public_20q1
@@ -355,4 +349,15 @@
     ## FIXME depmap_public_18q3
     ## FIXME depmap_public_18q2
     ## FIXME depmap_public_18q1
+    ## RNAi screens.
+    "demeter2_data_v6" = list(
+        "d2_combined_gene_dep_scores.csv" = "13515395",
+        "sample_info.csv" = "11489717"
+    )
+)
+
+
+
+.formalsList <- list(
+    "dataset" = names(.datasets)[[1L]]
 )

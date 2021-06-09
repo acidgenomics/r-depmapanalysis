@@ -38,9 +38,9 @@ setValidity(
                 "commonEssentials" = "character",
                 "controlCommonEssentials" = "character",
                 "controlNonessentials" = "character",
+                "dataset" = "character",
                 "date" = "Date",
                 "packageVersion" = "package_version",
-                "release" = "character",
                 "sessionInfo" = "session_info",
                 "wd" = "character"
             ),

@@ -16,12 +16,12 @@
 #' fileId <- .depmap[["20q3"]][["cellular_models"]][[fileName]]
 #' .cacheDataFile(fileName = fileName, fileId = fileId)
 .cacheDataFile <- function(fileName, fileId, verbose = TRUE) {
-    urlStem <- .depmap[["url_stem"]]
+    urlStem <- .urlStem
     assert(
         isAURL(urlStem),
         isFlag(verbose)
     )
-    url <- paste0(urlStem, fileId)
+    url <- pasteURL(urlStem, fileId)
     file <- cacheURL(url = url, pkg = .pkgName, verbose = verbose)
     assert(isAFile(file))
     file
@@ -154,22 +154,3 @@
         vec <- sort(df[["gene"]])
         vec
     }
-
-
-
-## FIXME Take this out and simplify the default dataset argument.
-
-## Updated 2021-02-25.
-.matchDepMapRelease <- function(release = NULL) {
-    if (is.null(release)) {
-        release <- .currentDepMapRelease
-    }
-    assert(isString(release))
-    if (!isTRUE(grepl(pattern = "^depmap_", x = release))) {
-        release <- snakeCase(paste(
-            "depmap", "public",
-            gsub(pattern = " ", replacement = "", x = tolower(release))
-        ))
-    }
-    release
-}

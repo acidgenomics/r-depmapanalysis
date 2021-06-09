@@ -29,8 +29,7 @@
 #' print(object)
 DepMapAnalysis <-  # nolint
     function(
-        ## FIXME Rename release to dataset
-        release = NULL,
+        dataset = NULL,
         scoringMethod = c(
             "chronos",
             "ceres"
@@ -38,11 +37,8 @@ DepMapAnalysis <-  # nolint
         rowData = TRUE,
         colData = TRUE
     ) {
-        ## e.g. "depmap_public_21q2".
-        ## FIXME Set up the formal to use default DepMapRelease
-        release <- .matchDepMapRelease(release)
         assert(
-            isString(release),
+            isString(dataset),
             isFlag(rowData),
             isFlag(colData)
         )
@@ -52,13 +48,13 @@ DepMapAnalysis <-  # nolint
         assays <- list(
             "effect" = .importDataFile(
                 fileName = "achilles_gene_effect.csv",
-                release = release,
+                dataset = dataset,
                 rownamesCol = 1L,
                 return = "matrix"
             ),
             "probability" = .importDataFile(
                 fileName = "achilles_gene_dependency.csv",
-                release = release,
+                dataset = dataset,
                 rownamesCol = 1L,
                 return = "matrix"
             )
@@ -67,7 +63,7 @@ DepMapAnalysis <-  # nolint
         assays <- lapply(X = assays, FUN = t)
         ## Cell line metadata.
         if (isTRUE(colData)) {
-            colData <- .importCellLineSampleData(release = release)
+            colData <- .importCellLineSampleData(dataset = dataset)
         } else {
             colData <- NULL
         }
@@ -90,12 +86,12 @@ DepMapAnalysis <-  # nolint
         }
         metadata <- list(
             "commonEssentials" =
-                .importCommonEssentials(release = release),
+                .importCommonEssentials(dataset = dataset),
             "controlCommonEssentials" =
-                .importControlCommonEssentials(release = release),
+                .importControlCommonEssentials(dataset = dataset),
             "controlNonessentials" =
-                .importControlNonessentials(release = release),
-            "release" = release,
+                .importControlNonessentials(dataset = dataset),
+            "dataset" = dataset,
             "retiredGenes" = retiredGenes
         )
         .makeSummarizedExperiment(
@@ -103,12 +99,9 @@ DepMapAnalysis <-  # nolint
             rowData = rowData,
             colData = colData,
             metadata = metadata,
-            class = "Achilles"
+            class = "DepMapAnalysis"
         )
     }
 
-## FIXME Rework this approach.
-## FIXME Use formalsList and dataset instead of release.
-
 #' @include AllGlobals.R
-formals(DepMapAnalysis)[["release"]] <- .currentDepMapRelease
+formals(DepMapAnalysis)[["dataset"]] <- .formalsList[["dataset"]]

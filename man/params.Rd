@@ -7,9 +7,9 @@
 \item{colData}{\code{logical(1)}.
 Include cell line metadata.}
 
-\item{release}{\code{character(1)} or \code{NULL}.
-DepMap quarterly release ID (e.g. \code{"20Q3"}).
-If left \code{NULL}, defaults to latest supported release.}
+\item{dataset}{\code{character(1)} or \code{NULL}.
+DepMap dataset release name.
+If left \code{NULL}, defaults to latest supported dataset.}
 
 \item{rowData}{\code{logical(1)}.
 Include gene annotations as genomic ranges.}

@@ -3,24 +3,22 @@
     class,
     assayName,
     fileName,
-    release,
+    dataset,
     rowData,
     colData
 ) {
-    ## e.g. returns "depmap_public_21q1".
-    release <- .matchDepMapRelease(release)
     assert(
         isString(class),
         isString(assayName),
         isString(fileName),
-        isString(release),
+        isString(dataset),
         isFlag(rowData),
         isFlag(colData)
     )
     assays <- list(
         .importDataFile(
             fileName = fileName,
-            release = release,
+            dataset = dataset,
             rownamesCol = 1L,
             return = "matrix"
         )
@@ -31,7 +29,7 @@
     ## Cell line metadata.
     missingCells <- NULL
     if (isTRUE(colData)) {
-        colData <- .importCellLineSampleData(release = release)
+        colData <- .importCellLineSampleData(dataset = dataset)
         assert(areIntersectingSets(colnames(assays[[1L]]), rownames(colData)))
         if (!isSubset(colnames(assays[[1L]]), rownames(colData))) {
             missingCells <- setdiff(colnames(assays[[1L]]), rownames(colData))
@@ -72,7 +70,7 @@
     metadata <- list(
         "missingCells" = missingCells,
         "retiredGenes" = retiredGenes,
-        "release" = release
+        "dataset" = dataset
     )
     .makeSummarizedExperiment(
         assays = assays,
@@ -99,7 +97,7 @@
 #' print(object)
 CCLECopyNumberData <-  # nolint
     function(
-        release = NULL,
+        dataset = NULL,
         rowData = TRUE,
         colData = TRUE
     ) {
@@ -107,13 +105,13 @@ CCLECopyNumberData <-  # nolint
             class = "CCLECopyNumberData",
             assayName = "copyNumber",
             fileName = "ccle_gene_cn.csv",
-            release = release,
+            dataset = dataset,
             rowData = rowData,
             colData = colData
         )
     }
 
-formals(CCLECopyNumberData)[["release"]] <- .currentDepMapRelease
+formals(CCLECopyNumberData)[["dataset"]] <- .formalsList[["dataset"]]
 
 
 
@@ -131,7 +129,7 @@ formals(CCLECopyNumberData)[["release"]] <- .currentDepMapRelease
 #' dim(object)
 CCLEExpressionData <-  # nolint
     function(
-        release = NULL,
+        dataset = NULL,
         rowData = TRUE,
         colData = TRUE
     ) {
@@ -139,13 +137,13 @@ CCLEExpressionData <-  # nolint
             class = "CCLEExpressionData",
             assayName = "expression",
             fileName = "ccle_expression.csv",
-            release = release,
+            dataset = dataset,
             rowData = rowData,
             colData = colData
         )
     }
 
-formals(CCLEExpressionData)[["release"]] <- .currentDepMapRelease
+formals(CCLEExpressionData)[["dataset"]] <- .formalsList[["dataset"]]
 
 
 
@@ -162,21 +160,20 @@ formals(CCLEExpressionData)[["release"]] <- .currentDepMapRelease
 #' object <- CCLEMutationData()
 #' dim(object)
 CCLEMutationData <-  # nolint
-    function(release = NULL) {
-        release <- .matchDepMapRelease(release)
+    function(dataset = NULL) {
         df <- .importDataFile(
             fileName = "ccle_mutations.csv",
             format = "csv",
-            release = release,
+            dataset = dataset,
             rownamesCol = NULL
         )
         assert(is(df, "DataFrame"))
         colnames(df) <- camelCase(colnames(df), strict = TRUE)
         metadata(df) <- list(
             "packageVersion" = .pkgVersion,
-            "release" = release
+            "dataset" = dataset
         )
         new("CCLEMutationData", df)
     }
 
-formals(CCLEMutationData)[["release"]] <- .currentDepMapRelease
+formals(CCLEMutationData)[["dataset"]] <- .formalsList[["dataset"]]

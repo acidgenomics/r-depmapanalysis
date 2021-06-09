@@ -4,12 +4,16 @@
 \alias{CCLECopyNumberData}
 \title{Import CCLE copy number data}
 \usage{
-CCLECopyNumberData(release = "21Q2", rowData = TRUE, colData = TRUE)
+CCLECopyNumberData(
+  dataset = "depmap_public_21q2",
+  rowData = TRUE,
+  colData = TRUE
+)
 }
 \arguments{
-\item{release}{\code{character(1)} or \code{NULL}.
-DepMap quarterly release ID (e.g. \code{"20Q3"}).
-If left \code{NULL}, defaults to latest supported release.}
+\item{dataset}{\code{character(1)} or \code{NULL}.
+DepMap dataset release name.
+If left \code{NULL}, defaults to latest supported dataset.}
 
 \item{rowData}{\code{logical(1)}.
 Include gene annotations as genomic ranges.}
