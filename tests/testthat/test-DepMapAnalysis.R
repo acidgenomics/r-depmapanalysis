@@ -159,6 +159,7 @@ test_that("RNAi : demeter2_data_v6", {
         object = colData(object)["A101D_SKIN", ],
         expected = DataFrame(
             "ccleId" = "A101D_SKIN",
+            "cellLineName" = "A101D",
             "disease" = "skin",
             "diseaseSubSubtype" = NA_character_,
             "diseaseSubtype" = "melanoma",
