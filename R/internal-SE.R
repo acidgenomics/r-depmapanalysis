@@ -57,11 +57,6 @@
         }
         retiredGenes <- NULL
         missingCells <- NULL
-
-
-
-
-
         ## Row data (gene annotations) -----------------------------------------
         rowData <- EntrezGeneInfo(
             organism = "Homo sapiens",
@@ -99,7 +94,7 @@
                     msg1 = "identifier",
                     msg2 = "identifiers"
                 ),
-                toString(retiredGenes, width = 200L)
+                toString(retiredGenes, width = 100L)
             ))
         }
         assays <- lapply(
@@ -167,20 +162,5 @@
         )
         args <- Filter(Negate(is.null), args)
         se <- do.call(what = makeSummarizedExperiment, args = args)
-        assert(is(se, "SummarizedExperiment"))
-        rownames(se) <- tolower(rownames(se))
-        colnames(se) <- tolower(colnames(se))
-        validObject(se)
         new(Class = class, se)
     }
-
-
-
-#' Prepare rowData list using NCBI Entrez gene identifiers
-#'
-#' @note Updated 2021-02-25.
-#' @noRd
-.rowDataList <- function(assays) {
-    assert(is.list(assays))
-
-}
