@@ -43,7 +43,6 @@ NULL
         data <- as_tibble(melt(mat))
         data <- data[complete.cases(data), , drop = FALSE]
         if (identical(geom, "boxplot")) {
-            ## FIXME Can we rework this to not use coord_flip below?
             p <- ggplot(
                 data = data,
                 mapping = aes(
@@ -52,7 +51,6 @@ NULL
                         !!sym("value"),
                         mean
                     ),
-                    ## > x = !!sym("rowname"),
                     y = !!sym("value"),
                     fill = !!sym("rowname")
                 )
