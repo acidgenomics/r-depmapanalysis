@@ -319,28 +319,6 @@
             "sample_info.csv" = 25494443L
         )
     ),
-    "depmap_public_20q4" = list(
-        "achilles" = list(
-            "ceres" = list(
-                "achilles_common_essentials.csv" = "FIXME",
-                "achilles_gene_dependency.csv" = "FIXME",
-                "achilles_gene_effect.csv" = "FIXME"
-            )
-        ),
-        "controls" = list(
-            "common_essentials.csv" = "FIXME",
-            "nonessentials.csv" = "FIXME"
-        ),
-        "ccle" = list(
-            "ccle_expression.csv" = "FIXME",
-            "ccle_gene_cn.csv" = "FIXME",
-            "ccle_mutations.csv" = "FIXME"
-        ),
-        "metadata" = list(
-            ## NOTE "readme.txt" missing.
-            "sample_info.csv" = "FIXME"
-        )
-    ),
     "depmap_public_20q3" = list(
         "achilles" = list(
             "ceres" = list(
@@ -359,22 +337,60 @@
             "ccle_mutations.csv" = 24613355L
         ),
         "metadata" = list(
-            ## NOTE "readme.txt" missing.
+            "readme.txt" = 24613391L,
             "sample_info.csv" = 24613394L
         )
     ),
-    ## Add these in future update:
-    ## - depmap_public_20q3
-    ## - depmap_public_20q2
-    ## - depmap_public_20q1
-    ## - depmap_public_19q4
-    ## - depmap_public_19q3
-    ## - depmap_public_19q2
-    ## - depmap_public_19q1
-    ## - depmap_public_18q4
-    ## - depmap_public_18q3
-    ## - depmap_public_18q2
-    ## - depmap_public_18q1
+    "depmap_public_20q2" = list(
+        "achilles" = list(
+            "ceres" = list(
+                "achilles_common_essentials.csv" = 22629059L,
+                "achilles_gene_dependency.csv" = 22629071L,
+                "achilles_gene_effect.csv" = 22629068L
+            )
+        ),
+        "controls" = list(
+            "common_essentials.csv" = 22629128L,
+            "nonessentials.csv" = 22629131L
+        ),
+        "ccle" = list(
+            ## This references the "CCLE_expression_v2.csv" file.
+            "ccle_expression.csv" = 22897976L,
+            "ccle_gene_cn.csv" = 22629107L,
+            "ccle_mutations.csv" = 22629110L
+        ),
+        "metadata" = list(
+            ## This references the "README_v2.txt" file.
+            "readme.txt" = 22897970L,
+            "sample_info.csv" = 22629137L
+        )
+    ),
+    "depmap_public_20q1" = list(
+        "achilles" = list(
+            "ceres" = list(
+                "achilles_common_essentials.csv" = 21521865L,
+                ## This references the "Achilles_gene_dependency_v2.csv" file.
+                "achilles_gene_dependency.csv" = 22543826L,
+                ## This references the "Achilles_gene_effect_v2.csv" file.
+                "achilles_gene_effect.csv" = 22543691L
+            )
+        ),
+        "controls" = list(
+            "common_essentials.csv" = 21521991L,
+            "nonessentials.csv" = 21521994L
+        ),
+        "ccle" = list(
+            "ccle_expression.csv" = 21521940L,
+            "ccle_gene_cn.csv" = 21521964L,
+            "ccle_mutations.csv" = 21521967L
+        ),
+        "metadata" = list(
+            ## This references the "README_v2.txt" file.
+            "readme.txt" = 22543694L,
+            ## This references the "sample_info_v2.csv" file.
+            "sample_info.csv" = 21522000L
+        )
+    ),
     ## RNAi screens.
     "demeter2_data_v6" = list(
         "combined" = list(
