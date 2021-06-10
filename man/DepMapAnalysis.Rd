@@ -42,7 +42,7 @@ Scoring method name to use.
 Import cancer cell line dependency map data
 }
 \note{
-Updated 2021-06-09.
+Updated 2021-06-10.
 }
 \section{Assays}{
 

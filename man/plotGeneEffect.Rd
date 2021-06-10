@@ -35,6 +35,6 @@ data(crispr)
 
 ## DepMapAnalysis ====
 object <- crispr
-genes <- rownames(object)[seq_len(5L)]
+genes <- head(rownames(object), n = 5L)
 plotGeneEffect(object, genes = genes)
 }
