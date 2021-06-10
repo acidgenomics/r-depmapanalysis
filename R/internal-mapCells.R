@@ -1,0 +1,54 @@
+#' Map cell name input to column names
+#'
+#' @note Updated 2021-06-10.
+#' @noRd
+#'
+#' @seealso
+#' - `AcidExperiment::mapGenesToRownames`.
+.mapCellsToColnames <- function(object, cells) {
+    assert(
+        is(object, "SummarizedExperiment"),
+        hasRownames(object),
+        isCharacter(cells)
+    )
+    colData <- colData(object)
+    if (is.character(colData[["alias"]])) {
+        x <- colData[["alias"]]
+        x <- strsplit(x = x, split = ", ", fixed = TRUE)
+        x <- CharacterList(x)
+        colData[["alias"]] <- x
+    }
+    idx <- vapply(
+        X = cells,
+        object = colData,
+        FUN = function(x, object) {
+            idx <- match(x = x, table = rownames(object))
+            if (isInt(idx)) return(idx)
+            idx <- match(x = x, table = object[["cellLineName"]])
+            if (isInt(idx)) return(idx)
+            idx <- match(x = x, table = object[["strippedCellLineName"]])
+            if (isInt(idx)) return(idx)
+            idx <- match(x = x, table = object[["rrid"]])
+            if (isInt(idx)) return(idx)
+            idx <- match(x = x, table = object[["depMapId"]])
+            if (isInt(idx)) return(idx)
+            idx <- match(x = x, table = object[["sangerModelId"]])
+            if (isInt(idx)) return(idx)
+            if (isSubset("alias", colnames(object))) {
+                idx <- which(bapply(
+                    X = object[["alias"]],
+                    FUN = function(table) {
+                        x %in% table
+                    }
+                ))
+                if (isInt(idx)) return(idx)
+            }
+            stop(sprintf("Failed to map cell: %s.", x))
+        },
+        FUN.VALUE = integer(1L),
+        USE.NAMES = TRUE
+    )
+    out <- colnames(object)[idx]
+    names(out) <- names(idx)
+    out
+}
