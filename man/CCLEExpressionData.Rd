@@ -21,7 +21,7 @@ If left \code{NULL}, defaults to latest supported dataset.}
 Import CCLE expression data
 }
 \note{
-Updated 2021-06-09.
+Updated 2021-06-10.
 }
 \examples{
 object <- CCLEExpressionData()

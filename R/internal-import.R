@@ -123,7 +123,7 @@
     )
     assert(isInt(fileId))
     file <- .cacheDataFile(fileName = fileName, fileId = fileId)
-    df <- import(file = file, format = format, engine = engine)
+    df <- import(file = file, format = format, engine = engine, quiet = TRUE)
     if (isScalar(rownamesCol)) {
         if (!isString(rownamesCol)) {
             rownamesCol <- colnames(df)[[rownamesCol]]

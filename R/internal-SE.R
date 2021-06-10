@@ -28,7 +28,6 @@
         dataset = dataset,
         assays = assays,
         transposeAssays = TRUE,
-        metadata = metadata,
         class = class
     )
 }
