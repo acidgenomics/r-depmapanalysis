@@ -2,8 +2,6 @@
 % Please edit documentation in R/package.R
 \docType{package}
 \name{DepMapAnalysis-package}
-\alias{DepMapAnalysis}
-\alias{DepMapAnalysis-package}
 \title{DepMapAnalysis}
 \description{
 Cancer Dependency Map (DepMap) analysis toolkit.
