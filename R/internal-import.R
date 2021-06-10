@@ -31,10 +31,6 @@
 
 
 
-## FIXME This is failing for DEMETER2 dataset...
-
-
-
 #' Import cell line sample metadata
 #'
 #' @note Updated 2021-06-10.

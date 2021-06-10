@@ -1,7 +1,3 @@
-## FIXME ach_002315 is all NA...remove from analysis...
-
-
-
 #' Import cancer cell line dependency map data
 #'
 #' @section Assays:
