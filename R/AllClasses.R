@@ -361,6 +361,7 @@ setValidity(
                     isSubset(
                         x = c(
                             "ccleId",
+                            "cellLineName",
                             "disease",
                             "diseaseSubSubtype",
                             "diseaseSubtype",

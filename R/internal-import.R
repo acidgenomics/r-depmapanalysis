@@ -31,9 +31,13 @@
 
 
 
+## FIXME This is failing for DEMETER2 dataset...
+
+
+
 #' Import cell line sample metadata
 #'
-#' @note Updated 2020-10-01.
+#' @note Updated 2021-06-10.
 #' @noRd
 .importCellLineSampleData <-  # nolint
     function(dataset) {
@@ -44,7 +48,21 @@
             rownamesCol = 1L
         )
         assert(is(df, "DataFrame"))
-        df <- snakeCase(df)
+        colnames(df) <- camelCase(colnames(df))
+        if (
+            !isSubset("cellLineName", colnames(df)) &&
+            isSubset("ccleId", colnames(df))
+        ) {
+            x <- df[["ccleId"]]
+            x <- vapply(
+                X = strsplit(x = x, split = "_", fixed = TRUE),
+                FUN = `[`,
+                i = 1L,
+                FUN.VALUE = character(1L)
+            )
+            df[["cellLineName"]] <- x
+        }
+        assert(isSubset("cellLineName", colnames(df)))
         df
     }
 
@@ -103,7 +121,6 @@
     )
     format <- match.arg(format)
     return <- match.arg(return)
-    dataset <- snakeCase(dataset)
     keys <- c(dataset, keys, fileName)
     alert(sprintf(
         "Importing {.file %s} from {.var %s} dataset.",

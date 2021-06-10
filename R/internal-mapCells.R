@@ -19,20 +19,6 @@
         x <- CharacterList(x)
         colData[["alias"]] <- x
     }
-    if (
-        identical(libraryType, "rnai") &&
-        !isSubset("cellLineName", colnames(colData)) &&
-        isSubset("ccleId", colnames(colData))
-    ) {
-        x <- colData[["ccleId"]]
-        x <- vapply(
-            X = strsplit(x = x, split = "_", fixed = TRUE),
-            FUN = `[`,
-            i = 1L,
-            FUN.VALUE = character(1L)
-        )
-        colData[["cellLineName"]] <- x
-    }
     idx <- vapply(
         X = cells,
         object = colData,

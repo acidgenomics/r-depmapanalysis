@@ -29,7 +29,8 @@ Imports:
     ggplot2 (>= 3.3.3),
     goalie (>= 0.5.1),
     methods,
-    rlang (>= 0.4.11)
+    rlang (>= 0.4.11),
+    tidytext (>= 0.3.1)
 Suggests:
     depmap (>= 1.4.0),
     testthat
@@ -51,4 +52,5 @@ Collate:
     'package.R'
     'params.R'
     'plotGeneEffect-methods.R'
+    'plotTopGeneEffectPerCell-methods.R'
     'show-methods.R'
