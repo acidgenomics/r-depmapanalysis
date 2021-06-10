@@ -32,11 +32,11 @@ test_that("CRISPR : depmap_public_21q2", {
     expect_s4_class(object, "DepMapAnalysis")
     expect_identical(
         object = head(colnames(object), n = 3L),
-        expected = c("ach_000001", "ach_000004", "ach_000005")
+        expected = c("ACH_000001", "ACH_000004", "ACH_000005")
     )
     expect_identical(
         object = head(rownames(object), n = 3L),
-        expected = c("a1bg_1", "a1cf_29974", "a2m_2")
+        expected = c("A1BG_1", "A1CF_29974", "A2M_2")
     )
     expect_identical(
         object = assayNames(object),
@@ -44,7 +44,7 @@ test_that("CRISPR : depmap_public_21q2", {
     )
     ## nolint start
     expect_equal(
-        object = colData(object)["ach_000004", ],
+        object = colData(object)["ACH_000004", ],
         expected = DataFrame(
             "achillesNReplicates" = 2,
             "age" = 30,
@@ -75,11 +75,11 @@ test_that("CRISPR : depmap_public_21q2", {
                 "M6 (Erythroleukemia)"
             ),
             "wtsiMasterCellId" = 783,
-            row.names = "ach_000004"
+            row.names = "ACH_000004"
         )
     )
     ## nolint end
-    rowData <- rowData(object)["a1bg_1", , drop = FALSE]
+    rowData <- rowData(object)["A1BG_1", , drop = FALSE]
     rowData <- decode(rowData)
     metadata(rowData) <- list()
     attr(class(rowData[["dbXrefs"]]), "package") <- "IRanges"
@@ -111,7 +111,7 @@ test_that("CRISPR : depmap_public_21q2", {
             )),
             "typeOfGene" = "protein-coding",
             "xTaxId" = 9606,  # nolint
-            row.names = "a1bg_1"
+            row.names = "A1BG_1"
         )
     )
     expect_identical(
@@ -142,21 +142,21 @@ test_that("RNAi : demeter2_data_v6", {
     expect_identical(
         object = head(colnames(object), n = 3L),
         expected = c(
-            "a101d_skin",
-            "a1207_central_nervous_system",
-            "a172_central_nervous_system"
+            "A101D_SKIN",
+            "A1207_CENTRAL_NERVOUS_SYSTEM",
+            "A172_CENTRAL_NERVOUS_SYSTEM"
         )
     )
     expect_identical(
         object = head(rownames(object), n = 3L),
-        expected = c("a1bg_1", "a1cf_29974", "a2m_2")
+        expected = c("A1BG_1", "A1CF_29974", "A2M_2")
     )
     expect_identical(
         object = assayNames(object),
         expected = "effect"
     )
     expect_identical(
-        object = colData(object)["a101d_skin", ],
+        object = colData(object)["A101D_SKIN", ],
         expected = DataFrame(
             "ccleId" = "A101D_SKIN",
             "disease" = "skin",
@@ -172,17 +172,17 @@ test_that("RNAi : demeter2_data_v6", {
             "novartisName" = "a101d",
             "novartisPathologistAnnotation" = "Skin:Melanoma",
             "novartisPrimarySite" = "skin",
-            row.names = "a101d_skin"
+            row.names = "A101D_SKIN"
         )
     )
-    rowData <- decode(rowData(object)["a1bg_1", c("geneId", "geneName")])
+    rowData <- decode(rowData(object)["A1BG_1", c("geneId", "geneName")])
     metadata(rowData) <- list()
     expect_identical(
         object = rowData,
         expected = DataFrame(
             "geneId" = 1L,
             "geneName" = "A1BG",
-            row.names = "a1bg_1"
+            row.names = "A1BG_1"
         )
     )
     expect_identical(

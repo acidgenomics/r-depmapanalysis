@@ -11,6 +11,7 @@
         hasRownames(object),
         isCharacter(cells)
     )
+    libraryType <- metadata(object)[["libraryType"]]
     colData <- colData(object)
     if (is.character(colData[["alias"]])) {
         x <- colData[["alias"]]
@@ -18,10 +19,25 @@
         x <- CharacterList(x)
         colData[["alias"]] <- x
     }
+    if (
+        identical(libraryType, "rnai") &&
+        !isSubset("cellLineName", colnames(colData)) &&
+        isSubset("ccleId", colnames(colData))
+    ) {
+        x <- colData[["ccleId"]]
+        x <- vapply(
+            X = strsplit(x = x, split = "_", fixed = TRUE),
+            FUN = `[`,
+            i = 1L,
+            FUN.VALUE = character(1L)
+        )
+        colData[["cellLineName"]] <- x
+    }
     idx <- vapply(
         X = cells,
         object = colData,
-        FUN = function(x, object) {
+        libraryType = libraryType,
+        FUN = function(x, object, libraryType) {
             idx <- match(x = x, table = rownames(object))
             if (isInt(idx)) return(idx)
             idx <- match(x = x, table = object[["cellLineName"]])
@@ -31,6 +47,8 @@
             idx <- match(x = x, table = object[["rrid"]])
             if (isInt(idx)) return(idx)
             idx <- match(x = x, table = object[["depMapId"]])
+            if (isInt(idx)) return(idx)
+            idx <- match(x = x, table = object[["ccleId"]])
             if (isInt(idx)) return(idx)
             idx <- match(x = x, table = object[["sangerModelId"]])
             if (isInt(idx)) return(idx)

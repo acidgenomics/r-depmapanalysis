@@ -47,6 +47,7 @@ Collate:
     'data.R'
     'internal-SE.R'
     'internal-import.R'
+    'internal-mapCells.R'
     'package.R'
     'params.R'
     'plotGeneEffect-methods.R'
