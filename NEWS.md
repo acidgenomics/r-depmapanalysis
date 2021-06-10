@@ -9,6 +9,7 @@
   track of project source and scoring method more clearly.
 - Simplifed internal code to improve consistency between import of gene effect
   and gene expression from CCLE.
+- DepMap releases starting from 2020 are supported.
 
 ## DepMapAnalysis 0.0.6 (2021-03-12)
 
