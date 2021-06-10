@@ -322,23 +322,23 @@
     "depmap_public_20q4" = list(
         "achilles" = list(
             "ceres" = list(
-                "achilles_common_essentials.csv" = "-",
-                "achilles_gene_dependency.csv" = "-",
-                "achilles_gene_effect.csv" = "-"
+                "achilles_common_essentials.csv" = "FIXME",
+                "achilles_gene_dependency.csv" = "FIXME",
+                "achilles_gene_effect.csv" = "FIXME"
             )
         ),
         "controls" = list(
-            "common_essentials.csv" = "-",
-            "nonessentials.csv" = "-"
+            "common_essentials.csv" = "FIXME",
+            "nonessentials.csv" = "FIXME"
         ),
         "ccle" = list(
-            "ccle_expression.csv" = "-",
-            "ccle_gene_cn.csv" = "-",
-            "ccle_mutations.csv" = "-"
+            "ccle_expression.csv" = "FIXME",
+            "ccle_gene_cn.csv" = "FIXME",
+            "ccle_mutations.csv" = "FIXME"
         ),
         "metadata" = list(
             ## NOTE "readme.txt" missing.
-            "sample_info.csv" = "-"
+            "sample_info.csv" = "FIXME"
         )
     ),
     "depmap_public_20q3" = list(

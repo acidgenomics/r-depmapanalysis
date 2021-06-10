@@ -60,7 +60,7 @@ DepMapAnalysis <-  # nolint
         ) {
             scoringMethod <- "demeter2"
             alertInfo(sprintf(
-                "Setting '%s' to '%s'.",
+                "Setting {.var %s} to {.var %s}.",
                 "scoringMethod", scoringMethod
             ))
         }
