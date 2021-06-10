@@ -10,6 +10,9 @@ An object of class \code{DepMapAnalysis} with 100 rows and 50 columns.
 \usage{
 data(rnai)
 }
+\value{
+\code{DESeqAnalysis}.
+}
 \description{
 RNAi example data set
 }
@@ -18,7 +21,7 @@ Updated 2021-06-09.
 }
 \examples{
 data(rnai)
-rnai
+print(rnai)
 }
 \author{
 Michael Steinbaugh

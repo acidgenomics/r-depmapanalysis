@@ -2,12 +2,11 @@
 #'
 #' @author Michael Steinbaugh
 #' @note Updated 2021-06-09.
-#'
+#' @return `DESeqAnalysis`.
 #' @usage data(crispr)
-#'
 #' @examples
 #' data(crispr)
-#' crispr
+#' print(crispr)
 "crispr"
 
 
@@ -16,10 +15,9 @@
 #'
 #' @author Michael Steinbaugh
 #' @note Updated 2021-06-09.
-#'
+#' @return `DESeqAnalysis`.
 #' @usage data(rnai)
-#'
 #' @examples
 #' data(rnai)
-#' rnai
+#' print(rnai)
 "rnai"

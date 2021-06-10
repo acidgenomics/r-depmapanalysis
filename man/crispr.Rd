@@ -10,6 +10,9 @@ An object of class \code{DepMapAnalysis} with 100 rows and 50 columns.
 \usage{
 data(crispr)
 }
+\value{
+\code{DESeqAnalysis}.
+}
 \description{
 CRISPR example data set
 }
@@ -18,7 +21,7 @@ Updated 2021-06-09.
 }
 \examples{
 data(crispr)
-crispr
+print(crispr)
 }
 \author{
 Michael Steinbaugh
