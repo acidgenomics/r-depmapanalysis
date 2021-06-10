@@ -1,3 +1,7 @@
+## FIXME ach_002315 is all NA...remove from analysis...
+
+
+
 #' Import cancer cell line dependency map data
 #'
 #' @section Assays:
@@ -10,7 +14,7 @@
 #'   depletion effect using `gene_effect`.
 #'
 #' @export
-#' @note Updated 2021-06-09.
+#' @note Updated 2021-06-10.
 #'
 #' @inheritParams params
 #' @param project `character(1)`.
@@ -50,8 +54,15 @@ DepMapAnalysis <-  # nolint
         project <- match.arg(project)
         scoringMethod <- match.arg(scoringMethod)
         ## Handle DEMETER2 scoring edge case for RNAi dataset gracefully.
-        if (isTRUE(grepl(pattern = "demeter2_", x = dataset))) {
+        if (
+            isTRUE(grepl(pattern = "demeter2_", x = dataset)) &&
+            !identical(scoringMethod, "demeter2")
+        ) {
             scoringMethod <- "demeter2"
+            alertInfo(sprintf(
+                "Setting '%s' to '%s'.",
+                "scoringMethod", scoringMethod
+            ))
         }
         keys <- c(project, scoringMethod)
         if (isTRUE(grepl(pattern = "^depmap_", x = dataset))) {
@@ -93,14 +104,14 @@ DepMapAnalysis <-  # nolint
             libraryType <- "rnai"
             effectFile <- paste0("d2_", project, "_gene_dep_scores.csv")
         }
-        ## CSV formatting: genes in columns, cells in rows.
-        assays <- list()
-        assays[["effect"]] <- .importDataFile(
-            dataset = dataset,
-            keys = keys,
-            fileName = effectFile,
-            rownamesCol = 1L,
-            return = "matrix"
+        assays <- list(
+            "effect" = .importDataFile(
+                dataset = dataset,
+                keys = keys,
+                fileName = effectFile,
+                rownamesCol = 1L,
+                return = "matrix"
+            )
         )
         if (identical(libraryType, "crispr")) {
             assays[["probability"]] <- .importDataFile(
@@ -111,67 +122,36 @@ DepMapAnalysis <-  # nolint
                 return = "matrix"
             )
         }
-        ## Cells in columns, genes in rows.
-        ## Don't need to transpose for DEMETER2 RNAi dataset.
-        if (identical(libraryType, "crispr")) {
-            assays <- lapply(X = assays, FUN = t)
-        }
-        ## Cell line metadata.
-        missingCells <- NULL
-        colData <- .importCellLineSampleData(dataset = dataset)
-        assert(areIntersectingSets(colnames(assays[[1L]]), rownames(colData)))
-        if (!isSubset(colnames(assays[[1L]]), rownames(colData))) {
-            missingCells <- setdiff(colnames(assays[[1L]]), rownames(colData))
-            alertWarning(sprintf(
-                "%d missing cell %s in {.var %s}: %s.",
-                length(missingCells),
-                ngettext(
-                    n = length(missingCells),
-                    msg1 = "line",
-                    msg2 = "lines"
-                ),
-                "colData",
-                toString(missingCells, width = 100L)
-            ))
-            colData[missingCells, ] <- NA
-            assert(isSubset(colnames(assays[[1L]]), rownames(colData)))
-        }
-        ## Gene metadata.
-        l <- .rowDataFromEntrez(assays = assays)
-        assert(
-            is.list(l),
-            identical(
-                x = names(l),
-                y = c("assays", "retiredGenes", "rowData")
-            )
-        )
-        assays <- l[["assays"]]
-        retiredGenes <- l[["retiredGenes"]]
-        rowData <- l[["rowData"]]
         metadata <- list(
-            "dataset" = dataset,
             "libraryType" = libraryType,
-            "missingCells" = missingCells,
             "project" = project,
-            "retiredGenes" = retiredGenes,
             "scoringMethod" = scoringMethod
         )
         if (identical(libraryType, "crispr")) {
-            metadata[["commonEssentials"]] <-
-                .importGeneDataFile(
-                    dataset = dataset,
-                    keys = keys,
-                    fileName = ceFile
+            metadata <- append(
+                x = metadata,
+                values = list(
+                    "commonEssentials" =
+                        .importGeneDataFile(
+                            dataset = dataset,
+                            keys = keys,
+                            fileName = ceFile
+                        ),
+                    "controlCommonEssentials" =
+                        .importControlCommonEssentials(dataset = dataset),
+                    "controlNonessentials" =
+                        .importControlNonessentials(dataset = dataset)
                 )
-            metadata[["controlCommonEssentials"]] <-
-                .importControlCommonEssentials(dataset = dataset)
-            metadata[["controlNonessentials"]] <-
-                .importControlNonessentials(dataset = dataset)
+            )
         }
         .makeSummarizedExperiment(
+            dataset = dataset,
             assays = assays,
-            rowData = rowData,
-            colData = colData,
+            transposeAssays = switch(
+                EXPR = libraryType,
+                "crispr" = TRUE,
+                "rnai" = FALSE
+            ),
             metadata = metadata,
             class = "DepMapAnalysis"
         )
