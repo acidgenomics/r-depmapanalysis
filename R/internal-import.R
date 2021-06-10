@@ -82,7 +82,7 @@
 
 #' Import a DepMap data file
 #'
-#' @note Updated 2021-06-09.
+#' @note Updated 2021-06-10.
 #' @noRd
 .importDataFile <- function(
     dataset,
@@ -111,24 +111,17 @@
     ))
     assert(
         isSubset(dataset, names(.datasets)),
-        msg = "Unsupported dataset."
+        msg = sprintf("Unsupported dataset: '%s'.", dataset)
     )
     tryCatch(
         expr = {
             fileId <- `[[`(.datasets, keys)
         },
         error = function(e) {
-            stop(sprintf(
-                "Unsupported dataset: %s",
-                toString(keys)
-            ))
+            stop(sprintf("Unsupported dataset keys: %s", toString(keys)))
         }
     )
-
-    assert(
-        isInt(fileId),
-        msg = sprintf("Unsupported dataset: %s", toString(keys))
-    )
+    assert(isInt(fileId))
     file <- .cacheDataFile(fileName = fileName, fileId = fileId)
     df <- import(file = file, format = format, engine = engine)
     if (isScalar(rownamesCol)) {
