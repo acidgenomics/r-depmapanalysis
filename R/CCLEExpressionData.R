@@ -1,7 +1,7 @@
 #' Import CCLE expression data
 #'
 #' @export
-#' @note Updated 2021-06-09.
+#' @note Updated 2021-06-10.
 #'
 #' @inheritParams params
 #'
@@ -12,7 +12,7 @@
 #' dim(object)
 CCLEExpressionData <-  # nolint
     function(dataset) {
-        .makeCcle(
+        .makeCcleSE(
             class = "CCLEExpressionData",
             assayName = "log2Tpm",
             fileName = "ccle_expression.csv",
