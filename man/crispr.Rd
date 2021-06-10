@@ -8,7 +8,7 @@
 An object of class \code{DepMapAnalysis} with 100 rows and 50 columns.
 }
 \usage{
-crispr
+data(crispr)
 }
 \description{
 CRISPR example data set
