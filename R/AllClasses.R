@@ -1,3 +1,9 @@
+## FIXME Need to add class support for CCLE Fusion data.
+##       CCLE_fusions.csv
+## FIXME Need to add data from Sanger Cell Model Passports.
+
+
+
 #' CCLE copy number data
 #'
 #' @details
