@@ -4,6 +4,25 @@
 
 
 
+
+#' Achilles
+#'
+#' Legacy object that is no longer recommended.
+#'
+#' Use `DepMapAnalysis` object instead.
+#'
+#' @export
+#' @keywords internal
+#' @note Updated 2021-06-20.
+#'
+#' @return `Achilles`.
+setClass(
+    Class = "Achilles",
+    contains = "SummarizedExperiment"
+)
+
+
+
 #' CCLE copy number data
 #'
 #' @details
