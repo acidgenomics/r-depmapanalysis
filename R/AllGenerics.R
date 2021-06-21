@@ -17,3 +17,14 @@ setGeneric(
         standardGeneric("plotTopGeneEffectPerCell")
     }
 )
+
+
+
+#' @rdname plotTopGeneEffectPerGroup
+#' @export
+setGeneric(
+    name = "plotTopGeneEffectPerGroup",
+    def = function(object, ...) {
+        standardGeneric("plotTopGeneEffectPerGroup")
+    }
+)
