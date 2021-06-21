@@ -1,8 +1,3 @@
-## FIXME Need to convert "cosmicid" to "cosmicId".
-## FIXME Also need to update "cosmicId" check in class validity checks.
-
-
-
 #' Download and cache a data file from DepMap into BiocFileCache
 #'
 #' @note Updated 2021-02-10.
