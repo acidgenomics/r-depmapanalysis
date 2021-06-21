@@ -1,4 +1,6 @@
 #+TITLE: pipette
 #+STARTUP: content
 * Development
-** TODO Need to add unit tests.
+** TODO Need to add data from Sanger Cell Model Passports.
+** TODO Need to add class support for CCLE Fusion data.
+        CCLE_fusions.csv
