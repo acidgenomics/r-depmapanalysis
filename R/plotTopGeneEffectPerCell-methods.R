@@ -48,7 +48,6 @@ NULL
             data = as_tibble(data),
             mapping = aes(
                 x = !!sym("value"),
-
                 y = reorder_within(
                     x = !!sym("rowname"),
                     by = !!sym("value"),
