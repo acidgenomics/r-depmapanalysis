@@ -7,7 +7,7 @@
 \usage{
 plotGeneEffect(object, ...)
 
-\S4method{plotGeneEffect}{DepMapAnalysis}(object, genes, geom = c("boxplot", "density"))
+\S4method{plotGeneEffect}{DepMapAnalysis}(object, genes, geom = c("boxplot", "violin", "density"))
 }
 \arguments{
 \item{object}{Object.}

@@ -18,12 +18,12 @@ NULL
 
 
 
-## Updated 2021-06-09.
+## Updated 2021-06-21.
 `plotGeneEffect,DepMapAnalysis` <-  # nolint
     function(
         object,
         genes,
-        geom = c("boxplot", "density")
+        geom = c("boxplot", "violin", "density")
     ) {
         validObject(object)
         assert(
@@ -42,65 +42,92 @@ NULL
         rownames(mat) <- as.character(rowData(se)[["geneName"]])
         data <- as_tibble(melt(mat))
         data <- data[complete.cases(data), , drop = FALSE]
-        if (identical(geom, "boxplot")) {
-            p <- ggplot(
-                data = data,
-                mapping = aes(
-                    x = reorder(
-                        !!sym("rowname"),
-                        !!sym("value"),
-                        mean
-                    ),
-                    y = !!sym("value"),
-                    fill = !!sym("rowname")
-                )
-            ) +
-                geom_hline(
-                    color = "red",
-                    linetype = "dashed",
-                    size = 1.25,
-                    yintercept = -1L
+        switch(
+            EXPR = geom,
+            "boxplot" = {
+                p <- ggplot(
+                    data = data,
+                    mapping = aes(
+                        x = !!sym("value"),
+                        y = reorder(
+                            x = !!sym("rowname"),
+                            X = !!sym("value"),
+                            FUN = median
+                        ),
+                        fill = !!sym("rowname")
+                    )
                 ) +
-                geom_boxplot(
-                    color = "black",
-                    show.legend = FALSE,
-                    size = 0.75
+                    geom_boxplot(
+                        color = "black",
+                        show.legend = FALSE,
+                        size = 0.75
+                    ) +
+                    scale_y_discrete(limits = rev) +
+                    labs(
+                        title = "gene effect",
+                        x = "gene",
+                        y = "gene effect"
+                    )
+            },
+            "violin" = {
+                p <- ggplot(
+                    data = data,
+                    mapping = aes(
+                        x = !!sym("value"),
+                        y = reorder(
+                            x = !!sym("rowname"),
+                            X = !!sym("value"),
+                            FUN = median
+                        ),
+                        fill = !!sym("rowname")
+                    )
                 ) +
-                scale_x_discrete(limits = rev) +
-                coord_flip() +
-                labs(
-                    title = "gene effect",
-                    x = "gene",
-                    y = "gene effect"
-                )
-        } else if (identical(geom, "density")) {
-            p <- ggplot(
-                data = data,
-                mapping = aes(
-                    x = !!sym("value"),
-                    fill = !!sym("rowname")
-                )
-            ) +
-                geom_vline(
-                    color = "red",
-                    linetype = "dashed",
-                    size = 1.25,
-                    xintercept = -1L
+                    geom_violin(
+                        color = "black",
+                        ## > draw_quantiles = c(0.25, 0.5, 0.75),
+                        draw_quantiles = 0.5,
+                        show.legend = FALSE,
+                        scale = "count",
+                        size = 0.75,
+                        trim = TRUE
+                    ) +
+                    scale_y_discrete(limits = rev) +
+                    labs(
+                        title = "gene effect",
+                        x = "gene",
+                        y = "gene effect"
+                    )
+            },
+            "density" = {
+                p <- ggplot(
+                    data = data,
+                    mapping = aes(
+                        x = !!sym("value"),
+                        fill = !!sym("rowname")
+                    )
                 ) +
-                geom_density(
-                    color = "black",
-                    show.legend = FALSE,
-                    size = 0.75
-                ) +
-                facet_wrap(
-                    facets = sym("rowname"),
-                    scales = "fixed"
-                ) +
-                labs(
-                    title = "gene effect",
-                    x = "gene effect"
-                )
-        }
+                    geom_density(
+                        color = "black",
+                        show.legend = FALSE,
+                        size = 0.75
+                    ) +
+                    facet_wrap(
+                        facets = sym("rowname"),
+                        scales = "fixed"
+                    ) +
+                    labs(
+                        title = "gene effect",
+                        x = "gene effect"
+                    )
+            }
+        )
+        p <- p +
+            geom_vline(
+                color = "red",
+                linetype = "dashed",
+                size = 1.25,
+                xintercept = -1L
+            )
         p
     }
 
