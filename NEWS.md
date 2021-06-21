@@ -1,6 +1,20 @@
 ## DepMapAnalysis 0.1.1 (UNRELEASED)
 
-- FIXME Need to add this.
+### New functions
+
+- `plotTopGeneEffectPerGroup`: Added a new plotting function that makes it
+  easier to visualize gene effects (dependency scores) across a subset of
+  cell lines, such as specific lineages (solid tumors, blood cancer, etc.).
+
+### Minor changes
+
+- Ensuring legacy `Achilles` S4 class definition remains exported, to maintain
+  better backward compatibility with objects saved prior to v0.1.0 release,
+  where we switched to `DepMapAnalysis` object as the primary class for
+  analysis of Broad Achilles data.
+- `plotGeneEffect`: Added support for violin geom, and improved consistency
+  of ggplot2, using a `switch` call internally.
+- Reworked some imports from basejump dependency package.
 
 ## DepMapAnalysis 0.1.0 (2021-06-09)
 
