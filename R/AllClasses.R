@@ -1,9 +1,3 @@
-## TODO Need to add class support for CCLE Fusion data.
-##       CCLE_fusions.csv
-## TODO Need to add data from Sanger Cell Model Passports.
-
-
-
 #' Achilles
 #'
 #' Legacy object that is no longer recommended.
