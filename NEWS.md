@@ -1,4 +1,4 @@
-## DepMapAnalysis 0.1.1 (UNRELEASED)
+## DepMapAnalysis 0.1.1 (2021-06-21)
 
 ### New functions
 
