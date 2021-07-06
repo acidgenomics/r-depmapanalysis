@@ -394,7 +394,7 @@
         )
     ),
     "sanger_project_score_2021_05" = list(
-        "project_score" = list(
+        "score" = list(
             "chronos" = list(
                 "common_essentials.csv" = 27676611L,
                 "gene_dependency.csv" = 27676620L,
@@ -406,11 +406,12 @@
         )
     ),
     "sanger_project_score_2019_08" = list(
-        "project_score" = list(
+        "score" = list(
             "ceres" = list(
+                ## `common_essentials.csv` = `pan_dependent_genes.txt`.
+                "common_essentials.csv" = 16623899L,
                 "gene_dependency.csv" = 16623884L,
-                "gene_effect.csv" = 16623881L,
-                "pan_dependent_genes.txt" = 16623899L
+                "gene_effect.csv" = 16623881L
             )
         ),
         "controls" = list(
