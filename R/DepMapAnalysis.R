@@ -153,5 +153,4 @@ DepMapAnalysis <-  # nolint
         )
     }
 
-#' @include AllGlobals.R
 formals(DepMapAnalysis)[["dataset"]] <- .formalsList[["dataset"]]

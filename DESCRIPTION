@@ -37,21 +37,3 @@ Suggests:
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.1
 Additional_repositories: https://r.acidgenomics.com
-Collate: 
-    'AllClasses.R'
-    'AllGenerics.R'
-    'AllGlobals.R'
-    'CCLECopyNumberData.R'
-    'CCLEExpressionData.R'
-    'CCLEMutationData.R'
-    'DepMapAnalysis.R'
-    'data.R'
-    'internal-SE.R'
-    'internal-import.R'
-    'internal-mapCells.R'
-    'package.R'
-    'params.R'
-    'plotGeneEffect-methods.R'
-    'plotTopGeneEffectPerCell-methods.R'
-    'plotTopGeneEffectPerGroup-methods.R'
-    'show-methods.R'
