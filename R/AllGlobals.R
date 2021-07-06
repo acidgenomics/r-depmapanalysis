@@ -11,9 +11,11 @@
 
 
 
+## NOTE Consider reworking this as YAML or JSON instead.
+
 #' DepMap dataset URLs
 #'
-#' @note Updated 2021-06-08.
+#' @note Updated 2021-07-06.
 #' @noRd
 #'
 #' @section Combination of Broad and Sanger scoring data:
@@ -389,6 +391,34 @@
             "readme.txt" = 22543694L,
             ## This references the "sample_info_v2.csv" file.
             "sample_info.csv" = 21522000L
+        )
+    ),
+    "sanger_project_score_2021_05" = list(
+        "project_score" = list(
+            "chronos" = list(
+                "common_essentials.csv" = 27676611L,
+                "gene_dependency.csv" = 27676620L,
+                "gene_effect.csv" = 27676629L
+            )
+        ),
+        "metadata" = list(
+            "readme.txt" = 27676626L
+        )
+    ),
+    "sanger_project_score_2019_08" = list(
+        "project_score" = list(
+            "ceres" = list(
+                "gene_dependency.csv" = 16623884L,
+                "gene_effect.csv" = 16623881L,
+                "pan_dependent_genes.txt" = 16623899L
+            )
+        ),
+        "controls" = list(
+            "essential_genes.txt" = 16623887,
+            "nonessential_genes.csv" = 16623890L
+        ),
+        "metadata" = list(
+            "readme.txt" = 16623944L
         )
     ),
     ## RNAi screens.
