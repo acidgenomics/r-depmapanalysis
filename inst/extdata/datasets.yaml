@@ -249,37 +249,75 @@ depmap_public_21q2:
             - combined:  # achilles+score
                 scoring_method:
                     - chronos:
-                        common_essentials: 27902166  # crispr_common_essentials_chronos.csv
-                        gene_dependency: 27902175  # crispr_gene_dependency_chronos.csv
-                        gene_effect: 27902229  # crispr_gene_effect_chronos.csv
+                        common_essentials:
+                            27902166
+                            # crispr_common_essentials_chronos.csv
+                        gene_dependency:
+                            27902175
+                            # crispr_gene_dependency_chronos.csv
+                        gene_effect:
+                            27902229
+                            # crispr_gene_effect_chronos.csv
                     - ceres:
-                        common_essentials: 27902163  # crispr_common_essentials.csv
-                        gene_dependency: 27902169  # crispr_gene_dependency.csv
-                        gene_effect: 27902226  # crispr_gene_effect.csv
+                        common_essentials:
+                            27902163
+                            # crispr_common_essentials.csv
+                        gene_dependency:
+                            27902169
+                            # crispr_gene_dependency.csv
+                        gene_effect:
+                            27902226
+                            # crispr_gene_effect.csv
             - achilles:
                 scoring_method:
                     - chronos:
-                        "common_essentials": 27902031  # achilles_common_essentials_chronos.csv
-                        "gene_dependency": 27902049  # achilles_gene_dependency_chronos.csv
-                        "gene_effect": 27902043  # achilles_gene_effect_chronos.csv
+                        "common_essentials":
+                            27902031
+                            # achilles_common_essentials_chronos.csv
+                        "gene_dependency":
+                            27902049
+                            # achilles_gene_dependency_chronos.csv
+                        "gene_effect":
+                            27902043
+                            # achilles_gene_effect_chronos.csv
                     - ceres:
-                        "common_essentials": 27902028  # achilles_common_essentials.csv
-                        "gene_dependency": 27902040  # achilles_gene_dependency.csv
-                        "gene_effect": 27902046  # achilles_gene_effect.csv
+                        "common_essentials":
+                            27902028
+                            # achilles_common_essentials.csv
+                        "gene_dependency":
+                            27902040
+                            # achilles_gene_dependency.csv
+                        "gene_effect":
+                            27902046
+                            # achilles_gene_effect.csv
     ccle:
-        copy_number: 27902124  # ccle_gene_cn.csv
-        expression: 27902091  # ccle_expression.csv
-        mutations: 27902118  # ccle_mutations.csv
+        copy_number:
+            27902124
+            # ccle_gene_cn.csv
+        expression:
+            27902091
+            # ccle_expression.csv
+        mutations:
+            27902118
+            # ccle_mutations.csv
 
 depmap_public_21q1:
     metadata:
         date: "2021-02"
-        readme: 26261566  # readme.txt
-        sample_info: 26261569  # sample_info.csv
+        readme:
+            26261566
+            # readme.txt
+        sample_info:
+            26261569
+            # sample_info.csv
     screen:
         controls:
-            common_essentials: 26261545  # common_essentials.csv
-            nonessentials: 26261557  # nonessentials.csv
+            common_essentials:
+                26261545
+                # common_essentials.csv
+            nonessentials:
+                26261557
+                # nonessentials.csv
         defaults:
             project: "combined"
             scoring_method: "chronos"
@@ -287,31 +325,57 @@ depmap_public_21q1:
             - combined:
                 scoring_method:
                     - ceres:
-                        common_essentials: 26261551  # crispr_common_essentials.csv
-                        gene_dependency: 26261554  # crispr_gene_dependency.csv
-                        gene_effect: 26261563  # crispr_gene_effect.csv
+                        common_essentials:
+                            26261551
+                            # crispr_common_essentials.csv
+                        gene_dependency:
+                            26261554
+                            # crispr_gene_dependency.csv
+                        gene_effect:
+                            26261563
+                            # crispr_gene_effect.csv
             - achilles:
                 scoring_method:
                     - ceres:
-                        common_essentials: 26261275  # achilles_common_essentials.csv
-                        gene_dependency: 26261290  # achilles_gene_dependency.csv
-                        gene_effect: 26261293  # achilles_gene_effect.csv
+                        common_essentials:
+                            26261275
+                            # achilles_common_essentials.csv
+                        gene_dependency:
+                            26261290
+                            # achilles_gene_dependency.csv
+                        gene_effect:
+                            26261293
+                            # achilles_gene_effect.csv
     ccle:
-        copy_number: 26261524  # ccle_gene_cn.csv
-        expression: 26261476  # ccle_expression.csv
-        mutations: 26261527  # ccle_mutations.csv
+        copy_number:
+            26261524
+            # ccle_gene_cn.csv
+        expression:
+            26261476
+            # ccle_expression.csv
+        mutations:
+            26261527
+            # ccle_mutations.csv
 
 demeter2_data_v6:
     metadata:
         date: "2020-04"
-        readme: 13515380  # readme.txt
-        sample_info: 11489717  # sample_info.csv
+        readme:
+            13515380
+            # readme.txt
+        sample_info:
+            11489717
+            # sample_info.csv
     screen:
         library_type: "rnai"
         transpose_assays: false
         controls:
-            common_essentials: 11489711  # hart-pos-controls.csv
-            nonessentials: 11489708  # hart-neg-controls.csv
+            common_essentials:
+                11489711
+                # hart-pos-controls.csv
+            nonessentials:
+                11489708
+                # hart-neg-controls.csv
         defaults:
             project: "combined"
             scoring_method: "demeter2"
@@ -319,20 +383,28 @@ demeter2_data_v6:
             - combined:  # achilles+drive+marcotte
                 scoring_method:
                     - demeter2:
-                        gene_dependency: 13515395  # d2_combined_gene_dep_scores.csv
+                        gene_dependency:
+                            13515395
+                            # d2_combined_gene_dep_scores.csv
             - achilles:
                 scoring_method:
                     - demeter2:
-                        gene_dependency: 11489669  # d2_achilles_gene_dep_scores.csv
+                        gene_dependency:
+                            11489669
+                            # d2_achilles_gene_dep_scores.csv
             - drive:
                 scoring_method:
                     - demeter2:
-                        gene_dependency: 11489693  # d2_drive_gene_dep_scores.csv
+                        gene_dependency:
+                            11489693
+                            # d2_drive_gene_dep_scores.csv
 
 sanger_project_score_2021_05:
     metadata:
         date: "2021-05"
-        readme: 27676626  # readme.txt
+        readme:
+            27676626
+            # readme.txt
     screen:
         library_type: "crispr"
         transpose_assays: true
@@ -343,20 +415,32 @@ sanger_project_score_2021_05:
             - score:
                 scoring_method:
                     - chronos:
-                        common_essentials: 27676611  # common_essentials.csv
-                        gene_dependency: 27676620  # gene_dependency.csv
-                        gene_effect: 27676629  # gene_effect.csv
+                        common_essentials:
+                            27676611
+                            # common_essentials.csv
+                        gene_dependency:
+                            27676620
+                            # gene_dependency.csv
+                        gene_effect:
+                            27676629
+                            # gene_effect.csv
 
 sanger_project_score_2019_08:
     metadata:
         date: "2019-08"
-        readme: 16623944  # readme.txt
+        readme:
+            16623944
+            # readme.txt
     screen:
         library_type: "crispr"
         transpose_assays: true
         controls:
-            essential_genes: 16623887  # essential_genes.txt
-            nonessential_genes: 16623890  # nonessential_genes.csv
+            essential_genes:
+                16623887
+                # essential_genes.txt
+            nonessential_genes:
+                16623890
+                # nonessential_genes.csv
         defaults:
             project: "score"
             scoring_method: "ceres"
@@ -364,13 +448,15 @@ sanger_project_score_2019_08:
             - score:
                 scoring_method:
                     - ceres:
-                        common_essentials: 16623899  # pan_dependent_genes.txt
-                        gene_dependency: 16623884  # gene_dependency.csv
-                        gene_effect: 16623881  # gene_effect.csv
-
-
-
-
+                        common_essentials:
+                            16623899
+                            # pan_dependent_genes.txt
+                        gene_dependency:
+                            16623884
+                            # gene_dependency.csv
+                        gene_effect:
+                            16623881
+                            # gene_effect.csv
 
 
 
@@ -398,7 +484,6 @@ sanger_project_score_2019_08:
             "sample_info.csv" = 25494443L
         )
     ),
-
 
 
 
@@ -451,6 +536,7 @@ sanger_project_score_2019_08:
             "sample_info.csv" = 22629137L
         )
     ),
+
 
 
     "depmap_public_20q1" = list(
