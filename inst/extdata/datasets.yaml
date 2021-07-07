@@ -353,13 +353,15 @@ depmap_public_21q1:
                             filename: "achilles_gene_effect.csv"
                             url: "https://ndownloader.figshare.com/files/26261293"
     ccle:
-        # FIXME Missing fusions.
         copy_number:
             filename: "ccle_gene_cn.csv"
             url: "https://ndownloader.figshare.com/files/26261524"
         expression:
             filename: "ccle_expression.csv"
             url: "https://ndownloader.figshare.com/files/26261476"
+        fusions:
+            filename: "FIXME"
+            url: "FIXME"
         mutations:
             filename: "ccle_mutations.csv"
             url: "https://ndownloader.figshare.com/files/26261527"
@@ -374,13 +376,15 @@ depmap_public_20q4v2:
             filename: "sample_info.csv"
             url: "https://ndownloader.figshare.com/files/25494443"
     ccle:
-        # FIXME Missing fusions.
         copy_number:
             filename: "ccle_gene_cn.csv"
             url: "https://ndownloader.figshare.com/files/25770017"
         expression:
             filename: "ccle_expression.csv"
             url: "https://ndownloader.figshare.com/files/25797011"
+        fusions:
+            filename: "FIXME"
+            url: "FIXME"
         mutations:
             filename: "ccle_mutations.csv"
             url: "https://ndownloader.figshare.com/files/25494419"
@@ -447,16 +451,116 @@ depmap_public_20q3:
                             filename: "achilles_gene_effect.csv"
                             url: "https://ndownloader.figshare.com/files/24613292"
     ccle:
-        # FIXME Missing fusions.
         copy_number:
             filename: "ccle_gene_cn.csv"
             url: "https://ndownloader.figshare.com/files/24613352"
         expression:
             filename: "ccle_expression.csv"
             url: "https://ndownloader.figshare.com/files/24613325"
+        fusions:
+            filename: "FIXME"
+            url: "FIXME"
         mutations:
             filename: "ccle_mutations.csv"
             url: "https://ndownloader.figshare.com/files/24613355"
+
+depmap_public_20q2:
+    metadata:
+        date: "FIXME"
+        readme:
+            filename: "readme_v2.txt"
+            url: 22897970
+        sample_info:
+            filename: "sample_info.csv"
+            url: 22629137
+    screen:
+        library_type: "crispr"
+        transpose_assays: true
+        controls:
+            common_essentials:
+                filename: "common_essentials.csv"
+                url: 22629128
+            nonessentials:
+                filename: "nonessentials.csv"
+                url: 22629131
+        defaults:
+            project: "achilles"
+            scoring_method: "ceres"
+        project:
+            - achilles:
+                scoring_method:
+                    - ceres:
+                        common_essentials:
+                            filename: "achilles_common_essentials.csv"
+                            url: 22629059
+                        gene_dependency:
+                            filename: "achilles_gene_dependency.csv"
+                            url: 22629071
+                        gene_effect:
+                            filename: "achilles_gene_effect.csv"
+                            url: 22629068
+    ccle:
+        copy_number:
+            filename: "ccle_gene_cn.csv"
+            url: 22629107
+        expression:
+            filename: "ccle_expression_v2.csv"
+            url: 22897976
+        fusions:
+            filename: "FIXME"
+            url: "FIXME"
+        mutations:
+            filename: "ccle_mutations.csv"
+            url: 22629110
+
+depmap_public_20q1:
+    metadata:
+        date: "FIXME"
+        readme:
+            filename: "readme_v2.txt"
+            url: 22543694
+        sample_info:
+            filename: "sample_info_v2.csv"
+            url: 21522000
+    screen:
+        library_type: "crispr"
+        transpose_assays: true
+        controls:
+            common_essentials:
+                filename: "common_essentials.csv"
+                url: 21521991
+            nonessentials:
+                filename: "nonessentials.csv"
+                url: 21521994
+        defaults:
+            project: "achilles"
+            scoring_method: "ceres"
+        project:
+            - achilles:
+                scoring_method:
+                    - ceres:
+                        common_essentials:
+                            filename: "achilles_common_essentials.csv"
+                            url: 21521865
+                        gene_dependency:
+                            filename: "achilles_gene_dependency_v2.csv"
+                            url: 22543826
+                        gene_effect:
+                            filename: "achilles_gene_effect_v2.csv"
+                            url: 22543691
+    ccle:
+        copy_number:
+            filename: "ccle_gene_cn.csv"
+            url: 21521964
+        expression:
+            filename: "ccle_expression.csv"
+            url: 21521940
+        fusions:
+            filename: "FIXME"
+            url: "FIXME"
+        mutations:
+            filename: "ccle_mutations.csv"
+            url: 21521967
 
 demeter2_data_v6:
     metadata:
@@ -558,75 +662,3 @@ sanger_project_score_2019_08:
                         gene_effect:
                             filename: "gene_effect.csv"
                             url: "https://ndownloader.figshare.com/files/16623881"
-
-
-
-
-
-
-
-
-
-
-
-
-
-depmap_public_20q2:
-    metadata:
-        date: "FIXME"
-        "achilles" = list(
-            "ceres" = list(
-                "achilles_common_essentials.csv" = 22629059L,
-                "achilles_gene_dependency.csv" = 22629071L,
-                "achilles_gene_effect.csv" = 22629068L
-            )
-        ),
-        "controls" = list(
-            "common_essentials.csv" = 22629128L,
-            "nonessentials.csv" = 22629131L
-        ),
-        "ccle" = list(
-            # FIXME Missing fusions.
-            ## This references the "CCLE_expression_v2.csv" file.
-            "ccle_expression.csv" = 22897976L,
-            "ccle_gene_cn.csv" = 22629107L,
-            "ccle_mutations.csv" = 22629110L
-        ),
-        "metadata" = list(
-            ## This references the "README_v2.txt" file.
-            "readme.txt" = 22897970L,
-            "sample_info.csv" = 22629137L
-        )
-    ),
-
-
-
-depmap_public_20q1:
-    metadata:
-        date: "FIXME"
-        "achilles" = list(
-            "ceres" = list(
-                "achilles_common_essentials.csv" = 21521865L,
-                ## This references the "Achilles_gene_dependency_v2.csv" file.
-                "achilles_gene_dependency.csv" = 22543826L,
-                ## This references the "Achilles_gene_effect_v2.csv" file.
-                "achilles_gene_effect.csv" = 22543691L
-            )
-        ),
-        "controls" = list(
-            "common_essentials.csv" = 21521991L,
-            "nonessentials.csv" = 21521994L
-        ),
-        "ccle" = list(
-            # FIXME Missing fusions.
-            "ccle_expression.csv" = 21521940L,
-            "ccle_gene_cn.csv" = 21521964L,
-            "ccle_mutations.csv" = 21521967L
-        ),
-        "metadata" = list(
-            ## This references the "README_v2.txt" file.
-            "readme.txt" = 22543694L,
-            ## This references the "sample_info_v2.csv" file.
-            "sample_info.csv" = 21522000L
-        )
-    ),
