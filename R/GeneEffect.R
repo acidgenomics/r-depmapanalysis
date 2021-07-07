@@ -1,5 +1,7 @@
 ## FIXME Need to pick recommended methods here by default.
 
+## FIXME Cache the README into the object.
+
 # FIXME Need to update R code to use:
 # - transpose_assays
 # - default scoring method and project
@@ -49,127 +51,112 @@ GeneEffect <-  # nolint
         dataset <- match.arg(dataset)
         assert(
             isSubset(dataset, names(.datasets)),
+            isSubset(
+                x = "screen",
+                y = names(.datasets[[dataset]])
+            ),
+            msg = sprintf("Invalid '%s': '%s'.", "dataset", dataset)
+        )
+        yaml <- .datasets[[dataset]]
+        assert(
+            isSubset(
+                x = "defaults",
+                y = names(yaml[["screen"]])
+            )
+        )
+        defaults <- yaml[["screen"]][["defaults"]]
+        if (identical(project, "default")) {
+            project <- defaults[["project"]]
+        }
+        if (identical(scoringMethod, "default")) {
+            scoringMethod <- defaults[["scoring_method"]]
+        }
+        assert(
             isString(project),
-            isString(scoringMethod)
+            isSubset(
+                x = project,
+                y = names(yaml[["screen"]][["project"]])
+            ),
+            msg = sprintf("Invalid '%s': '%s'.", "project", project)
         )
-
-        #assert(
-        #    isSubset(
-        #        x = project,
-        #        y = names(.datasets[[dataset]][["screen"]][["project"]])
-        #)
-
-
-
-
-
-
-        keys <- c(project, scoringMethod)
-        if (isTRUE(grepl(pattern = "^depmap_", x = dataset))) {
-            libraryType <- "crispr"
-            switch(
-                EXPR = project,
-                "combined" = {
-                    switch(
-                        EXPR = scoringMethod,
-                        "chronos" = {
-                            ceFile <- "crispr_common_essentials_chronos.csv"
-                            effectFile <- "crispr_gene_effect_chronos.csv"
-                            probFile <- "crispr_gene_dependency_chronos.csv"
-                        },
-                        "ceres" = {
-                            ceFile <- "crispr_common_essentials.csv"
-                            effectFile <- "crispr_gene_effect.csv"
-                            probFile <- "crispr_gene_dependency.csv"
-                        }
-                    )
-                },
-                "achilles" = {
-                    switch(
-                        EXPR = scoringMethod,
-                        "chronos" = {
-                            ceFile <- "achilles_common_essentials_chronos.csv"
-                            effectFile <- "achilles_gene_effect_chronos.csv"
-                            probFile <- "achilles_gene_dependency_chronos.csv"
-                        },
-                        "ceres" = {
-                            ceFile <- "achilles_common_essentials.csv"
-                            effectFile <- "achilles_gene_effect.csv"
-                            probFile <- "achilles_gene_dependency.csv"
-                        }
-                    )
-                }
-            )
-        } else if (isTRUE(grepl(pattern = "project_score", x = dataset))) {
-            libraryType <- "crispr"
-            ceFile <- "common_essentials.csv"
-            effectFile <- "gene_effect.csv"
-            probFile <- "gene_dependency.csv"
-        } else if (isTRUE(grepl(pattern = "^demeter2_", x = dataset))) {
-            libraryType <- "rnai"
-            effectFile <- paste0("d2_", project, "_gene_dep_scores.csv")
-        }
-        assays <- list(
-            "effect" = .importDataFile(
-                dataset = dataset,
-                keys = keys,
-                fileName = effectFile,
-                rownamesCol = 1L,
-                return = "matrix"
+        assert(
+            isString(scoringMethod),
+            isSubset(
+                x = scoringMethod,
+                y = names(yaml[["screen"]][["project"]][[
+                    project]][["scoring_method"]])
+            ),
+            msg = sprintf("Invalid '%s': '%s'.", "scoringMethod", scoringMethod)
+        )
+        libraryType <- yaml[["screen"]][["library_type"]]
+        transposeAssays <- yaml[["screen"]][["transpose_assays"]]
+        assert(
+            isString(libraryType),
+            isFlag(transposeAssays)
+        )
+        urls <- list(
+            "assays" = list(
+                "effect" =
+                    yaml[["screen"]][[
+                        "project"]][[project]][[
+                            "scoring_method"]][[scoringMethod]][[
+                                "gene_effect"]][["url"]],
+                "probability" =
+                    yaml[["screen"]][[
+                        "project"]][[project]][[
+                            "scoring_method"]][[scoringMethod]][[
+                                "gene_dependency"]][["url"]]
+            ),
+            "metadata" = list(
+                "commonEssentials" =
+                    yaml[["screen"]][[
+                        "project"]][[project]][[
+                            "scoring_method"]][[scoringMethod]][[
+                                "common_essentials"]][["url"]],
+                "controlCommonEssentials" =
+                    yaml[["screen"]][["controls"]][[
+                        "common_essentials"]][["url"]],
+                "controlNonessentials" =
+                    yaml[["screen"]][["controls"]][[
+                        "nonessentials"]][["url"]]
             )
         )
-        if (identical(libraryType, "crispr")) {
-            assays[["probability"]] <- .importDataFile(
-                dataset = dataset,
-                keys = keys,
-                fileName = probFile,
-                rownamesCol = 1L,
-                return = "matrix"
-            )
-        }
-        metadata <- list(
-            "libraryType" = libraryType,
-            "project" = project,
-            "scoringMethod" = scoringMethod
+        ## Assays --------------------------------------------------------------
+        urls[["assays"]] <- Filter(
+            f = Negate(is.null),
+            x = urls[["assays"]]
         )
-        if (identical(libraryType, "crispr")) {
-            metadata <- append(
-                x = metadata,
-                values = list(
-                    "commonEssentials" =
-                        .importGeneDataFile(
-                            dataset = dataset,
-                            keys = keys,
-                            fileName = ceFile
-                        )
-                )
+        assays <- lapply(
+            X = urls[["assays"]],
+            FUN = .importDataFile,
+            rownamesCol = 1L,
+            return = "matrix"
+        )
+        assert(identical(names(urls[["assays"]]), names(assays)))
+        ## Metadata ------------------------------------------------------------
+        urls[["metadata"]] <- Filter(
+            f = Negate(is.null),
+            x = urls[["metadata"]]
+        )
+        metadata <- lapply(
+            X = urls[["metadata"]],
+            FUN = .importGeneDataFile
+        )
+        assert(identical(names(urls[["metadata"]]), names(metadata)))
+        metadata <- append(
+            x = metadata,
+            values = list(
+                "dataset" = dataset,
+                "libraryType" = libraryType,
+                "project" = project,
+                "scoringMethod" = scoringMethod,
+                "yaml" = yaml
             )
-            ## NOTE Not supported for Sanger Project Score 2021.
-            if (isSubset(
-                x = "controls",
-                y = names(.datasets[[project]])
-            )) {
-                metadata <- append(
-                    x = metadata,
-                    values = list(
-                        "controlCommonEssentials" =
-                            .importControlCommonEssentials(dataset = dataset),
-                        "controlNonessentials" =
-                            .importControlNonessentials(dataset = dataset)
-                    )
-                )
-            }
-        }
-        ## FIXME This is failing for "sanger_project_score_2021_05" due to
-        ## subset mismatch -- too long?
+        )
         .makeSummarizedExperiment(
             dataset = dataset,
             assays = assays,
-            transposeAssays = switch(
-                EXPR = libraryType,
-                "crispr" = TRUE,
-                "rnai" = FALSE
-            ),
+            transposeAssays = transposeAssays,
             metadata = metadata,
             class = "GeneEffect"
         )
