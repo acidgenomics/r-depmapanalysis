@@ -16,6 +16,7 @@
 #' fileId <- .datasets[["depmap_public_21q2"]][["metadata"]][[fileName]]
 #' .cacheDataFile(fileName = fileName, fileId = fileId)
 .cacheDataFile <- function(fileName, fileId, verbose = TRUE) {
+    ## FIXME Need to rethink this approach, after switch to YAML.
     urlStem <- .urlStem
     assert(
         isString(fileName),
