@@ -8,19 +8,17 @@
 
 
 
-## FIXME Need to rethink this.
-
 #' Import cell line sample metadata
 #'
-#' @note Updated 2021-06-10.
+#' @note Updated 2021-07-07.
 #' @noRd
 .importCellLineSampleData <-  # nolint
     function(dataset) {
+        url <- .datasets[[dataset]][["metadata"]][["sample_info"]][["url"]]
         df <- .importDataFile(
-            dataset = dataset,
-            keys = "metadata",
-            fileName = "sample_info.csv",
-            rownamesCol = 1L
+            url = url,
+            rownamesCol = 1L,
+            return = "DataFrame"
         )
         assert(is(df, "DataFrame"))
         colnames(df) <- camelCase(colnames(df))
