@@ -205,11 +205,82 @@ setValidity(
 
 
 
+
+
+
+
+
+#' CCLE fusion data
+#'
+#' @details
+#' Inherits from `DataFrame`.
+#'
+#' @note Updated 2021-02-25.
+#' @export
+#'
+#' @return `CCLEFusionData`.
+setClass(
+    Class = "CCLEFusionData",
+    contains = "DataFrame"
+)
+setValidity(
+    Class = "CCLEFusionData",
+    method = function(object) {
+        ok <- validate(
+            isSubset(
+                x = c(
+                    "annots",
+                    "ccleCount",
+                    "depMapId",
+                    "ffpm",
+                    "fusionName",
+                    "junctionReadCount",
+                    "largeAnchorSupport",
+                    "leftBreakDinuc",
+                    "leftBreakEntropy",
+                    "leftBreakpoint",
+                    "leftGene",
+                    "rightBreakDinuc",
+                    "rightBreakEntropy",
+                    "rightBreakpoint",
+                    "rightGene",
+                    "spanningFragCount",
+                    "spliceType"
+                ),
+                y = colnames(object)
+            )
+        )
+        if (!isTRUE(ok)) return(ok)
+        ok <- validateClasses(
+            object = metadata(object),
+            expected = list(
+                "dataset" = "character",
+                "filtered" = "logical",
+                "packageName" = "character",
+                "packageVersion" = "package_version"
+            ),
+            subset = TRUE
+        )
+        if (!isTRUE(ok)) return(ok)
+        TRUE
+    }
+)
+
+
+
+
+
+
+
+
+
+
+
+
 #' CCLE mutation data
 #'
 #' @details
-#' Inherits from `SummarizedExperiment`.
-#' Cells in columns, genes in rows.
+#' Inherits from `DataFrame`.
 #'
 #' @note Updated 2021-02-25.
 #' @export
