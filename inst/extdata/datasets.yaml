@@ -569,48 +569,6 @@ depmap_public_20q1:
             filename: "ccle_mutations.csv"
             url: "https://ndownloader.figshare.com/files/21521967"
 
-demeter2_data_v6:
-    metadata:
-        date: "2020-04"
-        readme:
-            filename: "readme.txt"
-            url: "https://ndownloader.figshare.com/files/13515380"
-        sample_info:
-            filename: "sample_info.csv"
-            url: "https://ndownloader.figshare.com/files/11489717"
-    screen:
-        library_type: "rnai"
-        transpose_assays: false
-        controls:
-            common_essentials:
-                filename: "hart-pos-controls.csv"
-                url: "https://ndownloader.figshare.com/files/11489711"
-            nonessentials:
-                filename: "hart-neg-controls.csv"
-                url: "https://ndownloader.figshare.com/files/11489708"
-        defaults:
-            project: "combined"
-            scoring_method: "demeter2"
-        project:
-            - combined:  # achilles+drive+marcotte
-                scoring_method:
-                    - demeter2:
-                        gene_dependency:
-                            filename: "d2_combined_gene_dep_scores.csv"
-                            url: "https://ndownloader.figshare.com/files/13515395"
-            - achilles:
-                scoring_method:
-                    - demeter2:
-                        gene_dependency:
-                            filename: "d2_achilles_gene_dep_scores.csv"
-                            url: "https://ndownloader.figshare.com/files/11489669"
-            - drive:
-                scoring_method:
-                    - demeter2:
-                        gene_dependency:
-                            filename: "d2_drive_gene_dep_scores.csv"
-                            url: "https://ndownloader.figshare.com/files/11489693"
-
 sanger_project_score_2021_05:
     metadata:
         date: "2021-05"
@@ -669,3 +627,45 @@ sanger_project_score_2019_08:
                         gene_effect:
                             filename: "gene_effect.csv"
                             url: "https://ndownloader.figshare.com/files/16623881"
+
+demeter2_data_v6:
+    metadata:
+        date: "2020-04"
+        readme:
+            filename: "readme.txt"
+            url: "https://ndownloader.figshare.com/files/13515380"
+        sample_info:
+            filename: "sample_info.csv"
+            url: "https://ndownloader.figshare.com/files/11489717"
+    screen:
+        library_type: "rnai"
+        transpose_assays: false
+        controls:
+            common_essentials:
+                filename: "hart-pos-controls.csv"
+                url: "https://ndownloader.figshare.com/files/11489711"
+            nonessentials:
+                filename: "hart-neg-controls.csv"
+                url: "https://ndownloader.figshare.com/files/11489708"
+        defaults:
+            project: "combined"
+            scoring_method: "demeter2"
+        project:
+            - combined:  # achilles+drive+marcotte
+                scoring_method:
+                    - demeter2:
+                        gene_dependency:
+                            filename: "d2_combined_gene_dep_scores.csv"
+                            url: "https://ndownloader.figshare.com/files/13515395"
+            - achilles:
+                scoring_method:
+                    - demeter2:
+                        gene_dependency:
+                            filename: "d2_achilles_gene_dep_scores.csv"
+                            url: "https://ndownloader.figshare.com/files/11489669"
+            - drive:
+                scoring_method:
+                    - demeter2:
+                        gene_dependency:
+                            filename: "d2_drive_gene_dep_scores.csv"
+                            url: "https://ndownloader.figshare.com/files/11489693"
