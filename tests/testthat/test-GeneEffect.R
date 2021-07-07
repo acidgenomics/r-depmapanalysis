@@ -1,26 +1,26 @@
-context("DepMapAnalysis")
+context("GeneEffect")
 
 ## Add extra coverage for these in the future:
 ##
-## > DepMapAnalysis(
+## > GeneEffect(
 ## >     dataset = "depmap_public_21q1",
 ## >     project = "combined",
 ## >     scoringMethod = "ceres"
 ## > )
 ##
-## > DepMapAnalysis(
+## > GeneEffect(
 ## >     dataset = "depmap_public_21q1",
 ## >     project = "achilles",
 ## >     scoringMethod = "ceres"
 ## > )
 ##
-## > DepMapAnalysis(
+## > GeneEffect(
 ## >     dataset = "demeter2_data_v6",
 ## >     project = "combined",
 ## >     scoringMethod = "demeter2"
 ## > )
 ##
-## > DepMapAnalysis(
+## > GeneEffect(
 ## >     dataset = "demeter2_data_v6",
 ## >     project = "drive",
 ## >     scoringMethod = "demeter2"
@@ -28,8 +28,8 @@ context("DepMapAnalysis")
 
 test_that("CRISPR : depmap_public_21q2", {
     dataset <- "depmap_public_21q2"
-    object <- DepMapAnalysis(dataset = dataset)
-    expect_s4_class(object, "DepMapAnalysis")
+    object <- GeneEffect(dataset = dataset)
+    expect_s4_class(object, "GeneEffect")
     expect_identical(
         object = head(colnames(object), n = 3L),
         expected = c("ACH_000001", "ACH_000004", "ACH_000005")
@@ -137,8 +137,8 @@ test_that("CRISPR : depmap_public_21q2", {
 
 test_that("RNAi : demeter2_data_v6", {
     dataset <- "demeter2_data_v6"
-    object <- DepMapAnalysis(dataset = dataset)
-    expect_s4_class(object, "DepMapAnalysis")
+    object <- GeneEffect(dataset = dataset)
+    expect_s4_class(object, "GeneEffect")
     expect_identical(
         object = head(colnames(object), n = 3L),
         expected = c(

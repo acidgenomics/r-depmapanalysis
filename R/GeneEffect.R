@@ -1,13 +1,3 @@
-## FIXME Need to pick recommended methods here by default.
-
-## FIXME Cache the README into the object.
-
-# FIXME Need to update R code to use:
-# - transpose_assays
-# - default scoring method and project
-
-
-
 #' Gene effect in cancer cell lines
 #'
 #' @section Assays:
