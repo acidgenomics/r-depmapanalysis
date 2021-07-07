@@ -1,5 +1,9 @@
 ## FIXME Need to pick recommended methods here by default.
 
+# FIXME Need to update R code to use:
+# - transpose_assays
+# - default scoring method and project
+
 
 
 #' Gene effect in cancer cell lines
