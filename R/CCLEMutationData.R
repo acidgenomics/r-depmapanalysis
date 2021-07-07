@@ -1,7 +1,7 @@
 #' Import CCLE mutation data
 #'
 #' @export
-#' @note Updated 2021-06-09.
+#' @note Updated 2021-07-07.
 #'
 #' @inheritParams params
 #'
@@ -13,14 +13,9 @@
 CCLEMutationData <-  # nolint
     function(dataset) {
         dataset <- match.arg(dataset)
-        ## FIXME Rethink this approach.
-        df <- .importDataFile(
-            dataset = dataset,
-            keys = "ccle",
-            fileName = "ccle_mutations.csv",
-            format = "csv",
-            rownamesCol = NULL
-        )
+        url <- .datasets[[dataset]][["ccle"]][["mutations"]][["url"]]
+        assert(isAURL(url))
+        df <- .importDataFile(url = url, format = "csv", rownamesCol = NULL)
         assert(is(df, "DataFrame"))
         colnames(df) <- camelCase(colnames(df), strict = TRUE)
         df <- encode(df)
