@@ -8,9 +8,8 @@ GeneEffect(
   dataset = c("depmap_public_21q2", "depmap_public_21q1", "depmap_public_20q4v2",
     "depmap_public_20q3", "depmap_public_20q2", "depmap_public_20q1",
     "sanger_project_score_2021_05", "sanger_project_score_2019_08", "demeter2_data_v6"),
-  project = c("achilles+score", "achilles+drive+marcotte", "achilles", "score",
-    "drive"),
-  scoringMethod = c("chronos", "ceres", "demeter2")
+  project = "default",
+  scoringMethod = "default"
 )
 }
 \arguments{

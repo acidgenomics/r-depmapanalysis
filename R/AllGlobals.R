@@ -11,7 +11,8 @@
     file = system.file(
         "extdata",
         "datasets.yaml",
-        package = .pkgName
+        package = .pkgName,
+        mustWork = TRUE
     ),
     quiet = TRUE
 )

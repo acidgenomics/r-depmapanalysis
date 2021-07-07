@@ -1,6 +1,6 @@
 #' Download and cache a data file from DepMap into BiocFileCache
 #'
-#' @note Updated 2021-02-10.
+#' @note Updated 2021-07-07.
 #' @noRd
 #'
 #' @param fileId `character(1)`.
@@ -15,7 +15,12 @@
 #' fileName <- "sample_info.csv"
 #' fileId <- .datasets[["depmap_public_21q2"]][["metadata"]][[fileName]]
 #' .cacheDataFile(fileName = fileName, fileId = fileId)
-.cacheDataFile <- function(fileName, fileId, verbose = TRUE) {
+.cacheDataFile <- function(
+    fileName,
+    fileId,
+    verbose = TRUE
+) {
+    ## FIXME Need to rethink the fileId, fileName approach.
     ## FIXME Need to rethink this approach, after switch to YAML.
     urlStem <- .urlStem
     assert(

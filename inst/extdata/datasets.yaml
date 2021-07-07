@@ -238,9 +238,9 @@ depmap_public_21q2:
             project: "combined"
             scoring_method: "chronos"
         project:
-            - combined:  # achilles+score
+            combined:  # achilles+score
                 scoring_method:
-                    - chronos:
+                    chronos:
                         common_essentials:
                             filename: "crispr_common_essentials_chronos.csv"
                             url: "https://ndownloader.figshare.com/files/27902166"
@@ -250,7 +250,7 @@ depmap_public_21q2:
                         gene_effect:
                             filename: "crispr_gene_effect_chronos.csv"
                             url: "https://ndownloader.figshare.com/files/27902229"
-                    - ceres:
+                    ceres:
                         common_essentials:
                             filename: "crispr_common_essentials.csv"
                             url: "https://ndownloader.figshare.com/files/27902163"
@@ -260,9 +260,9 @@ depmap_public_21q2:
                         gene_effect:
                             filename: "crispr_gene_effect.csv"
                             url: "https://ndownloader.figshare.com/files/27902226"
-            - achilles:
+            achilles:
                 scoring_method:
-                    - chronos:
+                    chronos:
                         "common_essentials":
                             filename: "achilles_common_essentials_chronos.csv"
                             url: "https://ndownloader.figshare.com/files/27902031"
@@ -272,7 +272,7 @@ depmap_public_21q2:
                         "gene_effect":
                             filename: "achilles_gene_effect_chronos.csv"
                             url: "https://ndownloader.figshare.com/files/27902043"
-                    - ceres:
+                    ceres:
                         "common_essentials":
                             filename: "achilles_common_essentials.csv"
                             url: "https://ndownloader.figshare.com/files/27902028"
@@ -320,9 +320,9 @@ depmap_public_21q1:
             project: "combined"
             scoring_method: "chronos"
         project:
-            - combined:
+            combined:
                 scoring_method:
-                    - ceres:
+                    ceres:
                         common_essentials:
                             filename: "crispr_common_essentials.csv"
                             url: "https://ndownloader.figshare.com/files/26261551"
@@ -332,9 +332,9 @@ depmap_public_21q1:
                         gene_effect:
                             filename: "crispr_gene_effect.csv"
                             url: "https://ndownloader.figshare.com/files/26261563"
-            - achilles:
+            achilles:
                 scoring_method:
-                    - ceres:
+                    ceres:
                         common_essentials:
                             filename: "achilles_common_essentials.csv"
                             url: "https://ndownloader.figshare.com/files/26261275"
@@ -400,9 +400,9 @@ depmap_public_20q4v2:
             project: "achilles"
             scoring_method: "ceres"
         project:
-            - achilles:
+            achilles:
                 scoring_method:
-                    - ceres:
+                    ceres:
                         common_essentials:
                             filename: "achilles_common_essentials.csv"
                             url: "https://ndownloader.figshare.com/files/25770002"
@@ -436,9 +436,9 @@ depmap_public_20q3:
             project: "achilles"
             scoring_method: "ceres"
         project:
-            - achilles:
+            achilles:
                 scoring_method:
-                    - ceres:
+                    ceres:
                         common_essentials:
                             filename: "achilles_common_essentials.csv"
                             url: "https://ndownloader.figshare.com/files/24613283"
@@ -488,9 +488,9 @@ depmap_public_20q2:
             project: "achilles"
             scoring_method: "ceres"
         project:
-            - achilles:
+            achilles:
                 scoring_method:
-                    - ceres:
+                    ceres:
                         common_essentials:
                             filename: "achilles_common_essentials.csv"
                             url: "https://ndownloader.figshare.com/files/22629059"
@@ -540,9 +540,9 @@ depmap_public_20q1:
             project: "achilles"
             scoring_method: "ceres"
         project:
-            - achilles:
+            achilles:
                 scoring_method:
-                    - ceres:
+                    ceres:
                         common_essentials:
                             filename: "achilles_common_essentials.csv"
                             url: "https://ndownloader.figshare.com/files/21521865"
@@ -582,9 +582,9 @@ sanger_project_score_2021_05:
             project: "score"
             scoring_method: "chronos"
         project:
-            - score:
+            score:
                 scoring_method:
-                    - chronos:
+                    chronos:
                         common_essentials:
                             filename: "common_essentials.csv"
                             url: "https://ndownloader.figshare.com/files/27676611"
@@ -615,9 +615,9 @@ sanger_project_score_2019_08:
             project: "score"
             scoring_method: "ceres"
         project:
-            - score:
+            score:
                 scoring_method:
-                    - ceres:
+                    ceres:
                         common_essentials:
                             filename: "pan_dependent_genes.txt"
                             url: "https://ndownloader.figshare.com/files/16623899"
@@ -651,21 +651,21 @@ demeter2_data_v6:
             project: "combined"
             scoring_method: "demeter2"
         project:
-            - combined:  # achilles+drive+marcotte
+            combined:  # achilles+drive+marcotte
                 scoring_method:
-                    - demeter2:
+                    demeter2:
                         gene_dependency:
                             filename: "d2_combined_gene_dep_scores.csv"
                             url: "https://ndownloader.figshare.com/files/13515395"
-            - achilles:
+            achilles:
                 scoring_method:
-                    - demeter2:
+                    demeter2:
                         gene_dependency:
                             filename: "d2_achilles_gene_dep_scores.csv"
                             url: "https://ndownloader.figshare.com/files/11489669"
-            - drive:
+            drive:
                 scoring_method:
-                    - demeter2:
+                    demeter2:
                         gene_dependency:
                             filename: "d2_drive_gene_dep_scores.csv"
                             url: "https://ndownloader.figshare.com/files/11489693"

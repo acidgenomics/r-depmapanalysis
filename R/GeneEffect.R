@@ -43,37 +43,27 @@
 GeneEffect <-  # nolint
     function(
         dataset,
-        ## FIXME Set this to "default" and pick recommended for the dataset.
-        project = c(
-            "achilles+score",  # CRISPR combined
-            "achilles+drive+marcotte",  # RNAi combined
-            "achilles",
-            "score",
-            "drive"
-        ),
-        ## FIXME Set this to "default" and pick recommended for the dataset.
-        scoringMethod = c(
-            "chronos",
-            "ceres",
-            "demeter2"
-        )
+        project = "default",
+        scoringMethod = "default"
     ) {
         dataset <- match.arg(dataset)
-        project <- match.arg(project)
-        scoringMethod <- match.arg(scoringMethod)
-        ## Handle DEMETER2 scoring edge case for RNAi dataset gracefully.
-        ## FIXME Should be able to take this out once we switch to "default"
-        ## approach instead.
-        if (
-            isTRUE(grepl(pattern = "demeter2_", x = dataset)) &&
-            !identical(scoringMethod, "demeter2")
-        ) {
-            scoringMethod <- "demeter2"
-            alertInfo(sprintf(
-                "Setting {.var %s} to {.var %s}.",
-                "scoringMethod", scoringMethod
-            ))
-        }
+        assert(
+            isSubset(dataset, names(.datasets)),
+            isString(project),
+            isString(scoringMethod)
+        )
+
+        #assert(
+        #    isSubset(
+        #        x = project,
+        #        y = names(.datasets[[dataset]][["screen"]][["project"]])
+        #)
+
+
+
+
+
+
         keys <- c(project, scoringMethod)
         if (isTRUE(grepl(pattern = "^depmap_", x = dataset))) {
             libraryType <- "crispr"
