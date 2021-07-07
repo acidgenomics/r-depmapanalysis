@@ -38,7 +38,7 @@
 
 #' Make SummarizedExperiment object (from DepMap or CCLE data)
 #'
-#' @note Updated 2021-06-10.
+#' @note Updated 2021-07-07.
 #' @noRd
 .makeSummarizedExperiment <-
     function(
@@ -98,12 +98,10 @@
                 toString(retiredGenes, width = 100L)
             ))
         }
-
         ## FIXME Hitting an error on logical subset length here...
         ## Error in x[i, , drop = FALSE] : (subscript) logical subscript too long
         ## This is specific to "sanger_project_score_2021_05" dataset.
         ## Calls: .makeSummarizedExperiment -> lapply -> lapply -> FUN
-
         assays <- lapply(
             X = assays,
             i = !is.na(idx),
@@ -163,7 +161,8 @@
                     "missingCells" = missingCells,
                     "packageName" = .pkgName,
                     "packageVersion" = .pkgVersion,
-                    "retiredGenes" = retiredGenes
+                    "retiredGenes" = retiredGenes,
+                    "yaml" = .datasets[[dataset]]
                 )
             )
         )

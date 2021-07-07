@@ -146,11 +146,10 @@ GeneEffect <-  # nolint
         metadata <- append(
             x = metadata,
             values = list(
-                "dataset" = dataset,
+                ## "dataset" and "yaml" are added in call below.
                 "libraryType" = libraryType,
                 "project" = project,
-                "scoringMethod" = scoringMethod,
-                "yaml" = yaml
+                "scoringMethod" = scoringMethod
             )
         )
         .makeSummarizedExperiment(
