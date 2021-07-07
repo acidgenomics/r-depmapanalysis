@@ -21,7 +21,7 @@ If left \code{NULL}, defaults to latest supported dataset.}
 Import CCLE copy number data
 }
 \note{
-Updated 2021-06-10.
+Updated 2021-07-07.
 }
 \examples{
 object <- CCLECopyNumberData()

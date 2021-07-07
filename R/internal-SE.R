@@ -1,30 +1,27 @@
-## FIXME Rethink this....
-
 #' Make SummarizedExperiment object from CCLE data
 #'
 #' @note Updated 2021-06-10.
 #' @noRd
 .makeCcleSE <- function(
-    class,
+    dataset,
+    assayKey,
     assayName,
-    fileName,
-    dataset
+    class
 ) {
     assert(
-        isString(class),
+        isString(dataset),
+        isString(assayKey),
         isString(assayName),
-        isString(fileName),
-        isString(dataset)
+        isString(class)
     )
-    assays <- list(
-        .importDataFile(
-            dataset = dataset,
-            keys = "ccle",
-            fileName = fileName,
-            rownamesCol = 1L,
-            return = "matrix"
-        )
+    url <- .datasets[[dataset]][["ccle"]][[assayKey]][["url"]]
+    assert(isAURL(url))
+    mat <- .importDataFile(
+        url = url,
+        rownamesCol = 1L,
+        return = "matrix"
     )
+    assays <- list(mat)
     names(assays) <- assayName
     .makeSummarizedExperiment(
         dataset = dataset,
@@ -99,9 +96,7 @@
             ))
         }
         ## FIXME Hitting an error on logical subset length here...
-        ## Error in x[i, , drop = FALSE] : (subscript) logical subscript too long
         ## This is specific to "sanger_project_score_2021_05" dataset.
-        ## Calls: .makeSummarizedExperiment -> lapply -> lapply -> FUN
         assays <- lapply(
             X = assays,
             i = !is.na(idx),

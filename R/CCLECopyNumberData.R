@@ -1,7 +1,7 @@
 #' Import CCLE copy number data
 #'
 #' @export
-#' @note Updated 2021-06-10.
+#' @note Updated 2021-07-07.
 #'
 #' @inheritParams params
 #'
@@ -13,10 +13,10 @@
 CCLECopyNumberData <-  # nolint
     function(dataset) {
         .makeCcleSE(
-            class = "CCLECopyNumberData",
+            dataset = match.arg(dataset),
+            assayKey = "copy_number",
             assayName = "log2CopyNumber",
-            fileName = "ccle_gene_cn.csv",
-            dataset = match.arg(dataset)
+            class = "CCLECopyNumberData"
         )
     }
 
