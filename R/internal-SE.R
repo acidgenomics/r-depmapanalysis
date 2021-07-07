@@ -1,3 +1,5 @@
+## FIXME Rethink this....
+
 #' Make SummarizedExperiment object from CCLE data
 #'
 #' @note Updated 2021-06-10.

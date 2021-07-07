@@ -43,23 +43,6 @@
 
 
 
-## FIXME Need to rethink this.
-
-#' Import control non-essential genes
-#'
-#' @note Updated 2020-10-02.
-#' @noRd
-.importControlNonessentials <-
-    function(dataset) {
-        .importGeneDataFile(
-            dataset = dataset,
-            keys = "controls",
-            fileName = "nonessentials.csv"
-        )
-    }
-
-
-
 #' Import a DepMap data file
 #'
 #' @note Updated 2021-07-07.
