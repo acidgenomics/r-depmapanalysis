@@ -1,16 +1,20 @@
-#' Import cancer cell line dependency map data
+## FIXME Need to pick recommended methods here by default.
+
+
+
+#' Gene effect in cancer cell lines
 #'
 #' @section Assays:
 #'
-#' - `effect`: **CERES data** with principle components strongly related to
-#'   known batch effects removed, then shifted and scaled per cell line so the
-#'   median nonessential KO effect is 0 and the median essential KO effect is
-#'   -1.
+#' - `effect`: **Chronos or CERES data** with principle components strongly
+#'   related to known batch effects removed, then shifted and scaled per cell
+#'   line so the median nonessential KO effect is 0 and the median essential KO
+#'   effect is -1.
 #' - `probability`: **Probability** that knocking out the gene has a real
 #'   depletion effect using `gene_effect`.
 #'
 #' @export
-#' @note Updated 2021-06-10.
+#' @note Updated 2021-07-07.
 #'
 #' @inheritParams params
 #' @param project `character(1)`.
@@ -27,19 +31,23 @@
 #'   - RNAi: `"demeter2"`
 #'     (e.g. `demeter2_data_v6` dataset).
 #'
-#' @return `DepMapAnalysis`.
+#' @return `GeneEffect`.
 #'
 #' @examples
-#' object <- DepMapAnalysis()
+#' object <- GeneEffect()
 #' print(object)
-DepMapAnalysis <-  # nolint
+GeneEffect <-  # nolint
     function(
         dataset,
+        ## FIXME Set this to "default" and pick recommended for the dataset.
         project = c(
-            "combined",
+            "achilles+score",  # CRISPR combined
+            "achilles+drive+marcotte",  # RNAi combined
             "achilles",
+            "score",
             "drive"
         ),
+        ## FIXME Set this to "default" and pick recommended for the dataset.
         scoringMethod = c(
             "chronos",
             "ceres",
@@ -50,6 +58,8 @@ DepMapAnalysis <-  # nolint
         project <- match.arg(project)
         scoringMethod <- match.arg(scoringMethod)
         ## Handle DEMETER2 scoring edge case for RNAi dataset gracefully.
+        ## FIXME Should be able to take this out once we switch to "default"
+        ## approach instead.
         if (
             isTRUE(grepl(pattern = "demeter2_", x = dataset)) &&
             !identical(scoringMethod, "demeter2")
@@ -96,6 +106,11 @@ DepMapAnalysis <-  # nolint
                     )
                 }
             )
+        } else if (isTRUE(grepl(pattern = "project_score", x = dataset))) {
+            libraryType <- "crispr"
+            ceFile <- "common_essentials.csv"
+            effectFile <- "gene_effect.csv"
+            probFile <- "gene_dependency.csv"
         } else if (isTRUE(grepl(pattern = "^demeter2_", x = dataset))) {
             libraryType <- "rnai"
             effectFile <- paste0("d2_", project, "_gene_dep_scores.csv")
@@ -132,14 +147,27 @@ DepMapAnalysis <-  # nolint
                             dataset = dataset,
                             keys = keys,
                             fileName = ceFile
-                        ),
-                    "controlCommonEssentials" =
-                        .importControlCommonEssentials(dataset = dataset),
-                    "controlNonessentials" =
-                        .importControlNonessentials(dataset = dataset)
+                        )
                 )
             )
+            ## NOTE Not supported for Sanger Project Score 2021.
+            if (isSubset(
+                x = "controls",
+                y = names(.datasets[[project]])
+            )) {
+                metadata <- append(
+                    x = metadata,
+                    values = list(
+                        "controlCommonEssentials" =
+                            .importControlCommonEssentials(dataset = dataset),
+                        "controlNonessentials" =
+                            .importControlNonessentials(dataset = dataset)
+                    )
+                )
+            }
         }
+        ## FIXME This is failing for "sanger_project_score_2021_05" due to
+        ## subset mismatch -- too long?
         .makeSummarizedExperiment(
             dataset = dataset,
             assays = assays,
@@ -149,8 +177,8 @@ DepMapAnalysis <-  # nolint
                 "rnai" = FALSE
             ),
             metadata = metadata,
-            class = "DepMapAnalysis"
+            class = "GeneEffect"
         )
     }
 
-formals(DepMapAnalysis)[["dataset"]] <- .formalsList[["dataset"]]
+formals(GeneEffect)[["dataset"]] <- .formalsList[["dataset"]]

@@ -96,6 +96,12 @@
                 toString(retiredGenes, width = 100L)
             ))
         }
+
+        ## FIXME Hitting an error on logical subset length here...
+        ## Error in x[i, , drop = FALSE] : (subscript) logical subscript too long
+        ## This is specific to "sanger_project_score_2021_05" dataset.
+        ## Calls: .makeSummarizedExperiment -> lapply -> lapply -> FUN
+
         assays <- lapply(
             X = assays,
             i = !is.na(idx),

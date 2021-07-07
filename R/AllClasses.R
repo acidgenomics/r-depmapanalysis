@@ -2,11 +2,11 @@
 #'
 #' Legacy object that is no longer recommended.
 #'
-#' Use `DepMapAnalysis` object instead.
+#' Use `GeneEffect` object instead.
 #'
 #' @export
 #' @keywords internal
-#' @note Updated 2021-06-20.
+#' @note Updated 2021-07-07.
 #'
 #' @return `Achilles`.
 setClass(
@@ -278,26 +278,27 @@ setValidity(
 
 
 
-#' Cancer cell line dependency map analysis
+#' Gene effect in cancer cell lines
 #'
 #' @details
 #' Inherits from `SummarizedExperiment`.
 #' Cells in columns, genes in rows.
 #'
 #' @export
-#' @note Updated 2021-06-09.
+#' @note Updated 2021-07-07.
 #'
-#' @return `DepMapAnalysis`.
+#' @return `GeneEffect`.
 #'
 #' @seealso
 #' - https://depmap.org/portal/achilles/
 #' - https://depmap.org/ceres/
+#' - https://score.depmap.sanger.ac.uk/
 setClass(
-    Class = "DepMapAnalysis",
+    Class = "GeneEffect",
     contains = "SummarizedExperiment"
 )
 setValidity(
-    Class = "DepMapAnalysis",
+    Class = "GeneEffect",
     method = function(object) {
         ok <- validate(
             hasDimnames(object),

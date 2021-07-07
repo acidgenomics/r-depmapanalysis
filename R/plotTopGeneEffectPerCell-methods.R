@@ -1,7 +1,7 @@
 #' Plot top gene effect (dependencies) per cell
 #'
 #' @name plotTopGeneEffectPerCell
-#' @note Updated 2021-06-10.
+#' @note Updated 2021-07-07.
 #'
 #' @inheritParams AcidRoxygen::params
 #'
@@ -10,7 +10,7 @@
 #' @examples
 #' data(crispr)
 #'
-#' ## DepMapAnalysis ====
+#' ## GeneEffect ====
 #' object <- crispr
 #' cells <- head(colnames(object), n = 6L)
 #' plotTopGeneEffectPerCell(object, cells = cells, n = 5L)
@@ -18,8 +18,8 @@ NULL
 
 
 
-## Updated 2021-06-10.
-`plotTopGeneEffectPerCell,DepMapAnalysis` <-  # nolint
+## Updated 2021-07-07.
+`plotTopGeneEffectPerCell,GeneEffect` <-  # nolint
     function(
         object,
         cells,
@@ -80,6 +80,6 @@ NULL
 #' @export
 setMethod(
     f = "plotTopGeneEffectPerCell",
-    signature = signature("DepMapAnalysis"),
-    definition = `plotTopGeneEffectPerCell,DepMapAnalysis`
+    signature = signature("GeneEffect"),
+    definition = `plotTopGeneEffectPerCell,GeneEffect`
 )

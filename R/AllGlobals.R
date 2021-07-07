@@ -11,7 +11,7 @@
 
 
 
-## NOTE Consider reworking this as YAML or JSON instead.
+## FIXME Need to rework this as JSON or YAML.
 
 #' DepMap dataset URLs
 #'

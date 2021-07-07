@@ -3,12 +3,12 @@
 \name{show}
 \alias{show}
 \alias{show,CCLEMutationData-method}
-\alias{show,DepMapAnalysis-method}
+\alias{show,GeneEffect-method}
 \title{Show an object}
 \usage{
 \S4method{show}{CCLEMutationData}(object)
 
-\S4method{show}{DepMapAnalysis}(object)
+\S4method{show}{GeneEffect}(object)
 }
 \arguments{
 \item{object}{Object.}
@@ -20,11 +20,11 @@ Console output.
 Show an object
 }
 \note{
-Updated 2021-06-09.
+Updated 2021-07-07.
 }
 \examples{
 data(crispr)
 
-## DepMapAnalysis ====
+## GeneEffect ====
 show(crispr)
 }

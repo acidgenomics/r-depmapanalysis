@@ -11,9 +11,9 @@
 Legacy object that is no longer recommended.
 }
 \details{
-Use \code{DepMapAnalysis} object instead.
+Use \code{GeneEffect} object instead.
 }
 \note{
-Updated 2021-06-20.
+Updated 2021-07-07.
 }
 \keyword{internal}

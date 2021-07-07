@@ -3,12 +3,12 @@
 %   R/plotTopGeneEffectPerCell-methods.R
 \name{plotTopGeneEffectPerCell}
 \alias{plotTopGeneEffectPerCell}
-\alias{plotTopGeneEffectPerCell,DepMapAnalysis-method}
+\alias{plotTopGeneEffectPerCell,GeneEffect-method}
 \title{Plot top gene effect (dependencies) per cell}
 \usage{
 plotTopGeneEffectPerCell(object, ...)
 
-\S4method{plotTopGeneEffectPerCell}{DepMapAnalysis}(object, cells, n = 5L)
+\S4method{plotTopGeneEffectPerCell}{GeneEffect}(object, cells, n = 5L)
 }
 \arguments{
 \item{object}{Object.}
@@ -28,12 +28,12 @@ Number to include.}
 Plot top gene effect (dependencies) per cell
 }
 \note{
-Updated 2021-06-10.
+Updated 2021-07-07.
 }
 \examples{
 data(crispr)
 
-## DepMapAnalysis ====
+## GeneEffect ====
 object <- crispr
 cells <- head(colnames(object), n = 6L)
 plotTopGeneEffectPerCell(object, cells = cells, n = 5L)

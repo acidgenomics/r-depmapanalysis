@@ -1,11 +1,11 @@
 #' @name show
 #' @inherit AcidGenerics::show
-#' @note Updated 2021-06-09.
+#' @note Updated 2021-07-07.
 #'
 #' @examples
 #' data(crispr)
 #'
-#' ## DepMapAnalysis ====
+#' ## GeneEffect ====
 #' show(crispr)
 NULL
 
@@ -30,8 +30,8 @@ NULL
 
 
 
-## Updated 2021-06-09.
-`show,DepMapAnalysis` <-  # nolint
+## Updated 2021-07-07.
+`show,GeneEffect` <-  # nolint
     function(object) {
         validObject(object)
         showHeader(object)
@@ -57,10 +57,12 @@ setMethod(
     definition = `show,CCLEMutationData`
 )
 
+
+
 #' @rdname show
 #' @export
 setMethod(
     f = "show",
-    signature = signature("DepMapAnalysis"),
-    definition = `show,DepMapAnalysis`
+    signature = signature("GeneEffect"),
+    definition = `show,GeneEffect`
 )
