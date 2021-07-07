@@ -1,41 +1,14 @@
-#' Download and cache a data file from DepMap into BiocFileCache
+#' Cache URL into package
 #'
 #' @note Updated 2021-07-07.
 #' @noRd
-#'
-#' @param fileId `character(1)`.
-#'   DepMap file identifier on figshare.com.
-#' @param fileName `character(1)`.
-#'   File name.
-#'
-#' @return `character(1)`.
-#'   Cached file path on disk.
-#'
-#' @examples
-#' fileName <- "sample_info.csv"
-#' fileId <- .datasets[["depmap_public_21q2"]][["metadata"]][[fileName]]
-#' .cacheDataFile(fileName = fileName, fileId = fileId)
-.cacheDataFile <- function(
-    fileName,
-    fileId,
-    verbose = TRUE
-) {
-    ## FIXME Need to rethink the fileId, fileName approach.
-    ## FIXME Need to rethink this approach, after switch to YAML.
-    urlStem <- .urlStem
-    assert(
-        isString(fileName),
-        isInt(fileId),
-        isAURL(urlStem),
-        isFlag(verbose)
-    )
-    url <- pasteURL(urlStem, as.character(fileId))
-    file <- cacheURL(url = url, pkg = .pkgName, verbose = verbose)
-    assert(isAFile(file))
-    file
+.cacheURL <- function(...) {
+    cacheURL(..., pkg = .pkgName)
 }
 
 
+
+## FIXME Need to rethink this.
 
 #' Import cell line sample metadata
 #'
@@ -70,20 +43,7 @@
 
 
 
-#' Import control essential genes
-#'
-#' @note Updated 2020-10-02.
-#' @noRd
-.importControlCommonEssentials <-
-    function(dataset) {
-        .importGeneDataFile(
-            dataset = dataset,
-            keys = "controls",
-            fileName = "common_essentials.csv"
-        )
-    }
-
-
+## FIXME Need to rethink this.
 
 #' Import control non-essential genes
 #'
@@ -102,47 +62,24 @@
 
 #' Import a DepMap data file
 #'
-#' @note Updated 2021-06-10.
+#' @note Updated 2021-07-07.
 #' @noRd
 .importDataFile <- function(
-    dataset,
-    keys,
-    fileName,
+    url,
     format = c("csv", "tsv"),
     rownamesCol = NULL,
     engine = "data.table",
     return = c("DataFrame", "matrix")
 ) {
     assert(
-        isString(dataset),
-        isCharacter(keys),
-        isString(fileName),
+        isAURL(url),
         isScalar(rownamesCol) || is.null(rownamesCol),
-        isString(engine),
-        is.list(.datasets)
+        isString(engine)
     )
     format <- match.arg(format)
     return <- match.arg(return)
-    keys <- c(dataset, keys, fileName)
-    alert(sprintf(
-        "Importing {.file %s} from {.var %s} dataset.",
-        fileName, dataset
-    ))
-    assert(
-        isSubset(dataset, names(.datasets)),
-        msg = sprintf("Unsupported dataset: '%s'.", dataset)
-    )
-    tryCatch(
-        expr = {
-            fileId <- `[[`(.datasets, keys)
-        },
-        error = function(e) {
-            stop(sprintf("Unsupported dataset keys: %s", toString(keys)))
-        }
-    )
-    assert(isInt(fileId))
-    file <- .cacheDataFile(fileName = fileName, fileId = fileId)
-    df <- import(file = file, format = format, engine = engine, quiet = TRUE)
+    tmpfile <- .cacheURL(url = url)
+    df <- import(file = tmpfile, format = format, engine = engine)
     if (isScalar(rownamesCol)) {
         if (!isString(rownamesCol)) {
             rownamesCol <- colnames(df)[[rownamesCol]]
@@ -150,7 +87,7 @@
         assert(isSubset(rownamesCol, colnames(df)))
         rownames(df) <- df[[rownamesCol]]
     }
-    df <- switch(
+    out <- switch(
         EXPR = return,
         "DataFrame" = as(df, "DataFrame"),
         "matrix" = {
@@ -158,22 +95,20 @@
             as.matrix(df)
         }
     )
-    df <- makeDimnames(df)
-    df
+    out <- makeDimnames(out)
+    out
 }
 
 
 
 #' Import a DepMap file containing gene identifiers
 #'
-#' @note Updated 2021-06-08.
+#' @note Updated 2021-07-07.
 #' @noRd
 .importGeneDataFile <-
-    function(dataset, keys, fileName) {
+    function(url) {
         df <- .importDataFile(
-            dataset = dataset,
-            keys = keys,
-            fileName = fileName,
+            url = url,
             ## Don't use 'data.table' here.
             engine = "base",
             return = "DataFrame"
