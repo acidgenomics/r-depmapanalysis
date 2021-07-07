@@ -1,3 +1,10 @@
+## DepMapAnalysis 0.2.0 (2021-07-07)
+
+### Major changes
+
+- Renamed `DepMapAnalysis` class to `GeneEffect`.
+- Reworked internal DepMap dataset metadata to use YAML instead of list.
+
 ## DepMapAnalysis 0.1.1 (2021-06-21)
 
 ### New functions
