@@ -2,13 +2,13 @@
 # - transpose_assays
 # - default scoring method and project
 #
-# FIXME Store the fusion information here.
+# FIXME Need to add fusion information for older DepMap releases.
 
 
 
 # DepMap dataset URLs
 #
-# @note Updated 2021-07-06.
+# @note Updated 2021-07-07.
 #
 # @section Combination of Broad and Sanger scoring data:
 #
@@ -250,74 +250,80 @@ depmap_public_21q2:
                 scoring_method:
                     - chronos:
                         common_essentials:
-                            27902166
-                            # crispr_common_essentials_chronos.csv
+                            filename: "crispr_common_essentials_chronos.csv"
+                            url: "https://ndownloader.figshare.com/files/27902166"
                         gene_dependency:
-                            27902175
-                            # crispr_gene_dependency_chronos.csv
+                            filename: "crispr_gene_dependency_chronos.csv"
+                            url: "https://ndownloader.figshare.com/files/27902175"
                         gene_effect:
-                            27902229
-                            # crispr_gene_effect_chronos.csv
+                            filename: "crispr_gene_effect_chronos.csv"
+                            url: "https://ndownloader.figshare.com/files/27902229"
                     - ceres:
                         common_essentials:
-                            27902163
-                            # crispr_common_essentials.csv
+                            filename: "crispr_common_essentials.csv"
+                            url: "https://ndownloader.figshare.com/files/27902163"
                         gene_dependency:
-                            27902169
-                            # crispr_gene_dependency.csv
+                            filename: "crispr_gene_dependency.csv"
+                            url: "https://ndownloader.figshare.com/files/27902169"
                         gene_effect:
-                            27902226
-                            # crispr_gene_effect.csv
+                            filename: "crispr_gene_effect.csv"
+                            url: "https://ndownloader.figshare.com/files/27902226"
             - achilles:
                 scoring_method:
                     - chronos:
                         "common_essentials":
-                            27902031
-                            # achilles_common_essentials_chronos.csv
+                            filename: "achilles_common_essentials_chronos.csv"
+                            url: "https://ndownloader.figshare.com/files/27902031"
                         "gene_dependency":
-                            27902049
-                            # achilles_gene_dependency_chronos.csv
+                            filename: "achilles_gene_dependency_chronos.csv"
+                            url: "https://ndownloader.figshare.com/files/27902049"
                         "gene_effect":
-                            27902043
-                            # achilles_gene_effect_chronos.csv
+                            filename: "achilles_gene_effect_chronos.csv"
+                            url: "https://ndownloader.figshare.com/files/27902043"
                     - ceres:
                         "common_essentials":
-                            27902028
-                            # achilles_common_essentials.csv
+                            filename: "achilles_common_essentials.csv"
+                            url: "https://ndownloader.figshare.com/files/27902028"
                         "gene_dependency":
-                            27902040
-                            # achilles_gene_dependency.csv
+                            filename: "achilles_gene_dependency.csv"
+                            url: "https://ndownloader.figshare.com/files/27902040"
                         "gene_effect":
-                            27902046
-                            # achilles_gene_effect.csv
+                            filename: "achilles_gene_effect.csv"
+                            url: "https://ndownloader.figshare.com/files/27902046"
     ccle:
         copy_number:
-            27902124
-            # ccle_gene_cn.csv
+            filename: "ccle_gene_cn.csv"
+            url: "https://ndownloader.figshare.com/files/27902124"
         expression:
-            27902091
-            # ccle_expression.csv
+            filename: "ccle_expression.csv"
+            url: "https://ndownloader.figshare.com/files/27902091"
+        fusions:
+            filename: "ccle_fusions.csv"
+            url: "https://ndownloader.figshare.com/files/27902109"
+        fusions_unfiltered:
+            filename: "ccle_fusions_unfiltered.csv"
+            url: "https://ndownloader.figshare.com/files/27902115"
         mutations:
-            27902118
-            # ccle_mutations.csv
+            filename: "ccle_mutations.csv"
+            url: "https://ndownloader.figshare.com/files/27902118"
 
 depmap_public_21q1:
     metadata:
         date: "2021-02"
         readme:
-            26261566
-            # readme.txt
+            filename: "readme.txt"
+            url: "https://ndownloader.figshare.com/files/26261566"
         sample_info:
-            26261569
-            # sample_info.csv
+            filename: "sample_info.csv"
+            url: "https://ndownloader.figshare.com/files/26261569"
     screen:
         controls:
             common_essentials:
-                26261545
-                # common_essentials.csv
+                filename: "common_essentials.csv"
+                url: "https://ndownloader.figshare.com/files/26261545"
             nonessentials:
-                26261557
-                # nonessentials.csv
+                filename: "nonessentials.csv"
+                url: "https://ndownloader.figshare.com/files/26261557"
         defaults:
             project: "combined"
             scoring_method: "chronos"
@@ -326,56 +332,56 @@ depmap_public_21q1:
                 scoring_method:
                     - ceres:
                         common_essentials:
-                            26261551
-                            # crispr_common_essentials.csv
+                            filename: "crispr_common_essentials.csv"
+                            url: "https://ndownloader.figshare.com/files/26261551"
                         gene_dependency:
-                            26261554
-                            # crispr_gene_dependency.csv
+                            filename: "crispr_gene_dependency.csv"
+                            url: "https://ndownloader.figshare.com/files/26261554"
                         gene_effect:
-                            26261563
-                            # crispr_gene_effect.csv
+                            filename: "crispr_gene_effect.csv"
+                            url: "https://ndownloader.figshare.com/files/26261563"
             - achilles:
                 scoring_method:
                     - ceres:
                         common_essentials:
-                            26261275
-                            # achilles_common_essentials.csv
+                            filename: "achilles_common_essentials.csv"
+                            url: "https://ndownloader.figshare.com/files/26261275"
                         gene_dependency:
-                            26261290
-                            # achilles_gene_dependency.csv
+                            filename: "achilles_gene_dependency.csv"
+                            url: "https://ndownloader.figshare.com/files/26261290"
                         gene_effect:
-                            26261293
-                            # achilles_gene_effect.csv
+                            filename: "achilles_gene_effect.csv"
+                            url: "https://ndownloader.figshare.com/files/26261293"
     ccle:
         copy_number:
-            26261524
-            # ccle_gene_cn.csv
+            filename: "ccle_gene_cn.csv"
+            url: "https://ndownloader.figshare.com/files/26261524"
         expression:
-            26261476
-            # ccle_expression.csv
+            filename: "ccle_expression.csv"
+            url: "https://ndownloader.figshare.com/files/26261476"
         mutations:
-            26261527
-            # ccle_mutations.csv
+            filename: "ccle_mutations.csv"
+            url: "https://ndownloader.figshare.com/files/26261527"
 
 demeter2_data_v6:
     metadata:
         date: "2020-04"
         readme:
-            13515380
-            # readme.txt
+            filename: "readme.txt"
+            url: "https://ndownloader.figshare.com/files/13515380"
         sample_info:
-            11489717
-            # sample_info.csv
+            filename: "sample_info.csv"
+            url: "https://ndownloader.figshare.com/files/11489717"
     screen:
         library_type: "rnai"
         transpose_assays: false
         controls:
             common_essentials:
-                11489711
-                # hart-pos-controls.csv
+                filename: "hart-pos-controls.csv"
+                url: "https://ndownloader.figshare.com/files/11489711"
             nonessentials:
-                11489708
-                # hart-neg-controls.csv
+                filename: "hart-neg-controls.csv"
+                url: "https://ndownloader.figshare.com/files/11489708"
         defaults:
             project: "combined"
             scoring_method: "demeter2"
@@ -384,27 +390,27 @@ demeter2_data_v6:
                 scoring_method:
                     - demeter2:
                         gene_dependency:
-                            13515395
-                            # d2_combined_gene_dep_scores.csv
+                            filename: "d2_combined_gene_dep_scores.csv"
+                            url: "https://ndownloader.figshare.com/files/13515395"
             - achilles:
                 scoring_method:
                     - demeter2:
                         gene_dependency:
-                            11489669
-                            # d2_achilles_gene_dep_scores.csv
+                            filename: "d2_achilles_gene_dep_scores.csv"
+                            url: "https://ndownloader.figshare.com/files/11489669"
             - drive:
                 scoring_method:
                     - demeter2:
                         gene_dependency:
-                            11489693
-                            # d2_drive_gene_dep_scores.csv
+                            filename: "d2_drive_gene_dep_scores.csv"
+                            url: "https://ndownloader.figshare.com/files/11489693"
 
 sanger_project_score_2021_05:
     metadata:
         date: "2021-05"
         readme:
-            27676626
-            # readme.txt
+            filename: "readme.txt"
+            url: "https://ndownloader.figshare.com/files/27676626"
     screen:
         library_type: "crispr"
         transpose_assays: true
@@ -416,31 +422,31 @@ sanger_project_score_2021_05:
                 scoring_method:
                     - chronos:
                         common_essentials:
-                            27676611
-                            # common_essentials.csv
+                            filename: "common_essentials.csv"
+                            url: "https://ndownloader.figshare.com/files/27676611"
                         gene_dependency:
-                            27676620
-                            # gene_dependency.csv
+                            filename: "gene_dependency.csv"
+                            url: "https://ndownloader.figshare.com/files/27676620"
                         gene_effect:
-                            27676629
-                            # gene_effect.csv
+                            filename: "gene_effect.csv"
+                            url: "https://ndownloader.figshare.com/files/27676629"
 
 sanger_project_score_2019_08:
     metadata:
         date: "2019-08"
         readme:
-            16623944
-            # readme.txt
+            filename: "readme.txt"
+            url: "https://ndownloader.figshare.com/files/16623944"
     screen:
         library_type: "crispr"
         transpose_assays: true
         controls:
             essential_genes:
-                16623887
-                # essential_genes.txt
+                filename: "essential_genes.txt"
+                url: "https://ndownloader.figshare.com/files/16623887"
             nonessential_genes:
-                16623890
-                # nonessential_genes.csv
+                filename: "nonessential_genes.csv"
+                url: "https://ndownloader.figshare.com/files/16623890"
         defaults:
             project: "score"
             scoring_method: "ceres"
@@ -449,14 +455,14 @@ sanger_project_score_2019_08:
                 scoring_method:
                     - ceres:
                         common_essentials:
-                            16623899
-                            # pan_dependent_genes.txt
+                            filename: "pan_dependent_genes.txt"
+                            url: "https://ndownloader.figshare.com/files/16623899"
                         gene_dependency:
-                            16623884
-                            # gene_dependency.csv
+                            filename: "gene_dependency.csv"
+                            url: "https://ndownloader.figshare.com/files/16623884"
                         gene_effect:
-                            16623881
-                            # gene_effect.csv
+                            filename: "gene_effect.csv"
+                            url: "https://ndownloader.figshare.com/files/16623881"
 
 
 
