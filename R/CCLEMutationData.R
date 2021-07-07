@@ -13,6 +13,7 @@
 CCLEMutationData <-  # nolint
     function(dataset) {
         dataset <- match.arg(dataset)
+        ## FIXME Rethink this approach.
         df <- .importDataFile(
             dataset = dataset,
             keys = "ccle",
