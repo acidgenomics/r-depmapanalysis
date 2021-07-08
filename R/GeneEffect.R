@@ -84,18 +84,19 @@ GeneEffect <-  # nolint
                 "scoringMethod", scoringMethod
             )
         )
-        date <- yaml[["metadata"]][["date"]]
         libraryType <- yaml[["screen"]][["library_type"]]
+        releaseDate <- yaml[["metadata"]][["date"]]
         transposeAssays <- yaml[["screen"]][["transpose_assays"]]
         assert(
             isString(libraryType),
+            isString(releaseDate),
             isFlag(transposeAssays)
         )
         h1(sprintf("Preparing {.var %s} gene effect object.", dataset))
         dl(c(
-            "date" = date,
             "libraryType" = libraryType,
             "project" = project,
+            "releaseDate" = releaseDate,
             "scoringMethod" = scoringMethod
         ))
         urls <- list(
@@ -151,9 +152,9 @@ GeneEffect <-  # nolint
             x = metadata,
             values = list(
                 ## "dataset" and "yaml" are added in call below.
-                "date" = date,
                 "libraryType" = libraryType,
                 "project" = project,
+                "releaseDate" = releaseDate,
                 "scoringMethod" = scoringMethod
             )
         )

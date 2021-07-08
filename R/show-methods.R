@@ -37,11 +37,12 @@ NULL
         showHeader(object)
         m <- metadata(object)
         list <- list(
-            "date" = m[["date"]],
             "dataset" = m[["dataset"]],
             "libraryType" = m[["libraryType"]],
             "project" = m[["project"]],
-            "scoringMethod" = m[["scoringMethod"]]
+            "scoringMethod" = m[["scoringMethod"]],
+            "date" = m[["date"]],
+            "releaseDate" = m[["releaseDate"]]
         )
         showSlotInfo(list)
         se <- as(object, "SummarizedExperiment")
