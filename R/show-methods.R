@@ -37,6 +37,7 @@ NULL
         showHeader(object)
         m <- metadata(object)
         list <- list(
+            "date" = m[["date"]],
             "dataset" = m[["dataset"]],
             "libraryType" = m[["libraryType"]],
             "project" = m[["project"]],

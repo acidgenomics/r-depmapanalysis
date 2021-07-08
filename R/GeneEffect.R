@@ -10,7 +10,7 @@
 #'   depletion effect using `gene_effect`.
 #'
 #' @export
-#' @note Updated 2021-07-07.
+#' @note Updated 2021-07-08.
 #'
 #' @inheritParams params
 #' @param project `character(1)`.
@@ -67,7 +67,10 @@ GeneEffect <-  # nolint
                 x = project,
                 y = names(yaml[["screen"]][["project"]])
             ),
-            msg = sprintf("Invalid '%s': '%s'.", "project", project)
+            msg = sprintf(
+                "Invalid '%s': '%s'.",
+                "project", project
+            )
         )
         assert(
             isString(scoringMethod),
@@ -76,14 +79,25 @@ GeneEffect <-  # nolint
                 y = names(yaml[["screen"]][["project"]][[
                     project]][["scoring_method"]])
             ),
-            msg = sprintf("Invalid '%s': '%s'.", "scoringMethod", scoringMethod)
+            msg = sprintf(
+                "Invalid '%s': '%s'.",
+                "scoringMethod", scoringMethod
+            )
         )
+        date <- yaml[["metadata"]][["date"]]
         libraryType <- yaml[["screen"]][["library_type"]]
         transposeAssays <- yaml[["screen"]][["transpose_assays"]]
         assert(
             isString(libraryType),
             isFlag(transposeAssays)
         )
+        h1(sprintf("Preparing {.var %s} gene effect object.", dataset))
+        dl(c(
+            "date" = date,
+            "libraryType" = libraryType,
+            "project" = project,
+            "scoringMethod" = scoringMethod
+        ))
         urls <- list(
             "assays" = list(
                 "effect" =
@@ -137,6 +151,7 @@ GeneEffect <-  # nolint
             x = metadata,
             values = list(
                 ## "dataset" and "yaml" are added in call below.
+                "date" = date,
                 "libraryType" = libraryType,
                 "project" = project,
                 "scoringMethod" = scoringMethod

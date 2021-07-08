@@ -9,7 +9,7 @@
 #'
 #' @importFrom basejump CharacterList DataFrame EntrezGeneInfo alert alertInfo
 #'   alertWarning assay assayNames as_tibble cacheURL camelCase capture.output
-#'   colData complete.cases decode do.call encode geneSynonyms head import
+#'   colData complete.cases decode dl do.call encode geneSynonyms h1 head import
 #'   lapply leftJoin makeDimnames makeSummarizedExperiment mapGenesToRownames
 #'   mcols mean median melt metadata metadata<- order packageName packageVersion
 #'   pasteURL reorder rbind rowData showHeader showSlotInfo split str_match t

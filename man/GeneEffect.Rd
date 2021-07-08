@@ -43,7 +43,7 @@ Scoring method name to use.
 Gene effect in cancer cell lines
 }
 \note{
-Updated 2021-07-07.
+Updated 2021-07-08.
 }
 \section{Assays}{
 

@@ -94,7 +94,18 @@
             engine = "base",
             return = "DataFrame"
         )
-        assert(isCharacter(df[["gene"]]))
-        vec <- sort(df[["gene"]])
+        colnames(df) <- camelCase(colnames(df))
+        if (identical(colnames(df), c("geneSymbol", "geneId"))) {
+            ## e.g. DEMETER2 control files.
+            vec <- paste0(df[["geneSymbol"]], " (", df[["geneId"]], ")")
+        } else {
+            ## e.g. DepMap current public release files.
+            assert(
+                identical(colnames(df), "gene"),
+                isCharacter(df[["gene"]])
+            )
+            vec <- df[["gene"]]
+        }
+        vec <- sort(vec)
         vec
     }

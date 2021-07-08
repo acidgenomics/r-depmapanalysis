@@ -654,18 +654,18 @@ demeter2_data_v6:
             combined:  # achilles+drive+marcotte
                 scoring_method:
                     demeter2:
-                        gene_dependency:
+                        gene_effect:
                             file_name: "d2_combined_gene_dep_scores.csv"
                             url: "https://ndownloader.figshare.com/files/13515395"
             achilles:
                 scoring_method:
                     demeter2:
-                        gene_dependency:
+                        gene_effect:
                             file_name: "d2_achilles_gene_dep_scores.csv"
                             url: "https://ndownloader.figshare.com/files/11489669"
             drive:
                 scoring_method:
                     demeter2:
-                        gene_dependency:
+                        gene_effect:
                             file_name: "d2_drive_gene_dep_scores.csv"
                             url: "https://ndownloader.figshare.com/files/11489693"
