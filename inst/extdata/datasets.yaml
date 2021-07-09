@@ -619,10 +619,10 @@ sanger_project_score_2019_08:
         library_type: "crispr"
         transpose_assays: true
         controls:
-            essential_genes:
+            common_essentials:
                 file_name: "essential_genes.txt"
                 url: "https://ndownloader.figshare.com/files/16623887"
-            nonessential_genes:
+            nonessentials:
                 file_name: "nonessential_genes.csv"
                 url: "https://ndownloader.figshare.com/files/16623890"
         defaults:
