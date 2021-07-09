@@ -356,7 +356,7 @@ setValidity(
 #' Cells in columns, genes in rows.
 #'
 #' @export
-#' @note Updated 2021-07-07.
+#' @note Updated 2021-07-08.
 #'
 #' @return `GeneEffect`.
 #'
@@ -424,8 +424,9 @@ setValidity(
                             "sex",
                             "source",
                             "strippedCellLineName",
-                            "subtype",
-                            "wtsiMasterCellId"
+                            "subtype"
+                            ## Not in "depmap_public_20q2":
+                            ## > "wtsiMasterCellId"
                         ),
                         y = colnames(colData(object))
                     )
