@@ -407,26 +407,27 @@ setValidity(
                             "ccleName",
                             "cellLineName",
                             "cellLineNnmd",
-                            "cosmicid",
                             "cultureMedium",
                             "cultureType",
                             "depMapId",
-                            "depmapPublicComments",
                             "lineage",
                             "lineageMolecularSubtype",
                             "lineageSubSubtype",
                             "lineageSubtype",
-                            "primaryDisease",
                             "primaryOrMetastasis",
                             "rrid",
                             "sampleCollectionSite",
                             "sangerModelId",
                             "sex",
                             "source",
-                            "strippedCellLineName",
-                            "subtype"
+                            "strippedCellLineName"
                             ## Not in "depmap_public_20q2":
                             ## > "wtsiMasterCellId"
+                            ## Not in "depmap_public_20q1":
+                            ## > "cosmicid",
+                            ## > "depmapPublicComments",
+                            ## > "primaryDisease",
+                            ## > "subtype"
                         ),
                         y = colnames(colData(object))
                     )
