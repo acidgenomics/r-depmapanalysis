@@ -318,7 +318,7 @@ depmap_public_21q1:
                 url: "https://ndownloader.figshare.com/files/26261557"
         defaults:
             project: "combined"
-            scoring_method: "chronos"
+            scoring_method: "ceres"
         project:
             combined:
                 scoring_method:
