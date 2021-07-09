@@ -84,10 +84,11 @@
 
 #' Import a DepMap file containing gene identifiers
 #'
-#' @note Updated 2021-07-07.
+#' @note Updated 2021-07-08.
 #' @noRd
 .importGeneDataFile <-
     function(url) {
+        alert(sprintf("Downloading DepMap file {.url %s}.", url))
         df <- .importDataFile(
             url = url,
             ## Don't use 'data.table' here.

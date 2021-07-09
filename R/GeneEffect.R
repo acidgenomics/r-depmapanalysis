@@ -92,7 +92,7 @@ GeneEffect <-  # nolint
             isString(releaseDate),
             isFlag(transposeAssays)
         )
-        h1(sprintf("Preparing {.var %s} gene effect object.", dataset))
+        h1(sprintf("Preparing {.var %s} gene effect dataset.", dataset))
         dl(c(
             "libraryType" = libraryType,
             "project" = project,
