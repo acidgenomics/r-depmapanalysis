@@ -8,6 +8,10 @@
 #'
 #' @param effect `GeneEffect`.
 #' @param expression `CCLEExpressionData`.
+#' @param subtype `character(1)` or `NULL`.
+#'   Cell subtype name to use for filtering.
+#' @param subtypeCol `character(1)`.
+#'   Column name of metadata defined in `colData` of `effect`.
 #'
 #' @examples
 #' data(crispr)

@@ -4,6 +4,8 @@
 #' @note Updated 2021-07-09.
 #'
 #' @inheritParams params
+#' @param filtered `logical(1)`.
+#'   Load filtered fusion calls.
 #'
 #' @return `CCLEFusionData`.
 #'

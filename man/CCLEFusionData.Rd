@@ -14,6 +14,9 @@ CCLEFusionData(
 \item{dataset}{\code{character(1)} or \code{NULL}.
 DepMap dataset release name.
 If left \code{NULL}, defaults to latest supported dataset.}
+
+\item{filtered}{\code{logical(1)}.
+Load filtered fusion calls.}
 }
 \value{
 \code{CCLEFusionData}.

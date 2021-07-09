@@ -27,6 +27,12 @@ plotGeneEffectVsExpression(effect, expression, ...)
 \item{gene}{\code{character(1)}.
 Gene identifier.}
 
+\item{subtype}{\code{character(1)} or \code{NULL}.
+Cell subtype name to use for filtering.}
+
+\item{subtypeCol}{\code{character(1)}.
+Column name of metadata defined in \code{colData} of \code{effect}.}
+
 \item{label}{\code{logical(1)}.
 Superimpose sample text labels on the plot.}
 }
