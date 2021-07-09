@@ -82,8 +82,8 @@ setValidity(
                     "sex",
                     "source",
                     "strippedCellLineName",
-                    "subtype",
-                    "wtsiMasterCellId"
+                    "subtype"
+                    ## > "wtsiMasterCellId"
                 ),
                 y = colnames(colData(object))
             )
@@ -177,8 +177,8 @@ setValidity(
                     "sex",
                     "source",
                     "strippedCellLineName",
-                    "subtype",
-                    "wtsiMasterCellId"
+                    "subtype"
+                    ## > "wtsiMasterCellId"
                 ),
                 y = colnames(colData(object))
             )

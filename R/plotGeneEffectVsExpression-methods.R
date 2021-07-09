@@ -1,7 +1,12 @@
+## FIXME Need to improve gene identifier mapping here.
+## need to allow input of symbols that then map to rownames...
+
+
+
 #' Plot gene effect vs. expression
 #'
 #' @name plotGeneEffectVsExpression
-#' @note Updated 2021-07-08.
+#' @note Updated 2021-07-09.
 #'
 #' @inheritParams AcidRoxygen::params
 #' @inheritParams params
