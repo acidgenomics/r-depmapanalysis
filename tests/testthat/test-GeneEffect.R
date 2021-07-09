@@ -2,7 +2,7 @@ context("GeneEffect")
 
 test_that("All datasets", {
     datasets <- eval(formals(GeneEffect)[["dataset"]])
-    for (dataset in names(datasets)) {
+    for (dataset in datasets) {
         object <- GeneEffect(dataset = dataset)
         expect_s4_class(object, "GeneEffect")
     }
