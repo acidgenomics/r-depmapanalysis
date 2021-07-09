@@ -2,7 +2,6 @@ context("GeneEffect")
 
 test_that("All datasets", {
     for (dataset in names(.datasets)) {
-        message(dataset)  # FIXME
         object <- GeneEffect(dataset = dataset)
         expect_s4_class(object, "GeneEffect")
     }

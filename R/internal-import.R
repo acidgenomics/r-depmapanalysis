@@ -10,7 +10,7 @@
 
 #' Import cell line sample metadata
 #'
-#' @note Updated 2021-07-07.
+#' @note Updated 2021-07-08.
 #' @noRd
 .importCellLineSampleData <-  # nolint
     function(dataset) {
@@ -23,6 +23,12 @@
         assert(is(df, "DataFrame"))
         colnames(df) <- camelCase(colnames(df))
         if (
+            !isSubset("cellLineName", colnames(df)) &&
+            isSubset("strippedCellLineName", colnames(df))
+        ) {
+            ## e.g. "depmap_public_20q3".
+            df[["cellLineName"]] <- df[["strippedCellLineName"]]
+        } else if (
             !isSubset("cellLineName", colnames(df)) &&
             isSubset("ccleId", colnames(df))
         ) {
