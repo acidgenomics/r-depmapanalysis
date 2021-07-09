@@ -309,6 +309,8 @@ depmap_public_21q1:
             file_name: "sample_info.csv"
             url: "https://ndownloader.figshare.com/files/26261569"
     screen:
+        library_type: "crispr"
+        transpose_assays: true
         controls:
             common_essentials:
                 file_name: "common_essentials.csv"
