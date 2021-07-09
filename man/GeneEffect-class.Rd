@@ -15,7 +15,7 @@ Inherits from \code{SummarizedExperiment}.
 Cells in columns, genes in rows.
 }
 \note{
-Updated 2021-07-07.
+Updated 2021-07-08.
 }
 \seealso{
 \itemize{

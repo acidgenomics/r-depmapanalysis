@@ -1,7 +1,7 @@
 #' Import CCLE fusion data
 #'
 #' @export
-#' @note Updated 2021-07-07.
+#' @note Updated 2021-07-09.
 #'
 #' @inheritParams params
 #'
@@ -24,6 +24,8 @@ CCLEFusionData <-  # nolint
         df <- .importDataFile(url = url, format = "csv", rownamesCol = NULL)
         assert(is(df, "DataFrame"))
         colnames(df) <- camelCase(colnames(df), strict = TRUE)
+        ## e.g. "depmap_public_20q3".
+        colnames(df)[colnames(df) == "xFusionName"] <- "fusionName"
         df <- encode(df)
         metadata(df) <- list(
             "dataset" = dataset,

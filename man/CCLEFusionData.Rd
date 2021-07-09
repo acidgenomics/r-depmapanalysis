@@ -22,7 +22,7 @@ If left \code{NULL}, defaults to latest supported dataset.}
 Import CCLE fusion data
 }
 \note{
-Updated 2021-07-07.
+Updated 2021-07-09.
 }
 \examples{
 object <- CCLEFusionData()
