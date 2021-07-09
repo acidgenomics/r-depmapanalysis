@@ -2,9 +2,9 @@
 #'
 #' @note Updated 2021-07-08.
 #' @noRd
-.cacheURL <- function(...) {
+.cacheURL <- function(url, ...) {
     alert(sprintf("Downloading DepMap file {.url %s}.", url))
-    cacheURL(..., pkg = .pkgName)
+    cacheURL(url, pkg = .pkgName, ...)
 }
 
 
