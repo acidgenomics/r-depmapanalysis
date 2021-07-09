@@ -1,8 +1,9 @@
 #' Cache URL into package
 #'
-#' @note Updated 2021-07-07.
+#' @note Updated 2021-07-08.
 #' @noRd
 .cacheURL <- function(...) {
+    alert(sprintf("Downloading DepMap file {.url %s}.", url))
     cacheURL(..., pkg = .pkgName)
 }
 
@@ -94,7 +95,6 @@
 #' @noRd
 .importGeneDataFile <-
     function(url) {
-        alert(sprintf("Downloading DepMap file {.url %s}.", url))
         df <- .importDataFile(
             url = url,
             ## Don't use 'data.table' here.
