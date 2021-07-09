@@ -1,30 +1,11 @@
 context("GeneEffect")
 
-## Add extra coverage for these in the future:
-##
-## > GeneEffect(
-## >     dataset = "depmap_public_21q1",
-## >     project = "combined",
-## >     scoringMethod = "ceres"
-## > )
-##
-## > GeneEffect(
-## >     dataset = "depmap_public_21q1",
-## >     project = "achilles",
-## >     scoringMethod = "ceres"
-## > )
-##
-## > GeneEffect(
-## >     dataset = "demeter2_data_v6",
-## >     project = "combined",
-## >     scoringMethod = "demeter2"
-## > )
-##
-## > GeneEffect(
-## >     dataset = "demeter2_data_v6",
-## >     project = "drive",
-## >     scoringMethod = "demeter2"
-## > )
+test_that("All datasets", {
+    for (dataset in names(.datasets)) {
+        object <- GeneEffect(dataset = dataset)
+        expect_s4_class(object, "GeneEffect")
+    }
+})
 
 test_that("CRISPR : depmap_public_21q2", {
     dataset <- "depmap_public_21q2"
