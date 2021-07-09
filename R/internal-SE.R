@@ -35,7 +35,7 @@
 
 #' Make SummarizedExperiment object (from DepMap or CCLE data)
 #'
-#' @note Updated 2021-07-07.
+#' @note Updated 2021-07-08.
 #' @noRd
 .makeSummarizedExperiment <-
     function(
@@ -50,11 +50,26 @@
             isFlag(transposeAssays),
             is.list(metadata)
         )
+        retiredGenes <- NULL
+        missingCells <- NULL
+        ## Assays --------------------------------------------------------------
+        assays <- lapply(
+            X = assays,
+            i = Reduce(
+                f = intersect,
+                x = lapply(X = assays, FUN = rownames)
+            ),
+            j = Reduce(
+                f = intersect,
+                x = lapply(X = assays, FUN = colnames)
+            ),
+            FUN = function(x, i, j) {
+                x[i, j, drop = FALSE]
+            }
+        )
         if (isTRUE(transposeAssays)) {
             assays <- lapply(X = assays, FUN = t)
         }
-        retiredGenes <- NULL
-        missingCells <- NULL
         ## Row data (gene annotations) -----------------------------------------
         rowData <- EntrezGeneInfo(
             organism = "Homo sapiens",
@@ -95,8 +110,6 @@
                 toString(retiredGenes, width = 100L)
             ))
         }
-        ## FIXME Hitting an error on logical subset length here...
-        ## This is specific to "sanger_project_score_2021_05" dataset.
         assays <- lapply(
             X = assays,
             i = !is.na(idx),

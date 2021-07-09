@@ -575,9 +575,20 @@ sanger_project_score_2021_05:
         readme:
             file_name: "readme.txt"
             url: "https://ndownloader.figshare.com/files/27676626"
+        sample_info:  # from "depmap_public_21q2".
+            file_name: "sample_info.csv"
+            url: "https://ndownloader.figshare.com/files/27902376"
     screen:
         library_type: "crispr"
         transpose_assays: true
+        # These controls are from "depmap_public_21q2".
+        controls:
+            common_essentials:
+                file_name: "common_essentials.csv"
+                url: "https://ndownloader.figshare.com/files/27902160"
+            nonessentials:
+                file_name: "nonessentials.csv"
+                url: "https://ndownloader.figshare.com/files/27902370"
         defaults:
             project: "score"
             scoring_method: "chronos"
@@ -601,6 +612,9 @@ sanger_project_score_2019_08:
         readme:
             file_name: "readme.txt"
             url: "https://ndownloader.figshare.com/files/16623944"
+        sample_info:  # from "depmap_public_21q2".
+            file_name: "sample_info.csv"
+            url: "https://ndownloader.figshare.com/files/27902376"
     screen:
         library_type: "crispr"
         transpose_assays: true
