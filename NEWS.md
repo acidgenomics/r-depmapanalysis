@@ -1,4 +1,4 @@
-## DepMapAnalysis 0.2.0 (UNRELEASED)
+## DepMapAnalysis 0.2.0 (2021-07-09)
 
 ### Major changes
 
