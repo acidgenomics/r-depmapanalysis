@@ -7,6 +7,7 @@
 
 #' @importClassesFrom basejump DataFrame SummarizedExperiment
 #'
+#' @importFrom AcidPlots acid_geom_label_repel
 #' @importFrom basejump CharacterList DataFrame EntrezGeneInfo alert alertInfo
 #'   alertWarning assay assayNames as_tibble cacheURL camelCase capture.output
 #'   colData complete.cases decode dl do.call encode geneSynonyms h1 head import
@@ -32,4 +33,6 @@
 #' @param dataset `character(1)` or `NULL`.
 #'   DepMap dataset release name.
 #'   If left `NULL`, defaults to latest supported dataset.
+#' @param gene `character(1)`.
+#'   Gene identifier.
 NULL

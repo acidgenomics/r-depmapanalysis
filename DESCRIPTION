@@ -26,6 +26,7 @@ Depends:
     R (>= 4.0),
     basejump (>= 0.14.19)
 Imports:
+    AcidPlots (>= 0.3.7),
     ggplot2 (>= 3.3.5),
     goalie (>= 0.5.1),
     methods,
