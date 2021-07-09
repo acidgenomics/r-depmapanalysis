@@ -16,6 +16,14 @@ test_that("CCLEExpressionData", {
     }
 })
 
+test_that("CCLEFusionData", {
+    datasets <- eval(formals(CCLEFusionData)[["dataset"]])
+    for (dataset in datasets) {
+        object <- CCLEFusionData(dataset = dataset)
+        expect_s4_class(object, "CCLEFusionData")
+    }
+})
+
 test_that("CCLEMutationData", {
     datasets <- eval(formals(CCLEMutationData)[["dataset"]])
     for (dataset in datasets) {
