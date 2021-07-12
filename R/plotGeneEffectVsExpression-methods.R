@@ -72,10 +72,20 @@ NULL
         if (isString(subtype)) {
             cd <- colData(x)
             j <- which(cd[[subtypeCol]] == subtype)
+            assert(
+                hasLength(j),
+                msg = sprintf(
+                    "Failed to to match '%s' in '%s'.",
+                    subtype, subtypeCol
+                )
+            )
             x <- x[, j, drop = FALSE]
             y <- y[, j, drop = FALSE]
             labels[["subtitle"]] <-
-                paste0(labels[["subtitle"]], " (", subtype, ")")
+                paste0(
+                    labels[["subtitle"]],
+                    " (", subtypeCol, ": ", subtype, ")"
+                )
         }
         p <- ggplot(
             data = data.frame(
