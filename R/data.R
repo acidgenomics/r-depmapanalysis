@@ -11,6 +11,19 @@
 
 
 
+#' DepMap datasets
+#'
+#' @author Michael Steinbaugh
+#' @note Updated 2021-07-15.
+#' @return `list`.
+#' @usage data(datasets)
+#' @examples
+#' data(datasets)
+#' print(names(datasets))
+"datasets"
+
+
+
 #' RNAi example data set
 #'
 #' @author Michael Steinbaugh

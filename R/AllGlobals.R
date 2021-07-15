@@ -3,30 +3,25 @@
 
 
 
-## FIXME Save this as an object and load from package instead of parsing
-## the YAML manually here...
-
-#' DepMap dataset URLs and other metadata in YAML format
-#'
-#' @note Updated 2021-07-07.
-#' @noRd
-.datasets <- import(
-    file = system.file(
-        "extdata",
-        "datasets.yaml",
-        package = .pkgName,
-        mustWork = TRUE
-    ),
-    quiet = TRUE
+.datasetNames <- c(
+    "depmap_public_21q2",
+    "depmap_public_21q1",
+    "depmap_public_20q4v2",
+    "depmap_public_20q3",
+    "depmap_public_20q2",
+    "depmap_public_20q1",
+    "sanger_project_score_2021_05",
+    "sanger_project_score_2019_08",
+    "demeter2_data_v6"
 )
 
 
 
 .formalsList <- list(
-    "dataset" = names(.datasets),
+    "dataset" = .datasetNames,
     "depmapDataset" = grep(
         pattern = "^depmap_",
-        x = names(.datasets),
+        x = .datasetNames,
         value = TRUE
     )
 )

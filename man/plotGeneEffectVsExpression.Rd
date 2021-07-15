@@ -40,7 +40,7 @@ Superimpose sample text labels on the plot.}
 Plot gene effect vs. expression
 }
 \note{
-Updated 2021-07-09.
+Updated 2021-07-15.
 }
 \examples{
 data(crispr)

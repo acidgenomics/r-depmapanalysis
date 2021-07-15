@@ -1,7 +1,7 @@
 #' Import CCLE mutation data
 #'
 #' @export
-#' @note Updated 2021-07-07.
+#' @note Updated 2021-07-15.
 #'
 #' @inheritParams params
 #'
@@ -12,8 +12,10 @@
 #' dim(object)
 CCLEMutationData <-  # nolint
     function(dataset) {
+        data(datasets, package = .pkgName, envir = environment())
+        assert(is.list(datasets))
         dataset <- match.arg(dataset)
-        url <- .datasets[[dataset]][["ccle"]][["mutations"]][["url"]]
+        url <- datasets[[dataset]][["ccle"]][["mutations"]][["url"]]
         assert(isAURL(url))
         df <- .importDataFile(url = url, format = "csv", rownamesCol = NULL)
         assert(is(df, "DataFrame"))

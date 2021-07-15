@@ -21,7 +21,7 @@ If left \code{NULL}, defaults to latest supported dataset.}
 Import CCLE mutation data
 }
 \note{
-Updated 2021-07-07.
+Updated 2021-07-15.
 }
 \examples{
 object <- CCLEMutationData()

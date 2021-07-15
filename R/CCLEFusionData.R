@@ -14,6 +14,8 @@
 #' dim(object)
 CCLEFusionData <-  # nolint
     function(dataset, filtered = TRUE) {
+        data(datasets, package = .pkgName, envir = environment())
+        assert(is.list(datasets))
         dataset <- match.arg(dataset)
         assert(isFlag(filtered))
         key <- ifelse(
@@ -21,7 +23,7 @@ CCLEFusionData <-  # nolint
             yes = "fusions",
             no = "fusions_unfiltered"
         )
-        url <- .datasets[[dataset]][["ccle"]][[key]][["url"]]
+        url <- datasets[[dataset]][["ccle"]][[key]][["url"]]
         assert(isAURL(url))
         df <- .importDataFile(url = url, format = "csv", rownamesCol = NULL)
         assert(is(df, "DataFrame"))

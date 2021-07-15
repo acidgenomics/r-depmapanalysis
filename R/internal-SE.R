@@ -1,6 +1,6 @@
 #' Make SummarizedExperiment object from CCLE data
 #'
-#' @note Updated 2021-06-10.
+#' @note Updated 2021-07-15.
 #' @noRd
 .makeCcleSE <- function(
     dataset,
@@ -8,13 +8,15 @@
     assayName,
     class
 ) {
+    data(datasets, package = .pkgName, envir = environment())
     assert(
+        is.list(datasets),
         isString(dataset),
         isString(assayKey),
         isString(assayName),
         isString(class)
     )
-    url <- .datasets[[dataset]][["ccle"]][[assayKey]][["url"]]
+    url <- datasets[[dataset]][["ccle"]][[assayKey]][["url"]]
     assert(isAURL(url))
     mat <- .importDataFile(
         url = url,
@@ -35,7 +37,7 @@
 
 #' Make SummarizedExperiment object (from DepMap or CCLE data)
 #'
-#' @note Updated 2021-07-08.
+#' @note Updated 2021-07-15.
 #' @noRd
 .makeSummarizedExperiment <-
     function(
@@ -45,7 +47,9 @@
         metadata = list(),
         class
     ) {
+        data(datasets, package = .pkgName, envir = environment())
         assert(
+            is.list(datasets),
             is.list(assays),
             isFlag(transposeAssays),
             is.list(metadata)
@@ -170,7 +174,7 @@
                     "packageName" = .pkgName,
                     "packageVersion" = .pkgVersion,
                     "retiredGenes" = retiredGenes,
-                    "yaml" = .datasets[[dataset]]
+                    "yaml" = datasets[[dataset]]
                 )
             )
         )

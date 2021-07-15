@@ -38,16 +38,18 @@ GeneEffect <-  # nolint
         project = "default",
         scoringMethod = "default"
     ) {
+        data(datasets, package = .pkgName, envir = environment())
+        assert(is.list(datasets))
         dataset <- match.arg(dataset)
         assert(
-            isSubset(dataset, names(.datasets)),
+            isSubset(dataset, names(datasets)),
             isSubset(
                 x = "screen",
-                y = names(.datasets[[dataset]])
+                y = names(datasets[[dataset]])
             ),
             msg = sprintf("Invalid '%s': '%s'.", "dataset", dataset)
         )
-        yaml <- .datasets[[dataset]]
+        yaml <- datasets[[dataset]]
         assert(
             isSubset(
                 x = "defaults",
