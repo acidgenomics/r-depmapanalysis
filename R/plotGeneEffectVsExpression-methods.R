@@ -1,3 +1,7 @@
+## FIXME Add support for labeling specific cells.
+
+
+
 #' Plot gene effect vs. expression
 #'
 #' @name plotGeneEffectVsExpression
@@ -38,7 +42,7 @@ NULL
         gene,
         subtype = NULL,
         subtypeCol = "subtype",
-        label = FALSE
+        label = !is.null(FALSE)
     ) {
         assert(
             isString(gene),
