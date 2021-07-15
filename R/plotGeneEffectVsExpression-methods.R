@@ -1,12 +1,7 @@
-## FIXME Need to improve gene identifier mapping here.
-## need to allow input of symbols that then map to rownames...
-
-
-
 #' Plot gene effect vs. expression
 #'
 #' @name plotGeneEffectVsExpression
-#' @note Updated 2021-07-09.
+#' @note Updated 2021-07-15.
 #'
 #' @inheritParams AcidRoxygen::params
 #' @inheritParams params
@@ -35,6 +30,7 @@ NULL
 
 
 
+## Updated 2021-07-15.
 `plotGeneEffectVsExpression,GE,CCLE` <-  # nolint
     function(
         effect,
@@ -54,6 +50,13 @@ NULL
             ),
             isFlag(label)
         )
+        x <- as(effect, "SummarizedExperiment")
+        y <- as(expression, "SummarizedExperiment")
+        i <- mapGenesToRownames(object = x, genes = gene, strict = TRUE)
+        j <- intersect(colnames(x), colnames(y))
+        x <- x[i, j, drop = FALSE]
+        y <- y[i, j, drop = FALSE]
+        gene <- as.character(rowData(x)[["geneName"]])
         labels <- list(
             "subtitle" = metadata(effect)[["dataset"]],
             "title" = gene,
@@ -62,12 +65,6 @@ NULL
             ),
             y = "expression (log2 tpm)"
         )
-        x <- as(effect, "SummarizedExperiment")
-        y <- as(expression, "SummarizedExperiment")
-        i <- gene
-        j <- intersect(colnames(x), colnames(y))
-        x <- x[i, j, drop = FALSE]
-        y <- y[i, j, drop = FALSE]
         ## Only keep that cells that match desired subtype.
         if (isString(subtype)) {
             cd <- colData(x)

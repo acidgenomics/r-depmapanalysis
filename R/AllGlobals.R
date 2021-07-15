@@ -3,6 +3,9 @@
 
 
 
+## FIXME Save this as an object and load from package instead of parsing
+## the YAML manually here...
+
 #' DepMap dataset URLs and other metadata in YAML format
 #'
 #' @note Updated 2021-07-07.
