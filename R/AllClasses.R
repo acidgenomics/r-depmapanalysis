@@ -160,24 +160,24 @@ setValidity(
                     "ccleName",
                     "cellLineName",
                     "cellLineNnmd",
-                    "cosmicid",
                     "cultureMedium",
                     "cultureType",
                     "depMapId",
-                    "depmapPublicComments",
                     "lineage",
                     "lineageMolecularSubtype",
                     "lineageSubSubtype",
                     "lineageSubtype",
-                    "primaryDisease",
                     "primaryOrMetastasis",
                     "rrid",
                     "sampleCollectionSite",
                     "sangerModelId",
                     "sex",
                     "source",
-                    "strippedCellLineName",
-                    "subtype"
+                    "strippedCellLineName"
+                    ## > "cosmicid",
+                    ## > "depmapPublicComments",
+                    ## > "primaryDisease",
+                    ## > "subtype",
                     ## > "wtsiMasterCellId"
                 ),
                 y = colnames(colData(object))
@@ -202,11 +202,6 @@ setValidity(
         TRUE
     }
 )
-
-
-
-
-
 
 
 
@@ -265,15 +260,6 @@ setValidity(
         TRUE
     }
 )
-
-
-
-
-
-
-
-
-
 
 
 
