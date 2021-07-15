@@ -11,4 +11,5 @@ test_that("GeneEffect", {
         gene = gene,
         subtype = subtype
     )
+    expect_s3_class(p, "ggplot")
 })

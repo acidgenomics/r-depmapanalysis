@@ -30,14 +30,7 @@ NULL
     function(
         object,
         gene,
-        group = c(
-            "subtype",
-            "lineage",
-            "lineageMolecularSubtype",
-            "lineageSubSubtype",
-            "lineageSubtype",
-            "primaryDisease"
-        ),
+        group = "subtype",
         n = 10L,
         minNPerGroup = 3L
     ) {
@@ -47,7 +40,23 @@ NULL
             isInt(n), isPositive(n),
             isInt(minNPerGroup), isPositive(minNPerGroup)
         )
-        group <- match.arg(group)
+        group <- match.arg(
+            arg = group,
+            choices = intersect(
+                x = c(
+                    "disease",
+                    "diseaseSubSubtype",
+                    "diseaseSubtype",
+                    "lineage",
+                    "lineageMolecularSubtype",
+                    "lineageSubSubtype",
+                    "lineageSubtype",
+                    "primaryDisease",
+                    "subtype"
+                ),
+                y = colnames(colData(object))
+            )
+        )
         se <- as(object, "SummarizedExperiment")
         rownames <- mapGenesToRownames(
             object = se,

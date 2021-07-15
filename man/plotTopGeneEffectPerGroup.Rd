@@ -11,8 +11,7 @@ plotTopGeneEffectPerGroup(object, ...)
 \S4method{plotTopGeneEffectPerGroup}{GeneEffect}(
   object,
   gene,
-  group = c("subtype", "lineage", "lineageMolecularSubtype", "lineageSubSubtype",
-    "lineageSubtype", "primaryDisease"),
+  group = "subtype",
   n = 10L,
   minNPerGroup = 3L
 )

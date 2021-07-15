@@ -1,6 +1,6 @@
 context("plotGeneEffect")
 
-test_that("CRISPR and RNAi", {
+test_that("GeneEffect", {
     for (object in list(crispr, rnai)) {
         genes <- rownames(object)[seq_len(5L)]
         p <- plotGeneEffect(
