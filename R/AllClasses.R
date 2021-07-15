@@ -78,7 +78,7 @@ setValidity(
                     "sangerModelId",
                     "sex",
                     "source",
-                    "strippedCellLineName",
+                    "strippedCellLineName"
                     ## > "cosmicid",
                     ## > "depmapPublicComments",
                     ## > "primaryDisease",
