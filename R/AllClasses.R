@@ -65,16 +65,13 @@ setValidity(
                     "ccleName",
                     "cellLineName",
                     "cellLineNnmd",
-                    "cosmicid",
                     "cultureMedium",
                     "cultureType",
                     "depMapId",
-                    "depmapPublicComments",
                     "lineage",
                     "lineageMolecularSubtype",
                     "lineageSubSubtype",
                     "lineageSubtype",
-                    "primaryDisease",
                     "primaryOrMetastasis",
                     "rrid",
                     "sampleCollectionSite",
@@ -82,7 +79,10 @@ setValidity(
                     "sex",
                     "source",
                     "strippedCellLineName",
-                    "subtype"
+                    ## > "cosmicid",
+                    ## > "depmapPublicComments",
+                    ## > "primaryDisease",
+                    ## > "subtype"
                     ## > "wtsiMasterCellId"
                 ),
                 y = colnames(colData(object))
