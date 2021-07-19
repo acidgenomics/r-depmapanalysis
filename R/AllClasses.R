@@ -263,6 +263,50 @@ setValidity(
 
 
 
+#' Gene effect co-dependencies
+#'
+#' @details
+#' Inherits from `DataFrame`.
+#'
+#' @note Updated 2021-07-19.
+#' @export
+#'
+#' @return `Codependencies`.
+setClass(
+    Class = "Codependencies",
+    contains = "DataFrame"
+)
+setValidity(
+    Class = "Codependencies",
+    method = function(object) {
+        ok <- validate(
+            isSubset(
+                x = c(
+                    "correlation",
+                    "entrezId",
+                    "gene"
+                ),
+                y = colnames(object)
+            )
+        )
+        if (!isTRUE(ok)) return(ok)
+        ok <- validateClasses(
+            object = metadata(object),
+            expected = list(
+                "dataset" = "character",
+                "gene" = "character",
+                "packageName" = "character",
+                "packageVersion" = "package_version"
+            ),
+            subset = TRUE
+        )
+        if (!isTRUE(ok)) return(ok)
+        TRUE
+    }
+)
+
+
+
 #' CCLE mutation data
 #'
 #' @details

@@ -28,7 +28,7 @@ Depends:
 Imports:
     AcidPlots (>= 0.3.7),
     ggplot2 (>= 3.3.5),
-    goalie (>= 0.5.1),
+    goalie (>= 0.5.2),
     methods,
     rlang (>= 0.4.11),
     tidytext (>= 0.3.1)
