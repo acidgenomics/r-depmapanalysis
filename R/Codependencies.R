@@ -7,6 +7,11 @@
 #'
 #' @return `Codependencies`.
 #'
+#' @seealso
+#' - https://forum.depmap.org/t/down-load-of-co-dependencies/175/
+#' - Python script for processing of all co-dependency scores:
+#'   https://gist.github.com/pgm/ac2ac4c664ef81200ce49133cc4cee02
+#'
 #' @examples
 #' x <- Codependencies(gene = "SOX10")
 Codependencies <- function(

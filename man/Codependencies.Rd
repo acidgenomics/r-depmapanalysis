@@ -28,3 +28,10 @@ Updated 2021-07-19.
 \examples{
 x <- Codependencies(gene = "SOX10")
 }
+\seealso{
+\itemize{
+\item https://forum.depmap.org/t/down-load-of-co-dependencies/175/
+\item Python script for processing of all co-dependency scores:
+https://gist.github.com/pgm/ac2ac4c664ef81200ce49133cc4cee02
+}
+}
