@@ -6,8 +6,7 @@
 \usage{
 Codependencies(
   gene,
-  dataset = c("Chronos_Combined", "Chronos_Achilles", "CERES_Combined",
-    "CERES_Achilles", "RNAi_merged")
+  dataset = c("Chronos_Combined", "CERES_Combined", "RNAi_merged")
 )
 }
 \arguments{

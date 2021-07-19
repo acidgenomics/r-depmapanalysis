@@ -13,9 +13,7 @@ Codependencies <- function(
     gene,
     dataset = c(
         "Chronos_Combined",
-        "Chronos_Achilles",
         "CERES_Combined",
-        "CERES_Achilles",
         "RNAi_merged"
     )
 ) {
