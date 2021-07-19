@@ -1,7 +1,3 @@
-## FIXME Add support for labeling specific cells.
-
-
-
 #' Plot gene effect vs. expression
 #'
 #' @name plotGeneEffectVsExpression
