@@ -10,10 +10,11 @@
 #' @importFrom AcidPlots acid_geom_label_repel
 #' @importFrom basejump CharacterList DataFrame EntrezGeneInfo alert alertInfo
 #'   alertWarning assay assayNames as_tibble cacheURL camelCase capture.output
-#'   colData complete.cases decode dl do.call encode geneSynonyms h1 head import
-#'   lapply leftJoin makeDimnames makeSummarizedExperiment mapGenesToRownames
-#'   mcols mean median melt metadata metadata<- order packageName packageVersion
-#'   pasteURL reorder rbind rowData showHeader showSlotInfo split str_match t
+#'   colData complete.cases data decode dl do.call encode geneSynonyms h1 head
+#'   import lapply leftJoin makeDimnames makeSummarizedExperiment
+#'   mapGenesToRownames mcols mean median melt metadata metadata<- order
+#'   packageName packageVersion pasteURL reorder rbind rowData showHeader
+#'   showSlotInfo split str_match t
 #' @importFrom ggplot2 aes facet_wrap geom_boxplot geom_density geom_jitter
 #'   geom_point geom_violin geom_vline ggplot labs scale_y_discrete
 #' @importFrom goalie allAreURLs areIntersectingSets assert bapply hasDimnames

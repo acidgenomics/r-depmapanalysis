@@ -12,7 +12,7 @@
 #' dim(object)
 CCLEMutationData <-  # nolint
     function(dataset) {
-        data(datasets, package = .pkgName, envir = environment())
+        data(list = "datasets", package = .pkgName, envir = environment())
         assert(is.list(datasets))
         dataset <- match.arg(dataset)
         url <- datasets[[dataset]][["ccle"]][["mutations"]][["url"]]

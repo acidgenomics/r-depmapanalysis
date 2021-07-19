@@ -38,7 +38,7 @@ GeneEffect <-  # nolint
         project = "default",
         scoringMethod = "default"
     ) {
-        data(datasets, package = .pkgName, envir = environment())
+        data(list = "datasets", package = .pkgName, envir = environment())
         assert(is.list(datasets))
         dataset <- match.arg(dataset)
         assert(

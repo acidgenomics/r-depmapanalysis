@@ -15,7 +15,7 @@
 #' @noRd
 .importCellLineSampleData <-  # nolint
     function(dataset) {
-        data(datasets, package = .pkgName, envir = environment())
+        data(list = "datasets", package = .pkgName, envir = environment())
         assert(is.list(datasets))
         url <- datasets[[dataset]][["metadata"]][["sample_info"]][["url"]]
         df <- .importDataFile(

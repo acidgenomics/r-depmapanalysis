@@ -8,7 +8,7 @@
     assayName,
     class
 ) {
-    data(datasets, package = .pkgName, envir = environment())
+    data(list = "datasets", package = .pkgName, envir = environment())
     assert(
         is.list(datasets),
         isString(dataset),
@@ -47,7 +47,7 @@
         metadata = list(),
         class
     ) {
-        data(datasets, package = .pkgName, envir = environment())
+        data(list = "datasets", package = .pkgName, envir = environment())
         assert(
             is.list(datasets),
             is.list(assays),
