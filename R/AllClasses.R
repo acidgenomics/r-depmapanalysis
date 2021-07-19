@@ -1,21 +1,3 @@
-#' Achilles
-#'
-#' Legacy object that is no longer recommended.
-#'
-#' Use `GeneEffect` object instead.
-#'
-#' @export
-#' @keywords internal
-#' @note Updated 2021-07-07.
-#'
-#' @return `Achilles`.
-setClass(
-    Class = "Achilles",
-    contains = "SummarizedExperiment"
-)
-
-
-
 #' CCLE copy number data
 #'
 #' @details

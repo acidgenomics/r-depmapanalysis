@@ -2,8 +2,17 @@
 
 ### Major changes
 
-- Renamed `DepMapAnalysis` class to `GeneEffect`.
+- Support for legacy `DepMapAnalysis` and `Achilles` objects have been dropped
+  in favor of simply using `GeneEffect` object class.
 - Reworked internal DepMap dataset metadata to use YAML instead of list.
+- Added support for `Codependencies` class, which imports the top 100
+  co-dependencies for a gene from DepMap.
+- Added support for `plotGeneEffectVsExpression`.
+
+### Minor changes
+
+- Resaved example objects.
+- Improved code coverage to check support for all legacy datasets.
 
 ## DepMapAnalysis 0.1.1 (2021-06-21)
 
