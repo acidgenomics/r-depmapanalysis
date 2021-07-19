@@ -11,9 +11,8 @@ CCLEFusionData(
 )
 }
 \arguments{
-\item{dataset}{\code{character(1)} or \code{NULL}.
-DepMap dataset release name.
-If left \code{NULL}, defaults to latest supported dataset.}
+\item{dataset}{\code{character(1)}.
+DepMap dataset release name.}
 
 \item{filtered}{\code{logical(1)}.
 Load filtered fusion calls.}

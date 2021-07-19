@@ -30,9 +30,8 @@
 #' @inherit AcidRoxygen::params return title
 #' @keywords internal
 #'
-#' @param dataset `character(1)` or `NULL`.
+#' @param dataset `character(1)`.
 #'   DepMap dataset release name.
-#'   If left `NULL`, defaults to latest supported dataset.
 #' @param gene `character(1)`.
 #'   Gene identifier.
 NULL
