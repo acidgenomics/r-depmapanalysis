@@ -10,7 +10,7 @@
 #'   depletion effect using `gene_effect`.
 #'
 #' @export
-#' @note Updated 2021-07-08.
+#' @note Updated 2021-07-19.
 #'
 #' @inheritParams params
 #' @param project `character(1)`.
@@ -38,8 +38,6 @@ GeneEffect <-  # nolint
         project = "default",
         scoringMethod = "default"
     ) {
-        data(list = "datasets", package = .pkgName, envir = environment())
-        assert(is.list(datasets))
         dataset <- match.arg(dataset)
         assert(
             isSubset(dataset, names(datasets)),

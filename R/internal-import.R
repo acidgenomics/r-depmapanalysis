@@ -11,12 +11,10 @@
 
 #' Import cell line sample metadata
 #'
-#' @note Updated 2021-07-15.
+#' @note Updated 2021-07-19.
 #' @noRd
 .importCellLineSampleData <-  # nolint
     function(dataset) {
-        data(list = "datasets", package = .pkgName, envir = environment())
-        assert(is.list(datasets))
         url <- datasets[[dataset]][["metadata"]][["sample_info"]][["url"]]
         df <- .importDataFile(
             url = url,

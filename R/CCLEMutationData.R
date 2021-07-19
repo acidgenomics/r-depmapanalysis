@@ -1,7 +1,7 @@
 #' Import CCLE mutation data
 #'
 #' @export
-#' @note Updated 2021-07-15.
+#' @note Updated 2021-07-19.
 #'
 #' @inheritParams params
 #'
@@ -12,8 +12,6 @@
 #' dim(object)
 CCLEMutationData <-  # nolint
     function(dataset) {
-        data(list = "datasets", package = .pkgName, envir = environment())
-        assert(is.list(datasets))
         dataset <- match.arg(dataset)
         url <- datasets[[dataset]][["ccle"]][["mutations"]][["url"]]
         assert(isAURL(url))

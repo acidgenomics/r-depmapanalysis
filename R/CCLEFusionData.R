@@ -14,8 +14,6 @@
 #' dim(object)
 CCLEFusionData <-  # nolint
     function(dataset, filtered = TRUE) {
-        data(list = "datasets", package = .pkgName, envir = environment())
-        assert(is.list(datasets))
         dataset <- match.arg(dataset)
         assert(isFlag(filtered))
         key <- ifelse(

@@ -1,6 +1,6 @@
 #' Make SummarizedExperiment object from CCLE data
 #'
-#' @note Updated 2021-07-15.
+#' @note Updated 2021-07-19.
 #' @noRd
 .makeCcleSE <- function(
     dataset,
@@ -8,9 +8,7 @@
     assayName,
     class
 ) {
-    data(list = "datasets", package = .pkgName, envir = environment())
     assert(
-        is.list(datasets),
         isString(dataset),
         isString(assayKey),
         isString(assayName),
@@ -47,9 +45,7 @@
         metadata = list(),
         class
     ) {
-        data(list = "datasets", package = .pkgName, envir = environment())
         assert(
-            is.list(datasets),
             is.list(assays),
             isFlag(transposeAssays),
             is.list(metadata)
