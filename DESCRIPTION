@@ -33,6 +33,7 @@ Imports:
     rlang (>= 0.4.11),
     tidytext (>= 0.3.1)
 Suggests:
+    Cellosaurus,
     depmap (>= 1.4.0),
     testthat
 Roxygen: list(markdown = TRUE)
