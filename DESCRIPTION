@@ -1,8 +1,8 @@
 Package: DepMapAnalysis
 Title: DepMap Analysis Utilities
 Description: Cancer Dependency Map (DepMap) analysis toolkit.
-Version: 0.2.0
-Date: 2021-07-19
+Version: 0.2.0.9000
+Date: 2021-09-03
 Authors@R: c(
     person(
         given = "Michael",
@@ -24,17 +24,16 @@ Encoding: UTF-8
 LazyData: false
 Depends:
     R (>= 4.0),
-    basejump (>= 0.14.19)
+    basejump (>= 0.14.21.9000)
 Imports:
-    AcidPlots (>= 0.3.7),
+    AcidPlots (>= 0.4.0.9000),
     ggplot2 (>= 3.3.5),
-    goalie (>= 0.5.2),
+    goalie (>= 0.5.4),
     methods,
-    rlang (>= 0.4.11),
     tidytext (>= 0.3.1)
 Suggests:
     Cellosaurus,
-    depmap (>= 1.4.0),
+    depmap (>= 1.6.0),
     testthat
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.1
