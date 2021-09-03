@@ -47,7 +47,7 @@
                 ))
                 if (isInt(idx)) return(idx)
             }
-            stop(sprintf("Failed to map cell: %s.", x))
+            abort(sprintf("Failed to map cell: {.val %s}.", x))
         },
         FUN.VALUE = integer(1L),
         USE.NAMES = TRUE

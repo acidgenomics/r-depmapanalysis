@@ -107,7 +107,7 @@
                     msg1 = "identifier",
                     msg2 = "identifiers"
                 ),
-                toString(retiredGenes, width = 100L)
+                toInlineString(retiredGenes, n = 5L)
             ))
         }
         assays <- lapply(
@@ -145,7 +145,7 @@
                     msg2 = "lines"
                 ),
                 "colData",
-                toString(missingCells, width = 100L)
+                toInlineString(missingCells, n = 5L)
             ))
         }
         assays <- lapply(
