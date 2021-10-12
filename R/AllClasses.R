@@ -70,7 +70,9 @@ setValidity(
                 y = colnames(colData(object))
             )
         )
-        if (!isTRUE(ok)) return(ok)
+        if (!isTRUE(ok)) {
+            return(ok)
+        }
         ok <- validateClasses(
             object = metadata(object),
             expected = list(
@@ -85,7 +87,9 @@ setValidity(
             ),
             subset = TRUE
         )
-        if (!isTRUE(ok)) return(ok)
+        if (!isTRUE(ok)) {
+            return(ok)
+        }
         TRUE
     }
 )
@@ -165,7 +169,9 @@ setValidity(
                 y = colnames(colData(object))
             )
         )
-        if (!isTRUE(ok)) return(ok)
+        if (!isTRUE(ok)) {
+            return(ok)
+        }
         ok <- validateClasses(
             object = metadata(object),
             expected = list(
@@ -180,7 +186,9 @@ setValidity(
             ),
             subset = TRUE
         )
-        if (!isTRUE(ok)) return(ok)
+        if (!isTRUE(ok)) {
+            return(ok)
+        }
         TRUE
     }
 )
@@ -227,7 +235,9 @@ setValidity(
                 y = colnames(object)
             )
         )
-        if (!isTRUE(ok)) return(ok)
+        if (!isTRUE(ok)) {
+            return(ok)
+        }
         ok <- validateClasses(
             object = metadata(object),
             expected = list(
@@ -238,7 +248,9 @@ setValidity(
             ),
             subset = TRUE
         )
-        if (!isTRUE(ok)) return(ok)
+        if (!isTRUE(ok)) {
+            return(ok)
+        }
         TRUE
     }
 )
@@ -271,7 +283,9 @@ setValidity(
                 y = colnames(object)
             )
         )
-        if (!isTRUE(ok)) return(ok)
+        if (!isTRUE(ok)) {
+            return(ok)
+        }
         ok <- validateClasses(
             object = metadata(object),
             expected = list(
@@ -282,7 +296,9 @@ setValidity(
             ),
             subset = TRUE
         )
-        if (!isTRUE(ok)) return(ok)
+        if (!isTRUE(ok)) {
+            return(ok)
+        }
         TRUE
     }
 )
@@ -344,7 +360,9 @@ setValidity(
                 y = colnames(object)
             )
         )
-        if (!isTRUE(ok)) return(ok)
+        if (!isTRUE(ok)) {
+            return(ok)
+        }
         ok <- validateClasses(
             object = metadata(object),
             expected = list(
@@ -354,7 +372,9 @@ setValidity(
             ),
             subset = TRUE
         )
-        if (!isTRUE(ok)) return(ok)
+        if (!isTRUE(ok)) {
+            return(ok)
+        }
         TRUE
     }
 )
@@ -387,7 +407,9 @@ setValidity(
             hasDimnames(object),
             isSubset("effect", assayNames(object))
         )
-        if (!isTRUE(ok)) return(ok)
+        if (!isTRUE(ok)) {
+            return(ok)
+        }
         ok <- validateClasses(
             object = metadata(object),
             expected = list(
@@ -404,7 +426,9 @@ setValidity(
             ),
             subset = TRUE
         )
-        if (!isTRUE(ok)) return(ok)
+        if (!isTRUE(ok)) {
+            return(ok)
+        }
         switch(
             EXPR = metadata(object)[["libraryType"]],
             "crispr" = {
@@ -444,7 +468,9 @@ setValidity(
                         y = colnames(colData(object))
                     )
                 )
-                if (!isTRUE(ok)) return(ok)
+                if (!isTRUE(ok)) {
+                    return(ok)
+                }
                 ok <- validateClasses(
                     object = metadata(object),
                     expected = list(
@@ -454,7 +480,9 @@ setValidity(
                     ),
                     subset = TRUE
                 )
-                if (!isTRUE(ok)) return(ok)
+                if (!isTRUE(ok)) {
+                    return(ok)
+                }
             },
             "rnai" = {
                 ok <- validate(
@@ -479,7 +507,9 @@ setValidity(
                         y = colnames(colData(object))
                     )
                 )
-                if (!isTRUE(ok)) return(ok)
+                if (!isTRUE(ok)) {
+                    return(ok)
+                }
             }
         )
         TRUE

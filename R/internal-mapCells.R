@@ -25,19 +25,33 @@
         libraryType = libraryType,
         FUN = function(x, object, libraryType) {
             idx <- match(x = x, table = rownames(object))
-            if (isInt(idx)) return(idx)
+            if (isInt(idx)) {
+                return(idx)
+            }
             idx <- match(x = x, table = object[["cellLineName"]])
-            if (isInt(idx)) return(idx)
+            if (isInt(idx)) {
+                return(idx)
+            }
             idx <- match(x = x, table = object[["strippedCellLineName"]])
-            if (isInt(idx)) return(idx)
+            if (isInt(idx)) {
+                return(idx)
+            }
             idx <- match(x = x, table = object[["rrid"]])
-            if (isInt(idx)) return(idx)
+            if (isInt(idx)) {
+                return(idx)
+            }
             idx <- match(x = x, table = object[["depMapId"]])
-            if (isInt(idx)) return(idx)
+            if (isInt(idx)) {
+                return(idx)
+            }
             idx <- match(x = x, table = object[["ccleId"]])
-            if (isInt(idx)) return(idx)
+            if (isInt(idx)) {
+                return(idx)
+            }
             idx <- match(x = x, table = object[["sangerModelId"]])
-            if (isInt(idx)) return(idx)
+            if (isInt(idx)) {
+                return(idx)
+            }
             if (isSubset("alias", colnames(object))) {
                 idx <- which(bapply(
                     X = object[["alias"]],
@@ -45,7 +59,9 @@
                         x %in% table
                     }
                 ))
-                if (isInt(idx)) return(idx)
+                if (isInt(idx)) {
+                    return(idx)
+                }
             }
             abort(sprintf("Failed to map cell: {.val %s}.", x))
         },
