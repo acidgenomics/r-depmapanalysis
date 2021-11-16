@@ -55,7 +55,7 @@ NULL
 #' @export
 setMethod(
     f = "show",
-    signature = signature("CCLEMutationData"),
+    signature = signature(object = "CCLEMutationData"),
     definition = `show,CCLEMutationData`
 )
 
@@ -65,6 +65,6 @@ setMethod(
 #' @export
 setMethod(
     f = "show",
-    signature = signature("GeneEffect"),
+    signature = signature(object = "GeneEffect"),
     definition = `show,GeneEffect`
 )

@@ -137,6 +137,6 @@ NULL
 #' @export
 setMethod(
     f = "plotGeneEffect",
-    signature = signature("GeneEffect"),
+    signature = signature(object = "GeneEffect"),
     definition = `plotGeneEffect,GeneEffect`
 )

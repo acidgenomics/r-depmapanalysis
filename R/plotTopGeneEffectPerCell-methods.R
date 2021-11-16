@@ -80,6 +80,6 @@ NULL
 #' @export
 setMethod(
     f = "plotTopGeneEffectPerCell",
-    signature = signature("GeneEffect"),
+    signature = signature(object = "GeneEffect"),
     definition = `plotTopGeneEffectPerCell,GeneEffect`
 )
