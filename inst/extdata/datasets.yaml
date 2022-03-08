@@ -1,8 +1,3 @@
-# FIXME Define primary files for all releases.
-# FIXME Default to 'expression_full.csv' instead for all releases?
-# FIXME Add 'ccle_rnaseq_reads.csv' support for all releases.
-# FIXME Consider deleting links in releases with Chronos and CERES.
-
 # DepMap dataset URLs
 #
 # @note Updated 2022-03-08.
@@ -273,6 +268,7 @@ depmap_public_22q1:
       url: "https://ndownloader.figshare.com/files/34008404"
       primary: true
     expression_full:
+      # Considering usage of this starting in 2022.
       file_name: "ccle_expression_full.csv"
       url: "https://ndownloader.figshare.com/files/34008407"
     fusions:
@@ -286,9 +282,12 @@ depmap_public_22q1:
       url: "https://ndownloader.figshare.com/files/34008434"
       primary: true
     rnaseq_reads:
+      # Considering usage of this starting in 2022.
       file_name: "ccle_rnaseq_reads.csv"
       url: "https://ndownloader.figshare.com/files/34008455"
     wes_copy_number:
+      # Considering usage of this starting in 2022.
+      # First added in 20Q4 release.
       file_name: "ccle_wes_gene_cn.csv"
       url: "https://ndownloader.figshare.com/files/34008482"
       primary: true
@@ -335,13 +334,10 @@ depmap_public_21q4:
       file_name: "ccle_gene_cn.csv"
       url: "https://ndownloader.figshare.com/files/31315924"
       primary: true
-    expression: # protein coding
+    expression:
       file_name: "ccle_expression.csv"
       url: "https://ndownloader.figshare.com/files/31315882"
       primary: true
-    expression_full:
-      file_name: "ccle_expression_full.csv"
-      url: "https://ndownloader.figshare.com/files/31315885"
     fusions:
       file_name: "ccle_fusions.csv"
       url: "https://ndownloader.figshare.com/files/31315912"
@@ -352,14 +348,6 @@ depmap_public_21q4:
       file_name: "ccle_mutations.csv"
       url: "https://ndownloader.figshare.com/files/31315930"
       primary: true
-    rnaseq_reads:
-      file_name: "ccle_rnaseq_reads.csv"
-      url: "https://ndownloader.figshare.com/files/31315951"
-    wes_copy_number:
-      # New to this release.
-      file_name: "ccle_wes_gene_cn.csv"
-      url: "https://ndownloader.figshare.com/files/31315978"
-      primary: true
 depmap_public_21q3:
   metadata:
     date: "2021-08"
@@ -367,8 +355,9 @@ depmap_public_21q3:
       file_name: "readme.txt"
       url: "https://ndownloader.figshare.com/files/29125329"
     sample_info:
-      file_name: "sample_info.csv"
+      file_name: "sample_info_v2.csv"
       url: "https://ndownloader.figshare.com/files/31839590"
+      primary: true
   screen:
     library_type: "crispr"
     transpose_assays: true
@@ -392,16 +381,20 @@ depmap_public_21q3:
             gene_dependency:
               file_name: "crispr_gene_dependency.csv"
               url: "https://ndownloader.figshare.com/files/29125293"
+              primary: true
             gene_effect:
               file_name: "crispr_gene_effect.csv"
               url: "https://ndownloader.figshare.com/files/29125323"
+              primary: true
   ccle:
     copy_number:
       file_name: "ccle_gene_cn.csv"
       url: "https://ndownloader.figshare.com/files/29125230"
+      primary: true
     expression:
       file_name: "ccle_expression.csv"
       url: "https://ndownloader.figshare.com/files/29124747"
+      primary: true
     fusions:
       file_name: "ccle_fusions.csv"
       url: "https://ndownloader.figshare.com/files/29125107"
@@ -411,9 +404,7 @@ depmap_public_21q3:
     mutations:
       file_name: "ccle_mutations.csv"
       url: "https://ndownloader.figshare.com/files/29125233"
-    rnaseq_reads:
-      file_name: "ccle_rnaseq_reads.csv"
-      url: "https://ndownloader.figshare.com/files/29125254"
+      primary: true
 depmap_public_21q2:
   metadata:
     date: "2021-05"
