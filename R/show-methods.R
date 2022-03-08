@@ -1,6 +1,11 @@
+#' Show an object
+#'
 #' @name show
-#' @inherit AcidGenerics::show
-#' @note Updated 2021-07-07.
+#' @note Updated 2022-03-08.
+#'
+#' @inheritParams AcidRoxygen::params
+#'
+#' @return Console output.
 #'
 #' @examples
 #' data(crispr)

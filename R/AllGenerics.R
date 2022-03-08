@@ -7,8 +7,6 @@ setGeneric(
     }
 )
 
-
-
 #' @rdname plotGeneEffectVsExpression
 #' @export
 setGeneric(
@@ -18,8 +16,6 @@ setGeneric(
     }
 )
 
-
-
 #' @rdname plotTopGeneEffectPerCell
 #' @export
 setGeneric(
@@ -28,8 +24,6 @@ setGeneric(
         standardGeneric("plotTopGeneEffectPerCell")
     }
 )
-
-
 
 #' @rdname plotTopGeneEffectPerGroup
 #' @export

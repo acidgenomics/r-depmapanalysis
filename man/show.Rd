@@ -20,7 +20,7 @@ Console output.
 Show an object
 }
 \note{
-Updated 2021-07-07.
+Updated 2022-03-08.
 }
 \examples{
 data(crispr)
