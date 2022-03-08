@@ -5,7 +5,8 @@
 \title{Import CCLE expression data}
 \usage{
 CCLEExpressionData(
-  dataset = c("depmap_public_21q2", "depmap_public_21q1", "depmap_public_20q4v2",
+  dataset = c("depmap_public_22q1", "depmap_public_21q4", "depmap_public_21q3",
+    "depmap_public_21q2", "depmap_public_21q1", "depmap_public_20q4v2",
     "depmap_public_20q3", "depmap_public_20q2", "depmap_public_20q1")
 )
 }
