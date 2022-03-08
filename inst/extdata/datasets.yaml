@@ -1,6 +1,11 @@
+# FIXME Define primary files for all releases.
+# FIXME Default to 'expression_full.csv' instead for all releases?
+# FIXME Add 'ccle_rnaseq_reads.csv' support for all releases.
+# FIXME Consider deleting links in releases with Chronos and CERES.
+
 # DepMap dataset URLs
 #
-# @note Updated 2021-07-07.
+# @note Updated 2022-03-08.
 #
 # @section Combination of Broad and Sanger scoring data:
 #
@@ -213,475 +218,661 @@
 #
 # @seealso
 # - https://depmap.org/portal/download/
+# - https://github.com/broadinstitute/depmap_omics/
 ---
-
+depmap_public_22q1:
+  metadata:
+    date: "2022-02"
+    readme:
+      file_name: "readme.txt"
+      url: "https://ndownloader.figshare.com/files/34008500"
+    sample_info:
+      file_name: "sample_info.csv"
+      url: "https://ndownloader.figshare.com/files/34008503"
+      primary: true
+    achilles_metadata:
+      # New to this release.
+      file_name: "achilles_metadata.csv"
+      url: "https://ndownloader.figshare.com/files/34008386"
+      primary: true
+  screen:
+    library_type: "crispr"
+    transpose_assays: true
+    controls:
+      common_essentials:
+        file_name: "common_essentials.csv"
+        url: "https://ndownloader.figshare.com/files/34008470"
+      nonessentials:
+        file_name: "nonessentials.csv"
+        url: "https://ndownloader.figshare.com/files/34008497"
+    defaults:
+      project: "combined"
+      scoring_method: "chronos"
+    project:
+      combined: # achilles+score
+        scoring_method:
+          chronos:
+            common_essentials:
+              file_name: "crispr_common_essentials.csv"
+              url: "https://ndownloader.figshare.com/files/34008473"
+            gene_dependency:
+              file_name: "crispr_gene_dependency.csv"
+              url: "https://ndownloader.figshare.com/files/34008485"
+              primary: true
+            gene_effect:
+              file_name: "crispr_gene_effect.csv"
+              url: "https://ndownloader.figshare.com/files/34008491"
+              primary: true
+  ccle:
+    copy_number:
+      file_name: "ccle_gene_cn.csv"
+      url: "https://ndownloader.figshare.com/files/34008428"
+      primary: true
+    expression: # protein coding
+      file_name: "ccle_expression.csv"
+      url: "https://ndownloader.figshare.com/files/34008404"
+      primary: true
+    expression_full:
+      file_name: "ccle_expression_full.csv"
+      url: "https://ndownloader.figshare.com/files/34008407"
+    fusions:
+      file_name: "ccle_fusions.csv"
+      url: "https://ndownloader.figshare.com/files/34008422"
+    fusions_unfiltered:
+      file_name: "ccle_fusions_unfiltered.csv"
+      url: "https://ndownloader.figshare.com/files/34008425"
+    mutations:
+      file_name: "ccle_mutations.csv"
+      url: "https://ndownloader.figshare.com/files/34008434"
+      primary: true
+    rnaseq_reads:
+      file_name: "ccle_rnaseq_reads.csv"
+      url: "https://ndownloader.figshare.com/files/34008455"
+    wes_copy_number:
+      file_name: "ccle_wes_gene_cn.csv"
+      url: "https://ndownloader.figshare.com/files/34008482"
+      primary: true
+depmap_public_21q4:
+  metadata:
+    date: "2021-11"
+    readme:
+      file_name: "readme.txt"
+      url: "https://ndownloader.figshare.com/files/31316008"
+    sample_info:
+      file_name: "sample_info.csv"
+      url: "https://ndownloader.figshare.com/files/31316011"
+      primary: true
+  screen:
+    library_type: "crispr"
+    transpose_assays: true
+    controls:
+      common_essentials:
+        file_name: "common_essentials.csv"
+        url: "https://ndownloader.figshare.com/files/31315981"
+      nonessentials:
+        file_name: "nonessentials.csv"
+        url: "https://ndownloader.figshare.com/files/31316005"
+    defaults:
+      project: "combined"
+      scoring_method: "chronos"
+    project:
+      combined: # achilles+score
+        scoring_method:
+          chronos:
+            common_essentials:
+              file_name: "crispr_common_essentials.csv"
+              url: "https://ndownloader.figshare.com/files/31315984"
+            gene_dependency:
+              file_name: "crispr_gene_dependency.csv"
+              url: "https://ndownloader.figshare.com/files/31315990"
+              primary: true
+            gene_effect:
+              file_name: "crispr_gene_effect.csv"
+              url: "https://ndownloader.figshare.com/files/31315996"
+              primary: true
+  ccle:
+    copy_number:
+      file_name: "ccle_gene_cn.csv"
+      url: "https://ndownloader.figshare.com/files/31315924"
+      primary: true
+    expression: # protein coding
+      file_name: "ccle_expression.csv"
+      url: "https://ndownloader.figshare.com/files/31315882"
+      primary: true
+    expression_full:
+      file_name: "ccle_expression_full.csv"
+      url: "https://ndownloader.figshare.com/files/31315885"
+    fusions:
+      file_name: "ccle_fusions.csv"
+      url: "https://ndownloader.figshare.com/files/31315912"
+    fusions_unfiltered:
+      file_name: "ccle_fusions_unfiltered.csv"
+      url: "https://ndownloader.figshare.com/files/31315915"
+    mutations:
+      file_name: "ccle_mutations.csv"
+      url: "https://ndownloader.figshare.com/files/31315930"
+      primary: true
+    rnaseq_reads:
+      file_name: "ccle_rnaseq_reads.csv"
+      url: "https://ndownloader.figshare.com/files/31315951"
+    wes_copy_number:
+      # New to this release.
+      file_name: "ccle_wes_gene_cn.csv"
+      url: "https://ndownloader.figshare.com/files/31315978"
+      primary: true
+depmap_public_21q3:
+  metadata:
+    date: "2021-08"
+    readme:
+      file_name: "readme.txt"
+      url: "https://ndownloader.figshare.com/files/29125329"
+    sample_info:
+      file_name: "sample_info.csv"
+      url: "https://ndownloader.figshare.com/files/31839590"
+  screen:
+    library_type: "crispr"
+    transpose_assays: true
+    controls:
+      common_essentials:
+        file_name: "common_essentials.csv"
+        url: "https://ndownloader.figshare.com/files/29125281"
+      nonessentials:
+        file_name: "nonessentials.csv"
+        url: "https://ndownloader.figshare.com/files/29125332"
+    defaults:
+      project: "combined"
+      scoring_method: "chronos"
+    project:
+      combined: # achilles+score
+        scoring_method:
+          chronos:
+            common_essentials:
+              file_name: "crispr_common_essentials.csv"
+              url: "https://ndownloader.figshare.com/files/29125284"
+            gene_dependency:
+              file_name: "crispr_gene_dependency.csv"
+              url: "https://ndownloader.figshare.com/files/29125293"
+            gene_effect:
+              file_name: "crispr_gene_effect.csv"
+              url: "https://ndownloader.figshare.com/files/29125323"
+  ccle:
+    copy_number:
+      file_name: "ccle_gene_cn.csv"
+      url: "https://ndownloader.figshare.com/files/29125230"
+    expression:
+      file_name: "ccle_expression.csv"
+      url: "https://ndownloader.figshare.com/files/29124747"
+    fusions:
+      file_name: "ccle_fusions.csv"
+      url: "https://ndownloader.figshare.com/files/29125107"
+    fusions_unfiltered:
+      file_name: "ccle_fusions_unfiltered.csv"
+      url: "https://ndownloader.figshare.com/files/29125146"
+    mutations:
+      file_name: "ccle_mutations.csv"
+      url: "https://ndownloader.figshare.com/files/29125233"
+    rnaseq_reads:
+      file_name: "ccle_rnaseq_reads.csv"
+      url: "https://ndownloader.figshare.com/files/29125254"
 depmap_public_21q2:
-    metadata:
-        date: "2021-05"
-        readme:
-            file_name: "readme.txt"
-            url: "https://ndownloader.figshare.com/files/27902373"
-        sample_info:
-            file_name: "sample_info.csv"
-            url: "https://ndownloader.figshare.com/files/27902376"
-    screen:
-        library_type: "crispr"
-        transpose_assays: true
-        controls:
+  metadata:
+    date: "2021-05"
+    readme:
+      file_name: "readme.txt"
+      url: "https://ndownloader.figshare.com/files/27902373"
+    sample_info:
+      file_name: "sample_info.csv"
+      url: "https://ndownloader.figshare.com/files/27902376"
+  screen:
+    library_type: "crispr"
+    transpose_assays: true
+    controls:
+      common_essentials:
+        file_name: "common_essentials.csv"
+        url: "https://ndownloader.figshare.com/files/27902160"
+      nonessentials:
+        file_name: "nonessentials.csv"
+        url: "https://ndownloader.figshare.com/files/27902370"
+    defaults:
+      project: "combined"
+      scoring_method: "chronos"
+    project:
+      combined: # achilles+score
+        scoring_method:
+          chronos:
             common_essentials:
-                file_name: "common_essentials.csv"
-                url: "https://ndownloader.figshare.com/files/27902160"
-            nonessentials:
-                file_name: "nonessentials.csv"
-                url: "https://ndownloader.figshare.com/files/27902370"
-        defaults:
-            project: "combined"
-            scoring_method: "chronos"
-        project:
-            combined:  # achilles+score
-                scoring_method:
-                    chronos:
-                        common_essentials:
-                            file_name: "crispr_common_essentials_chronos.csv"
-                            url: "https://ndownloader.figshare.com/files/27902166"
-                        gene_dependency:
-                            file_name: "crispr_gene_dependency_chronos.csv"
-                            url: "https://ndownloader.figshare.com/files/27902175"
-                        gene_effect:
-                            file_name: "crispr_gene_effect_chronos.csv"
-                            url: "https://ndownloader.figshare.com/files/27902229"
-                    ceres:
-                        common_essentials:
-                            file_name: "crispr_common_essentials.csv"
-                            url: "https://ndownloader.figshare.com/files/27902163"
-                        gene_dependency:
-                            file_name: "crispr_gene_dependency.csv"
-                            url: "https://ndownloader.figshare.com/files/27902169"
-                        gene_effect:
-                            file_name: "crispr_gene_effect.csv"
-                            url: "https://ndownloader.figshare.com/files/27902226"
-            achilles:
-                scoring_method:
-                    chronos:
-                        "common_essentials":
-                            file_name: "achilles_common_essentials_chronos.csv"
-                            url: "https://ndownloader.figshare.com/files/27902031"
-                        "gene_dependency":
-                            file_name: "achilles_gene_dependency_chronos.csv"
-                            url: "https://ndownloader.figshare.com/files/27902049"
-                        "gene_effect":
-                            file_name: "achilles_gene_effect_chronos.csv"
-                            url: "https://ndownloader.figshare.com/files/27902043"
-                    ceres:
-                        "common_essentials":
-                            file_name: "achilles_common_essentials.csv"
-                            url: "https://ndownloader.figshare.com/files/27902028"
-                        "gene_dependency":
-                            file_name: "achilles_gene_dependency.csv"
-                            url: "https://ndownloader.figshare.com/files/27902040"
-                        "gene_effect":
-                            file_name: "achilles_gene_effect.csv"
-                            url: "https://ndownloader.figshare.com/files/27902046"
-    ccle:
-        copy_number:
-            file_name: "ccle_gene_cn.csv"
-            url: "https://ndownloader.figshare.com/files/27902124"
-        expression:
-            file_name: "ccle_expression.csv"
-            url: "https://ndownloader.figshare.com/files/27902091"
-        fusions:
-            file_name: "ccle_fusions.csv"
-            url: "https://ndownloader.figshare.com/files/27902109"
-        fusions_unfiltered:
-            file_name: "ccle_fusions_unfiltered.csv"
-            url: "https://ndownloader.figshare.com/files/27902115"
-        mutations:
-            file_name: "ccle_mutations.csv"
-            url: "https://ndownloader.figshare.com/files/27902118"
-
+              file_name: "crispr_common_essentials_chronos.csv"
+              url: "https://ndownloader.figshare.com/files/27902166"
+            gene_dependency:
+              file_name: "crispr_gene_dependency_chronos.csv"
+              url: "https://ndownloader.figshare.com/files/27902175"
+            gene_effect:
+              file_name: "crispr_gene_effect_chronos.csv"
+              url: "https://ndownloader.figshare.com/files/27902229"
+          ceres:
+            common_essentials:
+              file_name: "crispr_common_essentials.csv"
+              url: "https://ndownloader.figshare.com/files/27902163"
+            gene_dependency:
+              file_name: "crispr_gene_dependency.csv"
+              url: "https://ndownloader.figshare.com/files/27902169"
+            gene_effect:
+              file_name: "crispr_gene_effect.csv"
+              url: "https://ndownloader.figshare.com/files/27902226"
+      achilles:
+        scoring_method:
+          chronos:
+            "common_essentials":
+              file_name: "achilles_common_essentials_chronos.csv"
+              url: "https://ndownloader.figshare.com/files/27902031"
+            "gene_dependency":
+              file_name: "achilles_gene_dependency_chronos.csv"
+              url: "https://ndownloader.figshare.com/files/27902049"
+            "gene_effect":
+              file_name: "achilles_gene_effect_chronos.csv"
+              url: "https://ndownloader.figshare.com/files/27902043"
+          ceres:
+            "common_essentials":
+              file_name: "achilles_common_essentials.csv"
+              url: "https://ndownloader.figshare.com/files/27902028"
+            "gene_dependency":
+              file_name: "achilles_gene_dependency.csv"
+              url: "https://ndownloader.figshare.com/files/27902040"
+            "gene_effect":
+              file_name: "achilles_gene_effect.csv"
+              url: "https://ndownloader.figshare.com/files/27902046"
+  ccle:
+    copy_number:
+      file_name: "ccle_gene_cn.csv"
+      url: "https://ndownloader.figshare.com/files/27902124"
+    expression:
+      file_name: "ccle_expression.csv"
+      url: "https://ndownloader.figshare.com/files/27902091"
+    fusions:
+      file_name: "ccle_fusions.csv"
+      url: "https://ndownloader.figshare.com/files/27902109"
+    fusions_unfiltered:
+      file_name: "ccle_fusions_unfiltered.csv"
+      url: "https://ndownloader.figshare.com/files/27902115"
+    mutations:
+      file_name: "ccle_mutations.csv"
+      url: "https://ndownloader.figshare.com/files/27902118"
 depmap_public_21q1:
-    metadata:
-        date: "2021-02"
-        readme:
-            file_name: "readme.txt"
-            url: "https://ndownloader.figshare.com/files/26261566"
-        sample_info:
-            file_name: "sample_info.csv"
-            url: "https://ndownloader.figshare.com/files/26261569"
-    screen:
-        library_type: "crispr"
-        transpose_assays: true
-        controls:
+  metadata:
+    date: "2021-02"
+    readme:
+      file_name: "readme.txt"
+      url: "https://ndownloader.figshare.com/files/26261566"
+    sample_info:
+      file_name: "sample_info.csv"
+      url: "https://ndownloader.figshare.com/files/26261569"
+  screen:
+    library_type: "crispr"
+    transpose_assays: true
+    controls:
+      common_essentials:
+        file_name: "common_essentials.csv"
+        url: "https://ndownloader.figshare.com/files/26261545"
+      nonessentials:
+        file_name: "nonessentials.csv"
+        url: "https://ndownloader.figshare.com/files/26261557"
+    defaults:
+      project: "combined"
+      scoring_method: "ceres"
+    project:
+      combined:
+        scoring_method:
+          ceres:
             common_essentials:
-                file_name: "common_essentials.csv"
-                url: "https://ndownloader.figshare.com/files/26261545"
-            nonessentials:
-                file_name: "nonessentials.csv"
-                url: "https://ndownloader.figshare.com/files/26261557"
-        defaults:
-            project: "combined"
-            scoring_method: "ceres"
-        project:
-            combined:
-                scoring_method:
-                    ceres:
-                        common_essentials:
-                            file_name: "crispr_common_essentials.csv"
-                            url: "https://ndownloader.figshare.com/files/26261551"
-                        gene_dependency:
-                            file_name: "crispr_gene_dependency.csv"
-                            url: "https://ndownloader.figshare.com/files/26261554"
-                        gene_effect:
-                            file_name: "crispr_gene_effect.csv"
-                            url: "https://ndownloader.figshare.com/files/26261563"
-            achilles:
-                scoring_method:
-                    ceres:
-                        common_essentials:
-                            file_name: "achilles_common_essentials.csv"
-                            url: "https://ndownloader.figshare.com/files/26261275"
-                        gene_dependency:
-                            file_name: "achilles_gene_dependency.csv"
-                            url: "https://ndownloader.figshare.com/files/26261290"
-                        gene_effect:
-                            file_name: "achilles_gene_effect.csv"
-                            url: "https://ndownloader.figshare.com/files/26261293"
-    ccle:
-        copy_number:
-            file_name: "ccle_gene_cn.csv"
-            url: "https://ndownloader.figshare.com/files/26261524"
-        expression:
-            file_name: "ccle_expression.csv"
-            url: "https://ndownloader.figshare.com/files/26261476"
-        fusions:
-            file_name: "ccle_fusions.csv"
-            url: "https://ndownloader.figshare.com/files/26261512"
-        fusions_unfiltered:
-            file_name: "ccle_fusions_unfiltered.csv"
-            url: "https://ndownloader.figshare.com/files/26261515"
-        mutations:
-            file_name: "ccle_mutations.csv"
-            url: "https://ndownloader.figshare.com/files/26261527"
-
+              file_name: "crispr_common_essentials.csv"
+              url: "https://ndownloader.figshare.com/files/26261551"
+            gene_dependency:
+              file_name: "crispr_gene_dependency.csv"
+              url: "https://ndownloader.figshare.com/files/26261554"
+            gene_effect:
+              file_name: "crispr_gene_effect.csv"
+              url: "https://ndownloader.figshare.com/files/26261563"
+      achilles:
+        scoring_method:
+          ceres:
+            common_essentials:
+              file_name: "achilles_common_essentials.csv"
+              url: "https://ndownloader.figshare.com/files/26261275"
+            gene_dependency:
+              file_name: "achilles_gene_dependency.csv"
+              url: "https://ndownloader.figshare.com/files/26261290"
+            gene_effect:
+              file_name: "achilles_gene_effect.csv"
+              url: "https://ndownloader.figshare.com/files/26261293"
+  ccle:
+    copy_number:
+      file_name: "ccle_gene_cn.csv"
+      url: "https://ndownloader.figshare.com/files/26261524"
+    expression:
+      file_name: "ccle_expression.csv"
+      url: "https://ndownloader.figshare.com/files/26261476"
+    fusions:
+      file_name: "ccle_fusions.csv"
+      url: "https://ndownloader.figshare.com/files/26261512"
+    fusions_unfiltered:
+      file_name: "ccle_fusions_unfiltered.csv"
+      url: "https://ndownloader.figshare.com/files/26261515"
+    mutations:
+      file_name: "ccle_mutations.csv"
+      url: "https://ndownloader.figshare.com/files/26261527"
 depmap_public_20q4v2:
-    metadata:
-        date: "2020-12"
-        readme:
-            file_name: "readme.txt"
-            url: "https://ndownloader.figshare.com/files/25797005"
-        sample_info:
-            file_name: "sample_info.csv"
-            url: "https://ndownloader.figshare.com/files/25494443"
-    ccle:
-        copy_number:
-            file_name: "ccle_gene_cn.csv"
-            url: "https://ndownloader.figshare.com/files/25770017"
-        expression:
-            file_name: "ccle_expression.csv"
-            url: "https://ndownloader.figshare.com/files/25797011"
-        fusions:
-            file_name: "ccle_fusions.csv"
-            url: "https://ndownloader.figshare.com/files/25494407"
-        fusions_unfiltered:
-            file_name: "ccle_fusions_unfiltered.csv"
-            url: "https://ndownloader.figshare.com/files/25494410"
-        mutations:
-            file_name: "ccle_mutations.csv"
-            url: "https://ndownloader.figshare.com/files/25494419"
-    screen:
-        library_type: "crispr"
-        transpose_assays: true
-        controls:
+  metadata:
+    date: "2020-12"
+    readme:
+      file_name: "readme.txt"
+      url: "https://ndownloader.figshare.com/files/25797005"
+    sample_info:
+      file_name: "sample_info.csv"
+      url: "https://ndownloader.figshare.com/files/25494443"
+  ccle:
+    copy_number:
+      file_name: "ccle_gene_cn.csv"
+      url: "https://ndownloader.figshare.com/files/25770017"
+    expression:
+      file_name: "ccle_expression.csv"
+      url: "https://ndownloader.figshare.com/files/25797011"
+    fusions:
+      file_name: "ccle_fusions.csv"
+      url: "https://ndownloader.figshare.com/files/25494407"
+    fusions_unfiltered:
+      file_name: "ccle_fusions_unfiltered.csv"
+      url: "https://ndownloader.figshare.com/files/25494410"
+    mutations:
+      file_name: "ccle_mutations.csv"
+      url: "https://ndownloader.figshare.com/files/25494419"
+  screen:
+    library_type: "crispr"
+    transpose_assays: true
+    controls:
+      common_essentials:
+        file_name: "common_essentials.csv"
+        url: "https://ndownloader.figshare.com/files/25494434"
+      nonessentials:
+        file_name: "nonessentials.csv"
+        url: "https://ndownloader.figshare.com/files/25494437"
+    defaults:
+      project: "achilles"
+      scoring_method: "ceres"
+    project:
+      achilles:
+        scoring_method:
+          ceres:
             common_essentials:
-                file_name: "common_essentials.csv"
-                url: "https://ndownloader.figshare.com/files/25494434"
-            nonessentials:
-                file_name: "nonessentials.csv"
-                url: "https://ndownloader.figshare.com/files/25494437"
-        defaults:
-            project: "achilles"
-            scoring_method: "ceres"
-        project:
-            achilles:
-                scoring_method:
-                    ceres:
-                        common_essentials:
-                            file_name: "achilles_common_essentials.csv"
-                            url: "https://ndownloader.figshare.com/files/25770002"
-                        gene_dependency:
-                            file_name: "achilles_gene_dependency.csv"
-                            url: "https://ndownloader.figshare.com/files/25770032"
-                        gene_effect:
-                            file_name: "achilles_gene_effect.csv"
-                            url: "https://ndownloader.figshare.com/files/25770029"
-
+              file_name: "achilles_common_essentials.csv"
+              url: "https://ndownloader.figshare.com/files/25770002"
+            gene_dependency:
+              file_name: "achilles_gene_dependency.csv"
+              url: "https://ndownloader.figshare.com/files/25770032"
+            gene_effect:
+              file_name: "achilles_gene_effect.csv"
+              url: "https://ndownloader.figshare.com/files/25770029"
 depmap_public_20q3:
-    metadata:
-        date: "2020-09"
-        readme:
-            file_name: "readme.txt"
-            url: "https://ndownloader.figshare.com/files/24613391"
-        sample_info:
-            file_name: "sample_info.csv"
-            url: "https://ndownloader.figshare.com/files/24613394"
-    screen:
-        library_type: "crispr"
-        transpose_assays: true
-        controls:
+  metadata:
+    date: "2020-09"
+    readme:
+      file_name: "readme.txt"
+      url: "https://ndownloader.figshare.com/files/24613391"
+    sample_info:
+      file_name: "sample_info.csv"
+      url: "https://ndownloader.figshare.com/files/24613394"
+  screen:
+    library_type: "crispr"
+    transpose_assays: true
+    controls:
+      common_essentials:
+        file_name: "common_essentials.csv"
+        url: "https://ndownloader.figshare.com/files/24613385"
+      nonessentials:
+        file_name: "nonessentials.csv"
+        url: "https://ndownloader.figshare.com/files/24613388"
+    defaults:
+      project: "achilles"
+      scoring_method: "ceres"
+    project:
+      achilles:
+        scoring_method:
+          ceres:
             common_essentials:
-                file_name: "common_essentials.csv"
-                url: "https://ndownloader.figshare.com/files/24613385"
-            nonessentials:
-                file_name: "nonessentials.csv"
-                url: "https://ndownloader.figshare.com/files/24613388"
-        defaults:
-            project: "achilles"
-            scoring_method: "ceres"
-        project:
-            achilles:
-                scoring_method:
-                    ceres:
-                        common_essentials:
-                            file_name: "achilles_common_essentials.csv"
-                            url: "https://ndownloader.figshare.com/files/24613283"
-                        gene_dependency:
-                            file_name: "achilles_gene_dependency.csv"
-                            url: "https://ndownloader.figshare.com/files/24613298"
-                        gene_effect:
-                            file_name: "achilles_gene_effect.csv"
-                            url: "https://ndownloader.figshare.com/files/24613292"
-    ccle:
-        copy_number:
-            file_name: "ccle_gene_cn.csv"
-            url: "https://ndownloader.figshare.com/files/24613352"
-        expression:
-            file_name: "ccle_expression.csv"
-            url: "https://ndownloader.figshare.com/files/24613325"
-        fusions:
-            file_name: "ccle_fusions.csv"
-            url: "https://ndownloader.figshare.com/files/24613343"
-        fusions_unfiltered:
-            file_name: "ccle_fusions_unfiltered.csv"
-            url: "https://ndownloader.figshare.com/files/24613346"
-        mutations:
-            file_name: "ccle_mutations.csv"
-            url: "https://ndownloader.figshare.com/files/24613355"
-
+              file_name: "achilles_common_essentials.csv"
+              url: "https://ndownloader.figshare.com/files/24613283"
+            gene_dependency:
+              file_name: "achilles_gene_dependency.csv"
+              url: "https://ndownloader.figshare.com/files/24613298"
+            gene_effect:
+              file_name: "achilles_gene_effect.csv"
+              url: "https://ndownloader.figshare.com/files/24613292"
+  ccle:
+    copy_number:
+      file_name: "ccle_gene_cn.csv"
+      url: "https://ndownloader.figshare.com/files/24613352"
+    expression:
+      file_name: "ccle_expression.csv"
+      url: "https://ndownloader.figshare.com/files/24613325"
+    fusions:
+      file_name: "ccle_fusions.csv"
+      url: "https://ndownloader.figshare.com/files/24613343"
+    fusions_unfiltered:
+      file_name: "ccle_fusions_unfiltered.csv"
+      url: "https://ndownloader.figshare.com/files/24613346"
+    mutations:
+      file_name: "ccle_mutations.csv"
+      url: "https://ndownloader.figshare.com/files/24613355"
 depmap_public_20q2:
-    metadata:
-        date: "2020-05"
-        readme:
-            file_name: "readme_v2.txt"
-            url: "https://ndownloader.figshare.com/files/22897970"
-        sample_info:
-            file_name: "sample_info.csv"
-            url: "https://ndownloader.figshare.com/files/22629137"
-    screen:
-        library_type: "crispr"
-        transpose_assays: true
-        controls:
+  metadata:
+    date: "2020-05"
+    readme:
+      file_name: "readme_v2.txt"
+      url: "https://ndownloader.figshare.com/files/22897970"
+    sample_info:
+      file_name: "sample_info.csv"
+      url: "https://ndownloader.figshare.com/files/22629137"
+  screen:
+    library_type: "crispr"
+    transpose_assays: true
+    controls:
+      common_essentials:
+        file_name: "common_essentials.csv"
+        url: "https://ndownloader.figshare.com/files/22629128"
+      nonessentials:
+        file_name: "nonessentials.csv"
+        url: "https://ndownloader.figshare.com/files/22629131"
+    defaults:
+      project: "achilles"
+      scoring_method: "ceres"
+    project:
+      achilles:
+        scoring_method:
+          ceres:
             common_essentials:
-                file_name: "common_essentials.csv"
-                url: "https://ndownloader.figshare.com/files/22629128"
-            nonessentials:
-                file_name: "nonessentials.csv"
-                url: "https://ndownloader.figshare.com/files/22629131"
-        defaults:
-            project: "achilles"
-            scoring_method: "ceres"
-        project:
-            achilles:
-                scoring_method:
-                    ceres:
-                        common_essentials:
-                            file_name: "achilles_common_essentials.csv"
-                            url: "https://ndownloader.figshare.com/files/22629059"
-                        gene_dependency:
-                            file_name: "achilles_gene_dependency.csv"
-                            url: "https://ndownloader.figshare.com/files/22629071"
-                        gene_effect:
-                            file_name: "achilles_gene_effect.csv"
-                            url: "https://ndownloader.figshare.com/files/22629068"
-    ccle:
-        copy_number:
-            file_name: "ccle_gene_cn.csv"
-            url: "https://ndownloader.figshare.com/files/22629107"
-        expression:
-            file_name: "ccle_expression_v2.csv"
-            url: "https://ndownloader.figshare.com/files/22897976"
-        fusions:
-            file_name: "ccle_fusions.csv"
-            url: "https://ndownloader.figshare.com/files/22629101"
-        fusions_unfiltered:
-            file_name: "ccle_fusions_unfiltered.csv"
-            url: "https://ndownloader.figshare.com/files/22629104"
-        mutations:
-            file_name: "ccle_mutations.csv"
-            url: "https://ndownloader.figshare.com/files/22629110"
-
+              file_name: "achilles_common_essentials.csv"
+              url: "https://ndownloader.figshare.com/files/22629059"
+            gene_dependency:
+              file_name: "achilles_gene_dependency.csv"
+              url: "https://ndownloader.figshare.com/files/22629071"
+            gene_effect:
+              file_name: "achilles_gene_effect.csv"
+              url: "https://ndownloader.figshare.com/files/22629068"
+  ccle:
+    copy_number:
+      file_name: "ccle_gene_cn.csv"
+      url: "https://ndownloader.figshare.com/files/22629107"
+    expression:
+      file_name: "ccle_expression_v2.csv"
+      url: "https://ndownloader.figshare.com/files/22897976"
+    fusions:
+      file_name: "ccle_fusions.csv"
+      url: "https://ndownloader.figshare.com/files/22629101"
+    fusions_unfiltered:
+      file_name: "ccle_fusions_unfiltered.csv"
+      url: "https://ndownloader.figshare.com/files/22629104"
+    mutations:
+      file_name: "ccle_mutations.csv"
+      url: "https://ndownloader.figshare.com/files/22629110"
 depmap_public_20q1:
-    metadata:
-        date: "2020-02"
-        readme:
-            file_name: "readme_v2.txt"
-            url: "https://ndownloader.figshare.com/files/22543694"
-        sample_info:
-            file_name: "sample_info_v2.csv"
-            url: "https://ndownloader.figshare.com/files/21522000"
-    screen:
-        library_type: "crispr"
-        transpose_assays: true
-        controls:
+  metadata:
+    date: "2020-02"
+    readme:
+      file_name: "readme_v2.txt"
+      url: "https://ndownloader.figshare.com/files/22543694"
+    sample_info:
+      file_name: "sample_info_v2.csv"
+      url: "https://ndownloader.figshare.com/files/21522000"
+  screen:
+    library_type: "crispr"
+    transpose_assays: true
+    controls:
+      common_essentials:
+        file_name: "common_essentials.csv"
+        url: "https://ndownloader.figshare.com/files/21521991"
+      nonessentials:
+        file_name: "nonessentials.csv"
+        url: "https://ndownloader.figshare.com/files/21521994"
+    defaults:
+      project: "achilles"
+      scoring_method: "ceres"
+    project:
+      achilles:
+        scoring_method:
+          ceres:
             common_essentials:
-                file_name: "common_essentials.csv"
-                url: "https://ndownloader.figshare.com/files/21521991"
-            nonessentials:
-                file_name: "nonessentials.csv"
-                url: "https://ndownloader.figshare.com/files/21521994"
-        defaults:
-            project: "achilles"
-            scoring_method: "ceres"
-        project:
-            achilles:
-                scoring_method:
-                    ceres:
-                        common_essentials:
-                            file_name: "achilles_common_essentials.csv"
-                            url: "https://ndownloader.figshare.com/files/21521865"
-                        gene_dependency:
-                            file_name: "achilles_gene_dependency_v2.csv"
-                            url: "https://ndownloader.figshare.com/files/22543826"
-                        gene_effect:
-                            file_name: "achilles_gene_effect_v2.csv"
-                            url: "https://ndownloader.figshare.com/files/22543691"
-    ccle:
-        copy_number:
-            file_name: "ccle_gene_cn.csv"
-            url: "https://ndownloader.figshare.com/files/21521964"
-        expression:
-            file_name: "ccle_expression.csv"
-            url: "https://ndownloader.figshare.com/files/21521940"
-        fusions:
-            file_name: "ccle_fusions.csv"
-            url: "https://ndownloader.figshare.com/files/21521946"
-        fusions_unfiltered:
-            file_name: "ccle_fusions_unfiltered.csv"
-            url: "https://ndownloader.figshare.com/files/21521943"
-        mutations:
-            file_name: "ccle_mutations.csv"
-            url: "https://ndownloader.figshare.com/files/21521967"
-
+              file_name: "achilles_common_essentials.csv"
+              url: "https://ndownloader.figshare.com/files/21521865"
+            gene_dependency:
+              file_name: "achilles_gene_dependency_v2.csv"
+              url: "https://ndownloader.figshare.com/files/22543826"
+            gene_effect:
+              file_name: "achilles_gene_effect_v2.csv"
+              url: "https://ndownloader.figshare.com/files/22543691"
+  ccle:
+    copy_number:
+      file_name: "ccle_gene_cn.csv"
+      url: "https://ndownloader.figshare.com/files/21521964"
+    expression:
+      file_name: "ccle_expression.csv"
+      url: "https://ndownloader.figshare.com/files/21521940"
+    fusions:
+      file_name: "ccle_fusions.csv"
+      url: "https://ndownloader.figshare.com/files/21521946"
+    fusions_unfiltered:
+      file_name: "ccle_fusions_unfiltered.csv"
+      url: "https://ndownloader.figshare.com/files/21521943"
+    mutations:
+      file_name: "ccle_mutations.csv"
+      url: "https://ndownloader.figshare.com/files/21521967"
 sanger_project_score_2021_05:
-    metadata:
-        date: "2021-05"
-        readme:
-            file_name: "readme.txt"
-            url: "https://ndownloader.figshare.com/files/27676626"
-        sample_info:  # from "depmap_public_21q2".
-            file_name: "sample_info.csv"
-            url: "https://ndownloader.figshare.com/files/27902376"
-    screen:
-        library_type: "crispr"
-        transpose_assays: true
-        # These controls are from "depmap_public_21q2".
-        controls:
+  metadata:
+    date: "2021-05"
+    readme:
+      file_name: "readme.txt"
+      url: "https://ndownloader.figshare.com/files/27676626"
+    sample_info: # from "depmap_public_21q2".
+      file_name: "sample_info.csv"
+      url: "https://ndownloader.figshare.com/files/27902376"
+  screen:
+    library_type: "crispr"
+    transpose_assays: true
+    # These controls are from "depmap_public_21q2".
+    controls:
+      common_essentials:
+        file_name: "common_essentials.csv"
+        url: "https://ndownloader.figshare.com/files/27902160"
+      nonessentials:
+        file_name: "nonessentials.csv"
+        url: "https://ndownloader.figshare.com/files/27902370"
+    defaults:
+      project: "score"
+      scoring_method: "chronos"
+    project:
+      score:
+        scoring_method:
+          chronos:
             common_essentials:
-                file_name: "common_essentials.csv"
-                url: "https://ndownloader.figshare.com/files/27902160"
-            nonessentials:
-                file_name: "nonessentials.csv"
-                url: "https://ndownloader.figshare.com/files/27902370"
-        defaults:
-            project: "score"
-            scoring_method: "chronos"
-        project:
-            score:
-                scoring_method:
-                    chronos:
-                        common_essentials:
-                            file_name: "common_essentials.csv"
-                            url: "https://ndownloader.figshare.com/files/27676611"
-                        gene_dependency:
-                            file_name: "gene_dependency.csv"
-                            url: "https://ndownloader.figshare.com/files/27676620"
-                        gene_effect:
-                            file_name: "gene_effect.csv"
-                            url: "https://ndownloader.figshare.com/files/27676629"
-
+              file_name: "common_essentials.csv"
+              url: "https://ndownloader.figshare.com/files/27676611"
+            gene_dependency:
+              file_name: "gene_dependency.csv"
+              url: "https://ndownloader.figshare.com/files/27676620"
+            gene_effect:
+              file_name: "gene_effect.csv"
+              url: "https://ndownloader.figshare.com/files/27676629"
 sanger_project_score_2019_08:
-    metadata:
-        date: "2019-08"
-        readme:
-            file_name: "readme.txt"
-            url: "https://ndownloader.figshare.com/files/16623944"
-        sample_info:  # from "depmap_public_21q2".
-            file_name: "sample_info.csv"
-            url: "https://ndownloader.figshare.com/files/27902376"
-    screen:
-        library_type: "crispr"
-        transpose_assays: true
-        controls:
+  metadata:
+    date: "2019-08"
+    readme:
+      file_name: "readme.txt"
+      url: "https://ndownloader.figshare.com/files/16623944"
+    sample_info: # from "depmap_public_21q2".
+      file_name: "sample_info.csv"
+      url: "https://ndownloader.figshare.com/files/27902376"
+  screen:
+    library_type: "crispr"
+    transpose_assays: true
+    controls:
+      common_essentials:
+        file_name: "essential_genes.txt"
+        url: "https://ndownloader.figshare.com/files/16623887"
+      nonessentials:
+        file_name: "nonessential_genes.csv"
+        url: "https://ndownloader.figshare.com/files/16623890"
+    defaults:
+      project: "score"
+      scoring_method: "ceres"
+    project:
+      score:
+        scoring_method:
+          ceres:
             common_essentials:
-                file_name: "essential_genes.txt"
-                url: "https://ndownloader.figshare.com/files/16623887"
-            nonessentials:
-                file_name: "nonessential_genes.csv"
-                url: "https://ndownloader.figshare.com/files/16623890"
-        defaults:
-            project: "score"
-            scoring_method: "ceres"
-        project:
-            score:
-                scoring_method:
-                    ceres:
-                        common_essentials:
-                            file_name: "pan_dependent_genes.txt"
-                            url: "https://ndownloader.figshare.com/files/16623899"
-                        gene_dependency:
-                            file_name: "gene_dependency.csv"
-                            url: "https://ndownloader.figshare.com/files/16623884"
-                        gene_effect:
-                            file_name: "gene_effect.csv"
-                            url: "https://ndownloader.figshare.com/files/16623881"
-
+              file_name: "pan_dependent_genes.txt"
+              url: "https://ndownloader.figshare.com/files/16623899"
+            gene_dependency:
+              file_name: "gene_dependency.csv"
+              url: "https://ndownloader.figshare.com/files/16623884"
+            gene_effect:
+              file_name: "gene_effect.csv"
+              url: "https://ndownloader.figshare.com/files/16623881"
 demeter2_data_v6:
-    metadata:
-        date: "2020-04"
-        readme:
-            file_name: "readme.txt"
-            url: "https://ndownloader.figshare.com/files/13515380"
-        sample_info:
-            file_name: "sample_info.csv"
-            url: "https://ndownloader.figshare.com/files/11489717"
-    screen:
-        library_type: "rnai"
-        transpose_assays: false
-        controls:
-            common_essentials:
-                file_name: "hart-pos-controls.csv"
-                url: "https://ndownloader.figshare.com/files/11489711"
-            nonessentials:
-                file_name: "hart-neg-controls.csv"
-                url: "https://ndownloader.figshare.com/files/11489708"
-        defaults:
-            project: "combined"
-            scoring_method: "demeter2"
-        project:
-            combined:  # achilles+drive+marcotte
-                scoring_method:
-                    demeter2:
-                        gene_effect:
-                            file_name: "d2_combined_gene_dep_scores.csv"
-                            url: "https://ndownloader.figshare.com/files/13515395"
-            achilles:
-                scoring_method:
-                    demeter2:
-                        gene_effect:
-                            file_name: "d2_achilles_gene_dep_scores.csv"
-                            url: "https://ndownloader.figshare.com/files/11489669"
-            drive:
-                scoring_method:
-                    demeter2:
-                        gene_effect:
-                            file_name: "d2_drive_gene_dep_scores.csv"
-                            url: "https://ndownloader.figshare.com/files/11489693"
+  metadata:
+    date: "2020-04"
+    readme:
+      file_name: "readme.txt"
+      url: "https://ndownloader.figshare.com/files/13515380"
+    sample_info:
+      file_name: "sample_info.csv"
+      url: "https://ndownloader.figshare.com/files/11489717"
+  screen:
+    library_type: "rnai"
+    transpose_assays: false
+    controls:
+      common_essentials:
+        file_name: "hart-pos-controls.csv"
+        url: "https://ndownloader.figshare.com/files/11489711"
+      nonessentials:
+        file_name: "hart-neg-controls.csv"
+        url: "https://ndownloader.figshare.com/files/11489708"
+    defaults:
+      project: "combined"
+      scoring_method: "demeter2"
+    project:
+      combined: # achilles+drive+marcotte
+        scoring_method:
+          demeter2:
+            gene_effect:
+              file_name: "d2_combined_gene_dep_scores.csv"
+              url: "https://ndownloader.figshare.com/files/13515395"
+      achilles:
+        scoring_method:
+          demeter2:
+            gene_effect:
+              file_name: "d2_achilles_gene_dep_scores.csv"
+              url: "https://ndownloader.figshare.com/files/11489669"
+      drive:
+        scoring_method:
+          demeter2:
+            gene_effect:
+              file_name: "d2_drive_gene_dep_scores.csv"
+              url: "https://ndownloader.figshare.com/files/11489693"
