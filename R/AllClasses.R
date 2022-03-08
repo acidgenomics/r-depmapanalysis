@@ -8,7 +8,7 @@
 #' Cells in columns, genes in rows.
 #'
 #' @export
-#' @note Updated 2021-06-09.
+#' @note Updated 2022-03-08.
 #'
 #' @return `CCLECopyNumberData`.
 setClass(
@@ -40,14 +40,15 @@ setValidity(
             ),
             isSubset(
                 x = c(
-                    "achillesNReplicates",
+                    ## These are no longer defined in 22Q1:
+                    ## > "achillesNReplicates",
+                    ## > "cas9Activity",
+                    ## > "cellLineNnmd",
+                    ## > "cultureMedium",
                     "age",
                     "alias",
-                    "cas9Activity",
                     "ccleName",
                     "cellLineName",
-                    "cellLineNnmd",
-                    "cultureMedium",
                     "cultureType",
                     "depMapId",
                     "lineage",
@@ -107,7 +108,7 @@ setValidity(
 #' Cells in columns, genes in rows.
 #'
 #' @export
-#' @note Updated 2021-06-09.
+#' @note Updated 2022-03-08.
 #'
 #' @return `CCLEExpressionData`.
 setClass(
@@ -139,14 +140,15 @@ setValidity(
             ),
             isSubset(
                 x = c(
-                    "achillesNReplicates",
+                    ## These are no longer defined in 22Q1:
+                    ## > "achillesNReplicates",
+                    ## > "cas9Activity",
+                    ## > "cellLineNnmd",
+                    ## > "cultureMedium",
                     "age",
                     "alias",
-                    "cas9Activity",
                     "ccleName",
                     "cellLineName",
-                    "cellLineNnmd",
-                    "cultureMedium",
                     "cultureType",
                     "depMapId",
                     "lineage",
@@ -388,7 +390,7 @@ setValidity(
 #' Cells in columns, genes in rows.
 #'
 #' @export
-#' @note Updated 2021-07-08.
+#' @note Updated 2022-03-08.
 #'
 #' @return `GeneEffect`.
 #'
@@ -436,14 +438,15 @@ setValidity(
                     isSubset("probability", assayNames(object)),
                     isSubset(
                         x = c(
-                            "achillesNReplicates",
+                            ## These are no longer defined in 22Q1:
+                            ## > "achillesNReplicates",
+                            ## > "cas9Activity",
+                            ## > "cellLineNnmd",
+                            ## > "cultureMedium",
                             "age",
                             "alias",
-                            "cas9Activity",
                             "ccleName",
                             "cellLineName",
-                            "cellLineNnmd",
-                            "cultureMedium",
                             "cultureType",
                             "depMapId",
                             "lineage",
