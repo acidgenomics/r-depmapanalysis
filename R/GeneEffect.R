@@ -10,22 +10,9 @@
 #'   depletion effect using `gene_effect`.
 #'
 #' @export
-#' @note Updated 2021-07-19.
+#' @note Updated 2022-03-09.
 #'
 #' @inheritParams params
-#' @param project `character(1)`.
-#'   Project name.
-#'   Defaults to a combination of multiple projects (`"combined"`):
-#'   - CRISPR: Broad DepMap Public, Sanger Project Score
-#'     (e.g. for `depmap_public_21q2`).
-#'   - RNAi: Achilles, DRIVE, Marcotte
-#'     (e.g. for `demeter2_data_v6`).
-#' @param scoringMethod `character(1)`.
-#'   Scoring method name to use.
-#'   - CRISPR: `"chronos"` (as of 2021 Q1) or `"ceres"`
-#'     (e.g. `depmap_public_21q2` dataset).
-#'   - RNAi: `"demeter2"`
-#'     (e.g. `demeter2_data_v6` dataset).
 #'
 #' @return `GeneEffect`.
 #'
@@ -33,11 +20,7 @@
 #' object <- GeneEffect()
 #' print(object)
 GeneEffect <-  # nolint
-    function(
-        dataset,
-        project = "default",
-        scoringMethod = "default"
-    ) {
+    function(dataset) {
         dataset <- match.arg(dataset)
         assert(
             isSubset(dataset, names(datasets)),
@@ -54,50 +37,24 @@ GeneEffect <-  # nolint
                 y = names(yaml[["screen"]])
             )
         )
-        defaults <- yaml[["screen"]][["defaults"]]
-        if (identical(project, "default")) {
-            project <- defaults[["project"]]
-        }
-        if (identical(scoringMethod, "default")) {
-            scoringMethod <- defaults[["scoring_method"]]
-        }
-        assert(
-            isString(project),
-            isSubset(
-                x = project,
-                y = names(yaml[["screen"]][["project"]])
-            ),
-            msg = sprintf(
-                "Invalid '%s': '%s'.",
-                "project", project
-            )
-        )
-        assert(
-            isString(scoringMethod),
-            isSubset(
-                x = scoringMethod,
-                y = names(yaml[["screen"]][["project"]][[
-                    project]][["scoring_method"]])
-            ),
-            msg = sprintf(
-                "Invalid '%s': '%s'.",
-                "scoringMethod", scoringMethod
-            )
-        )
         libraryType <- yaml[["screen"]][["library_type"]]
+        project <- yaml[["screen"]][["defaults"]][["project"]]
         releaseDate <- yaml[["metadata"]][["date"]]
+        scoringMethod <- yaml[["screen"]][["defaults"]][["scoring_method"]]
         transposeAssays <- yaml[["screen"]][["transpose_assays"]]
         assert(
             isString(libraryType),
+            isString(project),
             isString(releaseDate),
+            isString(scoringMethod),
             isFlag(transposeAssays)
         )
         h1(sprintf("Preparing {.var %s} gene effect dataset.", dataset))
         dl(c(
             "libraryType" = libraryType,
             "project" = project,
-            "releaseDate" = releaseDate,
-            "scoringMethod" = scoringMethod
+            "scoringMethod" = scoringMethod,
+            "releaseDate" = releaseDate
         ))
         urls <- list(
             "assays" = list(
@@ -158,13 +115,14 @@ GeneEffect <-  # nolint
                 "scoringMethod" = scoringMethod
             )
         )
-        .makeSummarizedExperiment(
+        se <- .makeSummarizedExperiment(
             dataset = dataset,
             assays = assays,
             transposeAssays = transposeAssays,
             metadata = metadata,
             class = "GeneEffect"
         )
+        return(se)
     }
 
 formals(GeneEffect)[["dataset"]] <- .formalsList[["dataset"]]

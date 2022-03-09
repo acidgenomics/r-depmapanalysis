@@ -93,6 +93,7 @@ setValidity(
             isSubset("log2CopyNumber", assayNames(object)),
             isSubset(
                 x = c(
+                    ## > "xTaxId"
                     "chromosome",
                     "dbXrefs",
                     "description",
@@ -104,8 +105,7 @@ setValidity(
                     "modificationDate",
                     "nomenclatureStatus",
                     "otherDesignations",
-                    "typeOfGene",
-                    "xTaxId"
+                    "typeOfGene"
                 ),
                 y = colnames(rowData(object))
             ),
@@ -156,6 +156,7 @@ setValidity(
             isSubset("log2Tpm", assayNames(object)),
             isSubset(
                 x = c(
+                    ## > "xTaxId"
                     "chromosome",
                     "dbXrefs",
                     "description",
@@ -167,8 +168,7 @@ setValidity(
                     "modificationDate",
                     "nomenclatureStatus",
                     "otherDesignations",
-                    "typeOfGene",
-                    "xTaxId"
+                    "typeOfGene"
                 ),
                 y = colnames(rowData(object))
             ),
@@ -256,6 +256,78 @@ setValidity(
 
 
 
+#' CCLE mutation data
+#'
+#' @details
+#' Inherits from `DataFrame`.
+#'
+#' @note Updated 2022-03-09.
+#' @export
+#'
+#' @return `CCLEMutationData`.
+setClass(
+    Class = "CCLEMutationData",
+    contains = "DataFrame"
+)
+setValidity(
+    Class = "CCLEMutationData",
+    method = function(object) {
+        ok <- validate(
+            isSubset(
+                x = c(
+                    ## > "tumorSeqAllele1"
+                    "annotationTranscript",
+                    "cDnaChange",
+                    "cgaWesAc",
+                    "chromosome",
+                    "codonChange",
+                    "cosmiChsCnt",
+                    "dbSnpRs",
+                    "dbSnpValStatus",
+                    "depMapId",
+                    "endPosition",
+                    "entrezGeneId",
+                    "exAcAf",
+                    "genomeChange",
+                    "hcAc",
+                    "hugoSymbol",
+                    "isCosmiChotspot",
+                    "isDeleterious",
+                    "isTcgAhotspot",
+                    "ncbiBuild",
+                    "proteinChange",
+                    "rdAc",
+                    "referenceAllele",
+                    "rnAseqAc",
+                    "sangerWesAc",
+                    "startPosition",
+                    "strand",
+                    "tcgAhsCnt",
+                    "variantAnnotation",
+                    "variantClassification",
+                    "variantType",
+                    "wgsAc"
+                ),
+                y = colnames(object)
+            )
+        )
+        if (!isTRUE(ok)) {
+            return(ok)
+        }
+        ok <- validateClasses(
+            object = metadata(object),
+            expected = .expectedDFMetadata,
+            subset = TRUE
+        )
+        if (!isTRUE(ok)) {
+            return(ok)
+        }
+        TRUE
+    }
+)
+
+
+
 #' Gene effect co-dependencies
 #'
 #' @details
@@ -293,78 +365,6 @@ setValidity(
                     "gene" = "character"
                 )
             ),
-            subset = TRUE
-        )
-        if (!isTRUE(ok)) {
-            return(ok)
-        }
-        TRUE
-    }
-)
-
-
-
-#' CCLE mutation data
-#'
-#' @details
-#' Inherits from `DataFrame`.
-#'
-#' @note Updated 2021-03-09.
-#' @export
-#'
-#' @return `CCLEMutationData`.
-setClass(
-    Class = "CCLEMutationData",
-    contains = "DataFrame"
-)
-setValidity(
-    Class = "CCLEMutationData",
-    method = function(object) {
-        ok <- validate(
-            isSubset(
-                x = c(
-                    "annotationTranscript",
-                    "cDnaChange",
-                    "cgaWesAc",
-                    "chromosome",
-                    "codonChange",
-                    "cosmiChsCnt",
-                    "dbSnpRs",
-                    "dbSnpValStatus",
-                    "depMapId",
-                    "endPosition",
-                    "entrezGeneId",
-                    "exAcAf",
-                    "genomeChange",
-                    "hcAc",
-                    "hugoSymbol",
-                    "isCosmiChotspot",
-                    "isDeleterious",
-                    "isTcgAhotspot",
-                    "ncbiBuild",
-                    "proteinChange",
-                    "rdAc",
-                    "referenceAllele",
-                    "rnAseqAc",
-                    "sangerWesAc",
-                    "startPosition",
-                    "strand",
-                    "tcgAhsCnt",
-                    "tumorSeqAllele1",
-                    "variantAnnotation",
-                    "variantClassification",
-                    "variantType",
-                    "wgsAc"
-                ),
-                y = colnames(object)
-            )
-        )
-        if (!isTRUE(ok)) {
-            return(ok)
-        }
-        ok <- validateClasses(
-            object = metadata(object),
-            expected = .expectedDFMetadata,
             subset = TRUE
         )
         if (!isTRUE(ok)) {

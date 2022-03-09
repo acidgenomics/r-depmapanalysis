@@ -7,10 +7,10 @@
     "depmap_public_21q3",
     "depmap_public_21q2",
     "depmap_public_21q1",
-    "depmap_public_20q4v2",
-    "depmap_public_20q3",
-    "depmap_public_20q2",
-    "depmap_public_20q1",
+    ## > "depmap_public_20q4v2",
+    ## > "depmap_public_20q3",
+    ## > "depmap_public_20q2",
+    ## > "depmap_public_20q1",
     "demeter2_data_v6"
 )
 

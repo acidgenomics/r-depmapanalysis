@@ -6,34 +6,12 @@
 \usage{
 GeneEffect(
   dataset = c("depmap_public_22q1", "depmap_public_21q4", "depmap_public_21q3",
-    "depmap_public_21q2", "depmap_public_21q1", "depmap_public_20q4v2",
-    "depmap_public_20q3", "depmap_public_20q2", "depmap_public_20q1", "demeter2_data_v6"),
-  project = "default",
-  scoringMethod = "default"
+    "depmap_public_21q2", "depmap_public_21q1", "demeter2_data_v6")
 )
 }
 \arguments{
 \item{dataset}{\code{character(1)}.
 DepMap dataset release name.}
-
-\item{project}{\code{character(1)}.
-Project name.
-Defaults to a combination of multiple projects (\code{"combined"}):
-\itemize{
-\item CRISPR: Broad DepMap Public, Sanger Project Score
-(e.g. for \code{depmap_public_21q2}).
-\item RNAi: Achilles, DRIVE, Marcotte
-(e.g. for \code{demeter2_data_v6}).
-}}
-
-\item{scoringMethod}{\code{character(1)}.
-Scoring method name to use.
-\itemize{
-\item CRISPR: \code{"chronos"} (as of 2021 Q1) or \code{"ceres"}
-(e.g. \code{depmap_public_21q2} dataset).
-\item RNAi: \code{"demeter2"}
-(e.g. \code{demeter2_data_v6} dataset).
-}}
 }
 \value{
 \code{GeneEffect}.
@@ -42,7 +20,7 @@ Scoring method name to use.
 Gene effect in cancer cell lines
 }
 \note{
-Updated 2021-07-19.
+Updated 2022-03-09.
 }
 \section{Assays}{
 
