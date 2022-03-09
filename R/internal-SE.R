@@ -1,6 +1,6 @@
 #' Make SummarizedExperiment object from CCLE data
 #'
-#' @note Updated 2021-07-19.
+#' @note Updated 2022-03-09.
 #' @noRd
 .makeCcleSE <- function(
     dataset,
@@ -23,19 +23,20 @@
     )
     assays <- list(mat)
     names(assays) <- assayName
-    .makeSummarizedExperiment(
+    se <- .makeSummarizedExperiment(
         dataset = dataset,
         assays = assays,
         transposeAssays = TRUE,
         class = class
     )
+    return(se)
 }
 
 
 
 #' Make SummarizedExperiment object (from DepMap or CCLE data)
 #'
-#' @note Updated 2021-07-15.
+#' @note Updated 2022-03-09.
 #' @noRd
 .makeSummarizedExperiment <-
     function(
@@ -176,5 +177,5 @@
         )
         args <- Filter(Negate(is.null), args)
         se <- do.call(what = makeSummarizedExperiment, args = args)
-        new(Class = class, se)
+        return(new(Class = class, se))
     }

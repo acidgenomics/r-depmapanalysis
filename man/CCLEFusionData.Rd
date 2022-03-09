@@ -25,7 +25,7 @@ Load filtered fusion calls.}
 Import CCLE fusion data
 }
 \note{
-Updated 2021-07-09.
+Updated 2022-03-09.
 }
 \examples{
 object <- CCLEFusionData()

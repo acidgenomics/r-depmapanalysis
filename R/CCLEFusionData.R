@@ -1,7 +1,7 @@
 #' Import CCLE fusion data
 #'
 #' @export
-#' @note Updated 2021-07-09.
+#' @note Updated 2022-03-09.
 #'
 #' @inheritParams params
 #' @param filtered `logical(1)`.
@@ -30,6 +30,7 @@ CCLEFusionData <-  # nolint
         colnames(df)[colnames(df) == "xFusionName"] <- "fusionName"
         df <- encode(df)
         metadata(df) <- list(
+            "date" = Sys.Date(),
             "dataset" = dataset,
             "filtered" = filtered,
             "packageName" = .pkgName,

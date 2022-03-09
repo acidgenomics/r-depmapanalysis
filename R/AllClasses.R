@@ -287,7 +287,12 @@ setValidity(
         }
         ok <- validateClasses(
             object = metadata(object),
-            expected = .expectedDFMetadata,
+            expected = append(
+                x = .expectedDFMetadata,
+                values = list(
+                    "gene" = "character"
+                )
+            ),
             subset = TRUE
         )
         if (!isTRUE(ok)) {

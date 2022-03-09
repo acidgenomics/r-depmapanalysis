@@ -1,7 +1,7 @@
 #' Import CCLE mutation data
 #'
 #' @export
-#' @note Updated 2021-07-19.
+#' @note Updated 2022-03-09.
 #'
 #' @inheritParams params
 #'
@@ -20,6 +20,7 @@ CCLEMutationData <-  # nolint
         colnames(df) <- camelCase(colnames(df), strict = TRUE)
         df <- encode(df)
         metadata(df) <- list(
+            "date" = Sys.Date(),
             "dataset" = dataset,
             "packageName" = .pkgName,
             "packageVersion" = .pkgVersion

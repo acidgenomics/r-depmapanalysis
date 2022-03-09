@@ -21,7 +21,7 @@ DepMap dataset release name.}
 Import CCLE mutation data
 }
 \note{
-Updated 2021-07-19.
+Updated 2022-03-09.
 }
 \examples{
 object <- CCLEMutationData()

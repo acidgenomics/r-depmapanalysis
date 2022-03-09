@@ -1,7 +1,7 @@
 #' Import Co-dependency scores
 #'
 #' @export
-#' @note Updated 2021-07-19.
+#' @note Updated 2022-03-09.
 #'
 #' @inheritParams params
 #'
@@ -43,6 +43,7 @@ Codependencies <-  # nolint
         dataset <- df[["dataset"]][[1L]]
         df[["dataset"]] <- NULL
         metadata(df) <- list(
+            "date" = Sys.Date(),
             "dataset" = dataset,
             "gene" = gene,
             "packageName" = .pkgName,
