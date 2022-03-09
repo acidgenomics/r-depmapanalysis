@@ -14,5 +14,5 @@ Gene effect co-dependencies
 Inherits from \code{DataFrame}.
 }
 \note{
-Updated 2021-07-19.
+Updated 2022-03-09.
 }

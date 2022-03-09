@@ -1,3 +1,74 @@
+#' Sample metadata column names, defined in colData.
+#'
+#' @note Updated 2022-03-09, for 22Q1.
+#' @noRd
+#'
+#' @details
+#' Not defined in "depmap_public_22q1":
+#' - "achillesNReplicates"
+#' - "cas9Activity"
+#' - "cellLineNnmd"
+#' - "cultureMedium"
+#'
+#' Not defined in "depmap_public_20q2":
+#' - "wtsiMasterCellId"
+#'
+#' Not defined in "depmap_public_20q1":
+#' - "cosmicid"
+#' - "depmapPublicComments"
+#' - "primaryDisease"
+#' - "subtype"
+.expectedColData <- c(
+    "age",
+    "alias",
+    "ccleName",
+    "cellLineName",
+    "cultureType",
+    "depMapId",
+    "lineage",
+    "lineageMolecularSubtype",
+    "lineageSubSubtype",
+    "lineageSubtype",
+    "primaryOrMetastasis",
+    "rrid",
+    "sampleCollectionSite",
+    "sangerModelId",
+    "sex",
+    "source",
+    "strippedCellLineName"
+)
+
+
+
+#' Expected DataFrame metadata
+#'
+#' @note Updated 2022-03-09.
+#' @noRd
+.expectedDFMetadata <- list(
+    "dataset" = "character",
+    "date" = "Date",  # FIXME Need to add support / enforce this.
+    "packageName" = "character",
+    "packageVersion" = "package_version"
+)
+
+
+
+#' Expected SummarizedExperiment metadata
+#'
+#' @note Updated 2022-03-09.
+#' @noRd
+.expectedSEMetadata <- append(
+    x = .expectedDFMetadata,
+    values = list(
+        ## > "missingCells" = "character",
+        ## > "retiredGenes" = "character",
+        ## > "wd" = "character"
+        "sessionInfo" = "session_info"
+    )
+)
+
+
+
 #' CCLE copy number data
 #'
 #' @details
@@ -8,7 +79,7 @@
 #' Cells in columns, genes in rows.
 #'
 #' @export
-#' @note Updated 2022-03-08.
+#' @note Updated 2022-03-09.
 #'
 #' @return `CCLECopyNumberData`.
 setClass(
@@ -38,37 +109,9 @@ setValidity(
                 ),
                 y = colnames(rowData(object))
             ),
-            isSubset(
-                x = c(
-                    ## These are no longer defined in 22Q1:
-                    ## > "achillesNReplicates",
-                    ## > "cas9Activity",
-                    ## > "cellLineNnmd",
-                    ## > "cultureMedium",
-                    "age",
-                    "alias",
-                    "ccleName",
-                    "cellLineName",
-                    "cultureType",
-                    "depMapId",
-                    "lineage",
-                    "lineageMolecularSubtype",
-                    "lineageSubSubtype",
-                    "lineageSubtype",
-                    "primaryOrMetastasis",
-                    "rrid",
-                    "sampleCollectionSite",
-                    "sangerModelId",
-                    "sex",
-                    "source",
-                    "strippedCellLineName"
-                    ## > "cosmicid",
-                    ## > "depmapPublicComments",
-                    ## > "primaryDisease",
-                    ## > "subtype"
-                    ## > "wtsiMasterCellId"
-                ),
-                y = colnames(colData(object))
+            areIntersectingSets(
+                x = colnames(colData(object)),
+                y = .expectedColData
             )
         )
         if (!isTRUE(ok)) {
@@ -76,16 +119,7 @@ setValidity(
         }
         ok <- validateClasses(
             object = metadata(object),
-            expected = list(
-                ## > "missingCells" = "character",
-                ## > "retiredGenes" = "character",
-                "dataset" = "character",
-                "date" = "Date",
-                "packageName" = "character",
-                "packageVersion" = "numeric_version",
-                "sessionInfo" = "session_info",
-                "wd" = "character"
-            ),
+            expected = .expectedSEMetadata,
             subset = TRUE
         )
         if (!isTRUE(ok)) {
@@ -108,7 +142,7 @@ setValidity(
 #' Cells in columns, genes in rows.
 #'
 #' @export
-#' @note Updated 2022-03-08.
+#' @note Updated 2022-03-09.
 #'
 #' @return `CCLEExpressionData`.
 setClass(
@@ -138,37 +172,9 @@ setValidity(
                 ),
                 y = colnames(rowData(object))
             ),
-            isSubset(
-                x = c(
-                    ## These are no longer defined in 22Q1:
-                    ## > "achillesNReplicates",
-                    ## > "cas9Activity",
-                    ## > "cellLineNnmd",
-                    ## > "cultureMedium",
-                    "age",
-                    "alias",
-                    "ccleName",
-                    "cellLineName",
-                    "cultureType",
-                    "depMapId",
-                    "lineage",
-                    "lineageMolecularSubtype",
-                    "lineageSubSubtype",
-                    "lineageSubtype",
-                    "primaryOrMetastasis",
-                    "rrid",
-                    "sampleCollectionSite",
-                    "sangerModelId",
-                    "sex",
-                    "source",
-                    "strippedCellLineName"
-                    ## > "cosmicid",
-                    ## > "depmapPublicComments",
-                    ## > "primaryDisease",
-                    ## > "subtype",
-                    ## > "wtsiMasterCellId"
-                ),
-                y = colnames(colData(object))
+            areIntersectingSets(
+                x = colnames(colData(object)),
+                y = .expectedColData
             )
         )
         if (!isTRUE(ok)) {
@@ -176,16 +182,7 @@ setValidity(
         }
         ok <- validateClasses(
             object = metadata(object),
-            expected = list(
-                ## > "missingCells" = "character",
-                ## > "retiredGenes" = "character",
-                "dataset" = "character",
-                "date" = "Date",
-                "packageName" = "character",
-                "packageVersion" = "numeric_version",
-                "sessionInfo" = "session_info",
-                "wd" = "character"
-            ),
+            expected = .expectedSEMetadata,
             subset = TRUE
         )
         if (!isTRUE(ok)) {
@@ -202,7 +199,7 @@ setValidity(
 #' @details
 #' Inherits from `DataFrame`.
 #'
-#' @note Updated 2021-02-25.
+#' @note Updated 2022-03-09.
 #' @export
 #'
 #' @return `CCLEFusionData`.
@@ -242,11 +239,11 @@ setValidity(
         }
         ok <- validateClasses(
             object = metadata(object),
-            expected = list(
-                "dataset" = "character",
-                "filtered" = "logical",
-                "packageName" = "character",
-                "packageVersion" = "package_version"
+            expected = append(
+                x = .expectedDFMetadata,
+                values = list(
+                    "filtered" = "logical"
+                )
             ),
             subset = TRUE
         )
@@ -264,7 +261,7 @@ setValidity(
 #' @details
 #' Inherits from `DataFrame`.
 #'
-#' @note Updated 2021-07-19.
+#' @note Updated 2022-03-09.
 #' @export
 #'
 #' @return `Codependencies`.
@@ -290,12 +287,7 @@ setValidity(
         }
         ok <- validateClasses(
             object = metadata(object),
-            expected = list(
-                "dataset" = "character",
-                "gene" = "character",
-                "packageName" = "character",
-                "packageVersion" = "package_version"
-            ),
+            expected = .expectedDFMetadata,
             subset = TRUE
         )
         if (!isTRUE(ok)) {
@@ -312,7 +304,7 @@ setValidity(
 #' @details
 #' Inherits from `DataFrame`.
 #'
-#' @note Updated 2021-02-25.
+#' @note Updated 2021-03-09.
 #' @export
 #'
 #' @return `CCLEMutationData`.
@@ -367,11 +359,7 @@ setValidity(
         }
         ok <- validateClasses(
             object = metadata(object),
-            expected = list(
-                "dataset" = "character",
-                "packageName" = "character",
-                "packageVersion" = "package_version"
-            ),
+            expected = .expectedDFMetadata,
             subset = TRUE
         )
         if (!isTRUE(ok)) {
@@ -390,7 +378,7 @@ setValidity(
 #' Cells in columns, genes in rows.
 #'
 #' @export
-#' @note Updated 2022-03-08.
+#' @note Updated 2022-03-09.
 #'
 #' @return `GeneEffect`.
 #'
@@ -414,17 +402,13 @@ setValidity(
         }
         ok <- validateClasses(
             object = metadata(object),
-            expected = list(
-                ## > "missingCells" = "character",
-                ## > "retiredGenes" = "character",
-                "dataset" = "character",
-                "date" = "Date",
-                "libraryType" = "character",
-                "packageVersion" = "package_version",
-                "project" = "character",
-                "scoringMethod" = "character",
-                "sessionInfo" = "session_info",
-                "wd" = "character"
+            expected = append(
+                x = .expectedSEMetadata,
+                values = list(
+                    "libraryType" = "character",
+                    "project" = "character",
+                    "scoringMethod" = "character"
+                )
             ),
             subset = TRUE
         )
@@ -436,39 +420,9 @@ setValidity(
             "crispr" = {
                 ok <- validate(
                     isSubset("probability", assayNames(object)),
-                    isSubset(
-                        x = c(
-                            ## These are no longer defined in 22Q1:
-                            ## > "achillesNReplicates",
-                            ## > "cas9Activity",
-                            ## > "cellLineNnmd",
-                            ## > "cultureMedium",
-                            "age",
-                            "alias",
-                            "ccleName",
-                            "cellLineName",
-                            "cultureType",
-                            "depMapId",
-                            "lineage",
-                            "lineageMolecularSubtype",
-                            "lineageSubSubtype",
-                            "lineageSubtype",
-                            "primaryOrMetastasis",
-                            "rrid",
-                            "sampleCollectionSite",
-                            "sangerModelId",
-                            "sex",
-                            "source",
-                            "strippedCellLineName"
-                            ## Not in "depmap_public_20q2":
-                            ## > "wtsiMasterCellId"
-                            ## Not in "depmap_public_20q1":
-                            ## > "cosmicid",
-                            ## > "depmapPublicComments",
-                            ## > "primaryDisease",
-                            ## > "subtype"
-                        ),
-                        y = colnames(colData(object))
+                    areIntersectingSets(
+                        x = colnames(colData(object)),
+                        y = .expectedColData
                     )
                 )
                 if (!isTRUE(ok)) {

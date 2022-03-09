@@ -18,5 +18,5 @@ Inherits from \code{SummarizedExperiment}.
 Cells in columns, genes in rows.
 }
 \note{
-Updated 2021-06-09.
+Updated 2022-03-09.
 }

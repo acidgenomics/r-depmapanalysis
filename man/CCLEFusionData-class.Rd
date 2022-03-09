@@ -14,5 +14,5 @@ CCLE fusion data
 Inherits from \code{DataFrame}.
 }
 \note{
-Updated 2021-02-25.
+Updated 2022-03-09.
 }
