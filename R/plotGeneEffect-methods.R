@@ -1,7 +1,7 @@
 #' Plot gene effect
 #'
 #' @name plotGeneEffect
-#' @note Updated 2021-07-07.
+#' @note Updated 2022-09-09.
 #'
 #' @inheritParams AcidRoxygen::params
 #'
