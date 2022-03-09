@@ -46,7 +46,7 @@
 #' @noRd
 .expectedDFMetadata <- list(
     "dataset" = "character",
-    "date" = "Date",  # FIXME Need to add support / enforce this.
+    "date" = "Date",
     "packageName" = "character",
     "packageVersion" = "package_version"
 )
