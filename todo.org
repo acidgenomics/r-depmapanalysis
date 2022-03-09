@@ -1,6 +1,8 @@
 #+TITLE: pipette
 #+STARTUP: content
 * Development
+** TODO CCLE mutation columns are a bit weird in camelCase.
+    TCGA hotspot column needs to be fixed.
 ** TODO Add support for labeling specific cells in plots.
 ** TODO Add support for repurposing dataset
     https://depmap.org/repurposing/
