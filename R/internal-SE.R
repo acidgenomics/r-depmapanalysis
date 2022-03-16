@@ -29,7 +29,7 @@
         transposeAssays = TRUE,
         class = class
     )
-    return(se)
+    se
 }
 
 
@@ -177,5 +177,5 @@
         )
         args <- Filter(Negate(is.null), args)
         se <- do.call(what = makeSummarizedExperiment, args = args)
-        return(new(Class = class, se))
+        new(Class = class, se)
     }

@@ -28,7 +28,7 @@ the first argument in the \code{character} vector.}
 Plot gene effect
 }
 \note{
-Updated 2021-07-07.
+Updated 2022-09-09.
 }
 \examples{
 data(crispr)

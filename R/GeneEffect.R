@@ -122,7 +122,7 @@ GeneEffect <-  # nolint
             metadata = metadata,
             class = "GeneEffect"
         )
-        return(se)
+        se
     }
 
 formals(GeneEffect)[["dataset"]] <- .formalsList[["dataset"]]

@@ -1,3 +1,7 @@
+## FIXME Need to save example expression object to speed up working example.
+
+
+
 #' Plot gene effect vs. expression
 #'
 #' @name plotGeneEffectVsExpression
@@ -30,7 +34,7 @@ NULL
 
 
 
-## Updated 2021-07-15.
+## Updated 2022-03-09.
 `plotGeneEffectVsExpression,GE,CCLE` <-  # nolint
     function(
         effect,
@@ -38,7 +42,7 @@ NULL
         gene,
         subtype = NULL,
         subtypeCol = "subtype",
-        label = !is.null(FALSE)
+        label = FALSE
     ) {
         assert(
             isString(gene),

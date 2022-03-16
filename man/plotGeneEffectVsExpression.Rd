@@ -14,7 +14,7 @@ plotGeneEffectVsExpression(effect, expression, ...)
   gene,
   subtype = NULL,
   subtypeCol = "subtype",
-  label = !is.null(FALSE)
+  label = FALSE
 )
 }
 \arguments{
