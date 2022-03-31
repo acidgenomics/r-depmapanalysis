@@ -1,6 +1,7 @@
 #+TITLE: pipette
 #+STARTUP: content
 * Development
+** TODO Consider splitting analyses into primary and metastatic disease subtypes.
 ** TODO CCLE mutation columns are a bit weird in camelCase.
     TCGA hotspot column needs to be fixed.
 ** TODO Add support for labeling specific cells in plots.
