@@ -2,6 +2,7 @@
 
 ## Major changes
 
+- Added support for 2022q2 release.
 - Now requiring R 4.2 / Bioconductor 3.15.
 - Removed strong dependencies on tidytext, tibble, and stringr.
   Now using stringi instead of stringr.
