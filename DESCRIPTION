@@ -45,6 +45,7 @@ Imports:
     utils
 Suggests:
     Cellosaurus,
+    data.table,
     testthat,
     tidytext
 Roxygen: list(markdown = TRUE)

@@ -56,7 +56,11 @@
     url,
     format = c("csv", "tsv"),
     rownamesCol = NULL,
-    engine = "base",
+    engine = ifelse(
+        test = isInstalled("data.table"),
+        yes = "data.table",
+        no = "base"
+    ),
     return = c("DataFrame", "matrix")
 ) {
     assert(
