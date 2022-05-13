@@ -5,8 +5,8 @@
 \title{Import CCLE fusion data}
 \usage{
 CCLEFusionData(
-  dataset = c("depmap_public_22q1", "depmap_public_21q4", "depmap_public_21q3",
-    "depmap_public_21q2", "depmap_public_21q1"),
+  dataset = c("depmap_public_22q2", "depmap_public_22q1", "depmap_public_21q4",
+    "depmap_public_21q3", "depmap_public_21q2", "depmap_public_21q1"),
   filtered = TRUE
 )
 }
