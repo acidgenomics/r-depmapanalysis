@@ -1,6 +1,6 @@
 #' Sample metadata column names, defined in colData.
 #'
-#' @note Updated 2022-03-09, for 22Q1.
+#' @note Updated 2022-05-13.
 #' @noRd
 #'
 #' @details
@@ -197,7 +197,7 @@ setValidity(
 #' CCLE fusion data
 #'
 #' @details
-#' Inherits from `DataFrame`.
+#' Inherits from `DFrame`.
 #'
 #' @note Updated 2022-03-09.
 #' @export
@@ -205,7 +205,7 @@ setValidity(
 #' @return `CCLEFusionData`.
 setClass(
     Class = "CCLEFusionData",
-    contains = "DataFrame"
+    contains = "DFrame"
 )
 setValidity(
     Class = "CCLEFusionData",
@@ -259,15 +259,15 @@ setValidity(
 #' CCLE mutation data
 #'
 #' @details
-#' Inherits from `DataFrame`.
+#' Inherits from `DFrame`.
 #'
-#' @note Updated 2022-03-09.
+#' @note Updated 2022-05-13.
 #' @export
 #'
 #' @return `CCLEMutationData`.
 setClass(
     Class = "CCLEMutationData",
-    contains = "DataFrame"
+    contains = "DFrame"
 )
 setValidity(
     Class = "CCLEMutationData",
@@ -333,13 +333,13 @@ setValidity(
 #' @details
 #' Inherits from `DataFrame`.
 #'
-#' @note Updated 2022-03-09.
+#' @note Updated 2022-05-13.
 #' @export
 #'
 #' @return `Codependencies`.
 setClass(
     Class = "Codependencies",
-    contains = "DataFrame"
+    contains = "DFrame"
 )
 setValidity(
     Class = "Codependencies",

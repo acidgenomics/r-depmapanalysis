@@ -11,8 +11,8 @@
 CCLE mutation data
 }
 \details{
-Inherits from \code{DataFrame}.
+Inherits from \code{DFrame}.
 }
 \note{
-Updated 2022-03-09.
+Updated 2022-05-13.
 }

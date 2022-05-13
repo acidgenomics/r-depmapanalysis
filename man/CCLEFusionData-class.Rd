@@ -11,7 +11,7 @@
 CCLE fusion data
 }
 \details{
-Inherits from \code{DataFrame}.
+Inherits from \code{DFrame}.
 }
 \note{
 Updated 2022-03-09.
