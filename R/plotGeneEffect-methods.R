@@ -40,13 +40,13 @@ NULL
         se <- se[rownames, , drop = FALSE]
         mat <- assay(se, i = "effect")
         rownames(mat) <- as.character(rowData(se)[["geneName"]])
-        data <- as_tibble(melt(mat))
+        data <- melt(mat)
         data <- data[complete.cases(data), , drop = FALSE]
         switch(
             EXPR = geom,
             "boxplot" = {
                 p <- ggplot(
-                    data = data,
+                    data = as.data.frame(data),
                     mapping = aes(
                         x = !!sym("value"),
                         y = reorder(
@@ -71,7 +71,7 @@ NULL
             },
             "violin" = {
                 p <- ggplot(
-                    data = data,
+                    data = as.data.frame(data),
                     mapping = aes(
                         x = !!sym("value"),
                         y = reorder(
@@ -100,7 +100,7 @@ NULL
             },
             "density" = {
                 p <- ggplot(
-                    data = data,
+                    data = as.data.frame(data),
                     mapping = aes(
                         x = !!sym("value"),
                         fill = !!sym("rowname")

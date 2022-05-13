@@ -1,8 +1,14 @@
-## DepMapAnalysis 0.2.1 (UNRELEASED)
+# DepMapAnalysis 0.3.0 (2022-05-13)
 
-## DepMapAnalysis 0.2.0 (2021-07-09)
+## Major changes
 
-### Major changes
+- Now requiring R 4.2 / Bioconductor 3.15.
+- Removed strong dependencies on tidytext, tibble, and stringr.
+  Now using stringi instead of stringr.
+
+# DepMapAnalysis 0.2.0 (2021-07-09)
+
+## Major changes
 
 - Support for legacy `DepMapAnalysis` and `Achilles` objects have been dropped
   in favor of simply using `GeneEffect` object class.
@@ -11,20 +17,20 @@
   co-dependencies for a gene from DepMap.
 - Added support for `plotGeneEffectVsExpression`.
 
-### Minor changes
+## Minor changes
 
 - Resaved example objects.
 - Improved code coverage to check support for all legacy datasets.
 
-## DepMapAnalysis 0.1.1 (2021-06-21)
+# DepMapAnalysis 0.1.1 (2021-06-21)
 
-### New functions
+## New functions
 
 - `plotTopGeneEffectPerGroup`: Added a new plotting function that makes it
   easier to visualize gene effects (dependency scores) across a subset of
   cell lines, such as specific lineages (solid tumors, blood cancer, etc.).
 
-### Minor changes
+## Minor changes
 
 - Ensuring legacy `Achilles` S4 class definition remains exported, to maintain
   better backward compatibility with objects saved prior to v0.1.0 release,
@@ -34,9 +40,9 @@
   of ggplot2, using a `switch` call internally.
 - Reworked some imports from basejump dependency package.
 
-## DepMapAnalysis 0.1.0 (2021-06-09)
+# DepMapAnalysis 0.1.0 (2021-06-09)
 
-### Major changes
+## Major changes
 
 - Initial release version suitable for use on Shiny Server.
 - Reworked object approach to now use `DepMapAnalysis` for both CRISPR and RNAi
@@ -47,22 +53,22 @@
   and gene expression from CCLE.
 - DepMap releases starting from 2020 are supported.
 
-## DepMapAnalysis 0.0.6 (2021-03-12)
+# DepMapAnalysis 0.0.6 (2021-03-12)
 
-### Minor changes
+## Minor changes
 
 - Updated basejump dependencies, and removed now unnecessary stringr import.
 
-## DepMapAnalysis 0.0.5 (2021-02-25)
+# DepMapAnalysis 0.0.5 (2021-02-25)
 
-### Major changes
+## Major changes
 
 - Improved metadata support for some CCLE functions, returning as
   `SummarizedExperiment` instead of `DataFrame`, when possible.
 
-## DepMapAnalysis 0.0.4 (2021-02-10)
+# DepMapAnalysis 0.0.4 (2021-02-10)
 
-### Major changes
+## Major changes
 
 - Added support for 21Q1, 20Q4 v2, and 20Q4 releases.
 - Switched `Achilles` object to inherit from `SummarizedExperiment` instead of
@@ -70,26 +76,26 @@
 - Gene metadata now comes from NCBI FTP server.
 - `DEMETER2` class objects now support `colData` and `rowData`.
 
-## DepMapAnalysis 0.0.3 (2020-10-07)
+# DepMapAnalysis 0.0.3 (2020-10-07)
 
-### Minor changes
+## Minor changes
 
 - `Achilles`: Gene synonyms are now fetched automatically, based on the new
   `makeGRangesFromEnsembl` update in basejump.
 - Simplified internal BiocFileCache handling, using new `cacheURL` function
   defined in pipette package.
 
-## DepMapAnalysis 0.0.2 (2020-10-02)
+# DepMapAnalysis 0.0.2 (2020-10-02)
 
-### New functions
+## New functions
 
 - `plotGeneEffect`: Plot effect of gene knockdown as a boxplot or density plot.
 
-### Major changes
+## Major changes
 
 - `Achilles` object now requires slotting of common essential genes from DepMap.
   These are now imported automatically in the main `Achilles()` call.
 
-## DepMapAnalysis 0.0.1 (2020-10-02)
+# DepMapAnalysis 0.0.1 (2020-10-02)
 
 Initial release.

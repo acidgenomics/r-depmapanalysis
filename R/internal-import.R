@@ -50,13 +50,13 @@
 
 #' Import a DepMap data file
 #'
-#' @note Updated 2021-07-07.
+#' @note Updated 2022-05-13.
 #' @noRd
 .importDataFile <- function(
     url,
     format = c("csv", "tsv"),
     rownamesCol = NULL,
-    engine = "data.table",
+    engine = "base",
     return = c("DataFrame", "matrix")
 ) {
     assert(

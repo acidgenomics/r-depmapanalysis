@@ -1,7 +1,7 @@
 #' Plot top gene effect (dependencies) per cell
 #'
 #' @name plotTopGeneEffectPerCell
-#' @note Updated 2021-07-07.
+#' @note Updated 2022-05-13.
 #'
 #' @inheritParams AcidRoxygen::params
 #'
@@ -18,7 +18,7 @@ NULL
 
 
 
-## Updated 2021-07-07.
+## Updated 2022-05-13.
 `plotTopGeneEffectPerCell,GeneEffect` <-  # nolint
     function(
         object,
@@ -27,6 +27,7 @@ NULL
     ) {
         validObject(object)
         assert(
+            requireNamespaces("tidytext"),
             isCharacter(cells),
             isInt(n)
         )
@@ -45,10 +46,10 @@ NULL
         ## For reference, here's a guide to `reorder_within()`:
         ## https://juliasilge.com/blog/reorder-within/
         p <- ggplot(
-            data = as_tibble(data),
+            data = as.data.frame(data),
             mapping = aes(
                 x = !!sym("value"),
-                y = reorder_within(
+                y = tidytext::reorder_within(
                     x = !!sym("rowname"),
                     by = !!sym("value"),
                     within = !!sym("colname")
@@ -70,7 +71,7 @@ NULL
                 facets = sym("colname"),
                 scales = "free"
             ) +
-            scale_y_reordered()
+            tidytext::scale_y_reordered()
         p
     }
 

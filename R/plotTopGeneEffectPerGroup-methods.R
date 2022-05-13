@@ -96,9 +96,8 @@ NULL
         summary <- summary[order(summary[["median"]]), ]
         summary <- head(summary, n = n)
         data <- data[data[["group"]] %in% summary[["group"]], ]
-        data <- as_tibble(data)
         p <- ggplot(
-            data = data,
+            data = as.data.frame(data),
             mapping = aes(
                 x = !!sym("value"),
                 y = reorder(

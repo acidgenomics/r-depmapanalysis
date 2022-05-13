@@ -82,8 +82,8 @@
         )
         rowData <- as(rowData, "DataFrame")
         ## Extract the NCBI Entrez identifiers from the row names.
-        match <- str_match(
-            string = rownames(assays[[1L]]),
+        match <- stri_match_first_regex(
+            str = rownames(assays[[1L]]),
             pattern = "^(.+)_([0-9]+)$"
         )
         entrezIds <- as.integer(match[, 3L, drop = TRUE])
@@ -119,8 +119,8 @@
             }
         )
         ## Now we need to resize the rowData to match assays.
-        match <- str_match(
-            string = rownames(assays[[1L]]),
+        match <- stri_match_first_regex(
+            str = rownames(assays[[1L]]),
             pattern = "^(.+)_([0-9]+)$"
         )
         entrezIds <- as.integer(match[, 3L, drop = TRUE])

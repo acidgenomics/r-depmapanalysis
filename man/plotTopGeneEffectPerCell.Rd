@@ -28,7 +28,7 @@ Number to include.}
 Plot top gene effect (dependencies) per cell
 }
 \note{
-Updated 2021-07-07.
+Updated 2022-05-13.
 }
 \examples{
 data(crispr)

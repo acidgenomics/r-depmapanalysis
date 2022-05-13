@@ -29,7 +29,6 @@ NULL
 
 ## S3 generics =================================================================
 
-#' @importFrom pipette as_tibble
 #' @importFrom stats reorder
 NULL
 
@@ -51,7 +50,6 @@ NULL
 #'   isScalar isString isSubset validate validateClasses
 #' @importFrom methods as is new setClass setValidity validObject
 #' @importFrom pipette cacheURL
-#' @importFrom stringr str_match
-#' @importFrom tidytext reorder_within scale_y_reordered
+#' @importFrom stringi stri_match_first_regex
 #' @importFrom utils capture.output packageName packageVersion
 NULL
