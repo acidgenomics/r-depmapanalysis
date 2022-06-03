@@ -55,7 +55,7 @@
 
 #' Expected SummarizedExperiment metadata
 #'
-#' @note Updated 2022-03-09.
+#' @note Updated 2022-06-03.
 #' @noRd
 .expectedSEMetadata <- append(
     x = .expectedDFMetadata,
@@ -63,7 +63,7 @@
         ## > "missingCells" = "character",
         ## > "retiredGenes" = "character",
         ## > "wd" = "character"
-        "sessionInfo" = "session_info"
+        "sessionInfo" = "sessionInfo"
     )
 )
 
