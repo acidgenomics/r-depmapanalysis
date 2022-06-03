@@ -1,5 +1,3 @@
-context("plotGeneEffectVsExpression")
-
 test_that("GeneEffect", {
     effect <- GeneEffect()
     expression <- CCLEExpressionData()

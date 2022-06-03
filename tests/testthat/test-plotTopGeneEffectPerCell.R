@@ -1,5 +1,3 @@
-context("plotTopGeneEffectPerCell")
-
 test_that("GeneEffect", {
     for (object in list(crispr, rnai)) {
         cells <- head(colnames(object), n = 6L)

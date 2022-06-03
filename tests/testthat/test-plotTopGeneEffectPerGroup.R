@@ -1,5 +1,3 @@
-context("plotTopGeneEffectPerGroup")
-
 test_that("GeneEffect", {
     for (object in list(crispr, rnai)) {
         gene <- rownames(object)[[1L]]

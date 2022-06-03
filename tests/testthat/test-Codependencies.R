@@ -1,5 +1,3 @@
-context("Codependencies")
-
 test_that("All datasets", {
     gene <- "SOX10"
     datasets <- eval(formals(Codependencies)[["dataset"]])

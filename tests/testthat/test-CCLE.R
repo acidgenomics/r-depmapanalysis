@@ -1,5 +1,3 @@
-context("CCLE")
-
 test_that("CCLECopyNumberData", {
     datasets <- eval(formals(CCLECopyNumberData)[["dataset"]])
     for (dataset in datasets) {

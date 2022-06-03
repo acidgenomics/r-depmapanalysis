@@ -1,5 +1,3 @@
-context("GeneEffect")
-
 test_that("All datasets", {
     datasets <- eval(formals(GeneEffect)[["dataset"]])
     for (dataset in datasets) {
@@ -34,8 +32,8 @@ test_that("CRISPR : depmap_public_21q2", {
             "cas9Activity" = 52.4,
             "ccleName" = "HEL_HAEMATOPOIETIC_AND_LYMPHOID_TISSUE",
             "cellLineName" = "HEL",
-            "cellLineNnmd" = -3.079202,  # NOTE causes `identical()` to fail.
-            "cosmicid"= 907053,
+            "cellLineNnmd" = -3.079202, # NOTE causes `identical()` to fail.
+            "cosmicid" = 907053,
             "cultureMedium" = "RPMI + 10% FBS",
             "cultureType" = "Suspension",
             "depMapId" = "ACH-000004",
@@ -84,7 +82,7 @@ test_that("CRISPR : depmap_public_21q2", {
                 "A1B", "ABG", "GAB", "HYST2477"
             )),
             "mapLocation" = "19q13.43",
-            "modificationDate" = 20210518,  # nolint
+            "modificationDate" = 20210518, # nolint
             "nomenclatureStatus" = "O",
             "otherDesignations" = CharacterList(c(
                 "alpha-1B-glycoprotein",
@@ -92,7 +90,7 @@ test_that("CRISPR : depmap_public_21q2", {
                 "HEL-S-163pA"
             )),
             "typeOfGene" = "protein-coding",
-            "xTaxId" = 9606,  # nolint
+            "xTaxId" = 9606, # nolint
             row.names = "A1BG_1"
         )
     )

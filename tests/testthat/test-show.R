@@ -1,5 +1,3 @@
-context("show")
-
 test_that("GeneEffect", {
     object <- crispr
     output <- capture.output(object)
