@@ -20,4 +20,5 @@ CCLECopyNumberData <- # nolint
         )
     }
 
-formals(CCLECopyNumberData)[["dataset"]] <- .formalsList[["depmapDataset"]]
+formals(CCLECopyNumberData)[["dataset"]] <- # nolint
+    .formalsList[["depmapDataset"]]

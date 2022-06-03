@@ -125,4 +125,5 @@ GeneEffect <- # nolint
         se
     }
 
-formals(GeneEffect)[["dataset"]] <- .formalsList[["dataset"]]
+formals(GeneEffect)[["dataset"]] <- # nolint
+    .formalsList[["dataset"]]

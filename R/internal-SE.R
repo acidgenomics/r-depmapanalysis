@@ -85,7 +85,7 @@
         )
         entrezIds <- as.integer(match[, 3L, drop = TRUE])
         assert(
-            !any(is.na(entrezIds)),
+            !anyNA(entrezIds),
             msg = "Failed to extract Entrez identifiers from rownames."
         )
         ## Retired NCBI Entrez gene identifiers will return `NA` here.
@@ -94,7 +94,7 @@
             x = entrezIds,
             table = as.integer(rowData[["geneId"]])
         )
-        if (any(is.na(idx))) {
+        if (anyNA(idx)) {
             retiredGenes <-
                 sort(match[which(is.na(idx)), 1L, drop = TRUE])
             alertWarning(sprintf(
@@ -121,12 +121,12 @@
             pattern = "^(.+)_([0-9]+)$"
         )
         entrezIds <- as.integer(match[, 3L, drop = TRUE])
-        assert(!any(is.na(entrezIds)))
+        assert(!anyNA(entrezIds))
         idx <- match(
             x = entrezIds,
             table = as.integer(rowData[["geneId"]])
         )
-        assert(!any(is.na(idx)))
+        assert(!anyNA(idx))
         rowData <- rowData[idx, , drop = FALSE]
         rownames(rowData) <- match[, 1L, drop = TRUE]
         ## Column data (cell line annotations) ---------------------------------

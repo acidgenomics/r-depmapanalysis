@@ -39,4 +39,5 @@ CCLEFusionData <- # nolint
         new("CCLEFusionData", df)
     }
 
-formals(CCLEFusionData)[["dataset"]] <- .formalsList[["depmapDataset"]]
+formals(CCLEFusionData)[["dataset"]] <- # nolint
+    .formalsList[["depmapDataset"]]

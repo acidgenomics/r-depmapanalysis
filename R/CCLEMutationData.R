@@ -28,4 +28,5 @@ CCLEMutationData <- # nolint
         new("CCLEMutationData", df)
     }
 
-formals(CCLEMutationData)[["dataset"]] <- .formalsList[["depmapDataset"]]
+formals(CCLEMutationData)[["dataset"]] <- # nolint
+    .formalsList[["depmapDataset"]]

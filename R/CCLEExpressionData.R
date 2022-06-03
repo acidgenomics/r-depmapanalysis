@@ -20,4 +20,5 @@ CCLEExpressionData <- # nolint
         )
     }
 
-formals(CCLEExpressionData)[["dataset"]] <- .formalsList[["depmapDataset"]]
+formals(CCLEExpressionData)[["dataset"]] <- # nolint
+    .formalsList[["depmapDataset"]]
