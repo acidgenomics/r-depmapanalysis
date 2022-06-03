@@ -1,8 +1,8 @@
 Package: DepMapAnalysis
 Title: DepMap Analysis Utilities
 Description: Cancer Dependency Map (DepMap) analysis toolkit.
-Version: 0.3.0
-Date: 2022-05-13
+Version: 0.3.0.9000
+Date: 2022-06-03
 Authors@R: c(
     person(
         given = "Michael",
@@ -46,8 +46,9 @@ Imports:
 Suggests:
     Cellosaurus,
     data.table,
-    testthat,
+    testthat (>= 3.0.0),
     tidytext
-Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.1.2.9000
 Additional_repositories: https://r.acidgenomics.com
+Config/testthat/edition: 3
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.2.0

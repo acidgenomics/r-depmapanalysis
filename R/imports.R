@@ -9,11 +9,11 @@ NULL
 ## S4 generics and methods =====================================================
 
 #' @importFrom AcidGenerics camelCase encode leftJoin makeDimnames
-#'   mapGenesToRownames melt showHeader
+#' mapGenesToRownames melt showHeader
 #' @importFrom BiocGenerics do.call lapply mean order rbind t
 #' @importFrom IRanges median
 #' @importFrom S4Vectors complete.cases decode head mcols metadata metadata<-
-#'   split
+#' split
 #' @importFrom SummarizedExperiment assay assayNames colData rowData
 #' @importFrom methods show
 #' @importFrom pipette import
@@ -36,7 +36,7 @@ NULL
 
 ## Standard functions ==========================================================
 
-#' @importFrom AcidBase pasteURL showSlotInfo
+#' @importFrom AcidBase pasteURL requireNamespaces showSlotInfo
 #' @importFrom AcidCLI abort alert alertInfo alertWarning dl h1 toInlineString
 #' @importFrom AcidExperiment makeSummarizedExperiment
 #' @importFrom AcidGenomes EntrezGeneInfo geneSynonyms
@@ -44,10 +44,10 @@ NULL
 #' @importFrom IRanges CharacterList
 #' @importFrom S4Vectors DataFrame
 #' @importFrom ggplot2 aes facet_wrap geom_boxplot geom_density geom_jitter
-#'   geom_point geom_violin geom_vline ggplot labs scale_y_discrete
+#' geom_point geom_violin geom_vline ggplot labs scale_y_discrete
 #' @importFrom goalie allAreURLs areIntersectingSets assert bapply hasDimnames
-#'   hasLength hasRownames isAFile isAURL isCharacter isFlag isInt isInstalled
-#'   isPositive isScalar isString isSubset validate validateClasses
+#' hasLength hasRownames isAFile isAURL isCharacter isFlag isInt isInstalled
+#' isPositive isScalar isString isSubset validate validateClasses
 #' @importFrom methods as is new setClass setValidity validObject
 #' @importFrom pipette cacheURL
 #' @importFrom stringi stri_match_first_regex
