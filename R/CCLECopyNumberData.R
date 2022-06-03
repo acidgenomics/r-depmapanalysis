@@ -10,7 +10,7 @@
 #' @examples
 #' object <- CCLECopyNumberData()
 #' print(object)
-CCLECopyNumberData <-  # nolint
+CCLECopyNumberData <- # nolint
     function(dataset) {
         .makeCcleSE(
             dataset = match.arg(dataset),

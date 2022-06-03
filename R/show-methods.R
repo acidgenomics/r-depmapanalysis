@@ -17,7 +17,7 @@ NULL
 
 
 ## Updated 2021-06-09.
-`show,CCLEMutationData` <-  # nolint
+`show,CCLEMutationData` <- # nolint
     function(object) {
         validObject(object)
         showHeader(object)
@@ -36,7 +36,7 @@ NULL
 
 
 ## Updated 2021-07-07.
-`show,GeneEffect` <-  # nolint
+`show,GeneEffect` <- # nolint
     function(object) {
         validObject(object)
         showHeader(object)

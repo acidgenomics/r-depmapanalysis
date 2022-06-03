@@ -2,35 +2,34 @@
 #'
 #' @note Updated 2022-03-09.
 #' @noRd
-.makeCcleSE <- function(
-    dataset,
-    assayKey,
-    assayName,
-    class
-) {
-    assert(
-        isString(dataset),
-        isString(assayKey),
-        isString(assayName),
-        isString(class)
-    )
-    url <- datasets[[dataset]][["ccle"]][[assayKey]][["url"]]
-    assert(isAURL(url))
-    mat <- .importDataFile(
-        url = url,
-        rownamesCol = 1L,
-        return = "matrix"
-    )
-    assays <- list(mat)
-    names(assays) <- assayName
-    se <- .makeSummarizedExperiment(
-        dataset = dataset,
-        assays = assays,
-        transposeAssays = TRUE,
-        class = class
-    )
-    se
-}
+.makeCcleSE <-
+    function(dataset,
+             assayKey,
+             assayName,
+             class) {
+        assert(
+            isString(dataset),
+            isString(assayKey),
+            isString(assayName),
+            isString(class)
+        )
+        url <- datasets[[dataset]][["ccle"]][[assayKey]][["url"]]
+        assert(isAURL(url))
+        mat <- .importDataFile(
+            url = url,
+            rownamesCol = 1L,
+            return = "matrix"
+        )
+        assays <- list(mat)
+        names(assays) <- assayName
+        se <- .makeSummarizedExperiment(
+            dataset = dataset,
+            assays = assays,
+            transposeAssays = TRUE,
+            class = class
+        )
+        se
+    }
 
 
 
@@ -39,13 +38,11 @@
 #' @note Updated 2022-03-09.
 #' @noRd
 .makeSummarizedExperiment <-
-    function(
-        dataset,
-        assays,
-        transposeAssays = FALSE,
-        metadata = list(),
-        class
-    ) {
+    function(dataset,
+             assays,
+             transposeAssays = FALSE,
+             metadata = list(),
+             class) {
         assert(
             is.list(assays),
             isFlag(transposeAssays),

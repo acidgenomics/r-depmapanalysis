@@ -11,11 +11,14 @@
 #' @inheritParams params
 #'
 #' @param effect `GeneEffect`.
+#'
 #' @param expression `CCLEExpressionData`.
+#'
 #' @param subtype `character(1)` or `NULL`.
-#'   Cell subtype name to use for filtering.
+#' Cell subtype name to use for filtering.
+#'
 #' @param subtypeCol `character(1)`.
-#'   Column name of metadata defined in `colData` of `effect`.
+#' Column name of metadata defined in `colData` of `effect`.
 #'
 #' @examples
 #' data(crispr)
@@ -35,15 +38,13 @@ NULL
 
 
 ## Updated 2022-03-09.
-`plotGeneEffectVsExpression,GE,CCLE` <-  # nolint
-    function(
-        effect,
-        expression,
-        gene,
-        subtype = NULL,
-        subtypeCol = "subtype",
-        label = FALSE
-    ) {
+`plotGeneEffectVsExpression,GE,CCLE` <- # nolint
+    function(effect,
+             expression,
+             gene,
+             subtype = NULL,
+             subtypeCol = "subtype",
+             label = FALSE) {
         assert(
             isString(gene),
             isString(subtype, nullOK = TRUE),

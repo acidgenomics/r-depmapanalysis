@@ -5,14 +5,14 @@
 #'
 #' @inheritParams params
 #' @param filtered `logical(1)`.
-#'   Load filtered fusion calls.
+#' Load filtered fusion calls.
 #'
 #' @return `CCLEFusionData`.
 #'
 #' @examples
 #' object <- CCLEFusionData()
 #' dim(object)
-CCLEFusionData <-  # nolint
+CCLEFusionData <- # nolint
     function(dataset, filtered = TRUE) {
         dataset <- match.arg(dataset)
         assert(isFlag(filtered))

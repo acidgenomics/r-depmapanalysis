@@ -10,7 +10,7 @@
 #' @examples
 #' object <- CCLEMutationData()
 #' dim(object)
-CCLEMutationData <-  # nolint
+CCLEMutationData <- # nolint
     function(dataset) {
         dataset <- match.arg(dataset)
         url <- datasets[[dataset]][["ccle"]][["mutations"]][["url"]]

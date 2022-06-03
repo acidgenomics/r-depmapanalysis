@@ -10,19 +10,17 @@
 #' @seealso
 #' - https://forum.depmap.org/t/down-load-of-co-dependencies/175/
 #' - Python script for processing of all co-dependency scores:
-#'   https://gist.github.com/pgm/ac2ac4c664ef81200ce49133cc4cee02
+#' https://gist.github.com/pgm/ac2ac4c664ef81200ce49133cc4cee02
 #'
 #' @examples
 #' x <- Codependencies(gene = "SOX10")
-Codependencies <-  # nolint
-    function(
-        gene,
-        dataset = c(
-            "Chronos_Combined",
-            "CERES_Combined",
-            "RNAi_merged"
-        )
-    ) {
+Codependencies <- # nolint
+    function(gene,
+             dataset = c(
+                 "Chronos_Combined",
+                 "CERES_Combined",
+                 "RNAi_merged"
+             )) {
         assert(isString(gene))
         dataset <- match.arg(dataset)
         url <- pasteURL(

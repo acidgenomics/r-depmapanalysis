@@ -19,12 +19,10 @@ NULL
 
 
 ## Updated 2021-07-07.
-`plotGeneEffect,GeneEffect` <-  # nolint
-    function(
-        object,
-        genes,
-        geom = c("boxplot", "violin", "density")
-    ) {
+`plotGeneEffect,GeneEffect` <- # nolint
+    function(object,
+             genes,
+             geom = c("boxplot", "violin", "density")) {
         validObject(object)
         assert(
             isCharacter(genes),

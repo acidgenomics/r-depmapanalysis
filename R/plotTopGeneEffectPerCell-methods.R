@@ -19,12 +19,10 @@ NULL
 
 
 ## Updated 2022-05-13.
-`plotTopGeneEffectPerCell,GeneEffect` <-  # nolint
-    function(
-        object,
-        cells,
-        n = 5L
-    ) {
+`plotTopGeneEffectPerCell,GeneEffect` <- # nolint
+    function(object,
+             cells,
+             n = 5L) {
         validObject(object)
         assert(
             requireNamespaces("tidytext"),

@@ -2,10 +2,11 @@
 #'
 #' @note Updated 2021-07-08.
 #' @noRd
-.cacheURL <- function(url, ...) {
-    alert(sprintf("Downloading DepMap file {.url %s}.", url))
-    cacheURL(url, pkg = .pkgName, ...)
-}
+.cacheURL <-
+    function(url, ...) {
+        alert(sprintf("Downloading DepMap file {.url %s}.", url))
+        cacheURL(url, pkg = .pkgName, ...)
+    }
 
 
 
@@ -13,7 +14,7 @@
 #'
 #' @note Updated 2021-07-19.
 #' @noRd
-.importCellLineSampleData <-  # nolint
+.importCellLineSampleData <- # nolint
     function(dataset) {
         url <- datasets[[dataset]][["metadata"]][["sample_info"]][["url"]]
         df <- .importDataFile(
@@ -25,13 +26,13 @@
         colnames(df) <- camelCase(colnames(df))
         if (
             !isSubset("cellLineName", colnames(df)) &&
-            isSubset("strippedCellLineName", colnames(df))
+                isSubset("strippedCellLineName", colnames(df))
         ) {
             ## e.g. "depmap_public_20q3".
             df[["cellLineName"]] <- df[["strippedCellLineName"]]
         } else if (
             !isSubset("cellLineName", colnames(df)) &&
-            isSubset("ccleId", colnames(df))
+                isSubset("ccleId", colnames(df))
         ) {
             x <- df[["ccleId"]]
             x <- vapply(
@@ -52,44 +53,43 @@
 #'
 #' @note Updated 2022-05-13.
 #' @noRd
-.importDataFile <- function(
-    url,
-    format = c("csv", "tsv"),
-    rownamesCol = NULL,
-    engine = ifelse(
-        test = isInstalled("data.table"),
-        yes = "data.table",
-        no = "base"
-    ),
-    return = c("DataFrame", "matrix")
-) {
-    assert(
-        isAURL(url),
-        isScalar(rownamesCol) || is.null(rownamesCol),
-        isString(engine)
-    )
-    format <- match.arg(format)
-    return <- match.arg(return)
-    tmpfile <- .cacheURL(url = url)
-    df <- import(file = tmpfile, format = format, engine = engine)
-    if (isScalar(rownamesCol)) {
-        if (!isString(rownamesCol)) {
-            rownamesCol <- colnames(df)[[rownamesCol]]
+.importDataFile <-
+    function(url,
+             format = c("csv", "tsv"),
+             rownamesCol = NULL,
+             engine = ifelse(
+                 test = isInstalled("data.table"),
+                 yes = "data.table",
+                 no = "base"
+             ),
+             return = c("DataFrame", "matrix")) {
+        assert(
+            isAURL(url),
+            isScalar(rownamesCol) || is.null(rownamesCol),
+            isString(engine)
+        )
+        format <- match.arg(format)
+        return <- match.arg(return)
+        tmpfile <- .cacheURL(url = url)
+        df <- import(file = tmpfile, format = format, engine = engine)
+        if (isScalar(rownamesCol)) {
+            if (!isString(rownamesCol)) {
+                rownamesCol <- colnames(df)[[rownamesCol]]
+            }
+            assert(isSubset(rownamesCol, colnames(df)))
+            rownames(df) <- df[[rownamesCol]]
         }
-        assert(isSubset(rownamesCol, colnames(df)))
-        rownames(df) <- df[[rownamesCol]]
+        out <- switch(
+            EXPR = return,
+            "DataFrame" = as(df, "DataFrame"),
+            "matrix" = {
+                if (hasRownames(df)) df[[rownamesCol]] <- NULL
+                as.matrix(df)
+            }
+        )
+        out <- makeDimnames(out)
+        out
     }
-    out <- switch(
-        EXPR = return,
-        "DataFrame" = as(df, "DataFrame"),
-        "matrix" = {
-            if (hasRownames(df)) df[[rownamesCol]] <- NULL
-            as.matrix(df)
-        }
-    )
-    out <- makeDimnames(out)
-    out
-}
 
 
 

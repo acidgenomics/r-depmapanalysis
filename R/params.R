@@ -3,7 +3,8 @@
 #' @keywords internal
 #'
 #' @param dataset `character(1)`.
-#'   DepMap dataset release name.
+#' DepMap dataset release name.
+#'
 #' @param gene `character(1)`.
-#'   Gene identifier.
+#' Gene identifier.
 NULL

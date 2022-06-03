@@ -4,13 +4,18 @@
 #' @note Updated 2021-07-07.
 #'
 #' @inheritParams AcidRoxygen::params
+#'
 #' @param gene `character(1)`.
+#' Gene identifier.
+#'
 #' @param group `character(1)` or `NULL`.
-#'   Column name defined in `colData` to use for grouping.
-#'   (e.g. `"subtype"`).
+#' Column name defined in `colData` to use for grouping.
+#' (e.g. `"subtype"`).
+#'
 #' @param minNPerGroup `integer(1)`.
-#'   Minimum number of samples per group to consider for inclusion in
-#'   plot.
+#' Minimum number of samples per group to consider for inclusion in
+#' plot.
+#'
 #' @return `ggplot`.
 #'
 #' @examples
@@ -26,14 +31,12 @@ NULL
 
 
 ## Updated 2021-07-07.
-`plotTopGeneEffectPerGroup,GeneEffect` <-  # nolint
-    function(
-        object,
-        gene,
-        group = "subtype",
-        n = 10L,
-        minNPerGroup = 3L
-    ) {
+`plotTopGeneEffectPerGroup,GeneEffect` <- # nolint
+    function(object,
+             gene,
+             group = "subtype",
+             n = 10L,
+             minNPerGroup = 3L) {
         validObject(object)
         assert(
             isString(gene),

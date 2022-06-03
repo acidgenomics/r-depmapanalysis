@@ -3,11 +3,11 @@
 #' @section Assays:
 #'
 #' - `effect`: **Chronos or CERES data** with principle components strongly
-#'   related to known batch effects removed, then shifted and scaled per cell
-#'   line so the median nonessential KO effect is 0 and the median essential KO
-#'   effect is -1.
+#' related to known batch effects removed, then shifted and scaled per cell
+#' line so the median nonessential KO effect is 0 and the median essential KO
+#' effect is -1.
 #' - `probability`: **Probability** that knocking out the gene has a real
-#'   depletion effect using `gene_effect`.
+#' depletion effect using `gene_effect`.
 #'
 #' @export
 #' @note Updated 2022-03-09.
@@ -19,7 +19,7 @@
 #' @examples
 #' object <- GeneEffect()
 #' print(object)
-GeneEffect <-  # nolint
+GeneEffect <- # nolint
     function(dataset) {
         dataset <- match.arg(dataset)
         assert(
@@ -60,27 +60,27 @@ GeneEffect <-  # nolint
             "assays" = list(
                 "effect" =
                     yaml[["screen"]][[
-                        "project"]][[project]][[
-                            "scoring_method"]][[scoringMethod]][[
-                                "gene_effect"]][["url"]],
+                    "project"]][[project]][[
+                    "scoring_method"]][[scoringMethod]][[
+                    "gene_effect"]][["url"]],
                 "probability" =
                     yaml[["screen"]][[
-                        "project"]][[project]][[
-                            "scoring_method"]][[scoringMethod]][[
-                                "gene_dependency"]][["url"]]
+                    "project"]][[project]][[
+                    "scoring_method"]][[scoringMethod]][[
+                    "gene_dependency"]][["url"]]
             ),
             "metadata" = list(
                 "commonEssentials" =
                     yaml[["screen"]][[
-                        "project"]][[project]][[
-                            "scoring_method"]][[scoringMethod]][[
-                                "common_essentials"]][["url"]],
+                    "project"]][[project]][[
+                    "scoring_method"]][[scoringMethod]][[
+                    "common_essentials"]][["url"]],
                 "controlCommonEssentials" =
                     yaml[["screen"]][["controls"]][[
-                        "common_essentials"]][["url"]],
+                    "common_essentials"]][["url"]],
                 "controlNonessentials" =
                     yaml[["screen"]][["controls"]][[
-                        "nonessentials"]][["url"]]
+                    "nonessentials"]][["url"]]
             )
         )
         ## Assays --------------------------------------------------------------

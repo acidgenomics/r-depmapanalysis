@@ -10,7 +10,7 @@
 #' @examples
 #' object <- CCLEExpressionData()
 #' dim(object)
-CCLEExpressionData <-  # nolint
+CCLEExpressionData <- # nolint
     function(dataset) {
         .makeCcleSE(
             dataset = match.arg(dataset),
