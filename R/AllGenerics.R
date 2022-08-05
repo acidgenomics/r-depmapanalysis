@@ -1,3 +1,12 @@
+#' @rdname Codependencies
+#' @export
+setGeneric(
+    name = "Codependencies",
+    def = function(object, ...) {
+        standardGeneric("Codependencies")
+    }
+)
+
 #' @rdname plotGeneEffect
 #' @export
 setGeneric(

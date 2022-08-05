@@ -1,4 +1,4 @@
-# DepMapAnalysis 0.3.0 (2022-05-13)
+# DepMapAnalysis 0.3.0 (2022-08-05)
 
 ## Major changes
 

@@ -333,6 +333,8 @@ setValidity(
 
 
 
+## FIXME Rework the philosophy of this class.
+
 #' Gene effect co-dependencies
 #'
 #' @details
@@ -350,11 +352,11 @@ setValidity(
     Class = "Codependencies",
     method = function(object) {
         ok <- validate(
-            isSubset(
+            identical(
                 x = c(
-                    "correlation",
-                    "entrezId",
-                    "geneName"
+                    "geneName1",
+                    "geneName2",
+                    "pearson"
                 ),
                 y = colnames(object)
             )
@@ -364,12 +366,7 @@ setValidity(
         }
         ok <- validateClasses(
             object = metadata(object),
-            expected = append(
-                x = .expectedDFMetadata,
-                values = list(
-                    "geneName" = "character"
-                )
-            ),
+            expected = .expectedDFMetadata,
             subset = TRUE
         )
         if (!isTRUE(ok)) {
