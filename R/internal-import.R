@@ -68,7 +68,6 @@
     function(url,
              format = c("csv", "tsv"),
              rownamesCol = NULL,
-             engine = "base",
              return = c("DataFrame", "matrix")) {
         assert(
             isAURL(url),
@@ -77,13 +76,15 @@
         )
         format <- match.arg(format)
         return <- match.arg(return)
+        args <- list(
+            "file" = .cacheURL(url = url),
+            "format" = format
+        )
         ## Engine overrides for malformed flat files.
         if (as.integer(basename(url)) %in% c(35020903L)) {
             engine <- "data.table"
         }
-        tmpfile <- .cacheURL(url = url)
-
-        df <- import(file = tmpfile, format = format, engine = engine)
+        df <- do.call(what = import, args = args)
         if (isScalar(rownamesCol)) {
             if (!isString(rownamesCol)) {
                 rownamesCol <- colnames(df)[[rownamesCol]]
