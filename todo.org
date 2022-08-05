@@ -3,6 +3,8 @@
 * Development
 ** TODO Add option to download predictability data
     https://depmap.org/portal/gene/predictability_files
+** TODO `Codependencies`: Consider adding parameterized support for multiple genes into `geneName1`.
+    This may be useful for quickly testing multiple genes of interest per condition.
 ** TODO Consider splitting analyses into primary and metastatic disease subtypes.
 ** TODO CCLE mutation columns are a bit weird in camelCase.
     TCGA hotspot column needs to be fixed.

@@ -1,9 +1,3 @@
-## NOTE Consider adding parameterized support for multiple genes into
-## `geneName1` which may be useful for quickly testing multiple genes of
-## interest per condition.
-
-
-
 ## nolint start
 
 #' Calculate co-dependency scores
