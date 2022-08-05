@@ -117,8 +117,9 @@
             )
         }
         metadata(df) <- list(
-            "date" = Sys.Date(),
             "dataset" = metadata(object)[["dataset"]],
+            "date" = Sys.Date(),
+            "dim" = dim(object),
             "packageName" = .pkgName,
             "packageVersion" = .pkgVersion
         )
