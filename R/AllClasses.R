@@ -1,8 +1,3 @@
-## FIXME All classes that extend SummarizedExperiment need to check for
-## ACH_[0-9]+ in the colnames.
-
-
-
 #' Sample metadata column names, defined in colData.
 #'
 #' @note Updated 2022-05-13.
@@ -84,7 +79,7 @@
 #' Cells in columns, genes in rows.
 #'
 #' @export
-#' @note Updated 2022-03-09.
+#' @note Updated 2022-08-05.
 #'
 #' @return `CCLECopyNumberData`.
 setClass(
@@ -95,6 +90,15 @@ setValidity(
     Class = "CCLECopyNumberData",
     method = function(object) {
         ok <- validate(
+            hasDimnames(object),
+            allAreMatchingRegex(
+                x = rownames(object),
+                pattern = "^[A-Z0-9]+_[0-9]+$"
+            ),
+            allAreMatchingRegex(
+                x = colnames(object),
+                pattern = "^ACH_[0-9]{6}$"
+            ),
             isSubset("log2CopyNumber", assayNames(object)),
             isSubset(
                 x = c(
@@ -147,7 +151,7 @@ setValidity(
 #' Cells in columns, genes in rows.
 #'
 #' @export
-#' @note Updated 2022-03-09.
+#' @note Updated 2022-08-05.
 #'
 #' @return `CCLEExpressionData`.
 setClass(
@@ -158,6 +162,15 @@ setValidity(
     Class = "CCLEExpressionData",
     method = function(object) {
         ok <- validate(
+            hasDimnames(object),
+            allAreMatchingRegex(
+                x = rownames(object),
+                pattern = "^[A-Z0-9]+_[0-9]+$"
+            ),
+            allAreMatchingRegex(
+                x = colnames(object),
+                pattern = "^ACH_[0-9]{6}$"
+            ),
             isSubset("log2Tpm", assayNames(object)),
             isSubset(
                 x = c(
@@ -333,8 +346,6 @@ setValidity(
 
 
 
-## FIXME Rework the philosophy of this class.
-
 #' Gene effect co-dependencies
 #'
 #' @details
@@ -402,6 +413,14 @@ setValidity(
     method = function(object) {
         ok <- validate(
             hasDimnames(object),
+            allAreMatchingRegex(
+                x = rownames(object),
+                pattern = "^[A-Z0-9]+_[0-9]+$"
+            ),
+            allAreMatchingRegex(
+                x = colnames(object),
+                pattern = "^ACH_[0-9]{6}$"
+            ),
             isSubset("effect", assayNames(object))
         )
         if (!isTRUE(ok)) {
