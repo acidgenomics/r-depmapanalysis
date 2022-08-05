@@ -77,11 +77,12 @@
         )
         format <- match.arg(format)
         return <- match.arg(return)
-        tmpfile <- .cacheURL(url = url)
         ## Engine overrides for malformed flat files.
         if (as.integer(basename(url)) %in% c(35020903L)) {
             engine <- "data.table"
         }
+        tmpfile <- .cacheURL(url = url)
+
         df <- import(file = tmpfile, format = format, engine = engine)
         if (isScalar(rownamesCol)) {
             if (!isString(rownamesCol)) {
