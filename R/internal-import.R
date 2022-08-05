@@ -68,23 +68,30 @@
     function(url,
              format = c("csv", "tsv"),
              rownamesCol = NULL,
+             engine = unname(ifelse(
+                 test = isInstalled("data.table"),
+                 yes = "data.table",
+                 no = "base"
+             )),
              return = c("DataFrame", "matrix")) {
         assert(
             isAURL(url),
-            isScalar(rownamesCol) || is.null(rownamesCol)
+            isScalar(rownamesCol) || is.null(rownamesCol),
+            isString(engine)
         )
         format <- match.arg(format)
         return <- match.arg(return)
-        tmpfile <- .cacheURL(url = url)
-        args <- list(
-            "file" = tmpfile,
-            "format" = format
-        )
         ## Engine overrides for malformed flat files.
         if (as.integer(basename(url)) %in% c(35020903L)) {
-            args[["engine"]] <- "data.table"
+            requireNamespaces("data.table")
+            engine <- "data.table"
         }
-        df <- do.call(what = import, args = args)
+        tmpfile <- .cacheURL(url = url)
+        df <- import(
+            file = tmpfile,
+            format = format,
+            engine = engine
+        )
         if (isScalar(rownamesCol)) {
             if (!isString(rownamesCol)) {
                 rownamesCol <- colnames(df)[[rownamesCol]]
@@ -112,7 +119,11 @@
 #' @noRd
 .importGeneDataFile <-
     function(url) {
-        df <- .importDataFile(url = url, return = "DataFrame")
+        df <- .importDataFile(
+            url = url,
+            engine = "base",
+            return = "DataFrame"
+        )
         colnames(df) <- camelCase(colnames(df))
         if (identical(colnames(df), c("geneSymbol", "geneId"))) {
             ## e.g. DEMETER2 control files.
