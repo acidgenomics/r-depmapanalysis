@@ -5,7 +5,7 @@
 \alias{crispr}
 \title{CRISPR example data set}
 \format{
-An object of class \code{GeneEffect} with 17381 rows and 1086 columns.
+An object of class \code{GeneEffect} with 100 rows and 50 columns.
 }
 \usage{
 data(crispr)
@@ -17,7 +17,7 @@ data(crispr)
 CRISPR example data set
 }
 \note{
-Updated 2021-06-09.
+Updated 2022-08-05.
 }
 \examples{
 data(crispr)

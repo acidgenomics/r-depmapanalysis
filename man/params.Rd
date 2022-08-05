@@ -5,10 +5,13 @@
 \title{Shared parameter documentation}
 \arguments{
 \item{dataset}{\code{character(1)}.
-DepMap dataset release name.}
+Dataset name.}
 
 \item{gene}{\code{character(1)}.
 Gene identifier.}
+
+\item{geneName}{\code{character(1)}.
+Gene name (a.k.a. symbol).}
 }
 \value{
 No value.

@@ -2,10 +2,13 @@
 % Please edit documentation in R/show-methods.R
 \name{show}
 \alias{show}
+\alias{show,CCLEFusionData-method}
 \alias{show,CCLEMutationData-method}
 \alias{show,GeneEffect-method}
 \title{Show an object}
 \usage{
+\S4method{show}{CCLEFusionData}(object)
+
 \S4method{show}{CCLEMutationData}(object)
 
 \S4method{show}{GeneEffect}(object)
@@ -20,7 +23,7 @@ Console output.
 Show an object
 }
 \note{
-Updated 2022-03-08.
+Updated 2022-08-05.
 }
 \examples{
 data(crispr)

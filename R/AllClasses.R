@@ -1,3 +1,8 @@
+## FIXME All classes that extend SummarizedExperiment need to check for
+## ACH_[0-9]+ in the colnames.
+
+
+
 #' Sample metadata column names, defined in colData.
 #'
 #' @note Updated 2022-05-13.
@@ -375,8 +380,6 @@ setValidity(
 )
 
 
-
-## FIXME This must contain identifiers formatted as "ACH_XXXX" only in colnames.
 
 #' Gene effect in cancer cell lines
 #'
