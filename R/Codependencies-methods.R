@@ -67,7 +67,6 @@
         assert(is.matrix(effect))
         rownames(effect) <- as.character(rowData(object)[["geneName"]])
         if (isString(geneName2)) {
-            ## FIXME Need to rework this.
             xIdx <- which(rowData(object)[["geneName"]] %in% geneName1)
             assert(
                 isInt(xIdx),
