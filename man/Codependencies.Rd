@@ -5,16 +5,16 @@
 \title{Import Co-dependency scores}
 \usage{
 Codependencies(
-  gene,
+  geneName,
   dataset = c("Chronos_Combined", "CERES_Combined", "RNAi_merged")
 )
 }
 \arguments{
-\item{gene}{\code{character(1)}.
-Gene identifier.}
+\item{geneName}{\code{character(1)}.
+Gene name (a.k.a. symbol).}
 
 \item{dataset}{\code{character(1)}.
-DepMap dataset release name.}
+Dataset name.}
 }
 \value{
 \code{Codependencies}.
@@ -23,10 +23,10 @@ DepMap dataset release name.}
 Import Co-dependency scores
 }
 \note{
-Updated 2022-03-09.
+Updated 2022-08-05.
 }
 \examples{
-x <- Codependencies(gene = "SOX10")
+x <- Codependencies(geneName = "SOX10")
 }
 \seealso{
 \itemize{

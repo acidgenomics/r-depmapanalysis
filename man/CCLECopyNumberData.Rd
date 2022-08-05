@@ -11,7 +11,7 @@ CCLECopyNumberData(
 }
 \arguments{
 \item{dataset}{\code{character(1)}.
-DepMap dataset release name.}
+Dataset name.}
 }
 \value{
 \code{CCLECopyNumberData}.

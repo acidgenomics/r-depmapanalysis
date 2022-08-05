@@ -11,7 +11,7 @@ GeneEffect(
 }
 \arguments{
 \item{dataset}{\code{character(1)}.
-DepMap dataset release name.}
+Dataset name.}
 }
 \value{
 \code{GeneEffect}.
@@ -20,7 +20,7 @@ DepMap dataset release name.}
 Gene effect in cancer cell lines
 }
 \note{
-Updated 2022-03-09.
+Updated 2022-08-05.
 }
 \section{Assays}{
 
@@ -35,6 +35,10 @@ depletion effect using \code{gene_effect}.
 }
 
 \examples{
+## CRISPR (default).
 object <- GeneEffect()
 print(object)
+
+## RNAi.
+## > object <- GeneEffect(dataset = "demeter2_data_v6")
 }

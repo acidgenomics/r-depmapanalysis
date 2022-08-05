@@ -12,7 +12,7 @@ CCLEFusionData(
 }
 \arguments{
 \item{dataset}{\code{character(1)}.
-DepMap dataset release name.}
+Dataset name.}
 
 \item{filtered}{\code{logical(1)}.
 Load filtered fusion calls.}
@@ -24,7 +24,7 @@ Load filtered fusion calls.}
 Import CCLE fusion data
 }
 \note{
-Updated 2022-03-09.
+Updated 2022-08-05.
 }
 \examples{
 object <- CCLEFusionData()
