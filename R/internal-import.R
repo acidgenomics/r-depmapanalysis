@@ -71,18 +71,18 @@
              return = c("DataFrame", "matrix")) {
         assert(
             isAURL(url),
-            isScalar(rownamesCol) || is.null(rownamesCol),
-            isString(engine)
+            isScalar(rownamesCol) || is.null(rownamesCol)
         )
         format <- match.arg(format)
         return <- match.arg(return)
+        tmpfile <- .cacheURL(url = url)
         args <- list(
-            "file" = .cacheURL(url = url),
+            "file" = tmpfile,
             "format" = format
         )
         ## Engine overrides for malformed flat files.
         if (as.integer(basename(url)) %in% c(35020903L)) {
-            engine <- "data.table"
+            args[["engine"]] <- "data.table"
         }
         df <- do.call(what = import, args = args)
         if (isScalar(rownamesCol)) {
@@ -108,16 +108,11 @@
 
 #' Import a DepMap file containing gene identifiers
 #'
-#' @note Updated 2021-07-08.
+#' @note Updated 2022-08-05.
 #' @noRd
 .importGeneDataFile <-
     function(url) {
-        df <- .importDataFile(
-            url = url,
-            ## Don't use 'data.table' here.
-            engine = "base",
-            return = "DataFrame"
-        )
+        df <- .importDataFile(url = url, return = "DataFrame")
         colnames(df) <- camelCase(colnames(df))
         if (identical(colnames(df), c("geneSymbol", "geneId"))) {
             ## e.g. DEMETER2 control files.
