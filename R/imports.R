@@ -13,7 +13,7 @@ NULL
 #' @importFrom BiocGenerics %in% do.call lapply mean order rbind t which
 #' @importFrom IRanges median
 #' @importFrom S4Vectors complete.cases decode head mcols metadata metadata<-
-#' split
+#' split unname
 #' @importFrom SummarizedExperiment assay assayNames colData rowData
 #' @importFrom methods show
 #' @importFrom pipette import
