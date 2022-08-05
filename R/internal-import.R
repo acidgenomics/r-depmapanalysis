@@ -12,7 +12,7 @@
 
 #' Import cell line sample metadata
 #'
-#' @note Updated 2021-07-19.
+#' @note Updated 2022-08-05.
 #' @noRd
 .importCellLineSampleData <- # nolint
     function(dataset) {
@@ -49,19 +49,26 @@
 
 
 
+# NOTE There are currently some malformed DepMap flat files:
+#
+# - https://ndownloader.figshare.com/files/35020903
+#   Using base engine:
+#     line 1306 did not have 29 elements
+# - https://ndownloader.figshare.com/files/13515395
+#   Using readr:
+#     New names `` -> `...1 issue`
+
+
+
 #' Import a DepMap data file
 #'
-#' @note Updated 2022-05-13.
+#' @note Updated 2022-08-05.
 #' @noRd
 .importDataFile <-
     function(url,
              format = c("csv", "tsv"),
              rownamesCol = NULL,
-             engine = ifelse(
-                 test = isInstalled("data.table"),
-                 yes = "data.table",
-                 no = "base"
-             ),
+             engine = "base",
              return = c("DataFrame", "matrix")) {
         assert(
             isAURL(url),
@@ -71,6 +78,10 @@
         format <- match.arg(format)
         return <- match.arg(return)
         tmpfile <- .cacheURL(url = url)
+        ## Engine overrides for malformed flat files.
+        if (as.integer(basename(url)) %in% c(35020903L)) {
+            engine <- "data.table"
+        }
         df <- import(file = tmpfile, format = format, engine = engine)
         if (isScalar(rownamesCol)) {
             if (!isString(rownamesCol)) {
