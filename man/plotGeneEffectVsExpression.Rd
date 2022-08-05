@@ -45,10 +45,9 @@ Updated 2022-08-05.
 \examples{
 data(crispr, rnaseq)
 
+## GeneEffect,CCLEExpressionData ====
 effect <- crispr
 expression <- rnaseq
-
-## GeneEffect,CCLEExpressionData ====
 gene <- rownames(effect)[[1L]]
 plotGeneEffectVsExpression(
     effect = effect,

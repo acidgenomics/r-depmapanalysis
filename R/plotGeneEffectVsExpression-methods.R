@@ -19,10 +19,9 @@
 #' @examples
 #' data(crispr, rnaseq)
 #'
+#' ## GeneEffect,CCLEExpressionData ====
 #' effect <- crispr
 #' expression <- rnaseq
-#'
-#' ## GeneEffect,CCLEExpressionData ====
 #' gene <- rownames(effect)[[1L]]
 #' plotGeneEffectVsExpression(
 #'     effect = effect,

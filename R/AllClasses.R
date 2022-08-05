@@ -333,7 +333,7 @@ setValidity(
 #' @details
 #' Inherits from `DataFrame`.
 #'
-#' @note Updated 2022-05-13.
+#' @note Updated 2022-08-05.
 #' @export
 #'
 #' @return `Codependencies`.
@@ -349,7 +349,7 @@ setValidity(
                 x = c(
                     "correlation",
                     "entrezId",
-                    "gene"
+                    "geneName"
                 ),
                 y = colnames(object)
             )
@@ -362,7 +362,7 @@ setValidity(
             expected = append(
                 x = .expectedDFMetadata,
                 values = list(
-                    "gene" = "character"
+                    "geneName" = "character"
                 )
             ),
             subset = TRUE
