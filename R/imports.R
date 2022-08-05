@@ -10,7 +10,7 @@ NULL
 
 #' @importFrom AcidGenerics camelCase encode leftJoin makeDimnames
 #' mapGenesToRownames melt showHeader
-#' @importFrom BiocGenerics do.call lapply mean order rbind t
+#' @importFrom BiocGenerics %in% do.call lapply mean order rbind t which
 #' @importFrom IRanges median
 #' @importFrom S4Vectors complete.cases decode head mcols metadata metadata<-
 #' split
