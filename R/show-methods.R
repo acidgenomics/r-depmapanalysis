@@ -1,7 +1,7 @@
 #' Show an object
 #'
 #' @name show
-#' @note Updated 2022-03-08.
+#' @note Updated 2022-08-05.
 #'
 #' @inheritParams AcidRoxygen::params
 #'
@@ -13,6 +13,20 @@
 #' ## GeneEffect ====
 #' show(crispr)
 NULL
+
+
+
+## Updated 2022-08-05.
+`show,CCLEFusionData` <- # nolint
+    function(object) {
+        validObject(object)
+        showHeader(object)
+        list <- list(
+            "fusions" = length(unique(object[["fusionName"]])),
+            "cells" = length(unique(object[["depMapId"]]))
+        )
+        showSlotInfo(list)
+    }
 
 
 
@@ -53,6 +67,16 @@ NULL
         se <- as(object, "SummarizedExperiment")
         cat(capture.output(show(se)), sep = "\n")
     }
+
+
+
+#' @rdname show
+#' @export
+setMethod(
+    f = "show",
+    signature = signature(object = "CCLEFusionData"),
+    definition = `show,CCLEFusionData`
+)
 
 
 

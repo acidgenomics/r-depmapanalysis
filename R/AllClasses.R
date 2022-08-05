@@ -450,13 +450,12 @@ setValidity(
             },
             "rnai" = {
                 ok <- validate(
+                    areIntersectingSets(
+                        x = colnames(colData(object)),
+                        y = .expectedColData
+                    ),
                     isSubset(
                         x = c(
-                            "ccleId",
-                            "cellLineName",
-                            "disease",
-                            "diseaseSubSubtype",
-                            "diseaseSubtype",
                             "inAchilles",
                             "inDrive",
                             "inMarcotte",
