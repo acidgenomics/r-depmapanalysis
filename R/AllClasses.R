@@ -376,6 +376,8 @@ setValidity(
 
 
 
+## FIXME This must contain identifiers formatted as "ACH_XXXX" only in colnames.
+
 #' Gene effect in cancer cell lines
 #'
 #' @details
@@ -383,7 +385,7 @@ setValidity(
 #' Cells in columns, genes in rows.
 #'
 #' @export
-#' @note Updated 2022-03-09.
+#' @note Updated 2022-08-05.
 #'
 #' @return `GeneEffect`.
 #'
