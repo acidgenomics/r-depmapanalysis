@@ -26,22 +26,27 @@
 #' ## GeneEffect ====
 #' object <- crispr
 #'
+#' geneNames <- as.character(rowData(object)[["geneName"]])
+#' geneName1 <- geneNames[[1L]]
+#' geneName2 <- geneNames[[2L]]
+#'
 #' ## Calculate all co-dependencies for a gene of interest.
 #' x <- Codependencies(
 #'     object = object,
-#'     geneName1 = "EZH2",
+#'     geneName1 = geneName1,
 #'     geneName2 = NULL
 #' )
 #' print(head(x))
 #'
-#' ## Lineage restrict to prostate cancer.
-#' disease <- "Prostate carcinoma"
+#' ## Lineage restrict and compare 2 genes.
+#' diseases <- as.character(colData(object)[["cellosaurusNcItDisease"]])
+#' disease <- diseases[[1L]]
 #' keep <- colData(object)[["cellosaurusNcItDisease"]] %in% disease
 #' object <- object[, keep]
 #' x <- Codependencies(
 #'     object = object,
-#'     geneName1 = "EZH2",
-#'     geneName2 = "EED"
+#'     geneName1 = geneName1,
+#'     geneName2 = geneName2
 #' )
 #' print(x)
 
@@ -62,6 +67,7 @@
         assert(is.matrix(effect))
         rownames(effect) <- as.character(rowData(object)[["geneName"]])
         if (isString(geneName2)) {
+            ## FIXME Need to rework this.
             xIdx <- which(rowData(object)[["geneName"]] %in% geneName1)
             assert(
                 isInt(xIdx),
