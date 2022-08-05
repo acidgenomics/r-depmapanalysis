@@ -182,31 +182,10 @@
 
 
 
-## FIXME Consider matching by `strippedCellLineName`.
-## FIXME Rework the mapping:
-## Use `cellLineName` for old colData
-## Map this to `strippedCellLineName` for new metadata.
-## Drop ccleName from legacy metadata.
-## Drop cellLineName from joined metadata.
-
 #' Standardize the DEMETER2 RNAi dataset
 #'
 #' @note Updated 2022-08-05.
 #' @noRd
-#'
-#' We get 7 cell line metadata mapping failures when attempting to match
-#' by `ccleId` / `ccleName`. This is because some of the CCLE cell lines have
-#' been renamed at DepMap, or have been removed.
-#'
-#' @section Problematic cell line metadata:
-#'
-#' - `AZ521_STOMACH` (now `AZ521_SMALL_INTESTINE`).
-#' - `COLO699_LUNG`.
-#' - `GISTT1_GASTROINTESTINAL_TRACT` (now `GISTT1_STOMACH`).
-#' - `KP1NL_PANCREAS`.
-#' - `MB157_BREAST`.
-#' - `NCIH1339_LUNG`.
-#' - `SW527_BREAST`.
 .standardizeDemeter2 <- function(object) {
     currentDataset <- .formalsList[["dataset"]][[1L]]
     assert(isString(currentDataset))
@@ -220,33 +199,55 @@
             y = colnames(cd[["x"]])
         ),
         isSubset(
-            x = c("ccleName", "depMapId"),
+            x = c("ccleName", "depMapId", "strippedCellLineName"),
             y = colnames(cd[["y"]])
+        ),
+        identical(
+            x = intersect(colnames(cd[["x"]]), colnames(cd[["y"]])),
+            y = "cellLineName"
         )
     )
-    colnames(cd[["x"]])[colnames(cd[["x"]]) == "ccleId"] <- "ccleName"
-    assert(identical(
-        x = intersect(colnames(cd[["x"]]), colnames(cd[["y"]])),
-        y = c("ccleName","cellLineName")
-    ))
-    cd[["x"]][["cellLineName"]] <- NULL
-    cd[["y"]] <- cd[["y"]][!is.na(cd[["y"]][["ccleName"]]), ]
-    cd <- leftJoin(x = cd[["x"]], y = cd[["y"]], by = "ccleName")
+    cd[["x"]][[".join"]] <- cd[["x"]][["cellLineName"]]
+    cols <- setdiff(
+        x = colnames(cd[["x"]]),
+        y = c(
+            "ccleId",
+            "cellLineName",
+            "disease",
+            "diseaseSubSubtype",
+            "diseaseSubtype"
+        )
+    )
+    cd[["x"]] <- cd[["x"]][, cols]
+    cd[["y"]][[".join"]] <- cd[["y"]][["strippedCellLineName"]]
+    cd[["y"]] <- cd[["y"]][!is.na(cd[["y"]][[".join"]]), ]
+    cd <- leftJoin(x = cd[["x"]], y = cd[["y"]], by = ".join")
+    cd[[".join"]] <- NULL
     cd <- cd[, sort(colnames(cd))]
     colData(object) <- cd
-
-
-    ## FIXME Need to inform the user about which cells we're dropping from
-    ## the analysis. Slot these into metadata.
-    bad <- cd[is.na(cd[["depMapId"]]), ]
-
-    ## Drop cells that aren't in DepMap.
-    ## Ensure we drop any remaining all NA columns.
-
-    ## FIXME This step is now erroring, due to some elements containing empty
-    ## values AAAARGH.
-    ## FIXME Now we're hitting a missing values issue...aaaargh
-    colnames(object) <- makeNames(cd[["depMapId"]])
-
+    if (isTRUE(anyNA(colData(object)[["depMapId"]]))) {
+        keep <- !is.na(colData(object)[["depMapId"]])
+        missingCells <- colnames(object)[!keep]
+        alertWarning(sprintf(
+            "%d missing cell %s in {.var %s}: %s.",
+            length(missingCells),
+            ngettext(
+                n = length(missingCells),
+                msg1 = "line",
+                msg2 = "lines"
+            ),
+            "colData",
+            toInlineString(missingCells, n = 5L)
+        ))
+        metadata(object)[["missingCells"]] <- append(
+            x = metadata(object)[["missingCells"]],
+            values = missingCells
+        )
+        metadata(object)[["missingCells"]] <-
+            sort(unique(metadata(object)[["missingCells"]]))
+        object <- object[, keep]
+    }
+    colnames(object) <- makeNames(colData(object)[["depMapId"]])
+    object <- object[, sort(colnames(object))]
     object
 }
