@@ -61,8 +61,7 @@
             validObject(object),
             isString(geneName1),
             isString(geneName2, nullOK = TRUE),
-            hasNoDuplicates(rowData(object)[["geneName"]]),
-            isSubset(geneName1, rowData(object)[["geneName"]])
+            hasNoDuplicates(rowData(object)[["geneName"]])
         )
         effect <- assay(object, i = "effect")
         assert(is.matrix(effect))
