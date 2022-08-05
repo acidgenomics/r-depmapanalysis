@@ -21,7 +21,8 @@ plotTopGeneEffectPerGroup(object, ...)
 
 \item{...}{Additional arguments.}
 
-\item{gene}{\code{character(1)}.}
+\item{gene}{\code{character(1)}.
+Gene identifier.}
 
 \item{group}{\code{character(1)} or \code{NULL}.
 Column name defined in \code{colData} to use for grouping.

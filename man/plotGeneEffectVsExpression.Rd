@@ -40,13 +40,13 @@ Superimpose sample text labels on the plot.}
 Plot gene effect vs. expression
 }
 \note{
-Updated 2021-07-15.
+Updated 2022-08-05.
 }
 \examples{
-data(crispr)
+data(crispr, rnaseq)
 
 effect <- crispr
-expression <- CCLEExpressionData()
+expression <- rnaseq
 
 ## GeneEffect,CCLEExpressionData ====
 gene <- rownames(effect)[[1L]]

@@ -1,11 +1,7 @@
-## FIXME Need to save example expression object to speed up working example.
-
-
-
 #' Plot gene effect vs. expression
 #'
 #' @name plotGeneEffectVsExpression
-#' @note Updated 2021-07-15.
+#' @note Updated 2022-08-05.
 #'
 #' @inheritParams AcidRoxygen::params
 #' @inheritParams params
@@ -21,10 +17,10 @@
 #' Column name of metadata defined in `colData` of `effect`.
 #'
 #' @examples
-#' data(crispr)
+#' data(crispr, rnaseq)
 #'
 #' effect <- crispr
-#' expression <- CCLEExpressionData()
+#' expression <- rnaseq
 #'
 #' ## GeneEffect,CCLEExpressionData ====
 #' gene <- rownames(effect)[[1L]]
