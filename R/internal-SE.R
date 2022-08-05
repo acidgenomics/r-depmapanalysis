@@ -35,7 +35,7 @@
 
 #' Make SummarizedExperiment object (from DepMap or CCLE data)
 #'
-#' @note Updated 2022-03-09.
+#' @note Updated 2022-08-05.
 #' @noRd
 .makeSummarizedExperiment <-
     function(dataset,
@@ -174,5 +174,79 @@
         )
         args <- Filter(Negate(is.null), args)
         se <- do.call(what = makeSummarizedExperiment, args = args)
+        if (identical(dataset, "demeter2_data_v6")) {
+            se <- .standardizeDemeter2(se)
+        }
         new(Class = class, se)
     }
+
+
+
+## FIXME Consider matching by `strippedCellLineName`.
+## FIXME Rework the mapping:
+## Use `cellLineName` for old colData
+## Map this to `strippedCellLineName` for new metadata.
+## Drop ccleName from legacy metadata.
+## Drop cellLineName from joined metadata.
+
+#' Standardize the DEMETER2 RNAi dataset
+#'
+#' @note Updated 2022-08-05.
+#' @noRd
+#'
+#' We get 7 cell line metadata mapping failures when attempting to match
+#' by `ccleId` / `ccleName`. This is because some of the CCLE cell lines have
+#' been renamed at DepMap, or have been removed.
+#'
+#' @section Problematic cell line metadata:
+#'
+#' - `AZ521_STOMACH` (now `AZ521_SMALL_INTESTINE`).
+#' - `COLO699_LUNG`.
+#' - `GISTT1_GASTROINTESTINAL_TRACT` (now `GISTT1_STOMACH`).
+#' - `KP1NL_PANCREAS`.
+#' - `MB157_BREAST`.
+#' - `NCIH1339_LUNG`.
+#' - `SW527_BREAST`.
+.standardizeDemeter2 <- function(object) {
+    currentDataset <- .formalsList[["dataset"]][[1L]]
+    assert(isString(currentDataset))
+    cd <- list(
+        "x" = colData(object),
+        "y" = .importCellLineSampleData(dataset = currentDataset)
+    )
+    assert(
+        isSubset(
+            x = c("ccleId", "cellLineName"),
+            y = colnames(cd[["x"]])
+        ),
+        isSubset(
+            x = c("ccleName", "depMapId"),
+            y = colnames(cd[["y"]])
+        )
+    )
+    colnames(cd[["x"]])[colnames(cd[["x"]]) == "ccleId"] <- "ccleName"
+    assert(identical(
+        x = intersect(colnames(cd[["x"]]), colnames(cd[["y"]])),
+        y = c("ccleName","cellLineName")
+    ))
+    cd[["x"]][["cellLineName"]] <- NULL
+    cd[["y"]] <- cd[["y"]][!is.na(cd[["y"]][["ccleName"]]), ]
+    cd <- leftJoin(x = cd[["x"]], y = cd[["y"]], by = "ccleName")
+    cd <- cd[, sort(colnames(cd))]
+    colData(object) <- cd
+
+
+    ## FIXME Need to inform the user about which cells we're dropping from
+    ## the analysis. Slot these into metadata.
+    bad <- cd[is.na(cd[["depMapId"]]), ]
+
+    ## Drop cells that aren't in DepMap.
+    ## Ensure we drop any remaining all NA columns.
+
+    ## FIXME This step is now erroring, due to some elements containing empty
+    ## values AAAARGH.
+    ## FIXME Now we're hitting a missing values issue...aaaargh
+    colnames(object) <- makeNames(cd[["depMapId"]])
+
+    object
+}
