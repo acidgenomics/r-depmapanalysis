@@ -10,15 +10,19 @@
 #' depletion effect using `gene_effect`.
 #'
 #' @export
-#' @note Updated 2022-03-09.
+#' @note Updated 2022-08-05.
 #'
 #' @inheritParams params
 #'
 #' @return `GeneEffect`.
 #'
 #' @examples
+#' ## CRISPR (default).
 #' object <- GeneEffect()
 #' print(object)
+#'
+#' ## RNAi.
+#' ## > object <- GeneEffect(dataset = "demeter2_data_v6")
 GeneEffect <- # nolint
     function(dataset) {
         dataset <- match.arg(dataset)
