@@ -121,11 +121,7 @@ test_that("RNAi : demeter2_data_v6", {
     expect_s4_class(object, "GeneEffect")
     expect_identical(
         object = head(colnames(object), n = 3L),
-        expected = c(
-            "A101D_SKIN",
-            "A1207_CENTRAL_NERVOUS_SYSTEM",
-            "A172_CENTRAL_NERVOUS_SYSTEM"
-        )
+        expected = c("ACH_000001", "ACH_000002", "ACH_000003")
     )
     expect_identical(
         object = head(rownames(object), n = 3L),
@@ -136,24 +132,47 @@ test_that("RNAi : demeter2_data_v6", {
         expected = "effect"
     )
     expect_identical(
-        object = colData(object)["A101D_SKIN", ],
-        expected = DataFrame(
-            "ccleId" = "A101D_SKIN",
-            "cellLineName" = "A101D",
-            "disease" = "skin",
-            "diseaseSubSubtype" = NA_character_,
-            "diseaseSubtype" = "melanoma",
-            "inAchilles" = FALSE,
-            "inDrive" = TRUE,
-            "inMarcotte" = FALSE,
-            "marcotteName" = NA_character_,
-            "marcotteSubtypeIntrinsic" = NA_character_,
-            "marcotteSubtypeNeve" = NA_character_,
-            "marcotteSubtypeThreeReceptor" = NA_character_,
-            "novartisName" = "a101d",
-            "novartisPathologistAnnotation" = "Skin:Melanoma",
-            "novartisPrimarySite" = "skin",
-            row.names = "A101D_SKIN"
+        object = colnames(colData(object)),
+        expected = c(
+            "age",
+            "alias",
+            "ccleName",
+            "cellLineName",
+            "cellosaurusIssues",
+            "cellosaurusNcItDisease",
+            "cellosaurusNcItId",
+            "cosmicid",
+            "defaultGrowthPattern",
+            "depMapId",
+            "depmapPublicComments",
+            "inAchilles",
+            "inDrive",
+            "inMarcotte",
+            "lineage",
+            "lineageMolecularSubtype",
+            "lineageSubSubtype",
+            "lineageSubtype",
+            "marcotteName",
+            "marcotteSubtypeIntrinsic",
+            "marcotteSubtypeNeve",
+            "marcotteSubtypeThreeReceptor",
+            "modelManipulation",
+            "modelManipulationDetails",
+            "novartisName",
+            "novartisPathologistAnnotation",
+            "novartisPrimarySite",
+            "parentDepmapId",
+            "patientId",
+            "primaryDisease",
+            "primaryOrMetastasis",
+            "rrid",
+            "sampleCollectionSite",
+            "sangerModelId",
+            "sex",
+            "source",
+            "strippedCellLineName",
+            "subtype",
+            "wtsiMasterCellId"
         )
     )
     rowData <- decode(rowData(object)["A1BG_1", c("geneId", "geneName")])
@@ -176,21 +195,7 @@ test_that("RNAi : demeter2_data_v6", {
                 "AKAP2_11217",
                 "C10orf113_387638",
                 "C16orf47_388289",
-                "C2orf48_348738",
-                paste(
-                    "LINC01001",
-                    "LOC105377826",
-                    "LOC107984841_100133161",
-                    "105377826",
-                    "107984841",
-                    sep = "_and_"
-                ),
-                paste(
-                    "LOC100133050",
-                    "LOC102725009_100133050",
-                    "102725009",
-                    sep = "_and_"
-                )
+                "C2orf48_348738"
             ),
             y = metadata(object)[["retiredGenes"]]
         )
