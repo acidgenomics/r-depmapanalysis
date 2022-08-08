@@ -3,6 +3,8 @@ test_that("All datasets", {
     for (dataset in datasets) {
         object <- GeneEffect(dataset = dataset)
         expect_s4_class(object, "GeneEffect")
+        output <- capture.output(object)
+        expect_true(grepl(pattern = "^GeneEffect", x = output[[1L]]))
     }
 })
 
@@ -125,7 +127,7 @@ test_that("RNAi : demeter2_data_v6", {
     )
     expect_identical(
         object = head(rownames(object), n = 3L),
-        expected = c("A1BG_1", "A1CF_29974", "A2M_2")
+        expected = c("A1BG_1", "A1CF_29974", "A2ML1_144568")
     )
     expect_identical(
         object = assayNames(object),
