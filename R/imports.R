@@ -14,7 +14,7 @@ NULL
 #' @importFrom IRanges median
 #' @importFrom S4Vectors complete.cases decode head mcols metadata metadata<-
 #' split unname
-#' @importFrom SummarizedExperiment assay assayNames colData rowData
+#' @importFrom SummarizedExperiment assay assayNames colData colData<- rowData
 #' @importFrom methods show
 #' @importFrom pipette import
 #'
