@@ -10,9 +10,13 @@
 
 
 
+## FIXME Need to ensure repeated values are converted to factors.
+## FIXME Consider encoding using Rle here too.
+## FIXME Do we need to harden using data.table here?
+
 #' Import cell line sample metadata
 #'
-#' @note Updated 2022-08-05.
+#' @note Updated 2022-08-09.
 #' @noRd
 .importCellLineSampleData <- # nolint
     function(dataset) {
@@ -62,17 +66,20 @@
 
 #' Import a DepMap data file
 #'
-#' @note Updated 2022-08-05.
+#' @note Updated 2022-08-10.
 #' @noRd
 .importDataFile <-
     function(url,
              format = c("csv", "tsv"),
              rownamesCol = NULL,
-             engine = unname(ifelse(
-                 test = isInstalled("data.table"),
-                 yes = "data.table",
-                 no = "base"
-             )),
+             engine = getOption(
+                 x = "acid.import.engine",
+                 default = ifelse(
+                     test = unname(isInstalled("data.table")),
+                     yes = "data.table",
+                     no = "base"
+                 )
+             ),
              return = c("DataFrame", "matrix")) {
         assert(
             isAURL(url),
@@ -81,8 +88,12 @@
         )
         format <- match.arg(format)
         return <- match.arg(return)
-        ## Engine overrides for malformed flat files.
-        if (as.integer(basename(url)) %in% c(35020903L)) {
+        ## Engine overrides for malformed DepMap flat file downloads.
+        malformedIds <- c(
+            31316011L,
+            35020903L
+        )
+        if (as.integer(basename(url)) %in% malformedIds) {
             requireNamespaces("data.table")
             engine <- "data.table"
         }

@@ -1,6 +1,6 @@
 #' Make SummarizedExperiment object from CCLE data
 #'
-#' @note Updated 2022-03-09.
+#' @note Updated 2022-08-10.
 #' @noRd
 .makeCcleSE <-
     function(dataset,
