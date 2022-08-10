@@ -1,6 +1,3 @@
-## FIXME Find cells and genes that intersect across all 3.
-## FIXME Take the top 100 genes and the top 50 cells.
-## FIXME Subset CCLECopyNumberData to match dims.
 ## nolint start
 suppressPackageStartupMessages({
     library(devtools)
