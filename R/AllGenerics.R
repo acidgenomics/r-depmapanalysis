@@ -51,3 +51,12 @@ setGeneric(
         standardGeneric("plotTopGeneEffectPerGroup")
     }
 )
+
+#' @rdname selectCells
+#' @export
+setGeneric(
+    name = "selectCells",
+    def = function(object, ...) {
+        standardGeneric("selectCells")
+    }
+)
