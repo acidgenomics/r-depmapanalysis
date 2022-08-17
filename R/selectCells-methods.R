@@ -90,7 +90,7 @@ setMethod(
 #' @export
 setMethod(
     f = "selectCells",
-    signature = signature(object = "GeneEffect"),
+    signature = signature(object = "CCLEExpressionData"),
     definition = `selectCells,CCLEExpressionData`
 )
 
@@ -98,6 +98,6 @@ setMethod(
 #' @export
 setMethod(
     f = "selectCells",
-    signature = signature(object = "GeneEffect"),
+    signature = signature(object = "CCLEMutationData"),
     definition = `selectCells,CCLEMutationData`
 )
