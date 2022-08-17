@@ -3,7 +3,7 @@
 #' Calculate co-dependency scores
 #'
 #' @name Codependencies
-#' @note Updated 2022-08-05.
+#' @note Updated 2022-08-10.
 #'
 #' @inheritParams params
 #'
@@ -46,7 +46,8 @@
 #' x <- Codependencies(
 #'     object = object,
 #'     geneName1 = geneName1,
-#'     geneName2 = geneName2
+#'     geneName2 = geneName2,
+#'     lineage = "pancreas"
 #' )
 #' print(x)
 
@@ -54,9 +55,13 @@
 
 
 
+## FIXME Add support for "..." passin that works on colData factor columns.
+## FIXME Ensure colData repeated values get encoded as factors.
+## FIXME Rework using `mapGenes` code from AcidExperiment.
+
 ## Updated 2022-08-05.
 `Codependencies,GeneEffect` <- # nolint
-    function(object, geneName1, geneName2 = NULL) {
+    function(object, geneName1, geneName2 = NULL, ...) {
         assert(
             validObject(object),
             isString(geneName1),
