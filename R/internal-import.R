@@ -48,6 +48,8 @@
             df[["cellLineName"]] <- x
         }
         assert(isSubset("cellLineName", colnames(df)))
+        df <- factorize(df)
+        df <- encode(df)
         df
     }
 

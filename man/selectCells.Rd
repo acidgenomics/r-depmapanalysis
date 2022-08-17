@@ -4,7 +4,7 @@
 \alias{selectCells}
 \alias{selectCells,CCLECopyNumberData-method}
 \alias{selectCells,CCLEExpressionData-method}
-\alias{selectCells,CCLEMutationData-method}
+\alias{selectCells,GeneEffect-method}
 \title{Select cells}
 \usage{
 selectCells(object, ...)
@@ -13,7 +13,15 @@ selectCells(object, ...)
 
 \S4method{selectCells}{CCLEExpressionData}(object, ...)
 
-\S4method{selectCells}{CCLEMutationData}(object, ...)
+\S4method{selectCells}{GeneEffect}(object, ...)
+}
+\arguments{
+\item{object}{Object.}
+
+\item{...}{Key value pairs that map to cell line metadata defined in \code{colData}.}
+}
+\value{
+Modified object.
 }
 \description{
 Select cells
@@ -26,10 +34,13 @@ data(crispr)
 
 ## GeneEffect ====
 object <- crispr
-print(object)
+dim(object)
 lineage <- colData(object)[["lineage"]][[1L]]
-x <- selectCells(object, lineage = lineage)
-print(x)
+print(lineage)
+all(colData(object)[["lineage"]] == lineage)
+object <- selectCells(object, lineage = lineage)
+all(colData(object)[["lineage"]] == lineage)
+dim(object)
 }
 \seealso{
 \itemize{

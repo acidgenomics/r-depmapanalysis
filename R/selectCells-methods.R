@@ -3,6 +3,13 @@
 #' @name selectCells
 #' @note Updated 2022-08-17.
 #'
+#' @inheritParams AcidRoxygen::params
+#'
+#' @param ...
+#' Key value pairs that map to cell line metadata defined in `colData`.
+#'
+#' @return Modified object.
+#'
 #' @seealso
 #' - `AcidExperiment::selectSamples`.
 #'
@@ -11,25 +18,20 @@
 #'
 #' ## GeneEffect ====
 #' object <- crispr
-#' print(object)
+#' dim(object)
 #' lineage <- colData(object)[["lineage"]][[1L]]
-#' x <- selectCells(object, lineage = lineage)
-#' print(x)
+#' print(lineage)
+#' all(colData(object)[["lineage"]] == lineage)
+#' object <- selectCells(object, lineage = lineage)
+#' all(colData(object)[["lineage"]] == lineage)
+#' dim(object)
 NULL
-
-
-
-## FIXME Use `.mapCellsToColnames` here internally.
-## Allow the user to select based on colData metadata.
 
 
 
 ## Updated 2022-08-17.
 `selectCells,SE` <-
-    function(
-        object,
-        ...
-    ) {
+    function(object, ...) {
         args <- list(...)
         assert(
             validObject(object),
@@ -68,7 +70,7 @@ NULL
 `selectCells,CCLEExpressionData` <- `selectCells,SE`
 
 ## Updated 2022-08-17.
-`selectCells,CCLEMutationData` <- `selectCells,SE`
+`selectCells,GeneEffect` <- `selectCells,SE`
 
 
 
@@ -92,6 +94,6 @@ setMethod(
 #' @export
 setMethod(
     f = "selectCells",
-    signature = signature(object = "CCLEMutationData"),
-    definition = `selectCells,CCLEMutationData`
+    signature = signature(object = "GeneEffect"),
+    definition = `selectCells,GeneEffect`
 )
