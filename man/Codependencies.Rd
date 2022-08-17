@@ -8,9 +8,9 @@
 \usage{
 Codependencies(object, ...)
 
-`Codependencies,GeneEffect`(object, geneName1, geneName2 = NULL)
+`Codependencies,GeneEffect`(object, geneName1, geneName2 = NULL, ...)
 
-\S4method{Codependencies}{GeneEffect}(object, geneName1, geneName2 = NULL)
+\S4method{Codependencies}{GeneEffect}(object, geneName1, geneName2 = NULL, ...)
 }
 \arguments{
 \item{geneName1}{\code{character(1)}.
@@ -27,7 +27,7 @@ If \code{NULL}, calculate correlations against all genes.}
 Calculate co-dependency scores
 }
 \note{
-Updated 2022-08-05.
+Updated 2022-08-10.
 }
 \examples{
 data(crispr)
@@ -55,7 +55,8 @@ object <- object[, keep]
 x <- Codependencies(
     object = object,
     geneName1 = geneName1,
-    geneName2 = geneName2
+    geneName2 = geneName2,
+    lineage = "pancreas"
 )
 print(x)
 }
