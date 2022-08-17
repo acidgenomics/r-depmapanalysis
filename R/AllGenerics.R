@@ -7,6 +7,15 @@ setGeneric(
     }
 )
 
+#' @rdname findBiomarkers
+#' @export
+setGeneric(
+    name = "findBiomarkers",
+    def = function(object, ...) {
+        standardGeneric("findBiomarkers")
+    }
+)
+
 #' @rdname plotGeneEffect
 #' @export
 setGeneric(
