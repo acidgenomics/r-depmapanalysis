@@ -31,10 +31,6 @@ NULL
         ...
     ) {
         args <- list(...)
-        assert(validObject(object))
-
-
-
         assert(
             validObject(object),
             all(vapply(
@@ -44,22 +40,20 @@ NULL
             )),
             msg = "Arguments must be atomic."
         )
-        ## Match the arguments against the sample metadata.
-        sampleData <- sampleData(object)
-        assert(isSubset(names(args), colnames(sampleData)))
-        ## Obtain the sample identifiers.
+        colData <- colData(object)
+        assert(isSubset(names(args), colnames(colData)))
+        ## Obtain the cell identifiers.
         list <- Map(
             col = names(args),
             arg = args,
-            MoreArgs = list("data" = sampleData),
+            MoreArgs = list("data" = colData),
             f = function(col, arg, data) {
                 rownames(data[data[[col]] %in% arg, , drop = FALSE])
             }
         )
-        samples <- sort(as.character(Reduce(f = intersect, x = list)))
-        assert(hasLength(samples))
-        ## Return.
-        out <- object[, samples, drop = FALSE]
+        cells <- sort(as.character(Reduce(f = intersect, x = list)))
+        assert(hasLength(cells))
+        out <- object[, cells, drop = FALSE]
         out <- droplevels2(out)
         out
 

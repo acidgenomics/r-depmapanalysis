@@ -3,16 +3,17 @@
 \name{selectCells}
 \alias{selectCells}
 \alias{selectCells,CCLECopyNumberData-method}
-\alias{selectCells,GeneEffect-method}
+\alias{selectCells,CCLEExpressionData-method}
+\alias{selectCells,CCLEMutationData-method}
 \title{Select cells}
 \usage{
 selectCells(object, ...)
 
 \S4method{selectCells}{CCLECopyNumberData}(object, ...)
 
-\S4method{selectCells}{GeneEffect}(object, ...)
+\S4method{selectCells}{CCLEExpressionData}(object, ...)
 
-\S4method{selectCells}{GeneEffect}(object, ...)
+\S4method{selectCells}{CCLEMutationData}(object, ...)
 }
 \description{
 Select cells
