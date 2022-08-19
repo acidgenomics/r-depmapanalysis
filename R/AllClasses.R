@@ -1,5 +1,7 @@
 ## FIXME hasDimnames may need to be updated to FAIL if either rownames OR
 ## colnames are not assigned.
+## FIXME Assert that no classes that extend SE contain any cellLineName
+## with NA in colData.
 
 
 
