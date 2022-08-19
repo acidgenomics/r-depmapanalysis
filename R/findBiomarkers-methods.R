@@ -1,16 +1,3 @@
-## FIXME Refine the `.mapCellsToColnames` internal code:
-##
-## Allow matching against:
-## - object colnames
-## - ccleName
-## - cellLineName
-## - depMapId
-## - rrid
-## - sangerModelId
-## - strippedCellLineName
-
-
-
 #' Find biomarkers
 #'
 #' @name findBiomarkers
@@ -65,8 +52,13 @@ NULL
         stop("FIXME Still a work in progress.")
         assert(
             validObject(object),
-            requireNamespaces("limma")
+            requireNamespaces("limma"),
+            isCharacter(sensitiveCells),
+            isCharacter(insensitiveCells)
         )
+
+        ## FIXME Need to run .mapCellsToColnames here.
+
         log2Tpm <- assay(object, i = "log2Tpm")
         fit <- limma::lmFit(log2Tpm, design)
         fit <- limma::eBayes(fit, trend=TRUE)
