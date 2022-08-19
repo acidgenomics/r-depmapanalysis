@@ -44,6 +44,7 @@ NULL
         )
         colData <- colData(object)
         assert(isSubset(names(args), colnames(colData)))
+        ## FIXME Only allow the user to select factor columns.
         ## Obtain the cell identifiers.
         list <- Map(
             col = names(args),
