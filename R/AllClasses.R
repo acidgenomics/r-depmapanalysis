@@ -1,5 +1,3 @@
-## FIXME hasDimnames may need to be updated to FAIL if either rownames OR
-## colnames are not assigned.
 ## FIXME Assert that no classes that extend SE contain any cellLineName
 ## with NA in colData.
 
@@ -86,7 +84,7 @@
 #' Cells in columns, genes in rows.
 #'
 #' @export
-#' @note Updated 2022-08-05.
+#' @note Updated 2022-08-19.
 #'
 #' @return `CCLECopyNumberData`.
 setClass(
@@ -97,11 +95,12 @@ setValidity(
     Class = "CCLECopyNumberData",
     method = function(object) {
         ok <- validate(
-            hasDimnames(object),
+            hasRownames(object),
             allAreMatchingRegex(
                 x = rownames(object),
                 pattern = "^[_A-Za-z0-9]+_[0-9]+$"
             ),
+            hasColnames(object),
             allAreMatchingRegex(
                 x = colnames(object),
                 pattern = "^ACH_[0-9]{6}$"
@@ -158,7 +157,7 @@ setValidity(
 #' Cells in columns, genes in rows.
 #'
 #' @export
-#' @note Updated 2022-08-05.
+#' @note Updated 2022-08-19.
 #'
 #' @return `CCLEExpressionData`.
 setClass(
@@ -169,11 +168,12 @@ setValidity(
     Class = "CCLEExpressionData",
     method = function(object) {
         ok <- validate(
-            hasDimnames(object),
+            hasRownames(object),
             allAreMatchingRegex(
                 x = rownames(object),
                 pattern = "^[_A-Za-z0-9]+_[0-9]+$"
             ),
+            hasColnames(object),
             allAreMatchingRegex(
                 x = colnames(object),
                 pattern = "^ACH_[0-9]{6}$"
@@ -403,7 +403,7 @@ setValidity(
 #' Cells in columns, genes in rows.
 #'
 #' @export
-#' @note Updated 2022-08-05.
+#' @note Updated 2022-08-19.
 #'
 #' @return `GeneEffect`.
 #'
@@ -419,11 +419,12 @@ setValidity(
     Class = "GeneEffect",
     method = function(object) {
         ok <- validate(
-            hasDimnames(object),
+            hasRownames(object),
             allAreMatchingRegex(
                 x = rownames(object),
                 pattern = "^[_A-Za-z0-9]+_[0-9]+$"
             ),
+            hasColnames(object),
             allAreMatchingRegex(
                 x = colnames(object),
                 pattern = "^ACH_[0-9]{6}$"
