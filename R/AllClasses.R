@@ -1,3 +1,8 @@
+## FIXME hasDimnames may need to be updated to FAIL if either rownames OR
+## colnames are not assigned.
+
+
+
 #' Sample metadata column names, defined in colData.
 #'
 #' @note Updated 2022-05-13.
