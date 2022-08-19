@@ -10,13 +10,9 @@
 
 
 
-## FIXME Need to ensure repeated values are converted to factors.
-## FIXME Consider encoding using Rle here too.
-## FIXME Do we need to harden using data.table here?
-
 #' Import cell line sample metadata
 #'
-#' @note Updated 2022-08-09.
+#' @note Updated 2022-08-19.
 #' @noRd
 .importCellLineSampleData <- # nolint
     function(dataset) {
@@ -28,6 +24,12 @@
         )
         assert(is(df, "DataFrame"))
         colnames(df) <- camelCase(colnames(df))
+        if (isSubset("alias", colnames(df))) {
+            x <- df[["alias"]]
+            x <- strsplit(x = x, split = ", ", fixed = TRUE)
+            x <- CharacterList(x)
+            df[["alias"]] <- x
+        }
         if (
             !isSubset("cellLineName", colnames(df)) &&
                 isSubset("strippedCellLineName", colnames(df))
@@ -52,17 +54,6 @@
         df <- encode(df)
         df
     }
-
-
-
-# NOTE There are currently some malformed DepMap flat files:
-#
-# - https://ndownloader.figshare.com/files/35020903
-#   Using base engine:
-#     line 1306 did not have 29 elements
-# - https://ndownloader.figshare.com/files/13515395
-#   Using readr:
-#     New names `` -> `...1 issue`
 
 
 
