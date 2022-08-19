@@ -58,10 +58,11 @@
 ## FIXME Add support for "..." passin that works on colData factor columns.
 ## FIXME Ensure colData repeated values get encoded as factors.
 ## FIXME Rework using `mapGenes` code from AcidExperiment.
+## FIXME Rework using "gene1" instead of "geneName1"...cleaner.
 
 ## Updated 2022-08-05.
 `Codependencies,GeneEffect` <- # nolint
-    function(object, geneName1, geneName2 = NULL, ...) {
+    function(object, gene1, gene2 = NULL, ...) {
         assert(
             validObject(object),
             isString(geneName1),
