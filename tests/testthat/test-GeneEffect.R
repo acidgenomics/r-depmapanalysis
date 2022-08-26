@@ -1,4 +1,8 @@
+## FIXME Don't check against all datasets, too cumbersome...
+## FIXME Move this to extra tests instead.
+
 test_that("All datasets", {
+    options("acid.import.engine" = "base")
     datasets <- eval(formals(GeneEffect)[["dataset"]])
     for (dataset in datasets) {
         object <- GeneEffect(dataset = dataset)
@@ -7,6 +11,8 @@ test_that("All datasets", {
         expect_true(grepl(pattern = "^GeneEffect", x = output[[1L]]))
     }
 })
+
+## FIXME Update this unit test to 22q2.
 
 test_that("CRISPR : depmap_public_21q2", {
     dataset <- "depmap_public_21q2"

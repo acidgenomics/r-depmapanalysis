@@ -1,3 +1,6 @@
+## Test for any malformed DepMap flat files.
+options("acid.import.engine" = "base")
+
 test_that("CCLECopyNumberData", {
     datasets <- eval(formals(CCLECopyNumberData)[["dataset"]])
     for (dataset in datasets) {
