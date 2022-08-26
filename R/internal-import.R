@@ -12,6 +12,9 @@
 
 #' Import cell line sample metadata
 #'
+#' Sample metadata now indicates that there are merged cells we should drop
+#' from analysis (e.g. ACH-002260).
+#'
 #' @note Updated 2022-08-19.
 #' @noRd
 .importCellLineSampleData <- # nolint
@@ -50,6 +53,15 @@
             df[["cellLineName"]] <- x
         }
         assert(isSubset("cellLineName", colnames(df)))
+        if (anyNA(df[["cellLineName"]])) {
+            assert(isSubset("strippedCellLineName", colnames(df)))
+            idx <- which(is.na(df[["cellLineName"]]))
+            df[["cellLineName"]][idx] <- df[["strippedCellLineName"]][idx]
+        }
+        ## There can be some problematic cell lines that still persist here
+        ## (e.g. ACH-002260).
+        keep <- !is.na(df[["cellLineName"]])
+        df <- df[keep, ]
         df <- factorize(df)
         df <- encode(df)
         df
