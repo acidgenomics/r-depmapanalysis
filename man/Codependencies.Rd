@@ -8,9 +8,9 @@
 \usage{
 Codependencies(object, ...)
 
-`Codependencies,GeneEffect`(object, geneName1, geneName2 = NULL, ...)
+`Codependencies,GeneEffect`(object, gene1, gene2 = NULL, ...)
 
-\S4method{Codependencies}{GeneEffect}(object, geneName1, geneName2 = NULL, ...)
+\S4method{Codependencies}{GeneEffect}(object, gene1, gene2 = NULL, ...)
 }
 \arguments{
 \item{geneName1}{\code{character(1)}.
