@@ -1,6 +1,8 @@
 #+TITLE: pipette
 #+STARTUP: content
 * Development
+** TODO Convert YAML file to JSON in a future update.
+** TODO Work on incorporating CCLE_segment_cn.csv into analysis.
 ** TODO Add option to download predictability data
     https://depmap.org/portal/gene/predictability_files
 ** TODO `Codependencies`: Consider adding parameterized support for multiple genes into `geneName1`.
