@@ -104,7 +104,7 @@
         }
         tmpfile <- .cacheURL(url = url)
         df <- import(
-            file = tmpfile,
+            con = tmpfile,
             format = format,
             engine = engine
         )

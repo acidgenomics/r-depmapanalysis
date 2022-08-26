@@ -6,7 +6,7 @@ suppressPackageStartupMessages({
 ## nolint end
 load_all()
 datasets <- import(
-    file = system.file(
+    con = system.file(
         "extdata",
         "datasets.yaml",
         package = .pkgName,
