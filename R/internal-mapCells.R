@@ -1,6 +1,12 @@
+## FIXME We need to improve this by splitting the "alias" column into CharacterList
+## FIXME Doing it here, but we should pre-process the colData instead.
+## FIXME Can simplify this to no longer use libraryType, after we updated the DEMETER2 RNAi processing.
+## FIXME Add support for ccleName metadata input.
+## FIXME We may want this to simply return the position rather than the colname.
+
 #' Map cell name input to column names
 #'
-#' @note Updated 2021-06-10.
+#' @note Updated 2022-08-18.
 #' @noRd
 #'
 #' @seealso
