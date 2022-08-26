@@ -1,6 +1,11 @@
+## FIXME Need to drop any cell lines with NA cellLineName (e.g. ACH-002260)
+## from analysis here.
+
+
+
 #' Make SummarizedExperiment object from CCLE data
 #'
-#' @note Updated 2022-08-10.
+#' @note Updated 2022-08-19.
 #' @noRd
 .makeCcleSE <-
     function(dataset,
@@ -33,9 +38,11 @@
 
 
 
+## FIXME Censor any cells that don't contain `cellLineName`.
+
 #' Make SummarizedExperiment object (from DepMap or CCLE data)
 #'
-#' @note Updated 2022-08-05.
+#' @note Updated 2022-08-19.
 #' @noRd
 .makeSummarizedExperiment <-
     function(dataset,
