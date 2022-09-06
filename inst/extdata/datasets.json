@@ -2,103 +2,97 @@
   "depmap_public_22q2": {
     "metadata": {
       "date": "2022-05",
+      "library_type": "crispr",
+      "scoring_method": "chronos",
+      "transpose_assays": true
+    },
+    "files": {
       "readme": {
         "file_name": "readme.txt",
         "url": "https://ndownloader.figshare.com/files/34990054"
       },
       "sample_info": {
         "file_name": "sample_info.csv",
-        "url": "https://ndownloader.figshare.com/files/35020903",
-        "primary": true
+        "url": "https://ndownloader.figshare.com/files/35020903"
       },
-      "achilles_metadata": {
-        "file_name": "achilles_metadata.csv",
-        "url": "https://ndownloader.figshare.com/files/34989901",
-        "primary": true
-      }
-    },
-    "screen": {
-      "library_type": "crispr",
-      "transpose_assays": true,
-      "controls": {
-        "common_essentials": {
-          "file_name": "common_essentials.csv",
-          "url": "https://ndownloader.figshare.com/files/34990024"
+      "screen": {
+        "dataset_sources": {
+          "file_name": "crispr_dataset_sources.csv",
+          "url": "https://ndownloader.figshare.com/files/34990030"
         },
-        "nonessentials": {
+        "common_essentials": {
+          "file_name": "crispr_common_essentials.csv",
+          "url": "https://ndownloader.figshare.com/files/34990027"
+        },
+        "gene_dependency": {
+          "file_name": "crispr_gene_dependency.csv",
+          "url": "https://ndownloader.figshare.com/files/34990033"
+        },
+        "gene_effect": {
+          "file_name": "crispr_gene_effect.csv",
+          "url": "https://ndownloader.figshare.com/files/34990036"
+        },
+        "negative_control_genes": {
           "file_name": "nonessentials.csv",
           "url": "https://ndownloader.figshare.com/files/34990051"
+        },
+        "positive_control_genes": {
+          "file_name": "common_essentials.csv",
+          "url": "https://ndownloader.figshare.com/files/34990024"
         }
       },
-      "defaults": {
-        "project": "combined",
-        "scoring_method": "chronos"
-      },
-      "project": {
-        "combined": {
-          "scoring_method": {
-            "chronos": {
-              "common_essentials": {
-                "file_name": "crispr_common_essentials.csv",
-                "url": "https://ndownloader.figshare.com/files/34990027"
-              },
-              "gene_dependency": {
-                "file_name": "crispr_gene_dependency.csv",
-                "url": "https://ndownloader.figshare.com/files/34990033",
-                "primary": true
-              },
-              "gene_effect": {
-                "file_name": "crispr_gene_effect.csv",
-                "url": "https://ndownloader.figshare.com/files/34990036",
-                "primary": true
-              }
-            }
-          }
+      "ccle": {
+        "copy_number": {
+          "file_name": "ccle_gene_cn.csv",
+          "url": "https://ndownloader.figshare.com/files/34989937"
+        },
+        "expression": {
+          "file_name": "ccle_expression.csv",
+          "url": "https://ndownloader.figshare.com/files/34989919"
+        },
+        "expression_full": {
+          "file_name": "ccle_expression_full.csv",
+          "url": "https://ndownloader.figshare.com/files/34989922"
+        },
+        "fusions": {
+          "file_name": "ccle_fusions.csv",
+          "url": "https://ndownloader.figshare.com/files/34989931"
+        },
+        "fusions_unfiltered": {
+          "file_name": "ccle_fusions_unfiltered.csv",
+          "url": "https://ndownloader.figshare.com/files/34989934"
+        },
+        "mutations": {
+          "file_name": "ccle_mutations.csv",
+          "url": "https://ndownloader.figshare.com/files/34989940"
+        },
+        "rnaseq_reads": {
+          "file_name": "ccle_rnaseq_reads.csv",
+          "url": "https://ndownloader.figshare.com/files/34989958"
+        },
+        "segment_copy_number": {
+          "file_name": "ccle_segment_cn.csv",
+          "url": "https://ndownloader.figshare.com/files/34989970"
+        },
+        "wes_copy_number": {
+          "file_name": "ccle_wes_gene_cn.csv",
+          "url": "https://ndownloader.figshare.com/files/34990018"
+        },
+        "wes_segment_copy_number": {
+          "file_name": "ccle_wes_segment_cn.csv",
+          "url": "https://ndownloader.figshare.com/files/34990021"
         }
-      }
-    },
-    "ccle": {
-      "copy_number": {
-        "file_name": "ccle_gene_cn.csv",
-        "url": "https://ndownloader.figshare.com/files/34989937",
-        "primary": true
-      },
-      "expression": {
-        "file_name": "ccle_expression.csv",
-        "url": "https://ndownloader.figshare.com/files/34989919",
-        "primary": true
-      },
-      "expression_full": {
-        "file_name": "ccle_expression_full.csv",
-        "url": "https://ndownloader.figshare.com/files/34989922"
-      },
-      "fusions": {
-        "file_name": "ccle_fusions.csv",
-        "url": "https://ndownloader.figshare.com/files/34989931"
-      },
-      "fusions_unfiltered": {
-        "file_name": "ccle_fusions_unfiltered.csv",
-        "url": "https://ndownloader.figshare.com/files/34989934"
-      },
-      "mutations": {
-        "file_name": "ccle_mutations.csv",
-        "url": "https://ndownloader.figshare.com/files/34989940",
-        "primary": true
-      },
-      "rnaseq_reads": {
-        "file_name": "ccle_rnaseq_reads.csv",
-        "url": "https://ndownloader.figshare.com/files/34989958"
-      },
-      "wes_copy_number": {
-        "file_name": "ccle_wes_gene_cn.csv",
-        "url": "https://ndownloader.figshare.com/files/34990018",
-        "primary": true
       }
     }
   },
   "demeter2_data_v6": {
     "metadata": {
       "date": "2020-04",
+      "library_type": "rnai",
+      "scoring_method": "demeter2",
+      "transpose_assays": false
+    },
+    "files": {
       "readme": {
         "file_name": "readme.txt",
         "url": "https://ndownloader.figshare.com/files/13515380"
@@ -106,60 +100,24 @@
       "sample_info": {
         "file_name": "sample_info.csv",
         "url": "https://ndownloader.figshare.com/files/11489717"
-      }
-    },
-    "screen": {
-      "library_type": "rnai",
-      "transpose_assays": false,
-      "controls": {
-        "common_essentials": {
-          "file_name": "hart-pos-controls.csv",
-          "url": "https://ndownloader.figshare.com/files/11489711"
+      },
+      "screen": {
+        "gene_effect": {
+          "file_name": "d2_combined_gene_dep_scores.csv",
+          "url": "https://ndownloader.figshare.com/files/13515395"
         },
-        "nonessentials": {
+        "negative_control_genes": {
           "file_name": "hart-neg-controls.csv",
           "url": "https://ndownloader.figshare.com/files/11489708"
-        }
-      },
-      "defaults": {
-        "project": "combined",
-        "scoring_method": "demeter2"
-      },
-      "project": {
-        "combined": {
-          "scoring_method": {
-            "demeter2": {
-              "gene_effect": {
-                "file_name": "d2_combined_gene_dep_scores.csv",
-                "url": "https://ndownloader.figshare.com/files/13515395",
-                "default": true
-              }
-            }
-          }
         },
-        "achilles": {
-          "scoring_method": {
-            "demeter2": {
-              "gene_effect": {
-                "file_name": "d2_achilles_gene_dep_scores.csv",
-                "url": "https://ndownloader.figshare.com/files/11489669",
-                "primary": true
-              }
-            }
-          }
-        },
-        "drive": {
-          "scoring_method": {
-            "demeter2": {
-              "gene_effect": {
-                "file_name": "d2_drive_gene_dep_scores.csv",
-                "url": "https://ndownloader.figshare.com/files/11489693",
-                "primary": true
-              }
-            }
-          }
+        "positive_control_genes": {
+          "file_name": "hart-pos-controls.csv",
+          "url": "https://ndownloader.figshare.com/files/11489711"
         }
       }
     }
+  },
+  "proteomics": {
+    "date": "FIXME"
   }
 }
