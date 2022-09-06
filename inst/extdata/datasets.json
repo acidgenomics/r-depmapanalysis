@@ -118,6 +118,43 @@
     }
   },
   "proteomics": {
-    "date": "FIXME"
+    "metadata": {
+      "date": "2020-01"
+    },
+    "files": {
+      "sample_info": {
+        "url": "https://gygi.hms.harvard.edu/data/ccle/Table_S1_Sample_Information.xlsx"
+      },
+      "protein_quantitation_xlsx": {
+        "url": "https://gygi.hms.harvard.edu/data/ccle/Table_S2_Protein_Quant_Normalized.xlsx"
+      },
+      "protein_quantitation_tsv": {
+        "url": "https://gygi.hms.harvard.edu/data/ccle/protein_quant_current_normalized.csv.gz"
+      },
+      "non_normalized_protein_data": {
+        "url": "https://gygi.hms.harvard.edu/data/ccle/summed_sn_non_normalized_v1.1.csv.gz"
+      },
+      "peptide_level_quantification": {
+        "url": "https://gygi.hms.harvard.edu/data/ccle/ccle_protein_quant_with_peptides_14745.tsv.gz"
+      },
+      "biological_replicates": {
+        "url": "https://gygi.hms.harvard.edu/data/ccle/Table_S3_Biological_Replicates_Protein_Quant_Normalized.xlsx"
+      },
+      "non_normalized_biological_replicate_data": {
+        "url": "https://gygi.hms.harvard.edu/data/ccle/ccle_biological_replicates_nonnormalized.csv.gz"
+      },
+      "rna_protein_correlation": {
+        "url": "https://gygi.hms.harvard.edu/data/ccle/Table_S4_Protein_RNA_Correlation_and_Enrichments.xlsx"
+      },
+      "pca_pc1_enriched_gene_sets": {
+        "url": "https://gygi.hms.harvard.edu/data/ccle/Table_S5_PCA_PC1_Enriched_Gene_Sets.xlsx"
+      },
+      "correlation_network": {
+        "url": "https://gygi.hms.harvard.edu/data/ccle/Table_S6_Correlation_Network_Solid_Organ_Lineages.xlsx"
+      },
+      "mutation_associations": {
+        "url": "https://gygi.hms.harvard.edu/data/ccle/Table_S7_Mutation_Associations.xlsx"
+      }
+    }
   }
 }
