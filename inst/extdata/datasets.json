@@ -94,6 +94,7 @@
         "url": "https://ndownloader.figshare.com/files/34990018",
         "primary": true
       }
+    }
   },
   "demeter2_data_v6": {
     "metadata": {
@@ -105,7 +106,8 @@
       "sample_info": {
         "file_name": "sample_info.csv",
         "url": "https://ndownloader.figshare.com/files/11489717"
-      },
+      }
+    },
     "screen": {
       "library_type": "rnai",
       "transpose_assays": false,
