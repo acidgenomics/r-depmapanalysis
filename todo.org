@@ -1,6 +1,7 @@
 #+TITLE: pipette
 #+STARTUP: content
 * Development
+** TODO Describe the colData columns using elementMetadata -- refer to DESeq2 for example.
 ** TODO Add support for Gygi lab proteomics and new Sanger proteomics dataset.
 ** TODO Convert YAML file to JSON in a future update.
 ** TODO Work on incorporating CCLE_segment_cn.csv into analysis.
