@@ -171,11 +171,11 @@
                 x = metadata,
                 values = list(
                     "dataset" = dataset,
+                    "json" = datasets[[dataset]],
                     "missingCells" = missingCells,
                     "packageName" = .pkgName,
                     "packageVersion" = .pkgVersion,
-                    "retiredGenes" = retiredGenes,
-                    "yaml" = datasets[[dataset]]
+                    "retiredGenes" = retiredGenes
                 )
             )
         )
