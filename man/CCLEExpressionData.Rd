@@ -4,10 +4,7 @@
 \alias{CCLEExpressionData}
 \title{Import CCLE expression data}
 \usage{
-CCLEExpressionData(
-  dataset = c("depmap_public_22q2", "depmap_public_22q1", "depmap_public_21q4",
-    "depmap_public_21q3", "depmap_public_21q2", "depmap_public_21q1")
-)
+CCLEExpressionData(dataset = "depmap_public_22q2")
 }
 \arguments{
 \item{dataset}{\code{character(1)}.

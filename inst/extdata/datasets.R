@@ -8,7 +8,7 @@ load_all()
 datasets <- import(
     con = system.file(
         "extdata",
-        "datasets.yaml",
+        "datasets.json",
         package = .pkgName,
         mustWork = TRUE
     ),

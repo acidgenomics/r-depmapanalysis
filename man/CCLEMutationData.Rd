@@ -4,10 +4,7 @@
 \alias{CCLEMutationData}
 \title{Import CCLE mutation data}
 \usage{
-CCLEMutationData(
-  dataset = c("depmap_public_22q2", "depmap_public_22q1", "depmap_public_21q4",
-    "depmap_public_21q3", "depmap_public_21q2", "depmap_public_21q1")
-)
+CCLEMutationData(dataset = "depmap_public_22q2")
 }
 \arguments{
 \item{dataset}{\code{character(1)}.

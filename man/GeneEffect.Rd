@@ -4,10 +4,7 @@
 \alias{GeneEffect}
 \title{Gene effect in cancer cell lines}
 \usage{
-GeneEffect(
-  dataset = c("depmap_public_22q2", "depmap_public_22q1", "depmap_public_21q4",
-    "depmap_public_21q3", "depmap_public_21q2", "depmap_public_21q1", "demeter2_data_v6")
-)
+GeneEffect(dataset = c("depmap_public_22q2", "demeter2_data_v6"))
 }
 \arguments{
 \item{dataset}{\code{character(1)}.
