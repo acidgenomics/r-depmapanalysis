@@ -60,14 +60,18 @@
 
 #' Expected SummarizedExperiment metadata
 #'
-#' @note Updated 2022-06-03.
+#' @note Updated 2022-09-07.
 #' @noRd
 .expectedSEMetadata <- append(
     x = .expectedDFMetadata,
     values = list(
+        ## JSON was added in 0.3.0 (2022-09).
+        ## > "json" = "list",
         ## > "missingCells" = "character",
         ## > "retiredGenes" = "character",
-        ## > "wd" = "character"
+        ## > "wd" = "character",
+        ## YAML was removed in favor of JSON in 0.3.0.
+        ## > "yaml" = "list",
         "sessionInfo" = "sessionInfo"
     )
 )
