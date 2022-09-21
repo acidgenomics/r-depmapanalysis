@@ -26,10 +26,23 @@ CCLEProteomicsData <- function() {
         "Table_S1_Sample_Information.xlsx",
         protocol = "https"
     )
-    df <- import(con = .cacheURL(url), sheet = 2L)
-    colnames(df) <- camelCase(colnames(df), strict = TRUE)
+    colData <- import(con = .cacheURL(url), sheet = 2L)
+    colnames(colData) <- camelCase(colnames(colData), strict = TRUE)
     ## FIXME Consider renaming these to match current DepMap metadata:
     ## - "ccleCode"
     ## - "cellLine"
-    df
+    url <- pasteURL(
+        "gygi.hms.harvard.edu",
+        "data",
+        "ccle",
+        "protein_quant_current_normalized.csv.gz",
+        protocol = "https"
+    )
+    assay <- import(con = .cacheURL(url), format = "csv")
+    ## Peptide fragments are annotated as "tr", which we are dropping here.
+    keep <- grepl(pattern = "^sp\\|", x = assay[["Protein_Id"]])
+    assay <- assay[keep, ]
+
+
+    colData
 }
