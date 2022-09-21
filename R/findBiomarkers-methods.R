@@ -62,6 +62,7 @@ NULL
         log2Tpm <- assay(object, i = "log2Tpm")
         fit <- limma::lmFit(log2Tpm, design)
         fit <- limma::eBayes(fit, trend=TRUE)
+        ## FIXME Add an expression cutoff (e.g. baseMean) here.
         topTable(fit, coef=ncol(design))
     }
 
