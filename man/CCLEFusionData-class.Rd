@@ -14,5 +14,5 @@ CCLE fusion data
 Inherits from \code{DFrame}.
 }
 \note{
-Updated 2022-03-09.
+Updated 2022-09-21.
 }

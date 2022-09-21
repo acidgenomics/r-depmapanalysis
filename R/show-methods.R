@@ -1,7 +1,7 @@
 #' Show an object
 #'
 #' @name show
-#' @note Updated 2022-09-07.
+#' @note Updated 2022-09-21.
 #'
 #' @inheritParams AcidRoxygen::params
 #'
@@ -16,14 +16,14 @@ NULL
 
 
 
-## Updated 2022-08-05.
+## Updated 2022-09-21.
 `show,CCLEFusionData` <- # nolint
     function(object) {
         validObject(object)
         showHeader(object)
         list <- list(
             "fusions" = length(unique(object[["fusionName"]])),
-            "cells" = length(unique(object[["depMapId"]]))
+            "cells" = length(unique(object[["depmapId"]]))
         )
         showSlotInfo(list)
     }
