@@ -1,7 +1,7 @@
 #' Import CCLE fusion data
 #'
 #' @export
-#' @note Updated 2022-03-09.
+#' @note Updated 2022-09-21.
 #'
 #' @inheritParams params
 #' @param filtered `logical(1)`.
@@ -21,13 +21,12 @@ CCLEFusionData <- # nolint
             yes = "fusions",
             no = "fusions_unfiltered"
         )
-        url <- datasets[[dataset]][["ccle"]][[key]][["url"]]
+        url <- datasets[[dataset]][["files"]][["ccle"]][[key]][["url"]]
         assert(isAURL(url))
         df <- .importDataFile(url = url, format = "csv", rownamesCol = NULL)
         assert(is(df, "DataFrame"))
+        colnames(df)[colnames(df) == "DepMap_ID"] <- "depmapId"
         colnames(df) <- camelCase(colnames(df), strict = TRUE)
-        ## e.g. "depmap_public_20q3".
-        colnames(df)[colnames(df) == "xFusionName"] <- "fusionName"
         df <- encode(df)
         metadata(df) <- list(
             "date" = Sys.Date(),

@@ -224,7 +224,7 @@ setValidity(
 #' @details
 #' Inherits from `DFrame`.
 #'
-#' @note Updated 2022-03-09.
+#' @note Updated 2022-09-21.
 #' @export
 #'
 #' @return `CCLEFusionData`.
@@ -240,7 +240,7 @@ setValidity(
                 x = c(
                     "annots",
                     "ccleCount",
-                    "depMapId",
+                    "depmapId",
                     "ffpm",
                     "fusionName",
                     "junctionReadCount",
