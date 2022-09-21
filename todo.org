@@ -1,6 +1,8 @@
 #+TITLE: pipette
 #+STARTUP: content
 * Development
+** TODO Simplify this to build everything into a single MultiAssayExpermient object.
+    Refer to cBioPortalData package for inspiration.
 ** TODO Describe the colData columns using elementMetadata -- refer to DESeq2 for example.
 ** TODO Add support for Gygi lab proteomics and new Sanger proteomics dataset.
 ** TODO Convert YAML file to JSON in a future update.

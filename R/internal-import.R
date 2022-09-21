@@ -1,3 +1,11 @@
+## FIXME Need to sanitize these colData colnames:
+## - `cosmicid` to `cosmicId`.
+## - `depmapPublicComments` to `depMapPublicComments`.
+## - `parentDepmapId` to `parentDepMapId`.
+## - `rrid` to `rrId` or `cellosaurusId`?
+
+
+
 #' Cache URL into package
 #'
 #' @note Updated 2021-07-08.
