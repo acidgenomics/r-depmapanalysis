@@ -18,7 +18,7 @@
             isString(assayName),
             isString(class)
         )
-        url <- datasets[[dataset]][["ccle"]][[assayKey]][["url"]]
+        url <- datasets[[dataset]][["files"]][["ccle"]][[assayKey]][["url"]]
         assert(isAURL(url))
         mat <- .importDataFile(
             url = url,
