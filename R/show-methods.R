@@ -1,7 +1,7 @@
 #' Show an object
 #'
 #' @name show
-#' @note Updated 2022-08-05.
+#' @note Updated 2022-09-07.
 #'
 #' @inheritParams AcidRoxygen::params
 #'
@@ -49,7 +49,7 @@ NULL
 
 
 
-## Updated 2021-07-07.
+## Updated 2022-09-07.
 `show,GeneEffect` <- # nolint
     function(object) {
         validObject(object)
@@ -58,7 +58,6 @@ NULL
         list <- list(
             "dataset" = m[["dataset"]],
             "libraryType" = m[["libraryType"]],
-            "project" = m[["project"]],
             "scoringMethod" = m[["scoringMethod"]],
             "date" = m[["date"]],
             "releaseDate" = m[["releaseDate"]]

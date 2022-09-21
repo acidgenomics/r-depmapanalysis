@@ -444,7 +444,6 @@ setValidity(
                 x = .expectedSEMetadata,
                 values = list(
                     "libraryType" = "character",
-                    "project" = "character",
                     "scoringMethod" = "character"
                 )
             ),

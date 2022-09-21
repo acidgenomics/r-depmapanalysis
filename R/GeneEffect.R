@@ -10,7 +10,7 @@
 #' depletion effect using `gene_effect`.
 #'
 #' @export
-#' @note Updated 2022-08-05.
+#' @note Updated 2022-09-07.
 #'
 #' @inheritParams params
 #'
@@ -26,65 +26,35 @@
 GeneEffect <- # nolint
     function(dataset) {
         dataset <- match.arg(dataset)
-        assert(
-            isSubset(dataset, names(datasets)),
-            isSubset(
-                x = "screen",
-                y = names(datasets[[dataset]])
-            ),
-            msg = sprintf("Invalid '%s': '%s'.", "dataset", dataset)
+        assert(isSubset(dataset, names(datasets)))
+        json <- datasets[[dataset]]
+        dict <- list(
+            "libraryType" = json[["metadata"]][["library_type"]],
+            "releaseDate" = json[["metadata"]][["date"]],
+            "scoringMethod" = json[["metadata"]][["scoring_method"]],
+            "transposeAssays" = json[["metadata"]][["transpose_assays"]]
         )
-        yaml <- datasets[[dataset]]
         assert(
-            isSubset(
-                x = "defaults",
-                y = names(yaml[["screen"]])
-            )
+            isString(dict[["libraryType"]]),
+            isString(dict[["releaseDate"]]),
+            isString(dict[["scoringMethod"]]),
+            isFlag(dict[["transposeAssays"]])
         )
-        libraryType <- yaml[["screen"]][["library_type"]]
-        project <- yaml[["screen"]][["defaults"]][["project"]]
-        releaseDate <- yaml[["metadata"]][["date"]]
-        scoringMethod <- yaml[["screen"]][["defaults"]][["scoring_method"]]
-        transposeAssays <- yaml[["screen"]][["transpose_assays"]]
-        assert(
-            isString(libraryType),
-            isString(project),
-            isString(releaseDate),
-            isString(scoringMethod),
-            isFlag(transposeAssays)
-        )
-        h1(sprintf("Preparing {.var %s} gene effect dataset.", dataset))
+        h1(sprintf("{.cls %s}: {.var %s}", "GeneEffect", dataset))
         dl(c(
-            "libraryType" = libraryType,
-            "project" = project,
-            "scoringMethod" = scoringMethod,
-            "releaseDate" = releaseDate
+            "libraryType" = dict[["libraryType"]],
+            "scoringMethod" = dict[["scoringMethod"]],
+            "releaseDate" = dict[["releaseDate"]]
         ))
         urls <- list(
             "assays" = list(
-                "effect" =
-                    yaml[["screen"]][[
-                    "project"]][[project]][[
-                    "scoring_method"]][[scoringMethod]][[
-                    "gene_effect"]][["url"]],
-                "probability" =
-                    yaml[["screen"]][[
-                    "project"]][[project]][[
-                    "scoring_method"]][[scoringMethod]][[
-                    "gene_dependency"]][["url"]]
+                "effect" = json[["files"]][["screen"]][["gene_effect"]][["url"]],
+                "probability" = json[["files"]][["screen"]][["gene_dependency"]][["url"]]
             ),
             "metadata" = list(
-                "commonEssentials" =
-                    yaml[["screen"]][[
-                    "project"]][[project]][[
-                    "scoring_method"]][[scoringMethod]][[
-                    "common_essentials"]][["url"]],
-                "controlCommonEssentials" =
-                    yaml[["screen"]][["controls"]][[
-                    "common_essentials"]][["url"]],
-                "controlNonessentials" =
-                    yaml[["screen"]][["controls"]][[
-                    "nonessentials"]][["url"]]
+                "commonEssentials" = json[["files"]][["screen"]][["common_essentials"]][["url"]],
+                "controlCommonEssentials" = json[["files"]][["screen"]][["positive_control_genes"]][["url"]],
+                "controlNonessentials" = json[["files"]][["screen"]][["negative_control_genes"]][["url"]]
             )
         )
         ## Assays --------------------------------------------------------------
@@ -112,17 +82,16 @@ GeneEffect <- # nolint
         metadata <- append(
             x = metadata,
             values = list(
-                ## "dataset" and "yaml" are added in call below.
-                "libraryType" = libraryType,
-                "project" = project,
-                "releaseDate" = releaseDate,
-                "scoringMethod" = scoringMethod
+                ## "dataset" and "json" are added in call below.
+                "libraryType" = dict[["libraryType"]],
+                "releaseDate" = dict[["releaseDate"]],
+                "scoringMethod" = dict[["scoringMethod"]]
             )
         )
         se <- .makeSummarizedExperiment(
             dataset = dataset,
             assays = assays,
-            transposeAssays = transposeAssays,
+            transposeAssays = dict[["transposeAssays"]],
             metadata = metadata,
             class = "GeneEffect"
         )
