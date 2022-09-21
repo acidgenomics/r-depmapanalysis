@@ -1,3 +1,13 @@
+## FIXME Need to relax casing on:
+## - dbsnp
+## - isTCGAhotspot
+## - isCOSMIChotspot
+## - TCGAhsCnt
+## - ExAC
+## - SangerWES_AC
+
+
+
 #' Import CCLE mutation data
 #'
 #' @export
@@ -35,6 +45,8 @@ CCLEMutationData <- # nolint
         ## [27] "CGA_WES_AC"             "HC_AC"
         ## [29] "RD_AC"                  "RNAseq_AC"
         ## [31] "SangerWES_AC"           "WGS_AC"
+        ## FIXME Need to manually fix these columns:
+        ## dbSNP_RS
         colnames(df) <- camelCase(colnames(df), strict = TRUE)
         ##  [1] "hugoSymbol"            "entrezGeneId"          "ncbiBuild"
         ##  [4] "chromosome"            "startPosition"         "endPosition"

@@ -1,11 +1,3 @@
-## FIXME Need to sanitize these colData colnames:
-## - `cosmicid` to `cosmicId`.
-## - `depmapPublicComments` to `depMapPublicComments`.
-## - `parentDepmapId` to `parentDepMapId`.
-## - `rrid` to `rrId` or `cellosaurusId`?
-
-
-
 #' Cache URL into package
 #'
 #' @note Updated 2021-07-08.
@@ -23,18 +15,37 @@
 #' Sample metadata now indicates that there are merged cells we should drop
 #' from analysis (e.g. ACH-002260).
 #'
-#' @note Updated 2022-08-19.
+#' @note Updated 2022-09-21.
 #' @noRd
 .importCellLineSampleData <- # nolint
     function(dataset) {
-        url <- datasets[[dataset]][["metadata"]][["sample_info"]][["url"]]
+        url <- datasets[[dataset]][["files"]][["sample_info"]][["url"]]
         df <- .importDataFile(
             url = url,
             rownamesCol = 1L,
             return = "DataFrame"
         )
         assert(is(df, "DataFrame"))
-        colnames(df) <- camelCase(colnames(df))
+        assert(
+            isSubset(
+                x = c(
+                    "Cellosaurus_NCIt_disease",
+                    "Cellosaurus_NCIt_id",
+                    "COSMICID",
+                    "DepMap_ID",
+                    "RRID"
+                ),
+                y = colnames(df)
+            )
+        )
+        colnames(df)[colnames(df) == "Cellosaurus_NCIt_disease"] <-
+            "cellosaurusNcitDisease"
+        colnames(df)[colnames(df) == "Cellosaurus_NCIt_id"] <-
+            "cellosaurusNcitId"
+        colnames(df)[colnames(df) == "COSMICID"] <- "cosmicId"
+        colnames(df)[colnames(df) == "DepMap_ID"] <- "depmapId"
+        colnames(df)[colnames(df) == "RRID"] <- "cellosaurusId"
+        colnames(df) <- camelCase(colnames(df), strict = TRUE)
         if (isSubset("alias", colnames(df))) {
             x <- df[["alias"]]
             x <- strsplit(x = x, split = ", ", fixed = TRUE)
