@@ -35,7 +35,7 @@
                     "DepMap_ID",
                     "RRID"
                 ),
-                y = colnamxes(df)
+                y = colnames(df)
             )
         )
         colnames(df)[colnames(df) == "Cellosaurus_NCIt_disease"] <-
