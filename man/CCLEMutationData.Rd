@@ -17,7 +17,7 @@ Dataset name.}
 Import CCLE mutation data
 }
 \note{
-Updated 2022-03-09.
+Updated 2022-09-21.
 }
 \examples{
 object <- CCLEMutationData()

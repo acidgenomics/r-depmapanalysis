@@ -290,7 +290,7 @@ setValidity(
 #' @details
 #' Inherits from `DFrame`.
 #'
-#' @note Updated 2022-05-13.
+#' @note Updated 2022-09-21.
 #' @export
 #'
 #' @return `CCLEMutationData`.
@@ -304,34 +304,34 @@ setValidity(
         ok <- validate(
             isSubset(
                 x = c(
-                    ## > "tumorSeqAllele1"
+                    "alternateAllele",
                     "annotationTranscript",
-                    "cDnaChange",
+                    "cdnaChange",
                     "cgaWesAc",
                     "chromosome",
                     "codonChange",
-                    "cosmiChsCnt",
-                    "dbSnpRs",
-                    "dbSnpValStatus",
-                    "depMapId",
+                    "cosmicHsCnt",
+                    "dbsnpRs",
+                    "dbsnpValStatus",
+                    "depmapId",
                     "endPosition",
                     "entrezGeneId",
-                    "exAcAf",
+                    "exacAf",
+                    "geneName",
                     "genomeChange",
                     "hcAc",
-                    "hugoSymbol",
-                    "isCosmiChotspot",
+                    "isCosmicHotspot",
                     "isDeleterious",
-                    "isTcgAhotspot",
+                    "isTcgaHotspot",
                     "ncbiBuild",
                     "proteinChange",
                     "rdAc",
                     "referenceAllele",
-                    "rnAseqAc",
+                    "rnaseqAc",
                     "sangerWesAc",
                     "startPosition",
                     "strand",
-                    "tcgAhsCnt",
+                    "tcgaHsCnt",
                     "variantAnnotation",
                     "variantClassification",
                     "variantType",
