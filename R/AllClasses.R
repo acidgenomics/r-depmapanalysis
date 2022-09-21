@@ -3,44 +3,40 @@
 
 
 
-#' Sample metadata column names, defined in colData.
+#' Sample metadata column names, defined in colData
 #'
-#' @note Updated 2022-05-13.
+#' @note Updated 2022-09-21.
 #' @noRd
-#'
-#' @details
-#' Not defined in "depmap_public_22q1":
-#' - "achillesNReplicates"
-#' - "cas9Activity"
-#' - "cellLineNnmd"
-#' - "cultureMedium"
-#'
-#' Not defined in "depmap_public_20q2":
-#' - "wtsiMasterCellId"
-#'
-#' Not defined in "depmap_public_20q1":
-#' - "cosmicid"
-#' - "depmapPublicComments"
-#' - "primaryDisease"
-#' - "subtype"
 .expectedColData <- c(
     "age",
     "alias",
     "ccleName",
     "cellLineName",
-    "cultureType",
-    "depMapId",
+    "cellosaurusId",
+    "cellosaurusIssues",
+    "cosmicId",
+    "defaultGrowthPattern",
+    "depmapId",
+    "depmapPublicComments",
     "lineage",
     "lineageMolecularSubtype",
     "lineageSubSubtype",
     "lineageSubtype",
+    "modelManipulation",
+    "modelManipulationDetails",
+    "ncitDiseaseId",
+    "ncitDiseaseName",
+    "parentDepmapId",
+    "patientId",
+    "primaryDisease",
     "primaryOrMetastasis",
-    "rrid",
     "sampleCollectionSite",
     "sangerModelId",
     "sex",
     "source",
-    "strippedCellLineName"
+    "strippedCellLineName",
+    "subtype",
+    "wtsiMasterCellId"
 )
 
 
@@ -128,9 +124,9 @@ setValidity(
                 ),
                 y = colnames(rowData(object))
             ),
-            areIntersectingSets(
-                x = colnames(colData(object)),
-                y = .expectedColData
+            isSubset(
+                x = .expectedColData,
+                y = colnames(colData(object))
             )
         )
         if (!isTRUE(ok)) {
@@ -201,9 +197,9 @@ setValidity(
                 ),
                 y = colnames(rowData(object))
             ),
-            areIntersectingSets(
-                x = colnames(colData(object)),
-                y = .expectedColData
+            isSubset(
+                x = .expectedColData,
+                y = colnames(colData(object))
             )
         )
         if (!isTRUE(ok)) {
@@ -457,9 +453,9 @@ setValidity(
             "crispr" = {
                 ok <- validate(
                     isSubset("probability", assayNames(object)),
-                    areIntersectingSets(
-                        x = colnames(colData(object)),
-                        y = .expectedColData
+                    isSubset(
+                        x = .expectedColData,
+                        y = colnames(colData(object))
                     )
                 )
                 if (!isTRUE(ok)) {
@@ -480,9 +476,9 @@ setValidity(
             },
             "rnai" = {
                 ok <- validate(
-                    areIntersectingSets(
-                        x = colnames(colData(object)),
-                        y = .expectedColData
+                    isSubset(
+                        x = .expectedColData,
+                        y = colnames(colData(object))
                     ),
                     isSubset(
                         x = c(

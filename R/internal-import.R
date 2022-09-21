@@ -35,13 +35,13 @@
                     "DepMap_ID",
                     "RRID"
                 ),
-                y = colnames(df)
+                y = colnamxes(df)
             )
         )
         colnames(df)[colnames(df) == "Cellosaurus_NCIt_disease"] <-
-            "cellosaurusNcitDisease"
+            "ncitDiseaseName"
         colnames(df)[colnames(df) == "Cellosaurus_NCIt_id"] <-
-            "cellosaurusNcitId"
+            "ncitDiseaseId"
         colnames(df)[colnames(df) == "COSMICID"] <- "cosmicId"
         colnames(df)[colnames(df) == "DepMap_ID"] <- "depmapId"
         colnames(df)[colnames(df) == "RRID"] <- "cellosaurusId"
