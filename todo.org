@@ -1,6 +1,8 @@
 #+TITLE: pipette
 #+STARTUP: content
 * Development
+** TODO Need to update code for DEMETER2 processing.
+** TODO Improve the CLI messages about what files we're downloading, not just the vague figshare URLs.
 ** TODO Simplify this to build everything into a single MultiAssayExpermient object.
     Refer to cBioPortalData package for inspiration.
 ** TODO Describe the colData columns using elementMetadata -- refer to DESeq2 for example.

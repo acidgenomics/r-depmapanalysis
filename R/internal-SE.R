@@ -189,6 +189,9 @@
 
 
 
+## FIXME This approach is currently erroring, need to rethink...
+## .importCellLineSampleData step is problematic...
+
 #' Standardize the DEMETER2 RNAi dataset
 #'
 #' @note Updated 2022-08-05.
