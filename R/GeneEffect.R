@@ -10,7 +10,7 @@
 #' depletion effect using `gene_effect`.
 #'
 #' @export
-#' @note Updated 2022-09-07.
+#' @note Updated 2022-11-08.
 #'
 #' @inheritParams params
 #'
@@ -48,13 +48,18 @@ GeneEffect <- # nolint
         ))
         urls <- list(
             "assays" = list(
-                "effect" = json[["files"]][["screen"]][["gene_effect"]][["url"]],
-                "probability" = json[["files"]][["screen"]][["gene_dependency"]][["url"]]
+                "effect" = json[["files"]][["screen"]][[
+                    "gene_effect"]][["url"]],
+                "probability" = json[["files"]][["screen"]][[
+                    "gene_dependency"]][["url"]]
             ),
             "metadata" = list(
-                "commonEssentials" = json[["files"]][["screen"]][["common_essentials"]][["url"]],
-                "controlCommonEssentials" = json[["files"]][["screen"]][["positive_control_genes"]][["url"]],
-                "controlNonessentials" = json[["files"]][["screen"]][["negative_control_genes"]][["url"]]
+                "commonEssentials" = json[["files"]][["screen"]][[
+                    "common_essentials"]][["url"]],
+                "controlCommonEssentials" = json[["files"]][["screen"]][[
+                    "positive_control_genes"]][["url"]],
+                "controlNonessentials" = json[["files"]][["screen"]][[
+                    "negative_control_genes"]][["url"]]
             )
         )
         ## Assays --------------------------------------------------------------
@@ -82,7 +87,6 @@ GeneEffect <- # nolint
         metadata <- append(
             x = metadata,
             values = list(
-                ## "dataset" and "json" are added in call below.
                 "libraryType" = dict[["libraryType"]],
                 "releaseDate" = dict[["releaseDate"]],
                 "scoringMethod" = dict[["scoringMethod"]]
