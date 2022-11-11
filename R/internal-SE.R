@@ -42,7 +42,7 @@
 
 #' Make SummarizedExperiment object (from DepMap or CCLE data)
 #'
-#' @note Updated 2022-08-19.
+#' @note Updated 2022-11-07.
 #' @noRd
 .makeSummarizedExperiment <-
     function(dataset,
@@ -78,7 +78,8 @@
         ## Row data (gene annotations) -----------------------------------------
         rowData <- EntrezGeneInfo(
             organism = "Homo sapiens",
-            taxonomicGroup = "Mammalia"
+            taxonomicGroup = "Mammalia",
+            cache = TRUE
         )
         assert(
             is(rowData, "EntrezGeneInfo"),
@@ -189,12 +190,9 @@
 
 
 
-## FIXME This approach is currently erroring, need to rethink...
-## .importCellLineSampleData step is problematic...
-
 #' Standardize the DEMETER2 RNAi dataset
 #'
-#' @note Updated 2022-08-05.
+#' @note Updated 2022-11-08.
 #' @noRd
 .standardizeDemeter2 <- function(object) {
     currentDataset <- .formalsList[["dataset"]][[1L]]
@@ -209,7 +207,7 @@
             y = colnames(cd[["x"]])
         ),
         isSubset(
-            x = c("ccleName", "depMapId", "strippedCellLineName"),
+            x = c("ccleName", "depmapId", "strippedCellLineName"),
             y = colnames(cd[["y"]])
         ),
         identical(
@@ -235,8 +233,8 @@
     cd[[".join"]] <- NULL
     cd <- cd[, sort(colnames(cd))]
     colData(object) <- cd
-    if (isTRUE(anyNA(colData(object)[["depMapId"]]))) {
-        keep <- !is.na(colData(object)[["depMapId"]])
+    if (isTRUE(anyNA(colData(object)[["depmapId"]]))) {
+        keep <- !is.na(colData(object)[["depmapId"]])
         missingCells <- colnames(object)[!keep]
         alertWarning(sprintf(
             "%d missing cell %s in {.var %s}: %s.",
@@ -257,7 +255,7 @@
             sort(unique(metadata(object)[["missingCells"]]))
         object <- object[, keep]
     }
-    colnames(object) <- makeNames(colData(object)[["depMapId"]])
+    colnames(object) <- makeNames(colData(object)[["depmapId"]])
     object <- object[, sort(colnames(object))]
     object
 }
