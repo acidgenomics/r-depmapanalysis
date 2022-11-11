@@ -6,7 +6,7 @@
 
 #' Map cell name input to column names
 #'
-#' @note Updated 2022-08-18.
+#' @note Updated 2022-11-08.
 #' @noRd
 #'
 #' @seealso
@@ -42,11 +42,11 @@
             if (isInt(idx)) {
                 return(idx)
             }
-            idx <- match(x = x, table = object[["rrid"]])
+            idx <- match(x = x, table = object[["cellosaurusId"]])
             if (isInt(idx)) {
                 return(idx)
             }
-            idx <- match(x = x, table = object[["depMapId"]])
+            idx <- match(x = x, table = object[["depmapId"]])
             if (isInt(idx)) {
                 return(idx)
             }
