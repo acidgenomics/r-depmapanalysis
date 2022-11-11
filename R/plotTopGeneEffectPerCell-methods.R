@@ -66,7 +66,7 @@ NULL
                 y = "gene name"
             ) +
             facet_wrap(
-                facets = sym("colname"),
+                facets = vars(!!sym("colname")),
                 scales = "free"
             ) +
             tidytext::scale_y_reordered()

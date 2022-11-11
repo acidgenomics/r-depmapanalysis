@@ -110,7 +110,7 @@ NULL
                         size = 0.75
                     ) +
                     facet_wrap(
-                        facets = sym("rowname"),
+                        facets = vars(!!sym("rowname")),
                         scales = "fixed"
                     ) +
                     labs(
