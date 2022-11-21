@@ -1,3 +1,8 @@
+## FIXME Just rework this as a DataFrame...the nanostring is too messy.
+## FIXME Simplify and just convert to DepMap identifier...
+
+
+
 #' Import CCLE microRNA expression data
 #'
 #' @details
