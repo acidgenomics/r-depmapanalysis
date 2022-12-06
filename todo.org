@@ -1,6 +1,10 @@
 #+TITLE: pipette
 #+STARTUP: content
 * Development
+** TODO Consider supporting z score calculations using reference population without copy number amplifications, similar to cBioPortal approach.
+    https://github.com/cBioPortal/cbioportal/blob/master/docs/Z-Score-normalization-script.md
+    https://github.com/cBioPortal/cbioportal/blob/master/docs/File-Formats.md#expression-data
+** TODO plotHeatmap needs to support `cellLineName` labeling.
 ** TODO Need to update code for DEMETER2 processing.
 ** TODO Improve the CLI messages about what files we're downloading, not just the vague figshare URLs.
 ** TODO Simplify this to build everything into a single MultiAssayExpermient object.
