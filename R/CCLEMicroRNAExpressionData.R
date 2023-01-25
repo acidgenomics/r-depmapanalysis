@@ -4,7 +4,7 @@
 #' NanoString microRNA panel data.
 #'
 #' @export
-#' @note Updated 2022-11-16.
+#' @note Updated 2023-01-25.
 #'
 #' @return `CCLEMicroRNAExpressionData`.
 #'
@@ -99,18 +99,14 @@ CCLEMicroRNAExpressionData <- # nolint
         gr <- gr[idx]
         gr <- split(x = gr, f = as.factor(mcols(gr)[["Name"]]))
         grl <- c(grl, gr)
-
-
         ## FIXME Split this out as a function...
         ## FIXME Need to get colData and remap the identifiers...
         currentDataset <- .formalsList[["dataset"]][[1L]]
         cd <- .importCellLineSampleData(dataset = currentDataset)
-
         sort(setdiff(
             colnames(assay),
             makeNames(as.character(cd[["ccleName"]]))
         ))
-
         ## [1] "COLO699_LUNG"
         ## [2] "HS274T_BREAST"
         ## [3] "HS604T_HAEMATOPOIETIC_AND_LYMPHOID_TISSUE"
@@ -119,8 +115,6 @@ CCLEMicroRNAExpressionData <- # nolint
         ## [6] "NCIH1339_LUNG"
         ## [7] "NCIH684_LIVER"
         ## [8] "S117_SOFT_TISSUE"
-
-
         TRUE
     }
 
