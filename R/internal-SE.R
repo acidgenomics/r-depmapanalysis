@@ -5,7 +5,7 @@
 
 #' Make SummarizedExperiment object from CCLE data
 #'
-#' @note Updated 2022-09-21.
+#' @note Updated 2023-01-25.
 #' @noRd
 .makeCcleSE <-
     function(dataset,
@@ -38,11 +38,12 @@
 
 
 
+## FIXME Need to ensure no NA values propagate here.
 ## FIXME Censor any cells that don't contain `cellLineName`.
 
 #' Make SummarizedExperiment object (from DepMap or CCLE data)
 #'
-#' @note Updated 2022-11-07.
+#' @note Updated 2023-01-25.
 #' @noRd
 .makeSummarizedExperiment <-
     function(dataset,
@@ -182,6 +183,15 @@
         )
         args <- Filter(Negate(is.null), args)
         se <- do.call(what = makeSummarizedExperiment, args = args)
+        ## Ensure no cells with NA values propagate.
+        ok <- !is.na(colSums(assay(se)))
+        if (!all(ok)) {
+            badCells <- colnames(se)[!ok]
+            se <- se[, ok]
+        }
+        ## FIXME Need to add these to missingCells metadata.
+        assert(!anyNA(assay(se)))
+        ## FIXME What about primary assay only?
         if (identical(dataset, "demeter2_data_v6")) {
             se <- .standardizeDemeter2(se)
         }
