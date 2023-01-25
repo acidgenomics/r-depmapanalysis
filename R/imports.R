@@ -46,9 +46,9 @@ NULL
 #' @importFrom ggplot2 aes facet_wrap geom_boxplot geom_density geom_jitter
 #' geom_point geom_violin geom_vline ggplot labs scale_y_discrete
 #' @importFrom goalie allAreMatchingRegex allAreURLs areIntersectingSets assert
-#' bapply hasColnames hasLength hasNoDuplicates hasRownames isAFile isAURL
-#' isCharacter isFlag isInt isInstalled isPositive isScalar isString isSubset
-#' validate validateClasses
+#' bapply hasColnames hasDuplicates hasLength hasNoDuplicates hasRownames
+#' isAFile isAURL isCharacter isFlag isInt isInstalled isPositive isScalar
+#' isString isSubset validate validateClasses
 #' @importFrom methods as is new setClass setValidity validObject
 #' @importFrom pipette cacheURL
 #' @importFrom stringi stri_match_first_regex
