@@ -47,7 +47,7 @@ CCLEMutationData <- # nolint
             "packageName" = .pkgName,
             "packageVersion" = .pkgVersion
         )
-        new("CCLEMutationData", df)
+        new(Class = "CCLEMutationData", df)
     }
 
 formals(CCLEMutationData)[["dataset"]] <- # nolint

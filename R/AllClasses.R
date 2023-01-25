@@ -292,12 +292,12 @@ setValidity(
 #' Same as the re-released `CCLE_miRNA_20181103.gct` file.
 #'
 #' @export
-#' @note Updated 2022-11-16.
+#' @note Updated 2023-01-25.
 #'
 #' @return `CCLEMicroRNAExpressionData`.
 setClass(
     Class = "CCLEMicroRNAExpressionData",
-    contains = "SummarizedExperiment"
+    contains = "RangedSummarizedExperiment"
 )
 setValidity(
     Class = "CCLEMicroRNAExpressionData",

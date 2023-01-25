@@ -16,7 +16,7 @@ Import CCLE microRNA expression data
 NanoString microRNA panel data.
 }
 \note{
-Updated 2022-11-16.
+Updated 2023-01-25.
 }
 \examples{
 object <- CCLEMicroRNAExpressionData()

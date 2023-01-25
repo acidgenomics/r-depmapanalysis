@@ -35,7 +35,7 @@ CCLEFusionData <- # nolint
             "packageName" = .pkgName,
             "packageVersion" = .pkgVersion
         )
-        new("CCLEFusionData", df)
+        new(Class = "CCLEFusionData", df)
     }
 
 formals(CCLEFusionData)[["dataset"]] <- # nolint

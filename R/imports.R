@@ -39,16 +39,17 @@ NULL
 #' @importFrom AcidBase pasteURL requireNamespaces showSlotInfo
 #' @importFrom AcidCLI abort alert alertInfo alertWarning dl h1 toInlineString
 #' @importFrom AcidExperiment makeSummarizedExperiment
-#' @importFrom AcidGenomes EntrezGeneInfo geneSynonyms
+#' @importFrom AcidGenomes EntrezGeneInfo emptyRanges geneSynonyms
 #' @importFrom AcidPlots !! acid_geom_label_repel sym
 #' @importFrom IRanges CharacterList
 #' @importFrom S4Vectors DataFrame
+#' @importFrom SummarizedExperiment SummarizedExperiment
 #' @importFrom ggplot2 aes facet_wrap geom_boxplot geom_density geom_jitter
 #' geom_point geom_violin geom_vline ggplot labs scale_y_discrete
-#' @importFrom goalie allAreMatchingRegex allAreURLs areIntersectingSets assert
-#' bapply hasColnames hasDuplicates hasLength hasNoDuplicates hasRownames
-#' isAFile isAURL isCharacter isFlag isInt isInstalled isPositive isScalar
-#' isString isSubset validate validateClasses
+#' @importFrom goalie allAreMatchingRegex allAreURLs areIntersectingSets
+#' areSetEqual assert bapply hasColnames hasDuplicates hasLength hasNoDuplicates
+#' hasRownames isAFile isAURL isCharacter isFlag isInt isInstalled isPositive
+#' isScalar isString isSubset validate validateClasses
 #' @importFrom methods as is new setClass setValidity validObject
 #' @importFrom pipette cacheURL
 #' @importFrom stringi stri_match_first_regex
