@@ -56,8 +56,8 @@
             isFlag(transposeAssays),
             is.list(metadata)
         )
-        retiredGenes <- NULL
-        missingCells <- NULL
+        retiredGenes <- character()
+        missingCells <- character()
         ## Assays --------------------------------------------------------------
         assays <- lapply(
             X = assays,
@@ -140,7 +140,10 @@
         rownames(rowData) <- match[, 1L, drop = TRUE]
         ## Column data (cell line annotations) ---------------------------------
         colData <- .importCellLineSampleData(dataset = dataset)
-        assert(areIntersectingSets(colnames(assays[[1L]]), rownames(colData)))
+        assert(
+            areIntersectingSets(colnames(assays[[1L]]), rownames(colData)),
+            !anyNA(colData[["cellLineName"]])
+        )
         if (!isSubset(colnames(assays[[1L]]), rownames(colData))) {
             missingCells <- setdiff(colnames(assays[[1L]]), rownames(colData))
             alertWarning(sprintf(
@@ -183,15 +186,12 @@
         )
         args <- Filter(Negate(is.null), args)
         se <- do.call(what = makeSummarizedExperiment, args = args)
-        ## Ensure no cells with NA values propagate.
         ok <- !is.na(colSums(assay(se)))
         if (!all(ok)) {
-            badCells <- colnames(se)[!ok]
+            missingCells <- append(x = missingCells, values = colnames(se)[!ok])
             se <- se[, ok]
         }
-        ## FIXME Need to add these to missingCells metadata.
         assert(!anyNA(assay(se)))
-        ## FIXME What about primary assay only?
         if (identical(dataset, "demeter2_data_v6")) {
             se <- .standardizeDemeter2(se)
         }
