@@ -1,6 +1,8 @@
 ## FIXME Assert that no classes that extend SE contain any cellLineName
 ## with NA in colData.
 
+## FIXME Need to deal with this: anyNA(assay(crispr))
+
 
 
 #' Sample metadata column names, defined in colData
@@ -275,6 +277,32 @@ setValidity(
         if (!isTRUE(ok)) {
             return(ok)
         }
+        TRUE
+    }
+)
+
+
+
+#' CCLE microRNA expression data
+#'
+#' @details
+#' Inherits from `SummarizedExperiment`.
+#' Cells in columns, microRNAs in rows.
+#'
+#' Same as the re-released `CCLE_miRNA_20181103.gct` file.
+#'
+#' @export
+#' @note Updated 2022-11-16.
+#'
+#' @return `CCLEMicroRNAExpressionData`.
+setClass(
+    Class = "CCLEMicroRNAExpressionData",
+    contains = "SummarizedExperiment"
+)
+setValidity(
+    Class = "CCLEMicroRNAExpressionData",
+    method = function(object) {
+        ## FIXME Need to tighten this up.
         TRUE
     }
 )
