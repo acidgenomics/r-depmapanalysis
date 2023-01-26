@@ -42,7 +42,7 @@
 
 
 
-#' Expected DataFrame metadata
+#' Expected `DataFrame` metadata
 #'
 #' @note Updated 2022-03-09.
 #' @noRd
@@ -55,7 +55,7 @@
 
 
 
-#' DepMap (CCLE) copy number data
+#' DepMap copy number data
 #'
 #' @details
 #' Gene level copy number data, log2 transformed with a pseudo count of 1.
@@ -127,7 +127,7 @@ setValidity(
 
 
 
-#' CCLE expression data
+#' DepMap RNA-seq expression data
 #'
 #' @details
 #'
@@ -140,13 +140,13 @@ setValidity(
 #' @export
 #' @note Updated 2023-01-26.
 #'
-#' @return `CCLEExpressionData`.
+#' @return `DepMapExpression`.
 setClass(
-    Class = "CCLEExpressionData",
+    Class = "DepMapExpression",
     contains = "SummarizedExperiment"
 )
 setValidity(
-    Class = "CCLEExpressionData",
+    Class = "DepMapExpression",
     method = function(object) {
         ok <- validate(
             hasRownames(object),
@@ -200,7 +200,7 @@ setValidity(
 
 
 
-#' CCLE fusion data
+#' DepMap fusion call data
 #'
 #' @details
 #' Inherits from `DFrame`.
@@ -208,13 +208,13 @@ setValidity(
 #' @note Updated 2023-01-26.
 #' @export
 #'
-#' @return `CCLEFusionData`.
+#' @return `DepMapFusion`.
 setClass(
-    Class = "CCLEFusionData",
+    Class = "DepMapFusion",
     contains = "DFrame"
 )
 setValidity(
-    Class = "CCLEFusionData",
+    Class = "DepMapFusion",
     method = function(object) {
         ok <- validate(
             isSubset(
@@ -260,7 +260,7 @@ setValidity(
 
 
 
-#' CCLE microRNA expression data
+#' DepMap microRNA expression data
 #'
 #' @details
 #' Inherits from `SummarizedExperiment`.
@@ -271,13 +271,13 @@ setValidity(
 #' @export
 #' @note Updated 2023-01-26.
 #'
-#' @return `CCLEMicroRNAExpressionData`.
+#' @return `DepMapMicroRNA`.
 setClass(
-    Class = "CCLEMicroRNAExpressionData",
+    Class = "DepMapMicroRNA",
     contains = "RangedSummarizedExperiment"
 )
 setValidity(
-    Class = "CCLEMicroRNAExpressionData",
+    Class = "DepMapMicroRNA",
     method = function(object) {
         ## FIXME Need to tighten this up.
         TRUE
@@ -286,7 +286,7 @@ setValidity(
 
 
 
-#' CCLE mutation data
+#' DepMap mutation data
 #'
 #' @details
 #' Inherits from `DFrame`.
@@ -294,13 +294,13 @@ setValidity(
 #' @note Updated 2023-01-26.
 #' @export
 #'
-#' @return `CCLEMutationData`.
+#' @return `DepMapMutation`.
 setClass(
-    Class = "CCLEMutationData",
+    Class = "DepMapMutation",
     contains = "DFrame"
 )
 setValidity(
-    Class = "CCLEMutationData",
+    Class = "DepMapMutation",
     method = function(object) {
         ok <- validate(
             isSubset(
@@ -358,21 +358,21 @@ setValidity(
 
 
 
-#' Gene effect co-dependencies
+#' DepMap gene effect co-dependencies
 #'
 #' @details
 #' Inherits from `DataFrame`.
 #'
-#' @note Updated 2022-08-05.
+#' @note Updated 2023-01-26.
 #' @export
 #'
-#' @return `Codependencies`.
+#' @return `DepMapCodependencies`.
 setClass(
-    Class = "Codependencies",
+    Class = "DepMapCodependencies",
     contains = "DFrame"
 )
 setValidity(
-    Class = "Codependencies",
+    Class = "DepMapCodependencies",
     method = function(object) {
         ok <- validate(
             identical(
@@ -410,18 +410,18 @@ setValidity(
 #' @export
 #' @note Updated 2023-01-26.
 #'
-#' @return `GeneEffect`.
+#' @return `DepMapGeneEffect`.
 #'
 #' @seealso
 #' - https://depmap.org/portal/achilles/
 #' - https://depmap.org/ceres/
 #' - https://score.depmap.sanger.ac.uk/
 setClass(
-    Class = "GeneEffect",
+    Class = "DepMapGeneEffect",
     contains = "SummarizedExperiment"
 )
 setValidity(
-    Class = "GeneEffect",
+    Class = "DepMapGeneEffect",
     method = function(object) {
         ok <- validate(
             hasRownames(object),
