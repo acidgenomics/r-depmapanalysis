@@ -1,4 +1,4 @@
-#' Import CCLE copy number data
+#' Import DepMap (CCLE) copy number data
 #'
 #' @export
 #' @note Updated 2023-01-26.
@@ -8,7 +8,7 @@
 #' @return `CopyNumber`.
 #'
 #' @examples
-#' object <- CopyNumberData()
+#' object <- CopyNumber()
 #' print(object)
 CopyNumber <- # nolint
     function(dataset) {

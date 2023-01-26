@@ -2,7 +2,7 @@
 % Please edit documentation in R/CopyNumber.R
 \name{CopyNumber}
 \alias{CopyNumber}
-\title{Import CCLE copy number data}
+\title{Import DepMap (CCLE) copy number data}
 \usage{
 CopyNumber(dataset = "depmap_public_22q2")
 }
@@ -14,12 +14,12 @@ Dataset name.}
 \code{CopyNumber}.
 }
 \description{
-Import CCLE copy number data
+Import DepMap (CCLE) copy number data
 }
 \note{
 Updated 2023-01-26.
 }
 \examples{
-object <- CopyNumberData()
+object <- CopyNumber()
 print(object)
 }

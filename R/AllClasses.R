@@ -55,7 +55,7 @@
 
 
 
-#' CCLE copy number data
+#' DepMap (CCLE) copy number data
 #'
 #' @details
 #' Gene level copy number data, log2 transformed with a pseudo count of 1.
