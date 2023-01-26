@@ -2,14 +2,14 @@
 % Please edit documentation in R/AllGenerics.R, R/selectCells-methods.R
 \name{selectCells}
 \alias{selectCells}
-\alias{selectCells,CopyNumber-method}
+\alias{selectCells,DepMapCopyNumber-method}
 \alias{selectCells,CCLEExpressionData-method}
 \alias{selectCells,GeneEffect-method}
 \title{Select cells}
 \usage{
 selectCells(object, ...)
 
-\S4method{selectCells}{CopyNumber}(object, ...)
+\S4method{selectCells}{DepMapCopyNumber}(object, ...)
 
 \S4method{selectCells}{CCLEExpressionData}(object, ...)
 

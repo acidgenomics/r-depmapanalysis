@@ -65,7 +65,7 @@ NULL
 
 
 ## Updated 2022-08-17.
-`selectCells,CopyNumber` <- `selectCells,SE`
+`selectCells,DepMapCopyNumber` <- `selectCells,SE`
 
 ## Updated 2022-08-17.
 `selectCells,CCLEExpressionData` <- `selectCells,SE`
@@ -79,8 +79,8 @@ NULL
 #' @export
 setMethod(
     f = "selectCells",
-    signature = signature(object = "CopyNumber"),
-    definition = `selectCells,CopyNumber`
+    signature = signature(object = "DepMapCopyNumber"),
+    definition = `selectCells,DepMapCopyNumber`
 )
 
 #' @rdname selectCells

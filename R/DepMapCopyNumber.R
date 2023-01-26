@@ -5,20 +5,20 @@
 #'
 #' @inheritParams params
 #'
-#' @return `CopyNumber`.
+#' @return `DepMapCopyNumber`.
 #'
 #' @examples
-#' object <- CopyNumber()
+#' object <- DepMapCopyNumber()
 #' print(object)
-CopyNumber <- # nolint
+DepMapCopyNumber <- # nolint
     function(dataset) {
         .makeCcleSE(
             dataset = match.arg(dataset),
             assayKey = "copy_number",
             assayName = "log2CopyNumber",
-            class = "CopyNumber"
+            class = "DepMapCopyNumber"
         )
     }
 
-formals(CopyNumber)[["dataset"]] <- # nolint
+formals(DepMapCopyNumber)[["dataset"]] <- # nolint
     .formalsList[["depmapDataset"]]

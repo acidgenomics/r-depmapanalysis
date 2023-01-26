@@ -67,13 +67,13 @@
 #' @export
 #' @note Updated 2023-01-26.
 #'
-#' @return `CopyNumber`.
+#' @return `DepMapCopyNumber`.
 setClass(
-    Class = "CopyNumber",
+    Class = "DepMapCopyNumber",
     contains = "SummarizedExperiment"
 )
 setValidity(
-    Class = "CopyNumber",
+    Class = "DepMapCopyNumber",
     method = function(object) {
         ok <- validate(
             hasRownames(object),

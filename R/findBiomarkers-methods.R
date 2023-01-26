@@ -31,7 +31,7 @@ NULL
 
 
 ## Updated 2023-01-26.
-`findBiomarkers,CopyNumber` <-
+`findBiomarkers,DepMapCopyNumber` <-
     function(
         object,
         sensitiveCells,
@@ -84,8 +84,8 @@ NULL
 #' @export
 setMethod(
     f = "findBiomarkers",
-    signature = signature(object = "CopyNumber"),
-    definition = `findBiomarkers,CopyNumber`
+    signature = signature(object = "DepMapCopyNumber"),
+    definition = `findBiomarkers,DepMapCopyNumber`
 )
 
 #' @rdname findBiomarkers

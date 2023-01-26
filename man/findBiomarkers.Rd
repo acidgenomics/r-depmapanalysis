@@ -2,14 +2,14 @@
 % Please edit documentation in R/AllGenerics.R, R/findBiomarkers-methods.R
 \name{findBiomarkers}
 \alias{findBiomarkers}
-\alias{findBiomarkers,CopyNumber-method}
+\alias{findBiomarkers,DepMapCopyNumber-method}
 \alias{findBiomarkers,CCLEExpressionData-method}
 \alias{findBiomarkers,CCLEMutationData-method}
 \title{Find biomarkers}
 \usage{
 findBiomarkers(object, ...)
 
-\S4method{findBiomarkers}{CopyNumber}(object, sensitiveCells, insensitiveCells)
+\S4method{findBiomarkers}{DepMapCopyNumber}(object, sensitiveCells, insensitiveCells)
 
 \S4method{findBiomarkers}{CCLEExpressionData}(object, sensitiveCells, insensitiveCells)
 
