@@ -43,7 +43,6 @@ NULL
 #' @importFrom AcidPlots !! acid_geom_label_repel sym
 #' @importFrom IRanges CharacterList
 #' @importFrom S4Vectors DataFrame
-#' @importFrom SummarizedExperiment SummarizedExperiment
 #' @importFrom ggplot2 aes facet_wrap geom_boxplot geom_density geom_jitter
 #' geom_point geom_violin geom_vline ggplot labs scale_y_discrete
 #' @importFrom goalie allAreMatchingRegex allAreURLs areIntersectingSets
