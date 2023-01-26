@@ -16,7 +16,7 @@
 #' @examples
 #' data(rnaseq)
 #'
-#' ## CCLEExpressionData ====
+#' ## DepMapExpression ====
 #' object <- rnaseq
 #' sensitiveCells <- colnames(object)[c(1L:5L)]
 #' insensitiveCells <- colnames(object)[c(6L:10L)]
@@ -42,8 +42,8 @@ NULL
 
 
 
-## Updated 2022-08-17.
-`findBiomarkers,CCLEExpressionData` <-
+## Updated 2023-01-26.
+`findBiomarkers,DepMapExpression` <-
     function(
         object,
         sensitiveCells,
@@ -56,9 +56,7 @@ NULL
             isCharacter(sensitiveCells),
             isCharacter(insensitiveCells)
         )
-
         ## FIXME Need to run .mapCellsToColnames here.
-
         log2Tpm <- assay(object, i = "log2Tpm")
         fit <- limma::lmFit(log2Tpm, design)
         fit <- limma::eBayes(fit, trend=TRUE)
@@ -92,8 +90,8 @@ setMethod(
 #' @export
 setMethod(
     f = "findBiomarkers",
-    signature = signature(object = "CCLEExpressionData"),
-    definition = `findBiomarkers,CCLEExpressionData`
+    signature = signature(object = "DepMapExpression"),
+    definition = `findBiomarkers,DepMapExpression`
 )
 
 #' @rdname findBiomarkers

@@ -1,14 +1,14 @@
 #' Plot gene effect vs. expression
 #'
 #' @name plotGeneEffectVsExpression
-#' @note Updated 2022-08-05.
+#' @note Updated 2023-01-26.
 #'
 #' @inheritParams AcidRoxygen::params
 #' @inheritParams params
 #'
-#' @param effect `GeneEffect`.
+#' @param effect `DepMapGeneEffect`.
 #'
-#' @param expression `CCLEExpressionData`.
+#' @param expression `DepMapExpression`.
 #'
 #' @param subtype `character(1)` or `NULL`.
 #' Cell subtype name to use for filtering.
@@ -19,7 +19,7 @@
 #' @examples
 #' data(crispr, rnaseq)
 #'
-#' ## GeneEffect,CCLEExpressionData ====
+#' ## DepMapGeneEffect,DepMapExpression ====
 #' effect <- crispr
 #' expression <- rnaseq
 #' gene <- rownames(effect)[[1L]]
@@ -33,7 +33,7 @@ NULL
 
 
 ## Updated 2022-03-09.
-`plotGeneEffectVsExpression,GE,CCLE` <- # nolint
+`plotGeneEffectVsExpression,Effect,Expression` <- # nolint
     function(effect,
              expression,
              gene,
@@ -111,8 +111,8 @@ NULL
 setMethod(
     f = "plotGeneEffectVsExpression",
     signature = signature(
-        effect = "GeneEffect",
-        expression = "CCLEExpressionData"
+        effect = "DepMapGeneEffect",
+        expression = "DepMapExpression"
     ),
-    definition = `plotGeneEffectVsExpression,GE,CCLE`
+    definition = `plotGeneEffectVsExpression,Effect,Expression`
 )

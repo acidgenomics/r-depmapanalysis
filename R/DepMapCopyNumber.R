@@ -1,4 +1,4 @@
-#' Import DepMap (CCLE) copy number data
+#' Import DepMap copy number data
 #'
 #' @export
 #' @note Updated 2023-01-26.

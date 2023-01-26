@@ -1,24 +1,24 @@
-#' Import CCLE expression data
+#' Import DepMap expression data
 #'
 #' @export
-#' @note Updated 2021-07-07.
+#' @note Updated 2022-01-26.
 #'
 #' @inheritParams params
 #'
-#' @return `CCLEExpressionData`.
+#' @return `DepMapExpression`.
 #'
 #' @examples
-#' object <- CCLEExpressionData()
+#' object <- DepMapExpression()
 #' dim(object)
-CCLEExpressionData <- # nolint
+DepMapExpression <- # nolint
     function(dataset) {
         .makeCcleSE(
             dataset = match.arg(dataset),
             assayKey = "expression",
             assayName = "log2Tpm",
-            class = "CCLEExpressionData"
+            class = "DepMapExpression"
         )
     }
 
-formals(CCLEExpressionData)[["dataset"]] <- # nolint
+formals(DepMapExpression)[["dataset"]] <- # nolint
     .formalsList[["depmapDataset"]]

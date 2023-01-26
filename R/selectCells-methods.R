@@ -16,7 +16,7 @@
 #' @examples
 #' data(crispr)
 #'
-#' ## GeneEffect ====
+#' ## DepMapGeneEffect ====
 #' object <- crispr
 #' dim(object)
 #' lineage <- colData(object)[["lineage"]][[1L]]
@@ -64,14 +64,14 @@ NULL
 
 
 
-## Updated 2022-08-17.
+## Updated 2023-01-26.
 `selectCells,DepMapCopyNumber` <- `selectCells,SE`
 
-## Updated 2022-08-17.
-`selectCells,CCLEExpressionData` <- `selectCells,SE`
+## Updated 2023-01-26.
+`selectCells,DepMapExpression` <- `selectCells,SE`
 
-## Updated 2022-08-17.
-`selectCells,GeneEffect` <- `selectCells,SE`
+## Updated 2023-01-26.
+`selectCells,DepMapGeneEffect` <- `selectCells,SE`
 
 
 
@@ -87,14 +87,14 @@ setMethod(
 #' @export
 setMethod(
     f = "selectCells",
-    signature = signature(object = "CCLEExpressionData"),
-    definition = `selectCells,CCLEExpressionData`
+    signature = signature(object = "DepMapExpression"),
+    definition = `selectCells,DepMapExpression`
 )
 
 #' @rdname selectCells
 #' @export
 setMethod(
     f = "selectCells",
-    signature = signature(object = "GeneEffect"),
-    definition = `selectCells,GeneEffect`
+    signature = signature(object = "DepMapGeneEffect"),
+    definition = `selectCells,DepMapGeneEffect`
 )
