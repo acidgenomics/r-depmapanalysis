@@ -193,7 +193,6 @@ CCLEMicroRNAExpressionData <- # nolint
         assays <- list("counts" = assay)
         metadata <- list(
             "dataset" = dataset,
-            "date" = Sys.Date(),
             "missingCells" = missingCells,
             "packageName" = .pkgName,
             "packageVersion" = .pkgVersion
