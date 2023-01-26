@@ -1,15 +1,15 @@
-#' Import CCLE microRNA expression data
+#' Import DepMap microRNA expression data
 #'
 #' @details
 #' NanoString microRNA panel data.
 #'
-#' @name CCLEMicroRNAExpressionData
+#' @name DepMapMicroRNA
 #' @note Updated 2023-01-26.
 #'
-#' @return `CCLEMicroRNAExpressionData`.
+#' @return `DepMapMicroRNA`.
 #'
 #' @examples
-#' object <- CCLEMicroRNAExpressionData()
+#' object <- DepMapMicroRNA()
 #' dim(object)
 NULL
 
@@ -150,9 +150,9 @@ NULL
 
 ## Updated 2023-01-26.
 
-#' @rdname CCLEMicroRNAExpressionData
+#' @rdname DepMapMicroRNA
 #' @export
-CCLEMicroRNAExpressionData <- # nolint
+DepMapMicroRNA <- # nolint
     function() {
         dataset <- "CCLE_miRNA_20180525.gct"
         currentDataset <- .formalsList[["dataset"]][[1L]]
@@ -203,5 +203,5 @@ CCLEMicroRNAExpressionData <- # nolint
             colData = colData,
             metadata = metadata
         )
-        new(Class = "CCLEMicroRNAExpressionData", se)
+        new(Class = "DepMapMicroRNA", se)
     }
