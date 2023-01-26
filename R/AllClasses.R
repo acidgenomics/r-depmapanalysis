@@ -1,6 +1,5 @@
 ## FIXME Assert that no classes that extend SE contain any cellLineName
 ## with NA in colData.
-
 ## FIXME Need to deal with this: anyNA(assay(crispr))
 
 
@@ -47,7 +46,7 @@
 #'
 #' @note Updated 2022-03-09.
 #' @noRd
-.expectedDFMetadata <- list(
+.expectedCommonMetadata <- list(
     "dataset" = "character",
     "date" = "Date",
     "packageName" = "character",
@@ -61,16 +60,13 @@
 #' @note Updated 2023-01-26.
 #' @noRd
 .expectedSEMetadata <- append(
-    x = .expectedDFMetadata,
+    x = .expectedCommonMetadata,
     values = list(
-        ## JSON was added in 0.3.0 (2022-09).
-        ## > "json" = "list",
-        ## > "missingCells" = "character",
-        ## > "retiredGenes" = "character",
-        ## > "wd" = "character",
-        ## YAML was removed in favor of JSON in 0.3.0.
-        ## > "yaml" = "list",
-        "sessionInfo" = "sessionInfo"
+        "json" = "list",
+        "missingCells" = "character",
+        "retiredGenes" = "character",
+        "sessionInfo" = "sessionInfo",
+        "wd" = "character"
     )
 )
 
@@ -110,7 +106,7 @@ setValidity(
             isSubset("log2CopyNumber", assayNames(object)),
             isSubset(
                 x = c(
-                    ## > "xTaxId"
+                    ## > "xTaxId" FIXME Check this.
                     "chromosome",
                     "dbXrefs",
                     "description",
@@ -267,7 +263,7 @@ setValidity(
         ok <- validateClasses(
             object = metadata(object),
             expected = append(
-                x = .expectedDFMetadata,
+                x = .expectedCommonMetadata,
                 values = list(
                     "filtered" = "logical"
                 )
@@ -369,7 +365,7 @@ setValidity(
         }
         ok <- validateClasses(
             object = metadata(object),
-            expected = .expectedDFMetadata,
+            expected = .expectedCommonMetadata,
             subset = TRUE
         )
         if (!isTRUE(ok)) {
@@ -412,7 +408,7 @@ setValidity(
         }
         ok <- validateClasses(
             object = metadata(object),
-            expected = .expectedDFMetadata,
+            expected = .expectedCommonMetadata,
             subset = TRUE
         )
         if (!isTRUE(ok)) {
@@ -431,7 +427,7 @@ setValidity(
 #' Cells in columns, genes in rows.
 #'
 #' @export
-#' @note Updated 2022-08-19.
+#' @note Updated 2023-01-26.
 #'
 #' @return `GeneEffect`.
 #'
