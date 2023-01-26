@@ -1,4 +1,4 @@
-#' Gene effect in cancer cell lines
+#' DepMap gene effect in cancer cell lines
 #'
 #' @section Assays:
 #'
@@ -10,20 +10,20 @@
 #' depletion effect using `gene_effect`.
 #'
 #' @export
-#' @note Updated 2022-11-08.
+#' @note Updated 2023-01-26.
 #'
 #' @inheritParams params
 #'
-#' @return `GeneEffect`.
+#' @return `DepMapGeneEffect`.
 #'
 #' @examples
 #' ## CRISPR (default).
-#' object <- GeneEffect()
+#' object <- DepMapGeneEffect()
 #' print(object)
 #'
 #' ## RNAi.
-#' ## > object <- GeneEffect(dataset = "demeter2_data_v6")
-GeneEffect <- # nolint
+#' ## > object <- DepMapGeneEffect(dataset = "demeter2_data_v6")
+DepMapGeneEffect <- # nolint
     function(dataset) {
         dataset <- match.arg(dataset)
         assert(isSubset(dataset, names(datasets)))
@@ -102,5 +102,5 @@ GeneEffect <- # nolint
         se
     }
 
-formals(GeneEffect)[["dataset"]] <- # nolint
+formals(DepMapGeneEffect)[["dataset"]] <- # nolint
     .formalsList[["dataset"]]

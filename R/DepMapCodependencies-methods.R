@@ -3,7 +3,7 @@
 #' Calculate co-dependency scores
 #'
 #' @name Codependencies
-#' @note Updated 2022-08-10.
+#' @note Updated 2023-01-26.
 #'
 #' @inheritParams params
 #'
@@ -14,7 +14,7 @@
 #' Gene name or `NULL`.
 #' If `NULL`, calculate correlations against all genes.
 #'
-#' @return `Codependencies`.
+#' @return `DepMapCodependencies`.
 #'
 #' @seealso
 #' - [How to download codependency scores](https://forum.depmap.org/t/down-load-of-co-dependencies/175/)
@@ -23,7 +23,7 @@
 #' @examples
 #' data(crispr)
 #'
-#' ## GeneEffect ====
+#' ## DepMapGeneEffect ====
 #' object <- crispr
 #'
 #' geneNames <- as.character(rowData(object)[["geneName"]])
@@ -31,7 +31,7 @@
 #' geneName2 <- geneNames[[2L]]
 #'
 #' ## Calculate all co-dependencies for a gene of interest.
-#' x <- Codependencies(
+#' x <- DepMapCodependencies(
 #'     object = object,
 #'     geneName1 = geneName1,
 #'     geneName2 = NULL
@@ -43,7 +43,7 @@
 #' disease <- diseases[[1L]]
 #' keep <- colData(object)[["cellosaurusNcItDisease"]] %in% disease
 #' object <- object[, keep]
-#' x <- Codependencies(
+#' x <- DepMapCodependencies(
 #'     object = object,
 #'     geneName1 = geneName1,
 #'     geneName2 = geneName2,
@@ -60,8 +60,8 @@
 ## FIXME Rework using `mapGenes` code from AcidExperiment.
 ## FIXME Rework using "gene1" instead of "geneName1"...cleaner.
 
-## Updated 2022-08-05.
-`Codependencies,GeneEffect` <- # nolint
+## Updated 2023-01-26.
+`DepMapCodependencies,DepMapGeneEffect` <- # nolint
     function(object, gene1, gene2 = NULL, ...) {
         assert(
             validObject(object),
@@ -129,15 +129,15 @@
             "packageName" = .pkgName,
             "packageVersion" = .pkgVersion
         )
-        new(Class = "Codependencies", df)
+        new(Class = "DepMapCodependencies", df)
     }
 
 
 
-#' @rdname Codependencies
+#' @rdname DepMapCodependencies
 #' @export
 setMethod(
-    f = "Codependencies",
-    signature = signature(object = "GeneEffect"),
-    definition = `Codependencies,GeneEffect`
+    f = "DepMapCodependencies",
+    signature = signature(object = "DepMapGeneEffect"),
+    definition = `DepMapCodependencies,DepMapGeneEffect`
 )
