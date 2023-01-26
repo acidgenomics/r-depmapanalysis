@@ -17,5 +17,5 @@ Cells in columns, microRNAs in rows.
 Same as the re-released \code{CCLE_miRNA_20181103.gct} file.
 }
 \note{
-Updated 2023-01-25.
+Updated 2023-01-26.
 }

@@ -1,24 +1,24 @@
 #' Import CCLE copy number data
 #'
 #' @export
-#' @note Updated 2021-07-07.
+#' @note Updated 2023-01-26.
 #'
 #' @inheritParams params
 #'
-#' @return `CCLECopyNumberData`.
+#' @return `CopyNumber`.
 #'
 #' @examples
-#' object <- CCLECopyNumberData()
+#' object <- CopyNumberData()
 #' print(object)
-CCLECopyNumberData <- # nolint
+CopyNumber <- # nolint
     function(dataset) {
         .makeCcleSE(
             dataset = match.arg(dataset),
             assayKey = "copy_number",
             assayName = "log2CopyNumber",
-            class = "CCLECopyNumberData"
+            class = "CopyNumber"
         )
     }
 
-formals(CCLECopyNumberData)[["dataset"]] <- # nolint
+formals(CopyNumber)[["dataset"]] <- # nolint
     .formalsList[["depmapDataset"]]

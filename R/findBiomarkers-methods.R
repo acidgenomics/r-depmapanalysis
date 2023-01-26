@@ -1,7 +1,7 @@
 #' Find biomarkers
 #'
 #' @name findBiomarkers
-#' @note Updated 2022-08-17.
+#' @note Updated 2023-01-26.
 #'
 #' @inheritParams AcidRoxygen::params
 #'
@@ -30,8 +30,8 @@ NULL
 
 
 
-## Updated 2022-08-17.
-`findBiomarkers,CCLECopyNumberData` <-
+## Updated 2023-01-26.
+`findBiomarkers,CopyNumber` <-
     function(
         object,
         sensitiveCells,
@@ -84,8 +84,8 @@ NULL
 #' @export
 setMethod(
     f = "findBiomarkers",
-    signature = signature(object = "CCLECopyNumberData"),
-    definition = `findBiomarkers,CCLECopyNumberData`
+    signature = signature(object = "CopyNumber"),
+    definition = `findBiomarkers,CopyNumber`
 )
 
 #' @rdname findBiomarkers

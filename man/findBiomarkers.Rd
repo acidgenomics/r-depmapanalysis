@@ -2,14 +2,14 @@
 % Please edit documentation in R/AllGenerics.R, R/findBiomarkers-methods.R
 \name{findBiomarkers}
 \alias{findBiomarkers}
-\alias{findBiomarkers,CCLECopyNumberData-method}
+\alias{findBiomarkers,CopyNumber-method}
 \alias{findBiomarkers,CCLEExpressionData-method}
 \alias{findBiomarkers,CCLEMutationData-method}
 \title{Find biomarkers}
 \usage{
 findBiomarkers(object, ...)
 
-\S4method{findBiomarkers}{CCLECopyNumberData}(object, sensitiveCells, insensitiveCells)
+\S4method{findBiomarkers}{CopyNumber}(object, sensitiveCells, insensitiveCells)
 
 \S4method{findBiomarkers}{CCLEExpressionData}(object, sensitiveCells, insensitiveCells)
 
@@ -30,7 +30,7 @@ FIXME Varies, depending on method.
 Find biomarkers
 }
 \note{
-Updated 2022-08-17.
+Updated 2023-01-26.
 }
 \examples{
 data(rnaseq)

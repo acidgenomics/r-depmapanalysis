@@ -46,28 +46,11 @@
 #'
 #' @note Updated 2022-03-09.
 #' @noRd
-.expectedCommonMetadata <- list(
+.expectedMetadata <- list(
     "dataset" = "character",
     "date" = "Date",
     "packageName" = "character",
     "packageVersion" = "package_version"
-)
-
-
-
-#' Expected SummarizedExperiment metadata
-#'
-#' @note Updated 2023-01-26.
-#' @noRd
-.expectedSEMetadata <- append(
-    x = .expectedCommonMetadata,
-    values = list(
-        "json" = "list",
-        "missingCells" = "character",
-        "retiredGenes" = "character",
-        "sessionInfo" = "sessionInfo",
-        "wd" = "character"
-    )
 )
 
 
@@ -82,15 +65,15 @@
 #' Cells in columns, genes in rows.
 #'
 #' @export
-#' @note Updated 2022-08-19.
+#' @note Updated 2023-01-26.
 #'
-#' @return `CCLECopyNumberData`.
+#' @return `CopyNumber`.
 setClass(
-    Class = "CCLECopyNumberData",
+    Class = "CopyNumber",
     contains = "SummarizedExperiment"
 )
 setValidity(
-    Class = "CCLECopyNumberData",
+    Class = "CopyNumber",
     method = function(object) {
         ok <- validate(
             hasRownames(object),
@@ -132,7 +115,7 @@ setValidity(
         }
         ok <- validateClasses(
             object = metadata(object),
-            expected = .expectedSEMetadata,
+            expected = .expectedMetadata,
             subset = TRUE
         )
         if (!isTRUE(ok)) {
@@ -155,7 +138,7 @@ setValidity(
 #' Cells in columns, genes in rows.
 #'
 #' @export
-#' @note Updated 2022-08-19.
+#' @note Updated 2023-01-26.
 #'
 #' @return `CCLEExpressionData`.
 setClass(
@@ -205,7 +188,7 @@ setValidity(
         }
         ok <- validateClasses(
             object = metadata(object),
-            expected = .expectedSEMetadata,
+            expected = .expectedMetadata,
             subset = TRUE
         )
         if (!isTRUE(ok)) {
@@ -222,7 +205,7 @@ setValidity(
 #' @details
 #' Inherits from `DFrame`.
 #'
-#' @note Updated 2022-09-21.
+#' @note Updated 2023-01-26.
 #' @export
 #'
 #' @return `CCLEFusionData`.
@@ -263,10 +246,8 @@ setValidity(
         ok <- validateClasses(
             object = metadata(object),
             expected = append(
-                x = .expectedCommonMetadata,
-                values = list(
-                    "filtered" = "logical"
-                )
+                x = .expectedMetadata,
+                values = list("filtered" = "logical")
             ),
             subset = TRUE
         )
@@ -288,7 +269,7 @@ setValidity(
 #' Same as the re-released `CCLE_miRNA_20181103.gct` file.
 #'
 #' @export
-#' @note Updated 2023-01-25.
+#' @note Updated 2023-01-26.
 #'
 #' @return `CCLEMicroRNAExpressionData`.
 setClass(
@@ -310,7 +291,7 @@ setValidity(
 #' @details
 #' Inherits from `DFrame`.
 #'
-#' @note Updated 2022-09-21.
+#' @note Updated 2023-01-26.
 #' @export
 #'
 #' @return `CCLEMutationData`.
@@ -365,7 +346,7 @@ setValidity(
         }
         ok <- validateClasses(
             object = metadata(object),
-            expected = .expectedCommonMetadata,
+            expected = .expectedMetadata,
             subset = TRUE
         )
         if (!isTRUE(ok)) {
@@ -408,7 +389,7 @@ setValidity(
         }
         ok <- validateClasses(
             object = metadata(object),
-            expected = .expectedCommonMetadata,
+            expected = .expectedMetadata,
             subset = TRUE
         )
         if (!isTRUE(ok)) {
@@ -461,7 +442,7 @@ setValidity(
         ok <- validateClasses(
             object = metadata(object),
             expected = append(
-                x = .expectedSEMetadata,
+                x = .expectedMetadata,
                 values = list(
                     "libraryType" = "character",
                     "scoringMethod" = "character"

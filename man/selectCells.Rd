@@ -2,14 +2,14 @@
 % Please edit documentation in R/AllGenerics.R, R/selectCells-methods.R
 \name{selectCells}
 \alias{selectCells}
-\alias{selectCells,CCLECopyNumberData-method}
+\alias{selectCells,CopyNumber-method}
 \alias{selectCells,CCLEExpressionData-method}
 \alias{selectCells,GeneEffect-method}
 \title{Select cells}
 \usage{
 selectCells(object, ...)
 
-\S4method{selectCells}{CCLECopyNumberData}(object, ...)
+\S4method{selectCells}{CopyNumber}(object, ...)
 
 \S4method{selectCells}{CCLEExpressionData}(object, ...)
 
@@ -27,7 +27,7 @@ Modified object.
 Select cells
 }
 \note{
-Updated 2022-08-17.
+Updated 2023-01-26.
 }
 \examples{
 data(crispr)

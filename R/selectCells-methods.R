@@ -1,7 +1,7 @@
 #' Select cells
 #'
 #' @name selectCells
-#' @note Updated 2022-08-17.
+#' @note Updated 2023-01-26.
 #'
 #' @inheritParams AcidRoxygen::params
 #'
@@ -65,7 +65,7 @@ NULL
 
 
 ## Updated 2022-08-17.
-`selectCells,CCLECopyNumberData` <- `selectCells,SE`
+`selectCells,CopyNumber` <- `selectCells,SE`
 
 ## Updated 2022-08-17.
 `selectCells,CCLEExpressionData` <- `selectCells,SE`
@@ -79,8 +79,8 @@ NULL
 #' @export
 setMethod(
     f = "selectCells",
-    signature = signature(object = "CCLECopyNumberData"),
-    definition = `selectCells,CCLECopyNumberData`
+    signature = signature(object = "CopyNumber"),
+    definition = `selectCells,CopyNumber`
 )
 
 #' @rdname selectCells
