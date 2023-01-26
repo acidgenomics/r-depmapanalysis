@@ -58,7 +58,7 @@
 
 #' Expected SummarizedExperiment metadata
 #'
-#' @note Updated 2022-09-07.
+#' @note Updated 2023-01-26.
 #' @noRd
 .expectedSEMetadata <- append(
     x = .expectedDFMetadata,

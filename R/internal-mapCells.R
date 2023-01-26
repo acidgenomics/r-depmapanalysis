@@ -1,3 +1,4 @@
+## FIXME Consider reworking using "pool" approach from Cellosaurus package.
 ## FIXME We need to improve this by splitting the "alias" column into CharacterList
 ## FIXME Doing it here, but we should pre-process the colData instead.
 ## FIXME Can simplify this to no longer use libraryType, after we updated the DEMETER2 RNAi processing.
@@ -6,7 +7,7 @@
 
 #' Map cell name input to column names
 #'
-#' @note Updated 2022-11-08.
+#' @note Updated 2023-01-26.
 #' @noRd
 #'
 #' @seealso

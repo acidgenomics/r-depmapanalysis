@@ -190,6 +190,7 @@ CCLEMicroRNAExpressionData <- # nolint
             rowRanges = rowRanges,
             colData = colData,
             metadata = list(
+                "dataset" = "CCLE_miRNA_20180525.gct",
                 "date" = Sys.Date(),
                 "missingCells" = missingCells,
                 "packageName" = .pkgName,
