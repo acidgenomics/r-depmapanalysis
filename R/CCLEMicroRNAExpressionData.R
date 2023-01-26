@@ -17,11 +17,12 @@ NULL
 
 #' Import microRNA-seq GCT file
 #'
-#' @note Updated 2023-01-25.
+#' @note Updated 2023-01-26.
 #' @noRd
 #'
 #' @return `list`.
-.importMicroRnaGct <- function() {
+.importMicroRnaGct <- function(dataset) {
+    year <-substr(x = dataset, start = 12L, stop = 15L)
     url <- pasteURL(
         "depmap.org",
         "portal",
@@ -30,7 +31,7 @@ NULL
         paste0(
             "download?",
             "file_name", "=",
-            "ccle%2Fccle_2018%2FCCLE_miRNA_20180525.gct",
+            "ccle%2Fccle_", year, "%2F", dataset,
             "&",
             "bucket", "=",
             "depmap-external-downloads"
@@ -153,11 +154,15 @@ NULL
 #' @export
 CCLEMicroRNAExpressionData <- # nolint
     function() {
-        gct <- .importMicroRnaGct()
+        dataset <- "CCLE_miRNA_20180525.gct"
+        currentDataset <- .formalsList[["dataset"]][[1L]]
+        h1(sprintf(
+            "{.cls %s}: {.var %s}",
+            "CCLEMicroRNAExpressionData", dataset
+        ))
+        gct <- .importMicroRnaGct(dataset = dataset)
         rowRanges <- .importMirbaseGff(rowData = gct[["rowData"]])
-        colData <- .importCellLineSampleData(
-            dataset = .formalsList[["dataset"]][[1L]]
-        )
+        colData <- .importCellLineSampleData(dataset = currentDataset)
         colData <- colData[!is.na(colData[["ccleName"]]), ]
         rownames(colData) <- makeNames(as.character(colData[["ccleName"]]))
         assay <- gct[["assay"]]
@@ -187,14 +192,13 @@ CCLEMicroRNAExpressionData <- # nolint
         colnames(assay) <- rownames(colData)
         assays <- list("counts" = assay)
         metadata <- list(
-            "dataset" = "CCLE_miRNA_20180525.gct",
+            "dataset" = dataset,
             "date" = Sys.Date(),
             "missingCells" = missingCells,
             "packageName" = .pkgName,
             "packageVersion" = .pkgVersion
         )
-        ## FIXME Switch to makeSummarizedExperiment approach here instead.
-        se <- SummarizedExperiment(
+        se <- makeSummarizedExperiment(
             assays = assays,
             rowRanges = rowRanges,
             colData = colData,
