@@ -4,7 +4,7 @@
 #' NanoString microRNA panel data.
 #'
 #' @name CCLEMicroRNAExpressionData
-#' @note Updated 2023-01-25.
+#' @note Updated 2023-01-26.
 #'
 #' @return `CCLEMicroRNAExpressionData`.
 #'
@@ -147,7 +147,7 @@ NULL
 
 
 
-## Updated 2023-01-25.
+## Updated 2023-01-26.
 
 #' @rdname CCLEMicroRNAExpressionData
 #' @export
@@ -181,21 +181,24 @@ CCLEMicroRNAExpressionData <- # nolint
             "S117_THYROID"
         keepCells <- colnames(assay) %in% rownames(colData)
         missingCells <- sort(colnames(assay)[!keepCells])
-        assay <- assay[, keepCells]
-        colData <- colData[colnames(assay), ]
+        assay <- assay[, keepCells, drop = FALSE]
+        colData <- colData[colnames(assay), , drop = FALSE]
         rownames(colData) <- makeNames(as.character(colData[["depmapId"]]))
         colnames(assay) <- rownames(colData)
+        assays <- list("counts" = assay)
+        metadata <- list(
+            "dataset" = "CCLE_miRNA_20180525.gct",
+            "date" = Sys.Date(),
+            "missingCells" = missingCells,
+            "packageName" = .pkgName,
+            "packageVersion" = .pkgVersion
+        )
+        ## FIXME Switch to makeSummarizedExperiment approach here instead.
         se <- SummarizedExperiment(
-            assays = list("counts" = assay),
+            assays = assays,
             rowRanges = rowRanges,
             colData = colData,
-            metadata = list(
-                "dataset" = "CCLE_miRNA_20180525.gct",
-                "date" = Sys.Date(),
-                "missingCells" = missingCells,
-                "packageName" = .pkgName,
-                "packageVersion" = .pkgVersion
-            )
+            metadata = metadata
         )
         new(Class = "CCLEMicroRNAExpressionData", se)
     }
