@@ -1,11 +1,6 @@
-## FIXME Need to drop any cell lines with NA cellLineName (e.g. ACH-002260)
-## from analysis here.
-
-
-
 #' Make SummarizedExperiment object from CCLE data
 #'
-#' @note Updated 2023-01-25.
+#' @note Updated 2023-01-26.
 #' @noRd
 .makeCcleSE <-
     function(dataset,
@@ -38,12 +33,9 @@
 
 
 
-## FIXME Need to ensure no NA values propagate here.
-## FIXME Censor any cells that don't contain `cellLineName`.
-
 #' Make SummarizedExperiment object (from DepMap or CCLE data)
 #'
-#' @note Updated 2023-01-25.
+#' @note Updated 2023-01-26.
 #' @noRd
 .makeSummarizedExperiment <-
     function(dataset,
@@ -56,8 +48,6 @@
             isFlag(transposeAssays),
             is.list(metadata)
         )
-        retiredGenes <- character()
-        missingCells <- character()
         ## Assays --------------------------------------------------------------
         assays <- lapply(
             X = assays,
@@ -77,6 +67,7 @@
             assays <- lapply(X = assays, FUN = t)
         }
         ## Row data (gene annotations) -----------------------------------------
+        retiredGenes <- character()
         rowData <- EntrezGeneInfo(
             organism = "Homo sapiens",
             taxonomicGroup = "Mammalia",
@@ -139,6 +130,7 @@
         rowData <- rowData[idx, , drop = FALSE]
         rownames(rowData) <- match[, 1L, drop = TRUE]
         ## Column data (cell line annotations) ---------------------------------
+        missingCells <- character()
         colData <- .importCellLineSampleData(dataset = dataset)
         assert(
             areIntersectingSets(colnames(assays[[1L]]), rownames(colData)),
