@@ -1,6 +1,8 @@
+## FIXME Need to add DepMapProteomics
 ## FIXME Assert that no classes that extend SE contain any cellLineName
 ## with NA in colData.
 ## FIXME Need to deal with this: anyNA(assay(crispr))
+
 
 
 
