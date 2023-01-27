@@ -3,7 +3,7 @@
 \name{findBiomarkers}
 \alias{findBiomarkers}
 \alias{findBiomarkers,DepMapCopyNumber-method}
-\alias{findBiomarkers,CCLEExpressionData-method}
+\alias{findBiomarkers,DepMapExpression-method}
 \alias{findBiomarkers,CCLEMutationData-method}
 \title{Find biomarkers}
 \usage{
@@ -11,7 +11,7 @@ findBiomarkers(object, ...)
 
 \S4method{findBiomarkers}{DepMapCopyNumber}(object, sensitiveCells, insensitiveCells)
 
-\S4method{findBiomarkers}{CCLEExpressionData}(object, sensitiveCells, insensitiveCells)
+\S4method{findBiomarkers}{DepMapExpression}(object, sensitiveCells, insensitiveCells)
 
 \S4method{findBiomarkers}{CCLEMutationData}(object, sensitiveCells, insensitiveCells)
 }
@@ -35,7 +35,7 @@ Updated 2023-01-26.
 \examples{
 data(rnaseq)
 
-## CCLEExpressionData ====
+## DepMapExpression ====
 object <- rnaseq
 sensitiveCells <- colnames(object)[c(1L:5L)]
 insensitiveCells <- colnames(object)[c(6L:10L)]

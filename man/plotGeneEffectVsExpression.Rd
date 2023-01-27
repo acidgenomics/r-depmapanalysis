@@ -3,12 +3,12 @@
 %   R/plotGeneEffectVsExpression-methods.R
 \name{plotGeneEffectVsExpression}
 \alias{plotGeneEffectVsExpression}
-\alias{plotGeneEffectVsExpression,GeneEffect,CCLEExpressionData-method}
+\alias{plotGeneEffectVsExpression,DepMapGeneEffect,DepMapExpression-method}
 \title{Plot gene effect vs. expression}
 \usage{
 plotGeneEffectVsExpression(effect, expression, ...)
 
-\S4method{plotGeneEffectVsExpression}{GeneEffect,CCLEExpressionData}(
+\S4method{plotGeneEffectVsExpression}{DepMapGeneEffect,DepMapExpression}(
   effect,
   expression,
   gene,
@@ -18,9 +18,9 @@ plotGeneEffectVsExpression(effect, expression, ...)
 )
 }
 \arguments{
-\item{effect}{\code{GeneEffect}.}
+\item{effect}{\code{DepMapGeneEffect}.}
 
-\item{expression}{\code{CCLEExpressionData}.}
+\item{expression}{\code{DepMapExpression}.}
 
 \item{...}{Additional arguments.}
 
@@ -40,12 +40,12 @@ Superimpose sample text labels on the plot.}
 Plot gene effect vs. expression
 }
 \note{
-Updated 2022-08-05.
+Updated 2023-01-26.
 }
 \examples{
 data(crispr, rnaseq)
 
-## GeneEffect,CCLEExpressionData ====
+## DepMapGeneEffect,DepMapExpression ====
 effect <- crispr
 expression <- rnaseq
 gene <- rownames(effect)[[1L]]

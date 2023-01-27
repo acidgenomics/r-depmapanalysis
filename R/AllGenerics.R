@@ -1,9 +1,9 @@
-#' @rdname Codependencies
+#' @rdname DepMapCodependencies
 #' @export
 setGeneric(
-    name = "Codependencies",
+    name = "DepMapCodependencies",
     def = function(object, ...) {
-        standardGeneric("Codependencies")
+        standardGeneric("DepMapCodependencies")
     }
 )
 

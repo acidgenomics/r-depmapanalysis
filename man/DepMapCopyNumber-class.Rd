@@ -3,12 +3,12 @@
 \docType{class}
 \name{DepMapCopyNumber-class}
 \alias{DepMapCopyNumber-class}
-\title{DepMap (CCLE) copy number data}
+\title{DepMap copy number data}
 \value{
 \code{DepMapCopyNumber}.
 }
 \description{
-DepMap (CCLE) copy number data
+DepMap copy number data
 }
 \details{
 Gene level copy number data, log2 transformed with a pseudo count of 1.

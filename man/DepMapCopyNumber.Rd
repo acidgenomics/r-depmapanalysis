@@ -2,7 +2,7 @@
 % Please edit documentation in R/DepMapCopyNumber.R
 \name{DepMapCopyNumber}
 \alias{DepMapCopyNumber}
-\title{Import DepMap (CCLE) copy number data}
+\title{Import DepMap copy number data}
 \usage{
 DepMapCopyNumber(dataset = "depmap_public_22q2")
 }
@@ -14,7 +14,7 @@ Dataset name.}
 \code{DepMapCopyNumber}.
 }
 \description{
-Import DepMap (CCLE) copy number data
+Import DepMap copy number data
 }
 \note{
 Updated 2023-01-26.

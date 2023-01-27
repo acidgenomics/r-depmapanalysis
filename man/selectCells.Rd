@@ -3,17 +3,17 @@
 \name{selectCells}
 \alias{selectCells}
 \alias{selectCells,DepMapCopyNumber-method}
-\alias{selectCells,CCLEExpressionData-method}
-\alias{selectCells,GeneEffect-method}
+\alias{selectCells,DepMapExpression-method}
+\alias{selectCells,DepMapGeneEffect-method}
 \title{Select cells}
 \usage{
 selectCells(object, ...)
 
 \S4method{selectCells}{DepMapCopyNumber}(object, ...)
 
-\S4method{selectCells}{CCLEExpressionData}(object, ...)
+\S4method{selectCells}{DepMapExpression}(object, ...)
 
-\S4method{selectCells}{GeneEffect}(object, ...)
+\S4method{selectCells}{DepMapGeneEffect}(object, ...)
 }
 \arguments{
 \item{object}{Object.}
@@ -32,7 +32,7 @@ Updated 2023-01-26.
 \examples{
 data(crispr)
 
-## GeneEffect ====
+## DepMapGeneEffect ====
 object <- crispr
 dim(object)
 lineage <- colData(object)[["lineage"]][[1L]]

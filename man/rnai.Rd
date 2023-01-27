@@ -5,19 +5,19 @@
 \alias{rnai}
 \title{RNAi example data set}
 \format{
-An object of class \code{GeneEffect} with 100 rows and 50 columns.
+An object of class \code{GeneEffect} of length 1.
 }
 \usage{
 data(rnai)
 }
 \value{
-\code{DESeqAnalysis}.
+\code{DepMapGeneEffect}.
 }
 \description{
 RNAi example data set
 }
 \note{
-Updated 2022-08-05.
+Updated 2023-01-26.
 }
 \examples{
 data(rnai)

@@ -5,19 +5,19 @@
 \alias{rnaseq}
 \title{RNA-seq example data set}
 \format{
-An object of class \code{CCLEExpressionData} with 100 rows and 50 columns.
+An object of class \code{CCLEExpressionData} of length 1.
 }
 \usage{
 data(rnaseq)
 }
 \value{
-\code{CCLEExpressionData}.
+\code{DepMapExpression}.
 }
 \description{
 RNA-seq example data set
 }
 \note{
-Updated 2022-08-05.
+Updated 2023-01-26.
 }
 \examples{
 data(rnaseq)
