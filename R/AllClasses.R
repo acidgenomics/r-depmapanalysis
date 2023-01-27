@@ -281,7 +281,30 @@ setClass(
 setValidity(
     Class = "DepMapMicroRNA",
     method = function(object) {
-        ## FIXME Need to tighten this up.
+        ok <- validate(
+            hasRownames(object),
+            hasColnames(object),
+            allAreMatchingRegex(
+                x = colnames(object),
+                pattern = "^ACH_[0-9]{6}$"
+            ),
+            isSubset("counts", assayNames(object)),
+            isSubset(
+                x = .expectedColData,
+                y = colnames(colData(object))
+            )
+        )
+        if (!isTRUE(ok)) {
+            return(ok)
+        }
+        ok <- validateClasses(
+            object = metadata(object),
+            expected = .expectedMetadata,
+            subset = TRUE
+        )
+        if (!isTRUE(ok)) {
+            return(ok)
+        }
         TRUE
     }
 )
