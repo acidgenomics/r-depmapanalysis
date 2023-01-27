@@ -9,58 +9,36 @@
 #'
 #' @note Updated 2023-09-21.
 #' @noRd
-.expectedColData <- c(
-    "age",
-    "alias",
-    "ccleName",
-    "cellLineName",
-    "cellosaurusId",
-    "cellosaurusIssues",
-    "cosmicId",
-    "defaultGrowthPattern",
-    "depmapId",
-    "depmapPublicComments",
-    "lineage",
-    "lineageMolecularSubtype",
-    "lineageSubSubtype",
-    "lineageSubtype",
-    "modelManipulation",
-    "modelManipulationDetails",
-    "ncitDiseaseId",
-    "ncitDiseaseName",
-    "parentDepmapId",
-    "patientId",
-    "primaryDisease",
-    "primaryOrMetastasis",
-    "sampleCollectionSite",
-    "sangerModelId",
-    "sex",
-    "source",
-    "strippedCellLineName",
-    "subtype",
-    "wtsiMasterCellId"
-)
-
-
-
-#' Gene metadata column names, defined in `rowData`
-#'
-#' @note Updated 2023-01-27.
-#' @noRd
-.expectedRowData <- c(
-    "chromosome",
-    "dbXrefs",
-    "description",
-    "featureType",
-    "geneId",
-    "geneName",
-    "geneSynonyms",
-    "mapLocation",
-    "modificationDate",
-    "nomenclatureStatus",
-    "otherDesignations",
-    "taxonomyId",
-    "typeOfGene"
+.expectedColData <- list(
+    "age" = "Rle",
+    "alias" = "CompressedCharacterList",
+    "ccleName" = "Rle",
+    "cellLineName" = "Rle",
+    "cellosaurusId" = "Rle",
+    "cellosaurusIssues" = "Rle",
+    "cosmicId" = "Rle",
+    "defaultGrowthPattern" = "Rle",
+    "depmapId" = "Rle",
+    "depmapPublicComments" = "Rle",
+    "lineage" = "Rle",
+    "lineageMolecularSubtype" = "Rle",
+    "lineageSubSubtype" = "Rle",
+    "lineageSubtype" = "Rle",
+    "modelManipulation" = "Rle",
+    "modelManipulationDetails" = "Rle",
+    "ncitDiseaseId" = "Rle",
+    "ncitDiseaseName" = "Rle",
+    "parentDepmapId" = "Rle",
+    "patientId" = "Rle",
+    "primaryDisease" = "Rle",
+    "primaryOrMetastasis" = "Rle",
+    "sampleCollectionSite" = "Rle",
+    "sangerModelId" = "Rle",
+    "sex" = "Rle",
+    "source" = "Rle",
+    "strippedCellLineName" = "Rle",
+    "subtype" = "Rle",
+    "wtsiMasterCellId" = "Rle"
 )
 
 
@@ -78,11 +56,33 @@
 
 
 
+#' Gene metadata column names, defined in `rowData`
+#'
+#' @note Updated 2023-01-27.
+#' @noRd
+.expectedRowData <- list(
+    "chromosome" = "Rle",
+    "dbXrefs" = "CompressedCharacterList",
+    "description" = "Rle",
+    "featureType" = "Rle",
+    "geneId" = "Rle",
+    "geneName" = "Rle",
+    "geneSynonyms" = "CompressedCharacterList",
+    "mapLocation" = "Rle",
+    "modificationDate" = "Rle",
+    "nomenclatureStatus" = "Rle",
+    "otherDesignations" = "CompressedCharacterList",
+    "taxonomyId" = "Rle",
+    "typeOfGene" = "Rle"
+)
+
+
+
 #' Validate `SummarizedExperiment` with gene-level data
 #'
 #' @note Updated 2023-01-27.
 #' @noRd
-.validateGeneSe <- function(object) {
+.validateSE <- function(object, assayNames) {
     ok <- validate(
         hasRownames(object),
         hasColnames(object),
@@ -94,14 +94,23 @@
             x = colnames(object),
             pattern = "^ACH_[0-9]{6}$"
         ),
-        isSubset(
-            x = .expectedRowData,
-            y = colnames(rowData(object))
-        ),
-        isSubset(
-            x = .expectedColData,
-            y = colnames(colData(object))
-        )
+        isSubset(assayNames, assayNames(object))
+    )
+    if (!isTRUE(ok)) {
+        return(ok)
+    }
+    ok <- validateClasses(
+        object = rowData(object),
+        expected = .expectedRowData,
+        subset = TRUE
+    )
+    if (!isTRUE(ok)) {
+        return(ok)
+    }
+    ok <- validateClasses(
+        object = colData(object),
+        expected = .expectedColData,
+        subset = TRUE
     )
     if (!isTRUE(ok)) {
         return(ok)
@@ -116,6 +125,49 @@
     }
     TRUE
 }
+
+
+
+#' DepMap gene effect co-dependencies
+#'
+#' @details
+#' Inherits from `DataFrame`.
+#'
+#' @note Updated 2023-01-26.
+#' @export
+#'
+#' @return `DepMapCodependencies`.
+setClass(
+    Class = "DepMapCodependencies",
+    contains = "DFrame"
+)
+setValidity(
+    Class = "DepMapCodependencies",
+    method = function(object) {
+        ok <- validate(
+            identical(
+                x = c(
+                    "geneName1",
+                    "geneName2",
+                    "pearson"
+                ),
+                y = colnames(object)
+            )
+        )
+        if (!isTRUE(ok)) {
+            return(ok)
+        }
+        ok <- validateClasses(
+            object = metadata(object),
+            expected = .expectedMetadata,
+            subset = TRUE
+        )
+        if (!isTRUE(ok)) {
+            return(ok)
+        }
+        TRUE
+    }
+)
 
 
 
@@ -139,17 +191,7 @@ setClass(
 setValidity(
     Class = "DepMapCopyNumber",
     method = function(object) {
-        ok <- .validateGeneSe(object)
-        if (!isTRUE(ok)) {
-            return(ok)
-        }
-        ok <- validate(
-            isSubset("log2CopyNumber", assayNames(object))
-        )
-        if (!isTRUE(ok)) {
-            return(ok)
-        }
-        TRUE
+        .validateSE(object, assayNames = "log2CopyNumber")
     }
 )
 
@@ -176,21 +218,13 @@ setClass(
 setValidity(
     Class = "DepMapExpression",
     method = function(object) {
-        ok <- .validateGeneSe(object)
-        if (!isTRUE(ok)) {
-            return(ok)
-        }
-        ok <- validate(
-            isSubset("log2Tpm", assayNames(object))
-        )
-        if (!isTRUE(ok)) {
-            return(ok)
-        }
-        TRUE
+        .validateSE(object, assayNames = "log2Tpm")
     }
 )
 
 
+
+## FIXME Check the class structure of columns here.
 
 #' DepMap fusion call data
 #'
@@ -254,6 +288,93 @@ setValidity(
 
 
 
+#' Gene effect in cancer cell lines
+#'
+#' @details
+#' Inherits from `SummarizedExperiment`.
+#' Cells in columns, genes in rows.
+#'
+#' @export
+#' @note Updated 2023-01-27.
+#'
+#' @return `DepMapGeneEffect`.
+#'
+#' @seealso
+#' - https://depmap.org/portal/achilles/
+#' - https://depmap.org/ceres/
+#' - https://score.depmap.sanger.ac.uk/
+setClass(
+    Class = "DepMapGeneEffect",
+    contains = "SummarizedExperiment"
+)
+setValidity(
+    Class = "DepMapGeneEffect",
+    method = function(object) {
+        ok <- .validateSE(object, assayNames = "effect")
+        if (!isTRUE(ok)) {
+            return(ok)
+        }
+        ok <- validateClasses(
+            object = metadata(object),
+            expected = list(
+                "libraryType" = "character",
+                "scoringMethod" = "character"
+            ),
+            subset = TRUE
+        )
+        if (!isTRUE(ok)) {
+            return(ok)
+        }
+        switch(
+            EXPR = metadata(object)[["libraryType"]],
+            "crispr" = {
+                ok <- validate(
+                    isSubset("probability", assayNames(object))
+                )
+                if (!isTRUE(ok)) {
+                    return(ok)
+                }
+                ok <- validateClasses(
+                    object = metadata(object),
+                    expected = list(
+                        "commonEssentials" = "character",
+                        "controlCommonEssentials" = "character",
+                        "controlNonessentials" = "character"
+                    ),
+                    subset = TRUE
+                )
+                if (!isTRUE(ok)) {
+                    return(ok)
+                }
+            },
+            "rnai" = {
+                ok <- validateClasses(
+                    object = colData(object),
+                    expected = list(
+                        "inAchilles" = "Rle",
+                        "inDrive" = "Rle",
+                        "inMarcotte" = "Rle",
+                        "marcotteName" = "Rle",
+                        "marcotteSubtypeIntrinsic" = "Rle",
+                        "marcotteSubtypeNeve" = "Rle",
+                        "marcotteSubtypeThreeReceptor" = "Rle",
+                        "novartisName" = "Rle",
+                        "novartisPathologistAnnotation" = "Rle",
+                        "novartisPrimarySite" = "Rle"
+                    ),
+                    subset = TRUE
+                )
+                if (!isTRUE(ok)) {
+                    return(ok)
+                }
+            }
+        )
+        TRUE
+    }
+)
+
+
+
 #' DepMap microRNA expression data
 #'
 #' @details
@@ -263,7 +384,7 @@ setValidity(
 #' Same as the re-released `CCLE_miRNA_20181103.gct` file.
 #'
 #' @export
-#' @note Updated 2023-01-26.
+#' @note Updated 2023-01-27.
 #'
 #' @return `DepMapMicroRNA`.
 setClass(
@@ -280,11 +401,11 @@ setValidity(
                 x = colnames(object),
                 pattern = "^ACH_[0-9]{6}$"
             ),
-            isSubset("counts", assayNames(object)),
             isSubset(
                 x = .expectedColData,
                 y = colnames(colData(object))
-            )
+            ),
+            isSubset("counts", assayNames(object))
         )
         if (!isTRUE(ok)) {
             return(ok)
@@ -369,160 +490,6 @@ setValidity(
         if (!isTRUE(ok)) {
             return(ok)
         }
-        TRUE
-    }
-)
-
-
-
-#' DepMap gene effect co-dependencies
-#'
-#' @details
-#' Inherits from `DataFrame`.
-#'
-#' @note Updated 2023-01-26.
-#' @export
-#'
-#' @return `DepMapCodependencies`.
-setClass(
-    Class = "DepMapCodependencies",
-    contains = "DFrame"
-)
-setValidity(
-    Class = "DepMapCodependencies",
-    method = function(object) {
-        ok <- validate(
-            identical(
-                x = c(
-                    "geneName1",
-                    "geneName2",
-                    "pearson"
-                ),
-                y = colnames(object)
-            )
-        )
-        if (!isTRUE(ok)) {
-            return(ok)
-        }
-        ok <- validateClasses(
-            object = metadata(object),
-            expected = .expectedMetadata,
-            subset = TRUE
-        )
-        if (!isTRUE(ok)) {
-            return(ok)
-        }
-        TRUE
-    }
-)
-
-
-
-#' Gene effect in cancer cell lines
-#'
-#' @details
-#' Inherits from `SummarizedExperiment`.
-#' Cells in columns, genes in rows.
-#'
-#' @export
-#' @note Updated 2023-01-26.
-#'
-#' @return `DepMapGeneEffect`.
-#'
-#' @seealso
-#' - https://depmap.org/portal/achilles/
-#' - https://depmap.org/ceres/
-#' - https://score.depmap.sanger.ac.uk/
-setClass(
-    Class = "DepMapGeneEffect",
-    contains = "SummarizedExperiment"
-)
-setValidity(
-    Class = "DepMapGeneEffect",
-    method = function(object) {
-        ok <- validate(
-            hasRownames(object),
-            allAreMatchingRegex(
-                x = rownames(object),
-                pattern = "^[_A-Za-z0-9]+_[0-9]+$"
-            ),
-            hasColnames(object),
-            allAreMatchingRegex(
-                x = colnames(object),
-                pattern = "^ACH_[0-9]{6}$"
-            ),
-            isSubset("effect", assayNames(object))
-        )
-        if (!isTRUE(ok)) {
-            return(ok)
-        }
-        ok <- validateClasses(
-            object = metadata(object),
-            expected = append(
-                x = .expectedMetadata,
-                values = list(
-                    "libraryType" = "character",
-                    "scoringMethod" = "character"
-                )
-            ),
-            subset = TRUE
-        )
-        if (!isTRUE(ok)) {
-            return(ok)
-        }
-        switch(
-            EXPR = metadata(object)[["libraryType"]],
-            "crispr" = {
-                ok <- validate(
-                    isSubset("probability", assayNames(object)),
-                    isSubset(
-                        x = .expectedColData,
-                        y = colnames(colData(object))
-                    )
-                )
-                if (!isTRUE(ok)) {
-                    return(ok)
-                }
-                ok <- validateClasses(
-                    object = metadata(object),
-                    expected = list(
-                        "commonEssentials" = "character",
-                        "controlCommonEssentials" = "character",
-                        "controlNonessentials" = "character"
-                    ),
-                    subset = TRUE
-                )
-                if (!isTRUE(ok)) {
-                    return(ok)
-                }
-            },
-            "rnai" = {
-                ok <- validate(
-                    isSubset(
-                        x = .expectedColData,
-                        y = colnames(colData(object))
-                    ),
-                    isSubset(
-                        x = c(
-                            "inAchilles",
-                            "inDrive",
-                            "inMarcotte",
-                            "marcotteName",
-                            "marcotteSubtypeIntrinsic",
-                            "marcotteSubtypeNeve",
-                            "marcotteSubtypeThreeReceptor",
-                            "novartisName",
-                            "novartisPathologistAnnotation",
-                            "novartisPrimarySite"
-                        ),
-                        y = colnames(colData(object))
-                    )
-                )
-                if (!isTRUE(ok)) {
-                    return(ok)
-                }
-            }
-        )
         TRUE
     }
 )
