@@ -1,6 +1,6 @@
 #' Make SummarizedExperiment object from CCLE data
 #'
-#' @note Updated 2023-01-26.
+#' @note Updated 2023-01-27.
 #' @noRd
 .makeCcleSE <-
     function(dataset,
@@ -13,6 +13,7 @@
             isString(assayName),
             isString(class)
         )
+        h1(sprintf("{.cls %s}: {.var %s}", class, dataset))
         url <- datasets[[dataset]][["files"]][["ccle"]][[assayKey]][["url"]]
         assert(isAURL(url))
         mat <- .importDataFile(
@@ -194,10 +195,14 @@
 
 #' Standardize the DEMETER2 RNAi dataset
 #'
-#' @note Updated 2022-11-08.
+#' @note Updated 2023-01-27.
 #' @noRd
 .standardizeDemeter2 <- function(object) {
     currentDataset <- .formalsList[["dataset"]][[1L]]
+    alert(sprintf(
+        "Standardizing DEMETER2 annotations to DepMap {.var %s}.",
+        currentDataset
+    ))
     assert(isString(currentDataset))
     cd <- list(
         "x" = colData(object),
@@ -257,7 +262,7 @@
             sort(unique(metadata(object)[["missingCells"]]))
         object <- object[, keep]
     }
-    colnames(object) <- makeNames(colData(object)[["depmapId"]])
+    colnames(object) <- makeNames(as.character(colData(object)[["depmapId"]]))
     object <- object[, sort(colnames(object))]
     object
 }

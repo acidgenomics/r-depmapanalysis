@@ -21,7 +21,7 @@
 #' object <- DepMapGeneEffect()
 #' print(object)
 #'
-#' ## RNAi.
+#' ## RNAi (DEMETER2).
 #' ## > object <- DepMapGeneEffect(dataset = "demeter2_data_v6")
 DepMapGeneEffect <- # nolint
     function(dataset) {
@@ -40,7 +40,7 @@ DepMapGeneEffect <- # nolint
             isString(dict[["scoringMethod"]]),
             isFlag(dict[["transposeAssays"]])
         )
-        h1(sprintf("{.cls %s}: {.var %s}", "GeneEffect", dataset))
+        h1(sprintf("{.cls %s}: {.var %s}", "DepMapGeneEffect", dataset))
         dl(c(
             "libraryType" = dict[["libraryType"]],
             "scoringMethod" = dict[["scoringMethod"]],
@@ -97,7 +97,7 @@ DepMapGeneEffect <- # nolint
             assays = assays,
             transposeAssays = dict[["transposeAssays"]],
             metadata = metadata,
-            class = "GeneEffect"
+            class = "DepMapGeneEffect"
         )
         se
     }
