@@ -2,16 +2,16 @@
 % Please edit documentation in R/show-methods.R
 \name{show}
 \alias{show}
-\alias{show,CCLEFusionData-method}
-\alias{show,CCLEMutationData-method}
-\alias{show,GeneEffect-method}
+\alias{show,DepMapFusion-method}
+\alias{show,DepMapMutation-method}
+\alias{show,DepMapGeneEffect-method}
 \title{Show an object}
 \usage{
-\S4method{show}{CCLEFusionData}(object)
+\S4method{show}{DepMapFusion}(object)
 
-\S4method{show}{CCLEMutationData}(object)
+\S4method{show}{DepMapMutation}(object)
 
-\S4method{show}{GeneEffect}(object)
+\S4method{show}{DepMapGeneEffect}(object)
 }
 \arguments{
 \item{object}{Object.}
@@ -23,7 +23,7 @@ Console output.
 Show an object
 }
 \note{
-Updated 2022-09-21.
+Updated 2023-01-27.
 }
 \examples{
 data(crispr)

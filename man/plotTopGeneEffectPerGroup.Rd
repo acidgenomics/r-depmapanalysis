@@ -3,12 +3,12 @@
 %   R/plotTopGeneEffectPerGroup-methods.R
 \name{plotTopGeneEffectPerGroup}
 \alias{plotTopGeneEffectPerGroup}
-\alias{plotTopGeneEffectPerGroup,GeneEffect-method}
+\alias{plotTopGeneEffectPerGroup,DepMapGeneEffect-method}
 \title{Plot top gene effect per group of interest}
 \usage{
 plotTopGeneEffectPerGroup(object, ...)
 
-\S4method{plotTopGeneEffectPerGroup}{GeneEffect}(
+\S4method{plotTopGeneEffectPerGroup}{DepMapGeneEffect}(
   object,
   gene,
   group = "subtype",
@@ -42,12 +42,12 @@ plot.}
 Plot top gene effect per group of interest
 }
 \note{
-Updated 2021-07-07.
+Updated 2023-01-27.
 }
 \examples{
 data(crispr)
 
-## GeneEffect ====
+## DepMapGeneEffect ====
 object <- crispr
 gene <- rownames(object)[[1L]]
 group <- "subtype"

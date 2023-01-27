@@ -1,7 +1,7 @@
 #' Show an object
 #'
 #' @name show
-#' @note Updated 2022-09-21.
+#' @note Updated 2023-01-27.
 #'
 #' @inheritParams AcidRoxygen::params
 #'
@@ -16,8 +16,8 @@ NULL
 
 
 
-## Updated 2022-09-21.
-`show,CCLEFusionData` <- # nolint
+## Updated 2023-01-27.
+`show,DepMapFusion` <- # nolint
     function(object) {
         validObject(object)
         showHeader(object)
@@ -30,8 +30,8 @@ NULL
 
 
 
-## Updated 2021-06-09.
-`show,CCLEMutationData` <- # nolint
+## Updated 2023-01-27.
+`show,DepMapMutation` <- # nolint
     function(object) {
         validObject(object)
         showHeader(object)
@@ -49,8 +49,8 @@ NULL
 
 
 
-## Updated 2022-09-07.
-`show,GeneEffect` <- # nolint
+## Updated 2023-01-27.
+`show,DepMapGeneEffect` <- # nolint
     function(object) {
         validObject(object)
         showHeader(object)
@@ -73,8 +73,8 @@ NULL
 #' @export
 setMethod(
     f = "show",
-    signature = signature(object = "CCLEFusionData"),
-    definition = `show,CCLEFusionData`
+    signature = signature(object = "DepMapFusion"),
+    definition = `show,DepMapFusion`
 )
 
 
@@ -83,8 +83,8 @@ setMethod(
 #' @export
 setMethod(
     f = "show",
-    signature = signature(object = "CCLEMutationData"),
-    definition = `show,CCLEMutationData`
+    signature = signature(object = "DepMapMutation"),
+    definition = `show,DepMapMutation`
 )
 
 
@@ -93,6 +93,6 @@ setMethod(
 #' @export
 setMethod(
     f = "show",
-    signature = signature(object = "GeneEffect"),
-    definition = `show,GeneEffect`
+    signature = signature(object = "DepMapGeneEffect"),
+    definition = `show,DepMapGeneEffect`
 )

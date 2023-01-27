@@ -1,7 +1,7 @@
 #' Plot gene effect
 #'
 #' @name plotGeneEffect
-#' @note Updated 2022-09-09.
+#' @note Updated 2023-01-27.
 #'
 #' @inheritParams AcidRoxygen::params
 #'
@@ -10,7 +10,7 @@
 #' @examples
 #' data(crispr)
 #'
-#' ## GeneEffect ====
+#' ## DepMapGeneEffect ====
 #' object <- crispr
 #' genes <- head(rownames(object), n = 5L)
 #' plotGeneEffect(object, genes = genes)
@@ -18,8 +18,8 @@ NULL
 
 
 
-## Updated 2021-07-07.
-`plotGeneEffect,GeneEffect` <- # nolint
+## Updated 2023-01-27.
+`plotGeneEffect,DepMapGeneEffect` <- # nolint
     function(object,
              genes,
              geom = c("boxplot", "violin", "density")) {
@@ -135,6 +135,6 @@ NULL
 #' @export
 setMethod(
     f = "plotGeneEffect",
-    signature = signature(object = "GeneEffect"),
-    definition = `plotGeneEffect,GeneEffect`
+    signature = signature(object = "DepMapGeneEffect"),
+    definition = `plotGeneEffect,DepMapGeneEffect`
 )

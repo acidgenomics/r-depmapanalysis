@@ -2,12 +2,12 @@
 % Please edit documentation in R/AllGenerics.R, R/plotGeneEffect-methods.R
 \name{plotGeneEffect}
 \alias{plotGeneEffect}
-\alias{plotGeneEffect,GeneEffect-method}
+\alias{plotGeneEffect,DepMapGeneEffect-method}
 \title{Plot gene effect}
 \usage{
 plotGeneEffect(object, ...)
 
-\S4method{plotGeneEffect}{GeneEffect}(object, genes, geom = c("boxplot", "violin", "density"))
+\S4method{plotGeneEffect}{DepMapGeneEffect}(object, genes, geom = c("boxplot", "violin", "density"))
 }
 \arguments{
 \item{object}{Object.}
@@ -28,12 +28,12 @@ the first argument in the \code{character} vector.}
 Plot gene effect
 }
 \note{
-Updated 2022-09-09.
+Updated 2023-01-27.
 }
 \examples{
 data(crispr)
 
-## GeneEffect ====
+## DepMapGeneEffect ====
 object <- crispr
 genes <- head(rownames(object), n = 5L)
 plotGeneEffect(object, genes = genes)

@@ -1,7 +1,7 @@
 #' Plot top gene effect per group of interest
 #'
 #' @name plotTopGeneEffectPerGroup
-#' @note Updated 2021-07-07.
+#' @note Updated 2023-01-27.
 #'
 #' @inheritParams AcidRoxygen::params
 #'
@@ -21,7 +21,7 @@
 #' @examples
 #' data(crispr)
 #'
-#' ## GeneEffect ====
+#' ## DepMapGeneEffect ====
 #' object <- crispr
 #' gene <- rownames(object)[[1L]]
 #' group <- "subtype"
@@ -30,8 +30,8 @@ NULL
 
 
 
-## Updated 2021-07-07.
-`plotTopGeneEffectPerGroup,GeneEffect` <- # nolint
+## Updated 2023-01-27.
+`plotTopGeneEffectPerGroup,GE` <- # nolint
     function(object,
              gene,
              group = "subtype",
@@ -138,6 +138,6 @@ NULL
 #' @export
 setMethod(
     f = "plotTopGeneEffectPerGroup",
-    signature = signature(object = "GeneEffect"),
-    definition = `plotTopGeneEffectPerGroup,GeneEffect`
+    signature = signature(object = "DepMapGeneEffect"),
+    definition = `plotTopGeneEffectPerGroup,GE`
 )

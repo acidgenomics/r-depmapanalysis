@@ -1,7 +1,7 @@
 #' Plot gene effect vs. expression
 #'
 #' @name plotGeneEffectVsExpression
-#' @note Updated 2023-01-26.
+#' @note Updated 2023-01-27.
 #'
 #' @inheritParams AcidRoxygen::params
 #' @inheritParams params
@@ -32,7 +32,7 @@ NULL
 
 
 
-## Updated 2022-03-09.
+## Updated 2023-01-27.
 `plotGeneEffectVsExpression,Effect,Expression` <- # nolint
     function(effect,
              expression,

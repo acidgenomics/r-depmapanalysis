@@ -4,7 +4,7 @@
 \alias{findBiomarkers}
 \alias{findBiomarkers,DepMapCopyNumber-method}
 \alias{findBiomarkers,DepMapExpression-method}
-\alias{findBiomarkers,CCLEMutationData-method}
+\alias{findBiomarkers,DepMapMutation-method}
 \title{Find biomarkers}
 \usage{
 findBiomarkers(object, ...)
@@ -13,7 +13,7 @@ findBiomarkers(object, ...)
 
 \S4method{findBiomarkers}{DepMapExpression}(object, sensitiveCells, insensitiveCells)
 
-\S4method{findBiomarkers}{CCLEMutationData}(object, sensitiveCells, insensitiveCells)
+\S4method{findBiomarkers}{DepMapMutation}(object, sensitiveCells, insensitiveCells)
 }
 \arguments{
 \item{object}{Object.}
@@ -30,7 +30,7 @@ FIXME Varies, depending on method.
 Find biomarkers
 }
 \note{
-Updated 2023-01-26.
+Updated 2023-01-27.
 }
 \examples{
 data(rnaseq)

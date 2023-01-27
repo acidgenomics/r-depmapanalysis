@@ -1,7 +1,7 @@
 #' Find biomarkers
 #'
 #' @name findBiomarkers
-#' @note Updated 2023-01-26.
+#' @note Updated 2023-01-27.
 #'
 #' @inheritParams AcidRoxygen::params
 #'
@@ -67,7 +67,7 @@ NULL
 
 
 ## Updated 2022-08-17.
-`findBiomarkers,CCLEMutationData` <-
+`findBiomarkers,DepMapMutation` <-
     function(
         object,
         sensitiveCells,
@@ -98,6 +98,6 @@ setMethod(
 #' @export
 setMethod(
     f = "findBiomarkers",
-    signature = signature(object = "CCLEMutationData"),
-    definition = `findBiomarkers,CCLEMutationData`
+    signature = signature(object = "DepMapMutation"),
+    definition = `findBiomarkers,DepMapMutation`
 )
