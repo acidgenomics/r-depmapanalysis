@@ -5,10 +5,9 @@
 
 
 
-
-#' Sample metadata column names, defined in colData
+#' Sample metadata column names, defined in `colData`
 #'
-#' @note Updated 2022-09-21.
+#' @note Updated 2023-09-21.
 #' @noRd
 .expectedColData <- c(
     "age",
@@ -44,6 +43,28 @@
 
 
 
+#' Gene metadata column names, defined in `rowData`
+#'
+#' @note Updated 2023-01-27.
+#' @noRd
+.expectedRowData <- c(
+    "chromosome",
+    "dbXrefs",
+    "description",
+    "featureType",
+    "geneId",
+    "geneName",
+    "geneSynonyms",
+    "mapLocation",
+    "modificationDate",
+    "nomenclatureStatus",
+    "otherDesignations",
+    "taxonomyId",
+    "typeOfGene"
+)
+
+
+
 #' Expected `DataFrame` metadata
 #'
 #' @note Updated 2022-03-09.
@@ -54,6 +75,47 @@
     "packageName" = "character",
     "packageVersion" = "package_version"
 )
+
+
+
+#' Validate `SummarizedExperiment` with gene-level data
+#'
+#' @note Updated 2023-01-27.
+#' @noRd
+.validateGeneSe <- function(object) {
+    ok <- validate(
+        hasRownames(object),
+        hasColnames(object),
+        allAreMatchingRegex(
+            x = rownames(object),
+            pattern = "^[_A-Za-z0-9]+_[0-9]+$"
+        ),
+        allAreMatchingRegex(
+            x = colnames(object),
+            pattern = "^ACH_[0-9]{6}$"
+        ),
+        isSubset(
+            x = .expectedRowData,
+            y = colnames(rowData(object))
+        ),
+        isSubset(
+            x = .expectedColData,
+            y = colnames(colData(object))
+        )
+    )
+    if (!isTRUE(ok)) {
+        return(ok)
+    }
+    ok <- validateClasses(
+        object = metadata(object),
+        expected = .expectedMetadata,
+        subset = TRUE
+    )
+    if (!isTRUE(ok)) {
+        return(ok)
+    }
+    TRUE
+}
 
 
 
@@ -77,48 +139,12 @@ setClass(
 setValidity(
     Class = "DepMapCopyNumber",
     method = function(object) {
-        ok <- validate(
-            hasRownames(object),
-            allAreMatchingRegex(
-                x = rownames(object),
-                pattern = "^[_A-Za-z0-9]+_[0-9]+$"
-            ),
-            hasColnames(object),
-            allAreMatchingRegex(
-                x = colnames(object),
-                pattern = "^ACH_[0-9]{6}$"
-            ),
-            isSubset("log2CopyNumber", assayNames(object)),
-            isSubset(
-                x = c(
-                    ## > "xTaxId" FIXME Check this.
-                    "chromosome",
-                    "dbXrefs",
-                    "description",
-                    "featureType",
-                    "geneId",
-                    "geneName",
-                    "geneSynonyms",
-                    "mapLocation",
-                    "modificationDate",
-                    "nomenclatureStatus",
-                    "otherDesignations",
-                    "typeOfGene"
-                ),
-                y = colnames(rowData(object))
-            ),
-            isSubset(
-                x = .expectedColData,
-                y = colnames(colData(object))
-            )
-        )
+        ok <- .validateGeneSe(object)
         if (!isTRUE(ok)) {
             return(ok)
         }
-        ok <- validateClasses(
-            object = metadata(object),
-            expected = .expectedMetadata,
-            subset = TRUE
+        ok <- validate(
+            isSubset("log2CopyNumber", assayNames(object))
         )
         if (!isTRUE(ok)) {
             return(ok)
@@ -140,7 +166,7 @@ setValidity(
 #' Cells in columns, genes in rows.
 #'
 #' @export
-#' @note Updated 2023-01-26.
+#' @note Updated 2023-01-27.
 #'
 #' @return `DepMapExpression`.
 setClass(
@@ -150,48 +176,12 @@ setClass(
 setValidity(
     Class = "DepMapExpression",
     method = function(object) {
-        ok <- validate(
-            hasRownames(object),
-            allAreMatchingRegex(
-                x = rownames(object),
-                pattern = "^[_A-Za-z0-9]+_[0-9]+$"
-            ),
-            hasColnames(object),
-            allAreMatchingRegex(
-                x = colnames(object),
-                pattern = "^ACH_[0-9]{6}$"
-            ),
-            isSubset("log2Tpm", assayNames(object)),
-            isSubset(
-                x = c(
-                    ## > "xTaxId"
-                    "chromosome",
-                    "dbXrefs",
-                    "description",
-                    "featureType",
-                    "geneId",
-                    "geneName",
-                    "geneSynonyms",
-                    "mapLocation",
-                    "modificationDate",
-                    "nomenclatureStatus",
-                    "otherDesignations",
-                    "typeOfGene"
-                ),
-                y = colnames(rowData(object))
-            ),
-            isSubset(
-                x = .expectedColData,
-                y = colnames(colData(object))
-            )
-        )
+        ok <- .validateGeneSe(object)
         if (!isTRUE(ok)) {
             return(ok)
         }
-        ok <- validateClasses(
-            object = metadata(object),
-            expected = .expectedMetadata,
-            subset = TRUE
+        ok <- validate(
+            isSubset("log2Tpm", assayNames(object))
         )
         if (!isTRUE(ok)) {
             return(ok)
@@ -207,7 +197,7 @@ setValidity(
 #' @details
 #' Inherits from `DFrame`.
 #'
-#' @note Updated 2023-01-26.
+#' @note Updated 2023-01-27.
 #' @export
 #'
 #' @return `DepMapFusion`.
@@ -219,6 +209,8 @@ setValidity(
     Class = "DepMapFusion",
     method = function(object) {
         ok <- validate(
+            hasRownames(object),
+            hasColnames(object),
             isSubset(
                 x = c(
                     "annots",
