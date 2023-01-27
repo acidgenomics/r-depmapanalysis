@@ -2,8 +2,8 @@
 
 #' Calculate co-dependency scores
 #'
-#' @name Codependencies
-#' @note Updated 2023-01-26.
+#' @name DepMapCodependencies
+#' @note Updated 2023-01-27.
 #'
 #' @inheritParams params
 #'

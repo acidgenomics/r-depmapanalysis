@@ -12,15 +12,17 @@
 
 
 
-#' CCLE proteomics data
+#' Import DepMap proteomics data
 #'
 #' @export
-#' @note Updated 2022-09-21.
+#' @note Updated 2023-01-27.
+#'
+#' @return `DepMapProteomics`.
 #'
 #' @seealso
 #' - https://depmap.org/portal/download/all/?releasename=Proteomics
 #' - https://gygi.hms.harvard.edu/publications/ccle.html
-CCLEProteomicsData <- function() {
+DepMapProteomics <- function() {
     url <- pasteURL(
         "gygi.hms.harvard.edu",
         "data",
@@ -43,8 +45,6 @@ CCLEProteomicsData <- function() {
     assay <- import(con = .cacheURL(url), format = "csv")
     ## Peptide fragments are annotated as "tr", which we are dropping here.
     keep <- grepl(pattern = "^sp\\|", x = assay[["Protein_Id"]])
-    assay <- assay[keep, ]
-
-
+    assay <- assay[keep, , drop = FALSE]
     colData
 }
