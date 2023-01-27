@@ -8,19 +8,19 @@
 
 
 
-#' Import CCLE mutation data
+#' Import DepMap mutation data
 #'
 #' @export
-#' @note Updated 2022-09-21.
+#' @note Updated 2023-01-27.
 #'
 #' @inheritParams params
 #'
-#' @return `CCLEMutationData`.
+#' @return `DepMapMutation`.
 #'
 #' @examples
-#' object <- CCLEMutationData()
+#' object <- DepMapMutation()
 #' dim(object)
-CCLEMutationData <- # nolint
+DepMapMutation <- # nolint
     function(dataset) {
         dataset <- match.arg(dataset)
         url <- datasets[[dataset]][["files"]][["ccle"]][["mutations"]][["url"]]
@@ -47,8 +47,8 @@ CCLEMutationData <- # nolint
             "packageName" = .pkgName,
             "packageVersion" = .pkgVersion
         )
-        new(Class = "CCLEMutationData", df)
+        new(Class = "DepMapMutation", df)
     }
 
-formals(CCLEMutationData)[["dataset"]] <- # nolint
+formals(DepMapMutation)[["dataset"]] <- # nolint
     .formalsList[["depmapDataset"]]
