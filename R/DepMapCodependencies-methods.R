@@ -7,11 +7,11 @@
 #'
 #' @inheritParams params
 #'
-#' @param geneName1 `character(1)`.
-#' Gene name.
+#' @param gene1 `character(1)`.
+#' Gene identifier.
 #'
-#' @param geneName2 `character(1)` or `NULL`.
-#' Gene name or `NULL`.
+#' @param gene2 `character(1)` or `NULL`.
+#' Gene identifier or `NULL`.
 #' If `NULL`, calculate correlations against all genes.
 #'
 #' @return `DepMapCodependencies`.

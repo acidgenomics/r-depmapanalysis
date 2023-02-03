@@ -10,11 +10,11 @@ DepMapCodependencies(object, ...)
 \S4method{DepMapCodependencies}{DepMapGeneEffect}(object, gene1, gene2 = NULL)
 }
 \arguments{
-\item{geneName1}{\code{character(1)}.
-Gene name.}
+\item{gene1}{\code{character(1)}.
+Gene identifier.}
 
-\item{geneName2}{\code{character(1)} or \code{NULL}.
-Gene name or \code{NULL}.
+\item{gene2}{\code{character(1)} or \code{NULL}.
+Gene identifier or \code{NULL}.
 If \code{NULL}, calculate correlations against all genes.}
 }
 \value{
