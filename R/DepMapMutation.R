@@ -1,17 +1,7 @@
-## FIXME Need to relax casing on:
-## - dbsnp
-## - isTCGAhotspot
-## - isCOSMIChotspot
-## - TCGAhsCnt
-## - ExAC
-## - SangerWES_AC
-
-
-
 #' Import DepMap mutation data
 #'
 #' @export
-#' @note Updated 2023-01-27.
+#' @note Updated 2023-02-03.
 #'
 #' @inheritParams params
 #'
