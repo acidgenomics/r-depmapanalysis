@@ -16,6 +16,13 @@
     "demeter2_data_v6"
 )
 
+.extdataUrl <- pasteURL(
+    "r.acidgenomics.com",
+    "extdata",
+    tolower(.pkgName),
+    protocol = "https"
+)
+
 .formalsList <- list(
     "dataset" = .datasetNames,
     "depmapDataset" = grep(
