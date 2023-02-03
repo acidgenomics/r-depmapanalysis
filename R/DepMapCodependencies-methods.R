@@ -3,7 +3,7 @@
 #' Calculate co-dependency scores
 #'
 #' @name DepMapCodependencies
-#' @note Updated 2023-01-27.
+#' @note Updated 2023-02-03.
 #'
 #' @inheritParams params
 #'
@@ -25,100 +25,73 @@
 #'
 #' ## DepMapGeneEffect ====
 #' object <- crispr
-#'
-#' geneNames <- as.character(rowData(object)[["geneName"]])
-#' geneName1 <- geneNames[[1L]]
-#' geneName2 <- geneNames[[2L]]
-#'
+#' genes <- as.character(rowData(object)[["geneName"]])
+#' gene1 <- genes[[1L]]
+#' gene2 <- genes[[2L]]
+#' print(c(gene1, gene2))
 #' ## Calculate all co-dependencies for a gene of interest.
 #' x <- DepMapCodependencies(
 #'     object = object,
-#'     geneName1 = geneName1,
-#'     geneName2 = NULL
+#'     gene1 = 1,
+#'     gene2 = NULL
 #' )
 #' print(head(x))
-#'
 #' ## Lineage restrict and compare 2 genes.
 #' diseases <- as.character(colData(object)[["cellosaurusNcItDisease"]])
 #' disease <- diseases[[1L]]
 #' keep <- colData(object)[["cellosaurusNcItDisease"]] %in% disease
-#' object <- object[, keep]
+#' object2 <- object[, keep]
 #' x <- DepMapCodependencies(
-#'     object = object,
-#'     geneName1 = geneName1,
-#'     geneName2 = geneName2,
-#'     lineage = "pancreas"
+#'     object = object2,
+#'     gene1 = gene1,
+#'     gene2 = gene2
 #' )
 #' print(x)
+NULL
 
 ## nolint end
 
 
 
-## FIXME Add support for "..." passin that works on colData factor columns.
-## FIXME Ensure colData repeated values get encoded as factors.
-## FIXME Rework using `mapGenes` code from AcidExperiment.
-## FIXME Rework using "gene1" instead of "geneName1"...cleaner.
-
-## Updated 2023-01-26.
+## Updated 2023-02-03.
 `DepMapCodependencies,DepMapGeneEffect` <- # nolint
-    function(object, gene1, gene2 = NULL, ...) {
+    function(object, gene1, gene2 = NULL) {
         assert(
             validObject(object),
-            isString(geneName1),
-            isString(geneName2, nullOK = TRUE),
-            hasNoDuplicates(rowData(object)[["geneName"]])
+            isString(gene1),
+            isString(gene2, nullOK = TRUE)
         )
-        effect <- assay(object, i = "effect")
-        assert(is.matrix(effect))
-        rownames(effect) <- as.character(rowData(object)[["geneName"]])
-        if (isString(geneName2)) {
-            xIdx <- which(rowData(object)[["geneName"]] %in% geneName1)
-            assert(
-                isInt(xIdx),
-                msg = sprintf(
-                    "Invalid gene name: {.var %s}.",
-                    geneName1
-                )
-            )
-            yIdx <- which(rowData(object)[["geneName"]] %in% geneName2)
-            assert(
-                isInt(yIdx),
-                msg = sprintf(
-                    "Invalid gene name: {.var %s}.",
-                    geneName2
-                )
-            )
-            x <- effect[xIdx, , drop = TRUE]
-            y <- effect[yIdx, , drop = TRUE]
+        assay <- assay(object, i = "effect")
+        assert(is.matrix(assay))
+        gene1 <- unname(mapGenesToRownames(object, genes = gene1))
+        if (isString(gene2)) {
+            gene2 <- unname(mapGenesToRownames(object, genes = gene2))
+            x <- assay[gene1, , drop = TRUE]
+            y <- assay[gene2, , drop = TRUE]
             pearson <- cor(x = x, y = y, method = "pearson")
             df <- DataFrame(
-                "geneName1" = geneName1,
-                "geneName2" = geneName2,
+                "gene1" = gene1,
+                "gene2" = gene2,
                 "pearson" = pearson
             )
         } else {
-            idx <- which(rowData(object)[["geneName"]] %in% geneName1)
-            assert(
-                isInt(idx),
-                msg = sprintf(
-                    "Invalid gene name: {.var %s}.",
-                    geneName1
-                )
-            )
+            ## FIXME This step is now broken...need to rethink.
+            idx <- match(x = gene1, table = rownames(assay))
+            x <- assay[-idx, , drop = FALSE]
+            y <- assay[idx, , drop = TRUE]
             pearson <- apply(
-                X = effect[-idx, ],
+                X = x,
                 MARGIN = 1L,
                 FUN = cor,
-                y = effect[idx, , drop = TRUE],
+                y = y,
                 method = "pearson",
                 simplify = TRUE
             )
             assert(is.numeric(pearson))
             pearson <- sort(pearson, decreasing = TRUE)
             df <- DataFrame(
-                "geneName1" = geneName1,
-                "geneName2" = names(pearson),
+                "gene1" = gene1,
+                "gene2" = names(pearson),
                 "pearson" = unname(pearson)
             )
         }
