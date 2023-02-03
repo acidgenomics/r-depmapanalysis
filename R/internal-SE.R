@@ -198,6 +198,7 @@
 #' @note Updated 2023-01-27.
 #' @noRd
 .standardizeDemeter2 <- function(object) {
+    assert(is(object, "SummarizedExperiment"))
     currentDataset <- .formalsList[["dataset"]][[1L]]
     alert(sprintf(
         "Standardizing DEMETER2 annotations to DepMap {.var %s}.",

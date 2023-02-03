@@ -493,3 +493,26 @@ setValidity(
         TRUE
     }
 )
+
+
+
+#' DepMap protein expression data
+#'
+#' @details
+#' Inherits from `SummarizedExperiment`.
+#' Cells in columns, peptides in rows.
+#'
+#' @export
+#' @note Updated 2023-02-03.
+#'
+#' @return `DepMapProteomics`.
+setClass(
+    Class = "DepMapProteomics",
+    contains = "SummarizedExperiment"
+)
+setValidity(
+    Class = "DepMapExpression",
+    method = function(object) {
+        .validateSE(object, assayNames = "normalized")
+    }
+)

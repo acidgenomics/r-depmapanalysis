@@ -30,7 +30,22 @@
 #' - https://depmap.org/portal/download/all/?releasename=Proteomics
 #' - https://gygi.hms.harvard.edu/publications/ccle.html
 DepMapProteomics <- function() {
-    baseUrl <- pasteURL(.extdataUrl, "proteomics", "gygi")
+    .importNusinow2020()
+}
+
+
+
+#' Import the Nusinow et al 2020 proteomics dataset
+#'
+#' @note Updated 2023-02-03.
+#' @noRd
+#'
+#' @details
+#' We've observed connection issues with the Gygy lab website at
+#' `"https://gygi.hms.harvard.edu/publications/ccle.html"`, so caching a copy
+#' for our pacakge instead.
+.importNusinow2020 <- function() {
+    baseUrl <- pasteURL(.extdataUrl, "proteomics", "nusinow-2020")
     url <- pasteURL(baseUrl, "table-s1-sample-information.csv")
     colData <- import(con = .cacheURL(url))
     colData <- as(colData, "DataFrame")
@@ -42,7 +57,6 @@ DepMapProteomics <- function() {
             "protein10PlexId", "proteinTmtLabel", "tissueOfOrigin"
         )
     ))
-    ## Drop the bridge lines.
     colData <- colData[colData[["protein10PlexId"]] != "0", , drop = FALSE]
     rownames(colData) <- makeNames(paste0(
         colData[["ccleCode"]], "_TenPx",
@@ -57,7 +71,6 @@ DepMapProteomics <- function() {
         hasNoDuplicates(df[["Uniprot_Acc"]])
     )
     rownames(df) <- df[["Uniprot_Acc"]]
-    ## We're only interested in peptides that map to a gene.
     keepRows <- !is.na(df[["Gene_Symbol"]])
     df <- df[keepRows, , drop = FALSE]
     keepCols <- !grepl(pattern = "^TenPx[0-9]{2}_Peptides$", x = colnames(df))
@@ -78,20 +91,57 @@ DepMapProteomics <- function() {
             "proteinId", "uniprot", "uniprotAcc"
         )
     ))
-    colnames(rowData)[colnames(rowData) == "geneSymbol"] <- "geneName"
-    assays <- list("proteinQuantNormalized" = assay)
+    assays <- list("normalized" = assay)
     metadata <- list(
-        "dataset" = "nusinow2020",
+        "dataset" = "nusinow_2020",
         "packageName" = .pkgName,
         "packageVersion" = .pkgVersion
     )
-    ## FIXME Improve metadata assignment.
     se <- makeSummarizedExperiment(
         assays = assays,
         rowData = rowData,
         colData = colData,
         metadata = metadata
     )
-    ## FIXME Change the CCLE name to the DepMap identifier...
+    se <- .standardizeNusinow2020(se)
     new(Class = "DepMapProteomics", se)
+}
+
+
+
+## NOTE Consider moving this to the 'internal-SE.R' file.
+
+#' Standardize the Nusinow et al 2020 proteomics dataset
+#'
+#' @note Updated 2023-01-27.
+#' @noRd
+.standardizeNusinow2020 <- function(object) {
+    assert(is(object, "SummarizedExperiment"))
+    currentDataset <- .formalsList[["dataset"]][[1L]]
+    alert(sprintf(
+        "Standardizing {.var %s} annotations to DepMap {.var %s}.",
+        "Nusinow et al 2020",
+        currentDataset
+    ))
+    assert(isString(currentDataset))
+    rowData <- rowData(object)
+    colnames(rowData)[colnames(rowData) == "geneSymbol"] <- "geneName"
+    rowData(object) <- rowData
+    cd1 <- colData(object)
+    colnames(cd1)[colnames(cd1) == "ccleCode"] <- "ccleName"
+    cd1[["cellLine"]] <- NULL
+    cd1[["notes"]] <- NULL
+    cd1[["tissueOfOrigin"]] <- NULL
+    cd2 <- .importCellLineSampleData(dataset = currentDataset)
+    cd2 <- cd2[!is.na(cd2[["ccleName"]]), ]
+    cd <- leftJoin(x = cd1, y = cd2, by = "ccleName")
+    assert(!any(is.na(cd[["depmapId"]])))
+    cd <- cd[, sort(colnames(cd))]
+    colData(object) <- cd
+    colnames(object) <- makeNames(paste0(
+        cd[["depmapId"]], "_TENPX",
+        autopadZeros(cd[["protein10PlexId"]])
+    ))
+    object <- object[, sort(colnames(object))]
+    object
 }
