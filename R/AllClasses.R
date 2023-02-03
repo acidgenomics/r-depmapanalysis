@@ -80,9 +80,9 @@
 
 #' Validate `SummarizedExperiment` with gene-level data
 #'
-#' @note Updated 2023-01-27.
+#' @note Updated 2023-02-03.
 #' @noRd
-.validateSE <- function(object, assayNames) {
+.validateSE <- function(object, assayNames = NULL) {
     ok <- validate(
         hasRownames(object),
         hasColnames(object),
@@ -93,11 +93,16 @@
         allAreMatchingRegex(
             x = colnames(object),
             pattern = "^ACH_[0-9]{6}$"
-        ),
-        isSubset(assayNames, assayNames(object))
+        )
     )
     if (!isTRUE(ok)) {
         return(ok)
+    }
+    if (!is.null(assayNames)) {
+        ok <- validate(isSubset(assayNames, assayNames(object)))
+        if (!isTRUE(ok)) {
+            return(ok)
+        }
     }
     ok <- validateClasses(
         object = rowData(object),
@@ -513,6 +518,6 @@ setClass(
 setValidity(
     Class = "DepMapExpression",
     method = function(object) {
-        .validateSE(object, assayNames = "normalized")
+        .validateSE(object)
     }
 )
