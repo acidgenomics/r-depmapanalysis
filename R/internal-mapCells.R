@@ -1,7 +1,5 @@
 ## NOTE Consider reworking using pool approach from Cellosaurus package.
 
-## FIXME We need to improve this by splitting the "alias" column into CharacterList.
-## FIXME Doing it here, but we should pre-process the colData instead.
 ## FIXME Add support for ccleName metadata input.
 ## FIXME We may want this to simply return the position rather than the colname.
 
@@ -19,12 +17,7 @@
         isCharacter(cells)
     )
     colData <- colData(object)
-    if (is.character(colData[["alias"]])) {
-        x <- colData[["alias"]]
-        x <- strsplit(x = x, split = ", ", fixed = TRUE)
-        x <- CharacterList(x)
-        colData[["alias"]] <- x
-    }
+    ## FIXME Return NA and then error at the end in this case...
     idx <- vapply(
         X = cells,
         object = colData,
@@ -68,11 +61,24 @@
                     return(idx)
                 }
             }
-            abort(sprintf("Failed to map cell: {.val %s}.", x))
+            NA_integer_
         },
         FUN.VALUE = integer(1L),
         USE.NAMES = TRUE
     )
+    if (anyNA(idx)) {
+        fail <- names(idx)[is.na(idx)]
+        abort(sprintf(
+            "Failed to map %d %s: %s.",
+            length(fail),
+            ngettext(
+                n = length(fail),
+                msg1 = "cell",
+                msg2 = "cells"
+            ),
+            toInlineString(fail)
+        ))
+    }
     out <- colnames(object)[idx]
     names(out) <- names(idx)
     out
