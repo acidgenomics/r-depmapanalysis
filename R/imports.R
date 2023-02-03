@@ -8,8 +8,8 @@ NULL
 
 ## S4 generics and methods =====================================================
 
-#' @importFrom AcidGenerics camelCase droplevels2 encode factorize leftJoin
-#' makeDimnames makeNames mapGenesToRownames melt showHeader
+#' @importFrom AcidGenerics autopadZeros camelCase droplevels2 encode factorize
+#' leftJoin makeDimnames makeNames mapGenesToRownames melt showHeader
 #' @importFrom BiocGenerics %in% do.call lapply mean order rbind t which
 #' @importFrom IRanges median
 #' @importFrom S4Vectors complete.cases decode head mcols metadata metadata<-
@@ -22,7 +22,7 @@ NULL
 #' @importMethodsFrom AcidExperiment droplevels2 mapGenesToRownames melt
 #' @importMethodsFrom AcidPlyr leftJoin melt
 #' @importMethodsFrom pipette factorize import
-#' @importMethodsFrom syntactic camelCase makeDimnames makeNames
+#' @importMethodsFrom syntactic autopadZeros camelCase makeDimnames makeNames
 NULL
 
 

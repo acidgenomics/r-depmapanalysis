@@ -13,8 +13,36 @@ DepMapProteomics()
 Import DepMap proteomics data
 }
 \note{
-Updated 2023-01-27.
+Updated 2023-02-03.
 }
+\section{Nusinow et al. 2020 (Gygi lab) dataset}{
+
+
+Citation:
+https://doi.org/10.1016/j.cell.2019.12.023
+\itemize{
+\item \href{https://gygi.hms.harvard.edu/data/ccle/Table_S1_Sample_Information.xlsx}{Table_S1_Sample_Information.xlsx}
+\item \href{https://gygi.hms.harvard.edu/data/ccle/Table_S2_Protein_Quant_Normalized.xlsx}{Table_S2_Protein_Quant_Normalized.xlsx}
+\item \href{https://gygi.hms.harvard.edu/data/ccle/Table_S3_Biological_Replicates_Protein_Quant_Normalized.xlsx}{Table_S3_Biological_Replicates_Protein_Quant_Normalized.xlsx}
+\item \href{https://gygi.hms.harvard.edu/data/ccle/Table_S4_Protein_RNA_Correlation_and_Enrichments.xlsx}{Table_S4_Protein_RNA_Correlation_and_Enrichments.xlsx}
+\item \href{https://gygi.hms.harvard.edu/data/ccle/Table_S5_PCA_PC1_Enriched_Gene_Sets.xlsx}{Table_S5_PCA_PC1_Enriched_Gene_Sets.xlsx}
+\item \href{https://gygi.hms.harvard.edu/data/ccle/Table_S6_Correlation_Network_Solid_Organ_Lineages.xlsx}{Table_S6_Correlation_Network_Solid_Organ_Lineages.xlsx}
+\item \href{https://gygi.hms.harvard.edu/data/ccle/Table_S7_Mutation_Associations.xlsx}{Table_S7_Mutation_Associations.xlsx}
+\item \href{https://gygi.hms.harvard.edu/data/ccle/protein_quant_current_normalized.csv.gz}{protein_quant_current_normalized.csv.gz}
+}
+}
+
+\section{UniProt}{
+
+
+Note that \code{"sp"} for UniProtKB/Swiss-Prot and \code{"tr"} for UniProtKB/TrEMBL.
+
+See also:
+\itemize{
+\item https://www.uniprot.org/help/fasta-headers
+}
+}
+
 \seealso{
 \itemize{
 \item https://depmap.org/portal/download/all/?releasename=Proteomics

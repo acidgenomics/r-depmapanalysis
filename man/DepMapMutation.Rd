@@ -17,7 +17,7 @@ Dataset name.}
 Import DepMap mutation data
 }
 \note{
-Updated 2023-01-27.
+Updated 2023-02-03.
 }
 \examples{
 object <- DepMapMutation()
