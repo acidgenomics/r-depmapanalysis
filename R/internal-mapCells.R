@@ -1,7 +1,7 @@
-## FIXME Consider reworking using "pool" approach from Cellosaurus package.
-## FIXME We need to improve this by splitting the "alias" column into CharacterList
+## NOTE Consider reworking using pool approach from Cellosaurus package.
+
+## FIXME We need to improve this by splitting the "alias" column into CharacterList.
 ## FIXME Doing it here, but we should pre-process the colData instead.
-## FIXME Can simplify this to no longer use libraryType, after we updated the DEMETER2 RNAi processing.
 ## FIXME Add support for ccleName metadata input.
 ## FIXME We may want this to simply return the position rather than the colname.
 
@@ -18,7 +18,6 @@
         hasRownames(object),
         isCharacter(cells)
     )
-    libraryType <- metadata(object)[["libraryType"]]
     colData <- colData(object)
     if (is.character(colData[["alias"]])) {
         x <- colData[["alias"]]
@@ -29,8 +28,7 @@
     idx <- vapply(
         X = cells,
         object = colData,
-        libraryType = libraryType,
-        FUN = function(x, object, libraryType) {
+        FUN = function(x, object) {
             idx <- match(x = x, table = rownames(object))
             if (isInt(idx)) {
                 return(idx)
