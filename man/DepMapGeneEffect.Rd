@@ -36,6 +36,6 @@ depletion effect using \code{gene_effect}.
 object <- DepMapGeneEffect()
 print(object)
 
-## RNAi.
+## RNAi (DEMETER2).
 ## > object <- DepMapGeneEffect(dataset = "demeter2_data_v6")
 }

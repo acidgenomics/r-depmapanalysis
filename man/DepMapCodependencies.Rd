@@ -2,15 +2,12 @@
 % Please edit documentation in R/AllGenerics.R, R/DepMapCodependencies-methods.R
 \name{DepMapCodependencies}
 \alias{DepMapCodependencies}
-\alias{DepMapCodependencies,DepMapGeneEffect}
 \alias{DepMapCodependencies,DepMapGeneEffect-method}
 \title{Calculate co-dependency scores}
 \usage{
 DepMapCodependencies(object, ...)
 
-`DepMapCodependencies,DepMapGeneEffect`(object, gene1, gene2 = NULL, ...)
-
-\S4method{DepMapCodependencies}{DepMapGeneEffect}(object, gene1, gene2 = NULL, ...)
+\S4method{DepMapCodependencies}{DepMapGeneEffect}(object, gene1, gene2 = NULL)
 }
 \arguments{
 \item{geneName1}{\code{character(1)}.
@@ -27,36 +24,33 @@ If \code{NULL}, calculate correlations against all genes.}
 Calculate co-dependency scores
 }
 \note{
-Updated 2023-01-27.
+Updated 2023-02-03.
 }
 \examples{
 data(crispr)
 
 ## DepMapGeneEffect ====
 object <- crispr
-
-geneNames <- as.character(rowData(object)[["geneName"]])
-geneName1 <- geneNames[[1L]]
-geneName2 <- geneNames[[2L]]
-
+genes <- as.character(rowData(object)[["geneName"]])
+gene1 <- genes[[1L]]
+gene2 <- genes[[2L]]
+print(c(gene1, gene2))
 ## Calculate all co-dependencies for a gene of interest.
 x <- DepMapCodependencies(
     object = object,
-    geneName1 = geneName1,
-    geneName2 = NULL
+    gene1 = 1,
+    gene2 = NULL
 )
 print(head(x))
-
 ## Lineage restrict and compare 2 genes.
 diseases <- as.character(colData(object)[["cellosaurusNcItDisease"]])
 disease <- diseases[[1L]]
 keep <- colData(object)[["cellosaurusNcItDisease"]] \%in\% disease
-object <- object[, keep]
+object2 <- object[, keep]
 x <- DepMapCodependencies(
-    object = object,
-    geneName1 = geneName1,
-    geneName2 = geneName2,
-    lineage = "pancreas"
+    object = object2,
+    gene1 = gene1,
+    gene2 = gene2
 )
 print(x)
 }
