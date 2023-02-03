@@ -43,7 +43,14 @@ DepMapProteomics <- function() {
     url <- pasteURL(baseUrl, "table-s2-protein-quant-normalized.csv")
     ## This step can fail when using readr engine without increasing default
     ## `VROOM_CONNECTION_SIZE`. Using data.table here instead to avoid.
-    assay <- import(con = .cacheURL(url), engine = "data.table")
+    df <- import(con = .cacheURL(url), engine = "data.table")
+    keep <- !grepl(pattern = "^TenPx[0-9]{2}_Peptides$", x = colnames(df))
+    df <- df[, keep]
+    keep <- !grepl(pattern = "^Column[0-9]+$", x = colnames(df))
+    df <- df[, keep]
+    assayCols <- grepl(pattern = "_TenPx[0-9]+$", x = colnames(df))
+    assay <- df[, assayCols]
+    rowData <- df[, setdiff(colnames(df), colnames(assay))]
     ## Peptide fragments are annotated as "tr", which we are dropping here.
     ## > keep <- grepl(pattern = "^sp\\|", x = assay[["Protein_Id"]])
     ## > assay <- assay[keep, , drop = FALSE]
