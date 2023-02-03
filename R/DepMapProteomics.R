@@ -70,7 +70,7 @@ DepMapProteomics <- function() {
         isSubset(c("Gene_Symbol", "Uniprot_Acc"), colnames(df)),
         hasNoDuplicates(df[["Uniprot_Acc"]])
     )
-    rownames(df) <- df[["Uniprot_Acc"]]
+    rownames(df) <- makeNames(df[["Uniprot_Acc"]])
     keepRows <- !is.na(df[["Gene_Symbol"]])
     df <- df[keepRows, , drop = FALSE]
     keepCols <- !grepl(pattern = "^TenPx[0-9]{2}_Peptides$", x = colnames(df))
