@@ -35,6 +35,24 @@ DepMapProteomics <- function() {
 
 
 
+
+
+
+#' Import the Goncalves et al 2022 proteomics dataset
+#'
+#' @note Updated 2023-02-03.
+#' @noRd
+#'
+#' @seealso
+#' - https://doi.org/10.1016/j.ccell.2022.06.010
+#' - https://cellmodelpassports.sanger.ac.uk/downloads
+#' - https://depmap.sanger.ac.uk/documentation/datasets/proteomics/
+.importGoncalves2022() <- function() {
+    stop("FIXME Working on this.")
+}
+
+
+
 #' Import the Nusinow et al 2020 proteomics dataset
 #'
 #' @note Updated 2023-02-03.
@@ -44,6 +62,10 @@ DepMapProteomics <- function() {
 #' We've observed connection issues with the Gygy lab website at
 #' `"https://gygi.hms.harvard.edu/publications/ccle.html"`, so caching a copy
 #' for our pacakge instead.
+#'
+#' @seealso
+#' - https://doi.org/10.1016/j.cell.2019.12.023
+#' - https://gygi.hms.harvard.edu/publications/ccle.html
 .importNusinow2020 <- function() {
     baseUrl <- pasteURL(.extdataUrl, "proteomics", "nusinow-2020")
     url <- pasteURL(baseUrl, "table-s1-sample-information.csv")
