@@ -1,3 +1,7 @@
+## FIXME Consider standardizing "uniprotId" or "peptideId" between these datasets.
+
+
+
 #' Import DepMap proteomics data
 #'
 #' @export
@@ -29,12 +33,15 @@
 #' @seealso
 #' - https://depmap.org/portal/download/all/?releasename=Proteomics
 #' - https://gygi.hms.harvard.edu/publications/ccle.html
-DepMapProteomics <- function() {
-    .importNusinow2020()
-}
-
-
-
+DepMapProteomics <-  # nolint
+    function(dataset = c("goncalves_2022", "nusinow_2020")) {
+        .fun <- switch(
+            EXPR = match.arg(dataset),
+            "goncalves_2022" = .importGoncalves2020,
+            "nusinow_2020" = .importNusinow2020
+        )
+        .fun()
+    }
 
 
 
@@ -47,8 +54,49 @@ DepMapProteomics <- function() {
 #' - https://doi.org/10.1016/j.ccell.2022.06.010
 #' - https://cellmodelpassports.sanger.ac.uk/downloads
 #' - https://depmap.sanger.ac.uk/documentation/datasets/proteomics/
-.importGoncalves2022() <- function() {
-    stop("FIXME Working on this.")
+.importGoncalves2022 <- function() {
+    baseUrl <- pasteURL(.extdataUrl, "proteomics", "goncalves-2022")
+    date <- "20221214"
+    assayUrls <- c(
+        "log2" = pasteURL(
+            baseUrl, date,
+            paste0("protein-matrix-averaged-", date, ".tsv")
+        ),
+        "zscore" = pasteURL(
+            baseUrl, date,
+            paste0("protein-matrix-averaged-zscore-", date, ".tsv")
+        )
+    )
+
+    ## FIXME Work on preparing this as a function.
+
+    ## Formatted as cells (rows) x peptides (columns).
+    .importAssay <- function(url) {
+        con <- .cacheURL(url)
+        df <- import(
+            con = .cacheURL(url),
+            colnames = FALSE,
+            skip = 3L
+        )
+        assert(identical(df[1L, 1L], "22RV1"))
+        headers <- import(
+            con = con,
+            format = "lines",
+            nMax = 2L,
+            quiet = TRUE
+        )
+        headers <- strsplit(headers, split = "\t", fixed = TRUE)
+        ## We'll construct the rowData (peptides) with these.
+        rowData <- DataFrame(
+            "uniprotId" <- headers[[1L]][3L:length(headers[[1L]])],
+            "geneName" <- headers[[2L]][3L:length(headers[[2L]])]
+        )
+    }
+
+
+
+
+
 }
 
 

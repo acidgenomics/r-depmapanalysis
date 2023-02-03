@@ -4,7 +4,7 @@
 \alias{DepMapProteomics}
 \title{Import DepMap proteomics data}
 \usage{
-DepMapProteomics()
+DepMapProteomics(dataset = c("goncalves_2022", "nusinow_2020"))
 }
 \value{
 \code{DepMapProteomics}.
