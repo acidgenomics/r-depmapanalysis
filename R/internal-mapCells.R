@@ -1,8 +1,3 @@
-## NOTE Consider reworking using pool approach from Cellosaurus package.
-
-## FIXME Add support for ccleName metadata input.
-## FIXME We may want this to simply return the position rather than the colname.
-
 #' Map cell name input to column names
 #'
 #' @note Updated 2023-01-26.
