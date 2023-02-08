@@ -17,7 +17,8 @@ NULL
 #' @importFrom SummarizedExperiment assay assayNames colData colData<- rowData
 #' @importFrom methods show
 #' @importFrom pipette import
-#'
+NULL
+
 #' @importMethodsFrom AcidBase showHeader
 #' @importMethodsFrom AcidExperiment droplevels2 mapGenesToRownames melt
 #' @importMethodsFrom AcidPlyr leftJoin melt
@@ -36,7 +37,7 @@ NULL
 
 ## Standard functions ==========================================================
 
-#' @importFrom AcidBase pasteURL requireNamespaces showSlotInfo
+#' @importFrom AcidBase pasteURL showSlotInfo
 #' @importFrom AcidCLI abort alert alertInfo alertWarning dl h1 toInlineString
 #' @importFrom AcidExperiment makeSummarizedExperiment
 #' @importFrom AcidGenomes EntrezGeneInfo emptyRanges geneSynonyms
@@ -48,7 +49,7 @@ NULL
 #' @importFrom goalie allAreMatchingRegex allAreURLs areIntersectingSets
 #' areSetEqual assert bapply hasColnames hasDuplicates hasLength hasNoDuplicates
 #' hasRownames isAFile isAURL isCharacter isFlag isInt isInstalled isPositive
-#' isScalar isString isSubset validate validateClasses
+#' isScalar isString isSubset requireNamespaces validate validateClasses
 #' @importFrom methods as is new setClass setValidity validObject
 #' @importFrom pipette cacheURL
 #' @importFrom stringi stri_match_first_regex
