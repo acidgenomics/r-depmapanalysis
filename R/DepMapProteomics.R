@@ -1,7 +1,7 @@
 #' Import DepMap proteomics data
 #'
 #' @export
-#' @note Updated 2023-02-03.
+#' @note Updated 2023-02-28.
 #'
 #' @section Nusinow et al. 2020 (Gygi lab) dataset:
 #'
@@ -101,12 +101,15 @@ DepMapProteomics <-  # nolint
         "packageName" = .pkgName,
         "packageVersion" = .pkgVersion
     )
+    ## FIXME We need to add richer colData and rowData here.
+    ## We need to get current DepMap metadata.
     se <- makeSummarizedExperiment(
         assays = assays,
         rowData = rowData,
         colData = colData,
         metadata = metadata
     )
+    se <- .standardizeGoncalves2022(se)
     new(Class = "DepMapProteomics", se)
 }
 
@@ -114,7 +117,7 @@ DepMapProteomics <-  # nolint
 
 #' Import the Nusinow et al 2020 proteomics dataset
 #'
-#' @note Updated 2023-02-03.
+#' @note Updated 2023-02-28.
 #' @noRd
 #'
 #' @details
@@ -165,11 +168,13 @@ DepMapProteomics <-  # nolint
     rowData <- df[, setdiff(colnames(df), colnames(assay))]
     rowData <- as(rowData, "DataFrame")
     colnames(rowData) <- camelCase(colnames(rowData), strict = TRUE)
+    colnames(rowData)[colnames(rowData) == "uniprotAcc"] <- "uniprotId"
+    colnames(rowData)[colnames(rowData) == "uniprot"] <- "uniprotName"
     assert(identical(
         sort(colnames(rowData)),
         c(
             "description", "geneSymbol", "groupId",
-            "proteinId", "uniprot", "uniprotAcc"
+            "proteinId", "uniprotId", "uniprotName"
         )
     ))
     assays <- list("normalized" = assay)
@@ -189,6 +194,45 @@ DepMapProteomics <-  # nolint
 }
 
 
+
+#' Standardize the Goncalvez et al 2022 proteomics dataset
+#'
+#' @note Updated 2023-02-28.
+#' @noRd
+.standardizeGoncalvez2022 <- function(object) {
+    assert(is(object, "SummarizedExperiment"))
+    currentDataset <- .formalsList[["dataset"]][[1L]]
+    alert(sprintf(
+        "Standardizing {.var %s} annotations to DepMap {.var %s}.",
+        "Goncalvez et al 2022",
+        currentDataset
+    ))
+    assert(isString(currentDataset))
+    rowData <- rowData(object)
+    colnames(rowData)[colnames(rowData) == "geneSymbol"] <- "geneName"
+    rowData(object) <- rowData
+    cd1 <- colData(object)
+    colnames(cd1)[colnames(cd1) == "ccleCode"] <- "ccleName"
+    cd1[["cellLine"]] <- NULL
+    cd1[["notes"]] <- NULL
+    cd1[["tissueOfOrigin"]] <- NULL
+    cd2 <- .importCellLineSampleData(dataset = currentDataset)
+    cd2 <- cd2[!is.na(cd2[["ccleName"]]), ]
+    cd <- leftJoin(x = cd1, y = cd2, by = "ccleName")
+    assert(!any(is.na(cd[["depmapId"]])))
+    cd <- cd[, sort(colnames(cd))]
+    colData(object) <- cd
+    colnames(object) <- makeNames(paste0(
+        cd[["depmapId"]], "_TENPX",
+        autopadZeros(cd[["protein10PlexId"]])
+    ))
+    object <- object[, sort(colnames(object))]
+    object
+}
+
+
+
+## FIXME Need to improve the rowData standardization here.
 
 #' Standardize the Nusinow et al 2020 proteomics dataset
 #'
