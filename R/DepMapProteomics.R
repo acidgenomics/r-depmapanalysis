@@ -89,7 +89,6 @@ DepMapProteomics <-  # nolint
             colData[["sangerModelId"]]
         )
         assays <- list(assay)
-        names(assays) <- basename(url)
         se <- SummarizedExperiment(
             assays = assays,
             rowData = rowData,
@@ -98,11 +97,21 @@ DepMapProteomics <-  # nolint
         se
     }
     seList <- lapply(X = assayUrls, FUN = .importAssay)
-
-
-
-
-
+    assays <- lapply(X = seList, FUN = assay)
+    rowData <- rowData(seList[[1L]])
+    colData <- colData(seList[[1L]])
+    metadata <- list(
+        "dataset" = "goncalves_2022",
+        "packageName" = .pkgName,
+        "packageVersion" = .pkgVersion
+    )
+    se <- makeSummarizedExperiment(
+        assays = assays,
+        rowData = rowData,
+        colData = colData,
+        metadata = metadata
+    )
+    new(Class = "DepMapProteomics", se)
 }
 
 
