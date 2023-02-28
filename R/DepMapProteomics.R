@@ -33,7 +33,7 @@ DepMapProteomics <-  # nolint
     function(dataset = c("goncalves_2022", "nusinow_2020")) {
         .fun <- switch(
             EXPR = match.arg(dataset),
-            "goncalves_2022" = .importGoncalves2020,
+            "goncalves_2022" = .importGoncalves2022,
             "nusinow_2020" = .importNusinow2020
         )
         .fun()
