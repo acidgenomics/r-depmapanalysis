@@ -1,7 +1,3 @@
-## FIXME Consider standardizing "uniprotId" or "peptideId" between these datasets.
-
-
-
 #' Import DepMap proteomics data
 #'
 #' @export
@@ -193,8 +189,6 @@ DepMapProteomics <-  # nolint
 }
 
 
-
-## NOTE Consider moving this to the 'internal-SE.R' file.
 
 #' Standardize the Nusinow et al 2020 proteomics dataset
 #'
