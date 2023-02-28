@@ -47,7 +47,7 @@ DepMapProteomics <-  # nolint
 
 #' Import the Goncalves et al 2022 proteomics dataset
 #'
-#' @note Updated 2023-02-03.
+#' @note Updated 2023-02-28.
 #' @noRd
 #'
 #' @seealso
@@ -74,7 +74,7 @@ DepMapProteomics <-  # nolint
     .importAssay <- function(url) {
         con <- .cacheURL(url)
         df <- import(
-            con = .cacheURL(url),
+            con = con,
             colnames = FALSE,
             skip = 3L
         )
@@ -86,11 +86,12 @@ DepMapProteomics <-  # nolint
             quiet = TRUE
         )
         headers <- strsplit(headers, split = "\t", fixed = TRUE)
-        ## We'll construct the rowData (peptides) with these.
         rowData <- DataFrame(
-            "uniprotId" <- headers[[1L]][3L:length(headers[[1L]])],
-            "geneName" <- headers[[2L]][3L:length(headers[[2L]])]
+            "uniprotId" = headers[[1L]][3L:length(headers[[1L]])],
+            "geneName" = headers[[2L]][3L:length(headers[[2L]])]
         )
+        colData <- df[, c(1L:2L)]
+        colnames(colData) <- c("cellLineName", "sangerModelId")
     }
 
 
