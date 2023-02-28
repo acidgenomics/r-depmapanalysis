@@ -67,24 +67,11 @@ DepMapProteomics <-  # nolint
             paste0("protein-matrix-averaged-zscore-", date, ".tsv")
         )
     )
-
-    ## FIXME Work on preparing this as a function.
-
-    ## Formatted as cells (rows) x peptides (columns).
     .importAssay <- function(url) {
         con <- .cacheURL(url)
-        df <- import(
-            con = con,
-            colnames = FALSE,
-            skip = 3L
-        )
+        df <- import(con = con, colnames = FALSE, skip = 3L)
         assert(identical(df[1L, 1L], "22RV1"))
-        headers <- import(
-            con = con,
-            format = "lines",
-            nMax = 2L,
-            quiet = TRUE
-        )
+        headers <- import(con = con, format = "lines", nMax = 2L, quiet = TRUE)
         headers <- strsplit(headers, split = "\t", fixed = TRUE)
         rowData <- DataFrame(
             "uniprotId" = headers[[1L]][3L:length(headers[[1L]])],
@@ -92,7 +79,25 @@ DepMapProteomics <-  # nolint
         )
         colData <- df[, c(1L:2L)]
         colnames(colData) <- c("cellLineName", "sangerModelId")
+        assert(
+            hasNoDuplicates(rowData[["uniprotId"]]),
+            hasNoDuplicates(colData[["sangerModelId"]])
+        )
+        assay <- t(as.matrix(df[, -c(1L:2L)]))
+        dimnames(assay) <- list(
+            rowData[["uniprotId"]],
+            colData[["sangerModelId"]]
+        )
+        assays <- list(assay)
+        names(assays) <- basename(url)
+        se <- SummarizedExperiment(
+            assays = assays,
+            rowData = rowData,
+            colData = colData
+        )
+        se
     }
+    seList <- lapply(X = assayUrls, FUN = .importAssay)
 
 
 
