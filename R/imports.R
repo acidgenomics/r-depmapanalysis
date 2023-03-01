@@ -40,7 +40,7 @@ NULL
 #' @importFrom AcidBase pasteURL showSlotInfo
 #' @importFrom AcidCLI abort alert alertInfo alertWarning dl h1 toInlineString
 #' @importFrom AcidExperiment makeSummarizedExperiment
-#' @importFrom AcidGenomes EntrezGeneInfo HGNC emptyRanges geneSynonyms
+#' @importFrom AcidGenomes HGNC NcbiGeneInfo emptyRanges geneSynonyms
 #' @importFrom AcidPlots !! acid_geom_label_repel sym
 #' @importFrom IRanges CharacterList
 #' @importFrom S4Vectors DataFrame

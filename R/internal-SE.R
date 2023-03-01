@@ -69,13 +69,13 @@
         }
         ## Row data (gene annotations) -----------------------------------------
         retiredGenes <- character()
-        rowData <- EntrezGeneInfo(
+        rowData <- NcbiGeneInfo(
             organism = "Homo sapiens",
             taxonomicGroup = "Mammalia",
             cache = TRUE
         )
         assert(
-            is(rowData, "EntrezGeneInfo"),
+            is(rowData, "NcbiGeneInfo"),
             isSubset(c("geneId", "geneName"), colnames(rowData))
         )
         rowData <- as(rowData, "DataFrame")
