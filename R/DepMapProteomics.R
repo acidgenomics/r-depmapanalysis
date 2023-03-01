@@ -1,7 +1,7 @@
 #' Import DepMap proteomics data
 #'
 #' @export
-#' @note Updated 2023-02-28.
+#' @note Updated 2023-03-01.
 #'
 #' @section Nusinow et al. 2020 (Gygi lab) dataset:
 #'
@@ -43,7 +43,7 @@ DepMapProteomics <-  # nolint
 
 #' Import the Goncalves et al 2022 proteomics dataset
 #'
-#' @note Updated 2023-02-28.
+#' @note Updated 2023-03-01.
 #' @noRd
 #'
 #' @seealso
@@ -101,8 +101,6 @@ DepMapProteomics <-  # nolint
         "packageName" = .pkgName,
         "packageVersion" = .pkgVersion
     )
-    ## FIXME We need to add richer colData and rowData here.
-    ## We need to get current DepMap metadata.
     se <- makeSummarizedExperiment(
         assays = assays,
         rowData = rowData,
@@ -114,6 +112,8 @@ DepMapProteomics <-  # nolint
 }
 
 
+
+## FIXME Map to Cellosaurus ID instead.
 
 #' Import the Nusinow et al 2020 proteomics dataset
 #'
@@ -195,37 +195,38 @@ DepMapProteomics <-  # nolint
 
 
 
+## FIXME Use Sanger metadata and map to Cellosaurus ID.
+
 #' Standardize the Goncalvez et al 2022 proteomics dataset
 #'
-#' @note Updated 2023-02-28.
+#' @note Updated 2023-03-01.
 #' @noRd
 .standardizeGoncalvez2022 <- function(object) {
     assert(is(object, "SummarizedExperiment"))
     currentDataset <- .formalsList[["dataset"]][[1L]]
     alert(sprintf(
         "Standardizing {.var %s} annotations to DepMap {.var %s}.",
-        "Goncalvez et al 2022",
-        currentDataset
+        "goncalves_2022", currentDataset
     ))
     assert(isString(currentDataset))
+    ## FIXME Bind richer data using uniprotId matching.
     rowData <- rowData(object)
-    colnames(rowData)[colnames(rowData) == "geneSymbol"] <- "geneName"
-    rowData(object) <- rowData
     cd1 <- colData(object)
-    colnames(cd1)[colnames(cd1) == "ccleCode"] <- "ccleName"
-    cd1[["cellLine"]] <- NULL
-    cd1[["notes"]] <- NULL
-    cd1[["tissueOfOrigin"]] <- NULL
+    cd1[["cellLineName"]] <- NULL
     cd2 <- .importCellLineSampleData(dataset = currentDataset)
-    cd2 <- cd2[!is.na(cd2[["ccleName"]]), ]
-    cd <- leftJoin(x = cd1, y = cd2, by = "ccleName")
-    assert(!any(is.na(cd[["depmapId"]])))
+    cd2 <- cd2[!is.na(cd2[["sangerModelId"]]), ]
+    cd <- leftJoin(x = cd1, y = cd2, by = "sangerModelId")
+    ## FIXME Drop cells without a DepMapID
+    ## SIDM00114, SIDM00400
+    assert(
+        identical(cd[["sangerModelId"]], cd1[["sangerModelId"]]),
+        !any(is.na(cd[["depmapId"]]))
+    )
+
+    ## FIXME Error if we have any messing DepMapIDs...
+
     cd <- cd[, sort(colnames(cd))]
     colData(object) <- cd
-    colnames(object) <- makeNames(paste0(
-        cd[["depmapId"]], "_TENPX",
-        autopadZeros(cd[["protein10PlexId"]])
-    ))
     object <- object[, sort(colnames(object))]
     object
 }
@@ -236,19 +237,19 @@ DepMapProteomics <-  # nolint
 
 #' Standardize the Nusinow et al 2020 proteomics dataset
 #'
-#' @note Updated 2023-01-27.
+#' @note Updated 2023-03-01.
 #' @noRd
 .standardizeNusinow2020 <- function(object) {
     assert(is(object, "SummarizedExperiment"))
     currentDataset <- .formalsList[["dataset"]][[1L]]
     alert(sprintf(
         "Standardizing {.var %s} annotations to DepMap {.var %s}.",
-        "Nusinow et al 2020",
-        currentDataset
+        "nusinow_2020", currentDataset
     ))
     assert(isString(currentDataset))
     rowData <- rowData(object)
     colnames(rowData)[colnames(rowData) == "geneSymbol"] <- "geneName"
+    ## FIXME Ensure we have consistent gene metadata with `.uniprotToGene`.
     rowData(object) <- rowData
     cd1 <- colData(object)
     colnames(cd1)[colnames(cd1) == "ccleCode"] <- "ccleName"
@@ -258,7 +259,10 @@ DepMapProteomics <-  # nolint
     cd2 <- .importCellLineSampleData(dataset = currentDataset)
     cd2 <- cd2[!is.na(cd2[["ccleName"]]), ]
     cd <- leftJoin(x = cd1, y = cd2, by = "ccleName")
-    assert(!any(is.na(cd[["depmapId"]])))
+    assert(
+        identical(cd[["ccleName"]], cd1[["ccleName"]]),
+        !any(is.na(cd[["depmapId"]]))
+    )
     cd <- cd[, sort(colnames(cd))]
     colData(object) <- cd
     colnames(object) <- makeNames(paste0(

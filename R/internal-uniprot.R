@@ -1,16 +1,16 @@
-## FIXME A2A2Z9 maps to ANKRD18B but is failing here...argh.
-## Seems like the org.Hs.eg.db annotations are out of date / problematic.
-
-
-
 #' Import UniProtKB identifier mappings
 #'
 #' @note Updated 2023-02-28.
 #' @noRd
 #'
+#' @param ids `character`.
+#' UniProtKB accession identifiers.
+#'
 #' @seealso
 #' - https://support.bioconductor.org/p/71702/
 #' - https://support.bioconductor.org/p/9145991/
+#'
+#' @return `DataFrame`.
 .uniprotToGene <- function(ids) {
     assert(
         requireNamespaces("org.Hs.eg.db"),
@@ -50,10 +50,11 @@
         "geneName",
         "geneDescription"
     )
-    xxx <- leftJoin(
-        as(df, "DataFrame"),
-        as(map, "DataFrame"),
+    out <- leftJoin(
+        x = as(df, "DataFrame"),
+        y = as(map, "DataFrame"),
         by = "uniprotId2"
     )
-    xxx[["uniprotId2"]] <- NULL
+    out[["uniprotId2"]] <- NULL
+    out
 }
