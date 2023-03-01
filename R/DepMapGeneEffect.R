@@ -1,4 +1,5 @@
 ## FIXME Map cells to Cellosaurus ID instead.
+## FIXME Drop cell lines that aren't at cellosaurus.
 
 
 

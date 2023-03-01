@@ -196,6 +196,9 @@ DepMapProteomics <-  # nolint
 
 
 ## FIXME Use Sanger metadata and map to Cellosaurus ID.
+## FIXME Drop cell lines that aren't at cellosaurus.
+
+
 
 #' Standardize the Goncalvez et al 2022 proteomics dataset
 #'

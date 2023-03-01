@@ -1,3 +1,5 @@
+## FIXME Assert that cellosaurusID is not NA for any objects containing cells.
+
 ## FIXME Need to add DepMapProteomics
 ## FIXME Assert that no classes that extend SE contain any cellLineName
 ## with NA in colData.
