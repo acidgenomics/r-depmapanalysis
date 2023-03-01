@@ -223,14 +223,12 @@ DepMapProteomics <-  # nolint
     cd2 <- .importCellLineSampleData(dataset = currentDataset)
     cd2 <- cd2[!is.na(cd2[["sangerModelId"]]), ]
     cd <- leftJoin(x = cd1, y = cd2, by = "sangerModelId")
-    ## FIXME Drop cells without a cellosaurusId.
+    ## FIXME Drop cells without a cellosaurusId?
     assert(
         identical(cd[["sangerModelId"]], cd1[["sangerModelId"]]),
         !any(is.na(cd[["depmapId"]]))
     )
-
     ## FIXME Error if we have any messing DepMapIDs...
-
     cd <- cd[, sort(colnames(cd))]
     colData(object) <- cd
     object <- object[, sort(colnames(object))]
@@ -248,24 +246,86 @@ DepMapProteomics <-  # nolint
 .standardizeNusinow2020 <- function(object) {
     assert(is(object, "SummarizedExperiment"))
     currentDataset <- .formalsList[["dataset"]][[1L]]
+    assert(isString(currentDataset))
     alert(sprintf(
         "Standardizing {.var %s} annotations to DepMap {.var %s}.",
         "nusinow_2020", currentDataset
     ))
-    assert(isString(currentDataset))
-    ## FIXME Ensure we have consistent gene metadata with `.uniprotToGene`.
-    ## FIXME Need to ensure we have ensemblGeneId and entrezGeneId here.
-    ## [1] "description" "geneSymbol"  "groupId"     "proteinId"   "uniprotId"
-    ## [6] "uniprotName"
+    ## Row data ----------------------------------------------------------------
     rowData <- rowData(object)
     colnames(rowData)[
         colnames(rowData) == "description"] <- "proteinDescription"
     colnames(rowData)[
-        colnames(rowData) == "geneSymbol"] <- "geneNameFIXME"
-    uniprot <- .uniprotToGene(ids = as.character(rowData[["uniprotId"]]))
-    xxx <- leftJoin(rowData, uniprot, by = "uniprotId")
+        colnames(rowData) == "geneSymbol"] <- "geneName"
 
-    rowData(object) <- rowData
+    ## First, attempt to match by UniProtKB identifier.
+    uniprot <- .uniprotToGene(ids = as.character(rowData[["uniprotId"]]))
+    xxx <- rowData
+    xxx[["geneName"]] <- NULL
+    xxx <- leftJoin(x = xxx, y = uniprot, by = "uniprotId")
+    xxx <- xxx[!is.na(xxx[["geneName"]]), ]
+
+    yyy <- rowData
+    yyy <- yyy[setdiff(rownames(yyy), rownames(xxx)), ]
+    ## 486.
+    hgnc <- .hgnc()
+    yyy <- leftJoin(x = yyy, y = hgnc, by = "geneName")
+    yyy <- yyy[!is.na(yyy[["hgncId"]]), ]
+
+    zzz <- rowData
+    zzz <- zzz[setdiff(rownames(zzz), rownames(xxx)), ]
+    zzz <- zzz[setdiff(rownames(zzz), rownames(yyy)), ]
+
+
+    ## Manually handle these annoying ones.
+    ##  [1] "AIM1L"     "ATP5B"     "C10orf12"  "C12orf10"  "C2orf43"   "CARD17"
+    ##  [7] "CCDC58"    "CTAGE5"    "ECM29"     "EP400NL"   "FAM126A"   "FAM213B"
+    ## [13] "FAM21B"    "FLJ22184"  "GAGE3"     "GMCL1P1"   "GPR133"    "HDGFRP2"
+    ## [19] "INADL"     "KARS"      "L1RE1"     "MICALCL"   "MLLT4"     "MYLPF"
+    ## [25] "NACAP1"    "NAP1L4b"   "PPP2R4"    "RPS17L"    "SERPINA2P" "TMEM159"
+    ## [31] "TROVE2"    "UCC1"      "ZNF724P"   "ZNF812"
+
+
+    overrides <- switch(
+        EXPR = rowData[["geneName"]],
+        "AIM1L" = 17295L, # CRYBG2
+        "ATP5B" = 830L, # ATP5F1B
+        "C10orf12" = 29503L, # LCOR
+        "C12orf10" = 17590L, # MYG1
+        "C2orf43",
+        "CARD17",
+        "CCDC58",
+        "CTAGE5",
+        "ECM29",
+        "EP400NL",
+        "FAM126A",
+        "FAM213B",
+        "FAM21B",
+        "FLJ22184",
+        "GAGE3",
+        "GMCL1P1",
+        "GPR133",
+        "HDGFRP2",
+        "INADL",
+        "KARS",
+        "L1RE1",
+        "MICALCL",
+        "MLLT4",
+        "MYLPF",
+        "NACAP1",
+        "NAP1L4b",
+        "PPP2R4",
+        "RPS17L",
+        "SERPINA2P",
+        "TMEM159",
+        "TROVE2",
+        "UCC1",
+        "ZNF724P",
+        "ZNF812" = 33242L # ZNF812P
+    )
+
+
+    ## Column data -------------------------------------------------------------
     cd1 <- colData(object)
     colnames(cd1)[colnames(cd1) == "ccleCode"] <- "ccleName"
     cd1[["cellLine"]] <- NULL
