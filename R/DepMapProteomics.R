@@ -307,7 +307,6 @@ DepMapProteomics <-  # nolint
 
     ## FIXME Match against aliasSymbol.
 
-
     ## FIXME Here's how to return the difficult to match gene symbols.
     ## > vec <- sort(unique(decode(zzz[["geneName"]])))
     ## > hits <- lapply(
