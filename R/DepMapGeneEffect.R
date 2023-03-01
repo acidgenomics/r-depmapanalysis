@@ -1,5 +1,6 @@
 ## FIXME Map cells to Cellosaurus ID instead.
 ## FIXME Drop cell lines that aren't at cellosaurus.
+## FIXME Can we improve standardization of gene identifier column names?
 
 
 

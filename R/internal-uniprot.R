@@ -16,13 +16,13 @@
         requireNamespaces("org.Hs.eg.db"),
         isCharacter(ids)
     )
+    org <- org.Hs.eg.db::org.Hs.eg.db
     df <- data.frame(
         "uniprotId" = ids,
         "uniprotId2" = sub(pattern = "-.+$", replacement = "", x = ids)
     )
-    org <- org.Hs.eg.db::org.Hs.eg.db
     suppressMessages({
-        map <- select(
+        map <- AnnotationDbi::select(
             x = org,
             keys = unique(df[["uniprotId2"]]),
             columns = c(
@@ -34,7 +34,7 @@
             keytype = "UNIPROT"
         )
     })
-    map <- map[complete.cases(map), ]
+    map <- map[complete.cases(map), , drop = FALSE]
     idx <- order(
         map[["UNIPROT"]],
         as.integer(map[["ENTREZID"]]),
@@ -45,8 +45,8 @@
     map <- map[idx, ]
     colnames(map) <- c(
         "uniprotId2",
-        "entrezId",
-        "ensemblId",
+        "entrezGeneId",
+        "ensemblGeneId",
         "geneName",
         "geneDescription"
     )
@@ -55,6 +55,7 @@
         y = as(map, "DataFrame"),
         by = "uniprotId2"
     )
+    assert(identical(ids, out[["uniprotId"]]))
     out[["uniprotId2"]] <- NULL
     out
 }

@@ -44,6 +44,7 @@ Imports:
     methods,
     utils
 Suggests:
+    AnnotationDbi (>= 1.60.0),
     Cellosaurus (>= 0.5.2),
     data.table (>= 1.14.8),
     limma (>= 3.54.0),

@@ -253,9 +253,18 @@ DepMapProteomics <-  # nolint
         "nusinow_2020", currentDataset
     ))
     assert(isString(currentDataset))
-    rowData <- rowData(object)
-    colnames(rowData)[colnames(rowData) == "geneSymbol"] <- "geneName"
     ## FIXME Ensure we have consistent gene metadata with `.uniprotToGene`.
+    ## FIXME Need to ensure we have ensemblGeneId and entrezGeneId here.
+    ## [1] "description" "geneSymbol"  "groupId"     "proteinId"   "uniprotId"
+    ## [6] "uniprotName"
+    rowData <- rowData(object)
+    colnames(rowData)[
+        colnames(rowData) == "description"] <- "proteinDescription"
+    colnames(rowData)[
+        colnames(rowData) == "geneSymbol"] <- "geneNameFIXME"
+    uniprot <- .uniprotToGene(ids = as.character(rowData[["uniprotId"]]))
+    xxx <- leftJoin(rowData, uniprot, by = "uniprotId")
+
     rowData(object) <- rowData
     cd1 <- colData(object)
     colnames(cd1)[colnames(cd1) == "ccleCode"] <- "ccleName"
