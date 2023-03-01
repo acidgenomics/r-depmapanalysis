@@ -1,3 +1,7 @@
+## FIXME Can we take thie out in favor of just mapping by HGNC symbol name?
+
+
+
 #' Import UniProtKB identifier mappings
 #'
 #' @note Updated 2023-02-28.
