@@ -17,7 +17,7 @@
 #' - https://github.com/NCI-Thesaurus/thesaurus-obo-edition/
 #' - https://www.ebi.ac.uk/ols/ontologies/ncit
 #' - BiocOncoTK package
-.ncitMetadata <- function(cache = TRUE) {
+.ncitIdToName <- function(cache = TRUE) {
     assert(isFlag(cache))
     url <- pasteURL(
         "purl.obolibrary.org",
