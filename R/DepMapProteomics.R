@@ -198,8 +198,6 @@ DepMapProteomics <-  # nolint
 ## FIXME Use Sanger metadata and map to Cellosaurus ID.
 ## FIXME Drop cell lines that aren't at cellosaurus.
 
-
-
 #' Standardize the Goncalvez et al 2022 proteomics dataset
 #'
 #' @note Updated 2023-03-01.
@@ -216,11 +214,12 @@ DepMapProteomics <-  # nolint
     rowData <- rowData(object)
     cd1 <- colData(object)
     cd1[["cellLineName"]] <- NULL
+    ## FIXME Use sanger cell line metadata here instead.
+    ## FIXME Also consider dropping cell lines not in Broad DepMap here too.
     cd2 <- .importCellLineSampleData(dataset = currentDataset)
     cd2 <- cd2[!is.na(cd2[["sangerModelId"]]), ]
     cd <- leftJoin(x = cd1, y = cd2, by = "sangerModelId")
-    ## FIXME Drop cells without a DepMapID
-    ## SIDM00114, SIDM00400
+    ## FIXME Drop cells without a cellosaurusId.
     assert(
         identical(cd[["sangerModelId"]], cd1[["sangerModelId"]]),
         !any(is.na(cd[["depmapId"]]))
