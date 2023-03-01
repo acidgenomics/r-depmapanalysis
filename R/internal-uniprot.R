@@ -1,11 +1,6 @@
-## FIXME Can we take thie out in favor of just mapping by HGNC symbol name?
-## FIXME Rename "entrezId" to "ncbiGeneId"
-
-
-
 #' Import UniProtKB identifier mappings
 #'
-#' @note Updated 2023-02-28.
+#' @note Updated 2023-03-01.
 #' @noRd
 #'
 #' @param ids `character`.
@@ -50,7 +45,7 @@
     map <- map[idx, ]
     colnames(map) <- c(
         "uniprotId2",
-        "entrezGeneId",
+        "ncbiGeneId",
         "ensemblGeneId",
         "geneName",
         "geneDescription"

@@ -257,44 +257,86 @@ DepMapProteomics <-  # nolint
         colnames(rowData) == "description"] <- "proteinDescription"
     colnames(rowData)[
         colnames(rowData) == "geneSymbol"] <- "geneName"
+    hgnc <- .hgnc()
+    uniprot <- .uniprotToGene(ids = as.character(rowData[["uniprotId"]]))
 
     ## First, attempt to match by UniProtKB identifier.
-    uniprot <- .uniprotToGene(ids = as.character(rowData[["uniprotId"]]))
+    mapped <- DataFrame()
+
     xxx <- rowData
     xxx[["geneName"]] <- NULL
     xxx <- leftJoin(x = xxx, y = uniprot, by = "uniprotId")
     xxx <- xxx[!is.na(xxx[["geneName"]]), ]
+    mapped <- rbind(mapped, xxx)
 
     yyy <- rowData
-    yyy <- yyy[setdiff(rownames(yyy), rownames(xxx)), ]
-    ## 486.
-    hgnc <- .hgnc()
-    yyy <- leftJoin(x = yyy, y = hgnc, by = "geneName")
-    yyy <- yyy[!is.na(yyy[["hgncId"]]), ]
+    yyy <- yyy[setdiff(rownames(yyy), rownames(mapped)), , drop = FALSE]
+    hgnc2 <- hgnc[
+        ,
+        c(
+            "hgncId",
+            "geneName",
+            "geneDescription",
+            "ensemblGeneId",
+            "ncbiGeneId"
+        )
+    ]
+    yyy <- leftJoin(x = yyy, y = hgnc2, by = "geneName")
+    yyy <- yyy[!is.na(yyy[["hgncId"]]), , drop = FALSE]
+    yyy[["hgncId"]] <- NULL
+    mapped <- rbind(mapped, yyy)
 
     zzz <- rowData
-    zzz <- zzz[setdiff(rownames(zzz), rownames(xxx)), ]
-    zzz <- zzz[setdiff(rownames(zzz), rownames(yyy)), ]
+    zzz <- zzz[setdiff(rownames(zzz), rownames(mapped)), , drop = FALSE]
+    hgnc2 <- hgnc[
+        ,
+        c(
+            "hgncId",
+            "prevSymbol",
+            "geneName",
+            "geneDescription",
+            "ensemblGeneId",
+            "ncbiGeneId"
+        )
+    ]
+
+    ## FIXME How to efficiently match in CharacterList???
+    vec <- decode(zzz[["geneName"]])
+    match(x = vec, table = hgnc2[["prevSymbol"]])
+    decode(zzz[["geneName"]]) %in% hgnc2[["prevSymbol"]]
+
+    ## FIXME Match against aliasSymbol.
 
 
-    ## Manually handle these annoying ones.
-    ##  [1] "AIM1L"     "ATP5B"     "C10orf12"  "C12orf10"  "C2orf43"   "CARD17"
-    ##  [7] "CCDC58"    "CTAGE5"    "ECM29"     "EP400NL"   "FAM126A"   "FAM213B"
-    ## [13] "FAM21B"    "FLJ22184"  "GAGE3"     "GMCL1P1"   "GPR133"    "HDGFRP2"
-    ## [19] "INADL"     "KARS"      "L1RE1"     "MICALCL"   "MLLT4"     "MYLPF"
-    ## [25] "NACAP1"    "NAP1L4b"   "PPP2R4"    "RPS17L"    "SERPINA2P" "TMEM159"
-    ## [31] "TROVE2"    "UCC1"      "ZNF724P"   "ZNF812"
+    ## FIXME Here's how to return the difficult to match gene symbols.
+    ## > vec <- sort(unique(decode(zzz[["geneName"]])))
+    ## > hits <- lapply(
+    ## >     X = vec,
+    ## >     prevSymbol = hgnc2[["prevSymbol"]],
+    ## >     FUN = function(x, prevSymbol) {
+    ## >         idx <- which(bapply(
+    ## >             X = prevSymbol,
+    ## >             FUN = function(table) {
+    ## >                 x %in% table
+    ## >             }
+    ## >         ))
+    ## >         if (length(idx) == 0L) {
+    ## >             return(NULL)
+    ## >         }
+    ## >         hgnc2[["hgncId"]][[idx]]
+    ## >     }
+    ## > )
+    ## > names(hits) <- vec
 
-
-    overrides <- switch(
+    hgncOverrides <- switch(
         EXPR = rowData[["geneName"]],
-        "AIM1L" = 17295L, # CRYBG2
-        "ATP5B" = 830L, # ATP5F1B
-        "C10orf12" = 29503L, # LCOR
-        "C12orf10" = 17590L, # MYG1
-        "C2orf43",
-        "CARD17",
-        "CCDC58",
+        "AIM1L" = 17295L,
+        "ATP5B" = 830L,
+        "C10orf12" = 29503L,
+        "C12orf10" = 17590L,
+        "C2orf43" = 26145L,
+        "CARD17" = 33827L,
+        "CCDC58" = 31136L,
         "CTAGE5",
         "ECM29",
         "EP400NL",
@@ -320,10 +362,9 @@ DepMapProteomics <-  # nolint
         "TMEM159",
         "TROVE2",
         "UCC1",
-        "ZNF724P",
-        "ZNF812" = 33242L # ZNF812P
+        "ZNF724P" = 32460L,
+        "ZNF812" = 33242L
     )
-
 
     ## Column data -------------------------------------------------------------
     cd1 <- colData(object)
