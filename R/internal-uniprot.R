@@ -1,4 +1,5 @@
 ## FIXME Can we take thie out in favor of just mapping by HGNC symbol name?
+## FIXME Rename "entrezId" to "ncbiGeneId"
 
 
 
