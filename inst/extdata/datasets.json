@@ -60,52 +60,54 @@
   "depmap_public_22q2": {
     "metadata": {
       "date": "2022-05",
+      "figshare_download_url": "https://figshare.com/ndownloader/articles/19700056/versions/2",
+      "figshare_url": "https://figshare.com/articles/dataset/DepMap_22Q2_Public/19700056",
       "library_type": "crispr",
       "scoring_method": "chronos"
     },
     "files": {
-      "Achilles_cell_line_efficacy.csv"
-      "Achilles_cell_line_growth_rate.csv"
-      "Achilles_common_essentials.csv"
-      "Achilles_dropped_guides.csv"
-      "Achilles_gene_dependency.csv"
-      "Achilles_gene_effect.csv"
-      "Achilles_gene_effect_uncorrected.csv"
-      "Achilles_guide_efficacy.csv"
-      "Achilles_guide_map.csv"
-      "Achilles_high_variance_genes.csv"
-      "Achilles_logfold_change.csv"
-      "Achilles_logfold_change_failures.csv"
-      "Achilles_metadata.csv"
-      "Achilles_raw_readcounts.csv"
-      "Achilles_raw_readcounts_failures.csv"
-      "Achilles_replicate_QC_report_failing.csv"
-      "Achilles_replicate_map.csv"
-      "CCLE_RNAseq_reads.csv"
-      "CCLE_RNAseq_transcripts.csv"
-      "CCLE_expression.csv"
-      "CCLE_expression_full.csv"
-      "CCLE_expression_proteincoding_genes_expected_count.csv"
-      "CCLE_expression_transcripts_expected_count.csv"
-      "CCLE_fusions.csv"
-      "CCLE_fusions_unfiltered.csv"
-      "CCLE_gene_cn.csv"
-      "CCLE_mutations.csv"
-      "CCLE_mutations_bool_damaging.csv"
-      "CCLE_mutations_bool_hotspot.csv"
-      "CCLE_mutations_bool_nonconserving.csv"
-      "CCLE_mutations_bool_otherconserving.csv"
-      "CCLE_segment_cn.csv"
-      "CCLE_wes_gene_cn.csv"
-      "CCLE_wes_segment_cn.csv"
-      "CRISPR_common_essentials.csv"
-      "CRISPR_dataset_sources.csv"
-      "CRISPR_gene_dependency.csv"
-      "CRISPR_gene_effect.csv"
-      "README.txt"
-      "common_essentials.csv"
-      "nonessentials.csv"
-      "sample_info.csv"
+      "Achilles_cell_line_efficacy.csv": "https://figshare.com/ndownloader/files/34989865",
+      "Achilles_cell_line_growth_rate.csv": "https://figshare.com/ndownloader/files/34989868",
+      "Achilles_common_essentials.csv": "https://figshare.com/ndownloader/files/34989871",
+      "Achilles_dropped_guides.csv": "https://figshare.com/ndownloader/files/34989874",
+      "Achilles_gene_dependency.csv": "https://figshare.com/ndownloader/files/34989886",
+      "Achilles_gene_effect.csv": "https://figshare.com/ndownloader/files/34989889",
+      "Achilles_gene_effect_uncorrected.csv": "https://figshare.com/ndownloader/files/34989892",
+      "Achilles_guide_efficacy.csv": "https://figshare.com/ndownloader/files/34989877",
+      "Achilles_guide_map.csv": "https://figshare.com/ndownloader/files/34989880",
+      "Achilles_high_variance_genes.csv": "https://figshare.com/ndownloader/files/34989883",
+      "Achilles_logfold_change.csv": "https://figshare.com/ndownloader/files/34989955",
+      "Achilles_logfold_change_failures.csv": "https://figshare.com/ndownloader/files/34989895",
+      "Achilles_metadata.csv": "https://figshare.com/ndownloader/files/34989901",
+      "Achilles_raw_readcounts.csv": "https://figshare.com/ndownloader/files/34989904",
+      "Achilles_raw_readcounts_failures.csv": "https://figshare.com/ndownloader/files/34989910",
+      "Achilles_replicate_QC_report_failing.csv": "https://figshare.com/ndownloader/files/34989916",
+      "Achilles_replicate_map.csv": "https://figshare.com/ndownloader/files/34989913",
+      "CCLE_RNAseq_reads.csv": "https://figshare.com/ndownloader/files/34989958",
+      "CCLE_RNAseq_transcripts.csv": "https://figshare.com/ndownloader/files/34990048",
+      "CCLE_expression.csv": "https://figshare.com/ndownloader/files/34989919",
+      "CCLE_expression_full.csv": "https://figshare.com/ndownloader/files/34989922",
+      "CCLE_expression_proteincoding_genes_expected_count.csv": "https://figshare.com/ndownloader/files/34989928",
+      "CCLE_expression_transcripts_expected_count.csv": "https://figshare.com/ndownloader/files/34989985",
+      "CCLE_fusions.csv": "https://figshare.com/ndownloader/files/34989931",
+      "CCLE_fusions_unfiltered.csv": "https://figshare.com/ndownloader/files/34989934",
+      "CCLE_gene_cn.csv": "https://figshare.com/ndownloader/files/34989937",
+      "CCLE_mutations.csv": "https://figshare.com/ndownloader/files/34989940",
+      "CCLE_mutations_bool_damaging.csv": "https://figshare.com/ndownloader/files/34989943",
+      "CCLE_mutations_bool_hotspot.csv": "https://figshare.com/ndownloader/files/34989946",
+      "CCLE_mutations_bool_nonconserving.csv": "https://figshare.com/ndownloader/files/34989949",
+      "CCLE_mutations_bool_otherconserving.csv": "https://figshare.com/ndownloader/files/34989952",
+      "CCLE_segment_cn.csv": "https://figshare.com/ndownloader/files/34989970",
+      "CCLE_wes_gene_cn.csv": "https://figshare.com/ndownloader/files/34990018",
+      "CCLE_wes_segment_cn.csv": "https://figshare.com/ndownloader/files/34990021",
+      "CRISPR_common_essentials.csv": "https://figshare.com/ndownloader/files/34990027",
+      "CRISPR_dataset_sources.csv": "https://figshare.com/ndownloader/files/34990030",
+      "CRISPR_gene_dependency.csv": "https://figshare.com/ndownloader/files/34990033",
+      "CRISPR_gene_effect.csv": "https://figshare.com/ndownloader/files/34990036",
+      "README.txt": "https://figshare.com/ndownloader/files/34990054",
+      "common_essentials.csv": "https://figshare.com/ndownloader/files/34990024",
+      "nonessentials.csv": "https://figshare.com/ndownloader/files/34990051",
+      "sample_info.csv": "https://figshare.com/ndownloader/files/35020903"
     }
   },
   "demeter2_data_v6": {
@@ -116,83 +118,60 @@
       "transpose_assays": false
     },
     "files": {
-      "Ach_hp_quality_metrics.csv"
-      "CCLE_mutation_data.csv"
-      "D2_Achilles_CL_data.csv"
-      "D2_Achilles_gene_dep_score_SDs.csv"
-      "D2_Achilles_gene_dep_scores.csv"
-      "D2_Achilles_hp_data.csv"
-      "D2_Achilles_seed_dep_score_SDs.csv"
-      "D2_Achilles_seed_dep_scores.csv"
-      "D2_DRIVE_CL_data.csv"
-      "D2_DRIVE_gene_dep_score_SDs.csv"
-      "D2_DRIVE_gene_dep_scores.csv"
-      "D2_DRIVE_hp_data.csv"
-      "D2_DRIVE_seed_dep_score_SDs.csv"
-      "D2_DRIVE_seed_dep_scores.csv"
-      "D2_combined_CL_data.csv"
-      "D2_combined_gene_dep_score_SDs.csv"
-      "D2_combined_gene_dep_scores.csv"
-      "D2_combined_hp_data.csv"
-      "D2_combined_seed_dep_score_SDs.csv"
-      "D2_combined_seed_dep_scores.csv"
-      "DRIVE_hp_quality_metrics.csv"
-      "Hart-neg-controls.csv"
-      "Hart-pos-controls.csv"
-      "Marcotte_LFC_matrix.csv"
-      "README.txt"
-      "RNAseq_lRPKM_data.csv"
-      "WES_SNP_CN_data.csv"
-      "achilles-55k-batch1-repcollapsed-lfc.csv"
-      "achilles-55k-batch2-repcollapsed-lfc.csv"
-      "achilles-98k-repcollapsed-lfc.csv"
-      "drive-bgpd-lfc-mat.csv"
-      "drive-poola-lfc-mat.csv"
-      "drive-poolb-lfc-mat.csv"
-      "sample_info.csv"
-      "shRNA-mapping.csv"
+      "Ach_hp_quality_metrics.csv": "",
+      "CCLE_mutation_data.csv": "",
+      "D2_Achilles_CL_data.csv": "",
+      "D2_Achilles_gene_dep_score_SDs.csv": "",
+      "D2_Achilles_gene_dep_scores.csv": "",
+      "D2_Achilles_hp_data.csv": "",
+      "D2_Achilles_seed_dep_score_SDs.csv": "",
+      "D2_Achilles_seed_dep_scores.csv": "",
+      "D2_DRIVE_CL_data.csv": "",
+      "D2_DRIVE_gene_dep_score_SDs.csv": "",
+      "D2_DRIVE_gene_dep_scores.csv": "",
+      "D2_DRIVE_hp_data.csv": "",
+      "D2_DRIVE_seed_dep_score_SDs.csv": "",
+      "D2_DRIVE_seed_dep_scores.csv": "",
+      "D2_combined_CL_data.csv": "",
+      "D2_combined_gene_dep_score_SDs.csv": "",
+      "D2_combined_gene_dep_scores.csv": "",
+      "D2_combined_hp_data.csv": "",
+      "D2_combined_seed_dep_score_SDs.csv": "",
+      "D2_combined_seed_dep_scores.csv": "",
+      "DRIVE_hp_quality_metrics.csv": "",
+      "Hart-neg-controls.csv": "",
+      "Hart-pos-controls.csv": "",
+      "Marcotte_LFC_matrix.csv": "",
+      "README.txt": "",
+      "RNAseq_lRPKM_data.csv": "",
+      "WES_SNP_CN_data.csv": "",
+      "achilles-55k-batch1-repcollapsed-lfc.csv": "",
+      "achilles-55k-batch2-repcollapsed-lfc.csv": "",
+      "achilles-98k-repcollapsed-lfc.csv": "",
+      "drive-bgpd-lfc-mat.csv": "",
+      "drive-poola-lfc-mat.csv": "",
+      "drive-poolb-lfc-mat.csv": "",
+      "sample_info.csv": "",
+      "shRNA-mapping.csv": ""
     }
   },
-  "proteomics": {
-    "nusinow_2020": {
-      "metadata": {
-        "date": "2020-01"
-      },
-      "files": {
-        "sample_info": {
-          "url": "https://gygi.hms.harvard.edu/data/ccle/Table_S1_Sample_Information.xlsx"
-        },
-        "protein_quantitation_xlsx": {
-          "url": "https://gygi.hms.harvard.edu/data/ccle/Table_S2_Protein_Quant_Normalized.xlsx"
-        },
-        "protein_quantitation_tsv": {
-          "url": "https://gygi.hms.harvard.edu/data/ccle/protein_quant_current_normalized.csv.gz"
-        },
-        "non_normalized_protein_data": {
-          "url": "https://gygi.hms.harvard.edu/data/ccle/summed_sn_non_normalized_v1.1.csv.gz"
-        },
-        "peptide_level_quantification": {
-          "url": "https://gygi.hms.harvard.edu/data/ccle/ccle_protein_quant_with_peptides_14745.tsv.gz"
-        },
-        "biological_replicates": {
-          "url": "https://gygi.hms.harvard.edu/data/ccle/Table_S3_Biological_Replicates_Protein_Quant_Normalized.xlsx"
-        },
-        "non_normalized_biological_replicate_data": {
-          "url": "https://gygi.hms.harvard.edu/data/ccle/ccle_biological_replicates_nonnormalized.csv.gz"
-        },
-        "rna_protein_correlation": {
-          "url": "https://gygi.hms.harvard.edu/data/ccle/Table_S4_Protein_RNA_Correlation_and_Enrichments.xlsx"
-        },
-        "pca_pc1_enriched_gene_sets": {
-          "url": "https://gygi.hms.harvard.edu/data/ccle/Table_S5_PCA_PC1_Enriched_Gene_Sets.xlsx"
-        },
-        "correlation_network": {
-          "url": "https://gygi.hms.harvard.edu/data/ccle/Table_S6_Correlation_Network_Solid_Organ_Lineages.xlsx"
-        },
-        "mutation_associations": {
-          "url": "https://gygi.hms.harvard.edu/data/ccle/Table_S7_Mutation_Associations.xlsx"
-        }
-      }
+  "nusinow_2020": {
+    "metadata": {
+      "date": "2020-01",
+      "url": "https://gygi.hms.harvard.edu/publications/ccle.html"
+    },
+    "files": {
+      "sample_information": "https://gygi.hms.harvard.edu/data/ccle/Table_S1_Sample_Information.xlsx",
+      "protein_quantitation_xlsx": "https://gygi.hms.harvard.edu/data/ccle/Table_S2_Protein_Quant_Normalized.xlsx",
+      "protein_quantitation_tsv": "https://gygi.hms.harvard.edu/data/ccle/protein_quant_current_normalized.csv.gz",
+      "non_normalized_protein_data": "https://gygi.hms.harvard.edu/data/ccle/summed_sn_non_normalized_v1.1.csv.gz",
+      "peptide_level_quantification": "https://gygi.hms.harvard.edu/data/ccle/ccle_protein_quant_with_peptides_14745.tsv.gz",
+      "biological_replicates": "https://gygi.hms.harvard.edu/data/ccle/Table_S3_Biological_Replicates_Protein_Quant_Normalized.xlsx",
+      "non_normalized_biological_replicate_data": "https://gygi.hms.harvard.edu/data/ccle/ccle_biological_replicates_nonnormalized.csv.gz",
+      "rna_protein_correlation": "https://gygi.hms.harvard.edu/data/ccle/Table_S4_Protein_RNA_Correlation_and_Enrichments.xlsx",
+      "pca_pc1_enriched_gene_sets": "https://gygi.hms.harvard.edu/data/ccle/Table_S5_PCA_PC1_Enriched_Gene_Sets.xlsx",
+      "correlation_network": "https://gygi.hms.harvard.edu/data/ccle/Table_S6_Correlation_Network_Solid_Organ_Lineages.xlsx",
+      "mutation_associations": "https://gygi.hms.harvard.edu/data/ccle/Table_S7_Mutation_Associations.xlsx"
     }
   }
 }
