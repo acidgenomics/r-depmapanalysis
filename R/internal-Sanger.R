@@ -30,10 +30,18 @@
         assert(
             is(cello, "Cellosaurus"),
             isSubset(
-                c("accession", "cellLineName", "depmapId", "sangerModelId"),
+                c(
+                    "accession",
+                    "cellLineName",
+                    "depmapId",
+                    "isProblematic",
+                    "sangerModelId"
+                ),
                 colnames(cello)
             )
         )
+        keep <- !cello[["isProblematic"]]
+        cello <- cello[keep, , drop = FALSE]
         date2 <- gsub(pattern = "-", replacement = "", x = date)
         url <- pasteURL(
             "cog.sanger.ac.uk",
@@ -49,7 +57,10 @@
         )
         sanger <- as(sanger, "DataFrame")
         assert(allAreMatchingFixed(x = sanger[[1L]], pattern = "SIDM"))
-        modelIds <- intersect(x = sanger[[1L]], y = decode(cello[["sangerModelId"]]))
+        modelIds <- intersect(
+            x = sanger[[1L]],
+            y = decode(cello[["sangerModelId"]])
+        )
         sanger <- sanger[
             match(x = modelIds, table = sanger[[1L]]),
             ,

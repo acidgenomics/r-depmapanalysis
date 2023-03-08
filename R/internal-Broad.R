@@ -20,23 +20,31 @@
 #' @noRd
 .importBroadModelInfo <-
     function(dataset, cello = NULL) {
+        fileKey <- switch(
+            EXPR = dataset,
+            "depmap_public_22q4" = "Model.csv",
+            "depmap_public_22q2" = "sample_info.csv",
+            stop("Unsupported dataset.")
+        )
         if (is.null(cello)) {
             cello <- Cellosaurus()
         }
         assert(
             is(cello, "Cellosaurus"),
             isSubset(
-                c("accession", "cellLineName", "depmapId", "sangerModelId"),
+                c(
+                    "accession",
+                    "cellLineName",
+                    "depmapId",
+                    "isProblematic",
+                    "sangerModelId"
+                ),
                 colnames(cello)
             )
         )
-        key <- switch(
-            EXPR = dataset,
-            "depmap_public_22q4" = "Model.csv",
-            "depmap_public_22q2" = "sample_info.csv",
-            stop("Unsupported dataset.")
-        )
-        url <- datasets[[dataset]][["files"]][[key]]
+        keep <- !cello[["isProblematic"]]
+        cello <- cello[keep, , drop = FALSE]
+        url <- datasets[[dataset]][["files"]][[fileKey]]
         assert(isAURL(url))
         broad <- .importDataFile(
             url = url,
@@ -131,6 +139,41 @@ formals(.importBroadModelInfo)[["dataset"]] <-
 
 
 
+#' Import Broad DEMETER2 RNAi cell line model info
+#'
+#' @note Updated 2023-03-08.
+#' @noRd
+.importDemeter2ModelInfo <- function() {
+    url <- datasets[["demeter2_data_v6"]][["files"]][["sample_info.csv"]]
+    assert(isAURL(url))
+    d2 <- .importDataFile(
+        url = url,
+        format = "csv",
+        rownameCol = NULL,
+        colnames = TRUE,
+        return = "DataFrame"
+    )
+    ## FIXME Ensure we remove problematic lines first, then double check these.
+    broad <- .importBroadModelInfo()
+    x <- d2[[1L]]
+    y <- broad[["broad"]][["CCLEName"]]
+    x[x == "AZ521_STOMACH"] <- "AZ521_SMALL_INTESTINE"
+    x[x == "COLO699_LUNG"] <- "CHL1DM_SKIN"
+    x[x == "GISTT1_GASTROINTESTINAL_TRACT"] <- "GISTT1_STOMACH"
+    x[x == "HCC827GR_LUNG"] <- "HCC827GR5_LUNG"
+    x[x == "KP1NL_PANCREAS"] <- NA_character_
+    x[x == "MB157_BREAST"] <- "MDAMB157_BREAST"
+    x[x == "NCIH1339_LUNG"] <- NA_character_
+    x[x == "SJRH30_SOFT_TISSUE"] <- "RH30_SOFT_TISSUE"
+    ## > x[x == "SS1A_SOFT_TISSUE"] <- NA_character_
+    ## > x[x == "SW527_BREAST"] <- "SW527_LARGE_INTESTINE"
+    x <- na.omit(x)
+    setdiff(x, y)
+    assert(isSubset(x, y))
+}
+
+
+
 ## FIXME Consider returning a DataFrame instead of a vector?
 ## Consider using geneName and ncbiGeneId columns?
 
@@ -179,38 +222,3 @@ formals(.importBroadModelInfo)[["dataset"]] <-
         df <- df[order(df), , drop = FALSE]
         df
     }
-
-
-
-#' Import Broad DEMETER2 RNAi cell line model info
-#'
-#' @note Updated 2023-03-08.
-#' @noRd
-.importDemeter2ModelInfo <- function() {
-    url <- datasets[["demeter2_data_v6"]][["files"]][["sample_info.csv"]]
-    assert(isAURL(url))
-    d2 <- .importDataFile(
-        url = url,
-        format = "csv",
-        rownameCol = NULL,
-        colnames = TRUE,
-        return = "DataFrame"
-    )
-    ## FIXME Ensure we remove problematic lines first, then double check these.
-    broad <- .importBroadModelInfo()
-    x <- d2[[1L]]
-    y <- broad[["broad"]][["CCLEName"]]
-    x[x == "AZ521_STOMACH"] <- "AZ521_SMALL_INTESTINE"
-    x[x == "COLO699_LUNG"] <- "CHL1DM_SKIN"
-    x[x == "GISTT1_GASTROINTESTINAL_TRACT"] <- "GISTT1_STOMACH"
-    x[x == "HCC827GR_LUNG"] <- "HCC827GR5_LUNG"
-    x[x == "KP1NL_PANCREAS"] <- NA_character_
-    x[x == "MB157_BREAST"] <- "MDAMB157_BREAST"
-    x[x == "NCIH1339_LUNG"] <- NA_character_
-    x[x == "SJRH30_SOFT_TISSUE"] <- "RH30_SOFT_TISSUE"
-    ## > x[x == "SS1A_SOFT_TISSUE"] <- NA_character_
-    ## > x[x == "SW527_BREAST"] <- "SW527_LARGE_INTESTINE"
-    x <- na.omit(x)
-    setdiff(x, y)
-    assert(isSubset(x, y))
-}
