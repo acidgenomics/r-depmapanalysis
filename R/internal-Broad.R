@@ -42,6 +42,7 @@
                 colnames(cello)
             )
         )
+        alert("Filtering cell lines annotated as 'problematic' by Cellosaurus.")
         keep <- !cello[["isProblematic"]]
         cello <- cello[keep, , drop = FALSE]
         url <- datasets[[dataset]][["files"]][[fileKey]]
@@ -54,7 +55,10 @@
             return = "DataFrame"
         )
         assert(allAreMatchingFixed(x = broad[[1L]], pattern = "ACH-"))
-        depmapIds <- intersect(x = broad[[1L]], y = decode(cello[["depmapId"]]))
+        depmapIds <- sort(intersect(
+            x = na.omit(broad[[1L]]),
+            y = na.omit(decode(cello[["depmapId"]]))
+        ))
         broad <- broad[
             match(x = depmapIds, table = broad[[1L]]),
             ,
@@ -143,9 +147,11 @@ formals(.importBroadModelInfo)[["dataset"]] <-
 #'
 #' @note Updated 2023-03-08.
 #' @noRd
+#'
+#' @details
+#' Matching the cell lines here by CCLE identifier.
 .importDemeter2ModelInfo <- function() {
     url <- datasets[["demeter2_data_v6"]][["files"]][["sample_info.csv"]]
-    assert(isAURL(url))
     d2 <- .importDataFile(
         url = url,
         format = "csv",
@@ -153,23 +159,19 @@ formals(.importBroadModelInfo)[["dataset"]] <-
         colnames = TRUE,
         return = "DataFrame"
     )
-    ## FIXME Ensure we remove problematic lines first, then double check these.
     broad <- .importBroadModelInfo()
-    x <- d2[[1L]]
-    y <- broad[["broad"]][["CCLEName"]]
-    x[x == "AZ521_STOMACH"] <- "AZ521_SMALL_INTESTINE"
-    x[x == "COLO699_LUNG"] <- "CHL1DM_SKIN"
-    x[x == "GISTT1_GASTROINTESTINAL_TRACT"] <- "GISTT1_STOMACH"
-    x[x == "HCC827GR_LUNG"] <- "HCC827GR5_LUNG"
-    x[x == "KP1NL_PANCREAS"] <- NA_character_
-    x[x == "MB157_BREAST"] <- "MDAMB157_BREAST"
-    x[x == "NCIH1339_LUNG"] <- NA_character_
-    x[x == "SJRH30_SOFT_TISSUE"] <- "RH30_SOFT_TISSUE"
-    ## > x[x == "SS1A_SOFT_TISSUE"] <- NA_character_
-    ## > x[x == "SW527_BREAST"] <- "SW527_LARGE_INTESTINE"
-    x <- na.omit(x)
-    setdiff(x, y)
-    assert(isSubset(x, y))
+    d2Ids <- d2[[1L]]
+    d2Ids[d2Ids == "COLO699_LUNG"] <- "CHL1DM_SKIN"
+    d2Ids[d2Ids == "GISTT1_GASTROINTESTINAL_TRACT"] <- "GISTT1_STOMACH"
+    d2Ids[d2Ids == "MB157_BREAST"] <- "MDAMB157_BREAST"
+    broadIds <- broad[["broad"]][["CCLEName"]]
+    ccleIds <- sort(intersect(x = na.omit(d2Ids), y = na.omit(broadIds)))
+    d2 <- d2[match(x = ccleIds, table = d2Ids), , drop = FALSE]
+    broad <- broad[match(x = ccleIds, table = broadIds), , drop = FALSE]
+    df <- broad
+    df[["demeter2"]] <- d2
+    rownames(df) <- makeNames(d2[[1L]])
+    df
 }
 
 

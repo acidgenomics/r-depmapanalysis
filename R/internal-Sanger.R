@@ -40,6 +40,7 @@
                 colnames(cello)
             )
         )
+        alert("Filtering cell lines annotated as 'problematic' by Cellosaurus.")
         keep <- !cello[["isProblematic"]]
         cello <- cello[keep, , drop = FALSE]
         date2 <- gsub(pattern = "-", replacement = "", x = date)
@@ -57,10 +58,10 @@
         )
         sanger <- as(sanger, "DataFrame")
         assert(allAreMatchingFixed(x = sanger[[1L]], pattern = "SIDM"))
-        modelIds <- intersect(
+        modelIds <- sort(intersect(
             x = sanger[[1L]],
             y = decode(cello[["sangerModelId"]])
-        )
+        ))
         sanger <- sanger[
             match(x = modelIds, table = sanger[[1L]]),
             ,
