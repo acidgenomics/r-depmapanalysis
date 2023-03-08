@@ -1,9 +1,3 @@
-## FIXME Map cells to Cellosaurus ID instead.
-## FIXME Drop cell lines that aren't at cellosaurus.
-## FIXME Can we improve standardization of gene identifier column names?
-
-
-
 #' DepMap gene effect in cancer cell lines
 #'
 #' @section Assays:
@@ -106,27 +100,19 @@ DepMapGeneEffect <- # nolint
             }
         )
         ## Assays --------------------------------------------------------------
-        urls[["assays"]] <- Filter(
-            f = Negate(is.null),
-            x = urls[["assays"]]
-        )
         assays <- lapply(
             X = urls[["assays"]],
             FUN = .importDataFile,
-            rownamesCol = 1L,
+            format = "csv",
+            rownameCol = 1L,
+            colnames = TRUE,
             return = "matrix"
         )
-        assert(identical(names(urls[["assays"]]), names(assays)))
         ## Metadata ------------------------------------------------------------
-        urls[["metadata"]] <- Filter(
-            f = Negate(is.null),
-            x = urls[["metadata"]]
-        )
         metadata <- lapply(
             X = urls[["metadata"]],
             FUN = .importGeneDataFile
         )
-        assert(identical(names(urls[["metadata"]]), names(metadata)))
         metadata <- append(
             x = metadata,
             values = list(

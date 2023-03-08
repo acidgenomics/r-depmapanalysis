@@ -1,11 +1,10 @@
 #' Cache URL into package
 #'
-#' @note Updated 2021-07-08.
+#' @note Updated 2023-03-08.
 #' @noRd
 .cacheURL <-
-    function(url, ...) {
-        alert(sprintf("Downloading DepMap file {.url %s}.", url))
-        cacheURL(url, pkg = .pkgName, ...)
+    function(url) {
+        cacheURL(url = url, pkg = .pkgName)
     }
 
 
@@ -17,7 +16,7 @@
 #'
 #' @note Updated 2022-11-08.
 #' @noRd
-.importCellLineSampleData <- # nolint
+.importCellLineSampleData <-
     function(dataset) {
         url <- datasets[[dataset]][["files"]][["sample_info"]][["url"]]
         df <- .importDataFile(
@@ -77,14 +76,18 @@
 
 
 
+## FIXME We're running into issues with 22Q4 formatting here.
+## FIXME But this works for 22Q2...consider how to rework here.
+
 #' Import a DepMap data file
 #'
-#' @note Updated 2022-08-10.
+#' @note Updated 2023-03-08.
 #' @noRd
 .importDataFile <-
     function(url,
              format = c("csv", "tsv"),
-             rownamesCol = NULL,
+             colnames = TRUE,
+             rownameCol = NULL,
              engine = getOption(
                  x = "acid.import.engine",
                  default = ifelse(
@@ -96,46 +99,41 @@
              return = c("DataFrame", "matrix")) {
         assert(
             isAURL(url),
-            isScalar(rownamesCol) || is.null(rownamesCol),
+            isFlag(colnames),
+            isScalar(rownameCol) || is.null(rownameCol),
             isString(engine)
         )
         format <- match.arg(format)
         return <- match.arg(return)
         ## Engine overrides for malformed DepMap flat file downloads.
-        malformedIds <- c(
-            31316011L,
-            35020903L
-        )
+        malformedIds <- c(31316011L, 35020903L)
         if (isSubset(as.integer(basename(url)), malformedIds)) {
             requireNamespaces("data.table")
             engine <- "data.table"
         }
         tmpfile <- .cacheURL(url = url)
+        ## FIXME 22Q4 doesn't contain colnames...need to rethink.
+        ## FIXME We can just set rownameCol here instead.
         df <- import(
             con = tmpfile,
             format = format,
+            rownameCol = rownameCol,
+            colnames = colnames,
             engine = engine
         )
-        if (isScalar(rownamesCol)) {
-            if (!isString(rownamesCol)) {
-                rownamesCol <- colnames(df)[[rownamesCol]]
-            }
-            assert(isSubset(rownamesCol, colnames(df)))
-            rownames(df) <- df[[rownamesCol]]
-        }
         out <- switch(
             EXPR = return,
             "DataFrame" = as(df, "DataFrame"),
-            "matrix" = {
-                if (hasRownames(df)) df[[rownamesCol]] <- NULL
-                as.matrix(df)
-            }
+            "matrix" = as.matrix(df)
         )
         out <- makeDimnames(out)
         out
     }
 
 
+
+## FIXME Consider returning a DataFrame instead of a vector?
+## Consider using geneName and ncbiGeneId columns?
 
 #' Import a DepMap file containing gene identifiers
 #'
@@ -145,21 +143,40 @@
     function(url) {
         df <- .importDataFile(
             url = url,
+            colnames = TRUE,
             engine = "base",
             return = "DataFrame"
         )
-        colnames(df) <- camelCase(colnames(df))
-        if (identical(colnames(df), c("geneSymbol", "geneId"))) {
-            ## e.g. DEMETER2 control files.
-            vec <- paste0(df[["geneSymbol"]], " (", df[["geneId"]], ")")
-        } else {
-            ## e.g. DepMap current public release files.
-            assert(
-                identical(colnames(df), "gene"),
-                isCharacter(df[["gene"]])
+        if (
+            identical(colnames(df), "Essentials") ||
+            identical(colnames(df), "Gene") ||
+            identical(colnames(df), "gene")
+        ) {
+            # e.g. DepMap 22Q4 ("Essentials", "Gene") and 22Q2 ("gene").
+            df <- stringi::stri_split_fixed(
+                str = df[[1L]],
+                pattern = " ",
+                n = 2L,
+                simplify = TRUE
             )
-            vec <- df[["gene"]]
+            df <- as(df, "DataFrame")
+            colnames(df) <- c("geneName", "ncbiGeneId")
+            df[["ncbiGeneId"]] <- gsub(
+                pattern = "[\\(\\)]",
+                replacement = "",
+                x = df[["ncbiGeneId"]]
+            )
+        } else if (identical(colnames(df), c("Gene_Symbol", "Gene_ID"))) {
+            ## e.g. DEMETER2.
+            colnames(df) <- c("geneName", "ncbiGeneId")
+        } else {
+            abort("Unsupported file.")
         }
-        vec <- sort(vec)
-        vec
+        assert(
+            is(df, "DataFrame"),
+            identical(colnames(df), c("geneName", "ncbiGeneId"))
+        )
+        df[["ncbiGeneId"]] <- as.integer(df[["ncbiGeneId"]])
+        df <- df[order(df), , drop = FALSE]
+        df
     }
