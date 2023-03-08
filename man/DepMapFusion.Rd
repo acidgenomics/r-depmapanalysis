@@ -4,7 +4,10 @@
 \alias{DepMapFusion}
 \title{Import DepMap fusion call data}
 \usage{
-DepMapFusion(dataset = "depmap_public_22q2", filtered = TRUE)
+DepMapFusion(
+  dataset = c("depmap_public_22q4", "depmap_public_22q2"),
+  filtered = TRUE
+)
 }
 \arguments{
 \item{dataset}{\code{character(1)}.

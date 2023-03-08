@@ -257,113 +257,73 @@ DepMapProteomics <-  # nolint
         colnames(rowData) == "description"] <- "proteinDescription"
     colnames(rowData)[
         colnames(rowData) == "geneSymbol"] <- "geneName"
-    hgnc <- .hgnc()
-    uniprot <- .uniprotToGene(ids = as.character(rowData[["uniprotId"]]))
 
-    ## First, attempt to match by UniProtKB identifier.
-    mapped <- DataFrame()
-
-    xxx <- rowData
-    xxx[["geneName"]] <- NULL
-    xxx <- leftJoin(x = xxx, y = uniprot, by = "uniprotId")
-    xxx <- xxx[!is.na(xxx[["geneName"]]), ]
-    mapped <- rbind(mapped, xxx)
-
-    yyy <- rowData
-    yyy <- yyy[setdiff(rownames(yyy), rownames(mapped)), , drop = FALSE]
-    hgnc2 <- hgnc[
-        ,
-        c(
-            "hgncId",
-            "geneName",
-            "geneDescription",
-            "ensemblGeneId",
-            "ncbiGeneId"
+    ## FIXME Move this to AcidGenomes
+    ## FIXME Also make a similar function for NcbiGeneInfo return.
+    .mapGeneNamesToHgncIds <- function(hgnc, geneNames) {
+        assert(is(hgnc, "HGNC"), isCharacter(geneNames))
+        hgnc <- as(hgnc, "DataFrame")
+        rownames(hgnc) <- NULL
+        hgnc <- hgnc[, c("hgncId", "symbol", "prevSymbol", "aliasSymbol")]
+        uniqueGeneNames <- unique(geneNames)
+        map <- DataFrame("symbol" = character(), "hgncId" = character())
+        ## First, match against current gene symbol.
+        idx1 <- match(x = uniqueGeneNames, table = hgnc[["symbol"]])
+        map1 <- hgnc[idx1, c("symbol", "hgncId")]
+        map <- rbind(map, map1)
+        ## Second, match against previous gene symbol.
+        uniqueGeneNames <- uniqueGeneNames[which(is.na(idx1))]
+        ## FIXME This step is slow but works...can we speed up?
+        ## FIXME This is too slow to be generally useful...consider unlisting
+        ## with an index position, similar to our cellosaurus match pool?
+        ## FIXME Expand this as pool instead and track back to index position.
+        xxx <- parallel::mclapply(
+            X = uniqueGeneNames,
+            prevSymbol = hgnc[["prevSymbol"]],
+            FUN = function(x, prevSymbol) {
+                which(bapply(
+                    X = prevSymbol,
+                    FUN = function(table) {
+                        x %in% table
+                    }
+                ))
+            }
         )
-    ]
-    yyy <- leftJoin(x = yyy, y = hgnc2, by = "geneName")
-    yyy <- yyy[!is.na(yyy[["hgncId"]]), , drop = FALSE]
-    yyy[["hgncId"]] <- NULL
-    mapped <- rbind(mapped, yyy)
+        ## FIXME Here's how to return the difficult to match gene symbols.
+        ## > vec <- sort(unique(decode(zzz[["geneName"]])))
+        ## > hits <- lapply(
+        ## >     X = vec,
+        ## >     prevSymbol = hgnc2[["prevSymbol"]],
+        ## >     FUN = function(x, prevSymbol) {
+        ## >         idx <- which(bapply(
+        ## >             X = prevSymbol,
+        ## >             FUN = function(table) {
+        ## >                 x %in% table
+        ## >             }
+        ## >         ))
+        ## >         if (length(idx) == 0L) {
+        ## >             return(NULL)
+        ## >         }
+        ## >         hgnc2[["hgncId"]][[idx]]
+        ## >     }
+        ## > )
+        ## > names(hits) <- vec
 
-    zzz <- rowData
-    zzz <- zzz[setdiff(rownames(zzz), rownames(mapped)), , drop = FALSE]
-    hgnc2 <- hgnc[
-        ,
-        c(
-            "hgncId",
-            "prevSymbol",
-            "geneName",
-            "geneDescription",
-            "ensemblGeneId",
-            "ncbiGeneId"
-        )
-    ]
 
-    ## FIXME How to efficiently match in CharacterList???
-    vec <- decode(zzz[["geneName"]])
-    match(x = vec, table = hgnc2[["prevSymbol"]])
-    decode(zzz[["geneName"]]) %in% hgnc2[["prevSymbol"]]
+        ## Third, match against aliases.
 
-    ## FIXME Match against aliasSymbol.
 
-    ## FIXME Here's how to return the difficult to match gene symbols.
-    ## > vec <- sort(unique(decode(zzz[["geneName"]])))
-    ## > hits <- lapply(
-    ## >     X = vec,
-    ## >     prevSymbol = hgnc2[["prevSymbol"]],
-    ## >     FUN = function(x, prevSymbol) {
-    ## >         idx <- which(bapply(
-    ## >             X = prevSymbol,
-    ## >             FUN = function(table) {
-    ## >                 x %in% table
-    ## >             }
-    ## >         ))
-    ## >         if (length(idx) == 0L) {
-    ## >             return(NULL)
-    ## >         }
-    ## >         hgnc2[["hgncId"]][[idx]]
-    ## >     }
-    ## > )
-    ## > names(hits) <- vec
 
-    hgncOverrides <- switch(
-        EXPR = rowData[["geneName"]],
-        "AIM1L" = 17295L,
-        "ATP5B" = 830L,
-        "C10orf12" = 29503L,
-        "C12orf10" = 17590L,
-        "C2orf43" = 26145L,
-        "CARD17" = 33827L,
-        "CCDC58" = 31136L,
-        "CTAGE5",
-        "ECM29",
-        "EP400NL",
-        "FAM126A",
-        "FAM213B",
-        "FAM21B",
-        "FLJ22184",
-        "GAGE3",
-        "GMCL1P1",
-        "GPR133",
-        "HDGFRP2",
-        "INADL",
-        "KARS",
-        "L1RE1",
-        "MICALCL",
-        "MLLT4",
-        "MYLPF",
-        "NACAP1",
-        "NAP1L4b",
-        "PPP2R4",
-        "RPS17L",
-        "SERPINA2P",
-        "TMEM159",
-        "TROVE2",
-        "UCC1",
-        "ZNF724P" = 32460L,
-        "ZNF812" = 33242L
-    )
+
+
+        ## FIXME Need to think about return matching like this...
+        idx <- match(x = geneNames, table = uniqueGeneNames)
+        xxx <- uniqueGeneNames[idx]
+        xxx
+    }
+    hgnc <- HGNC()
+    geneNames <- decode(rowData[["geneName"]])
+
 
     ## Column data -------------------------------------------------------------
     cd1 <- colData(object)

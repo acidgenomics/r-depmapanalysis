@@ -4,7 +4,9 @@
 \alias{DepMapGeneEffect}
 \title{DepMap gene effect in cancer cell lines}
 \usage{
-DepMapGeneEffect(dataset = c("depmap_public_22q2", "demeter2_data_v6"))
+DepMapGeneEffect(
+  dataset = c("depmap_public_22q4", "depmap_public_22q2", "demeter2_data_v6")
+)
 }
 \arguments{
 \item{dataset}{\code{character(1)}.
@@ -17,7 +19,7 @@ Dataset name.}
 DepMap gene effect in cancer cell lines
 }
 \note{
-Updated 2023-01-26.
+Updated 2023-03-08.
 }
 \section{Assays}{
 
