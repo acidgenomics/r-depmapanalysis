@@ -89,12 +89,16 @@ DepMapGeneEffect <- # nolint
             "demeter2_data_v6" = {
                 urls <- list(
                     "assays" = list(
-                        "effect" = urls[["D2_combined_gene_dep_scores.csv"]],
-                        "sd" = urls[["D2_combined_seed_dep_score_SDs.csv"]]
+                        "effect" =
+                            urls[["D2_combined_gene_dep_scores.csv"]],
+                        "sd" =
+                            urls[["D2_combined_seed_dep_score_SDs.csv"]]
                     ),
                     "metadata" = list(
-                        "controlCommonEssentials" = urls[["Hart-pos-controls.csv"]],
-                        "controlNonessentials" = urls[["Hart-neg-controls.csv"]]
+                        "controlCommonEssentials" =
+                            urls[["Hart-pos-controls.csv"]],
+                        "controlNonessentials" =
+                            urls[["Hart-neg-controls.csv"]]
                     )
                 )
             }
@@ -121,8 +125,8 @@ DepMapGeneEffect <- # nolint
                 "scoringMethod" = dict[["scoringMethod"]]
             )
         )
-        ## FIXME Consider filtering to only keep cells that map to Cellosaurus.
-        se <- .makeSummarizedExperiment(
+        ## Return --------------------------------------------------------------
+        se <- .makeDepMapSE(
             dataset = dataset,
             assays = assays,
             transposeAssays = dict[["transposeAssays"]],

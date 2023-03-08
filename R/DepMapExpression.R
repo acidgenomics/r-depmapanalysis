@@ -12,6 +12,7 @@
 #' dim(object)
 DepMapExpression <- # nolint
     function(dataset) {
+        ## FIXME Rethink this approach.
         .makeCcleSE(
             dataset = match.arg(dataset),
             assayKey = "expression",

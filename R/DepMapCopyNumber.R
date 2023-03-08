@@ -12,6 +12,7 @@
 #' print(object)
 DepMapCopyNumber <- # nolint
     function(dataset) {
+        ## FIXME Rethink this approach.
         .makeCcleSE(
             dataset = match.arg(dataset),
             assayKey = "copy_number",

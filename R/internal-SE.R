@@ -1,9 +1,3 @@
-## FIXME Map cells to Cellosaurus ID instead.
-## FIXME Drop cell lines that aren't at cellosaurus.
-## FIXME Can we improve standardization of gene identifier column names?
-
-
-
 ## FIXME Consider renaming / taking this out?
 
 #' Make SummarizedExperiment object from CCLE data
@@ -31,7 +25,7 @@
         )
         assays <- list(mat)
         names(assays) <- assayName
-        se <- .makeSummarizedExperiment(
+        se <- .makeDepMapSE(
             dataset = dataset,
             assays = assays,
             transposeAssays = TRUE,
@@ -42,11 +36,14 @@
 
 
 
-#' Make SummarizedExperiment object (from DepMap or CCLE data)
+## FIXME Only keep cells that have a Cellosaurus identifier.
+## FIXME Return the gene identifiers as the NCBI gene ID instead.
+
+#' Make SummarizedExperiment object from Broad DepMap data
 #'
-#' @note Updated 2023-01-26.
+#' @note Updated 2023-03-08.
 #' @noRd
-.makeSummarizedExperiment <-
+.makeDepMapSE <-
     function(dataset,
              assays,
              transposeAssays = FALSE,
@@ -196,6 +193,8 @@
         if (identical(dataset, "demeter2_data_v6")) {
             se <- .standardizeDemeter2(se)
         }
+        ## FIXME Return the rownames as NCBI gene ID instead.
+        ## FIXME Return the colnames as Cellosaurus ID instead.
         new(Class = class, se)
     }
 
