@@ -1,6 +1,8 @@
+## FIXME Consider renaming / taking this out?
+
 #' Make SummarizedExperiment object from CCLE data
 #'
-#' @note Updated 2023-01-27.
+#' @note Updated 2023-03-08.
 #' @noRd
 .makeCcleSE <-
     function(dataset,
@@ -71,35 +73,34 @@
         retiredGenes <- character()
         rowData <- NcbiGeneInfo(
             organism = "Homo sapiens",
-            taxonomicGroup = "Mammalia",
-            cache = TRUE
+            taxonomicGroup = "Mammalia"
         )
         assert(
             is(rowData, "NcbiGeneInfo"),
             isSubset(c("geneId", "geneName"), colnames(rowData))
         )
         rowData <- as(rowData, "DataFrame")
-        ## Extract the NCBI Entrez identifiers from the row names.
+        ## Extract the NCBI gene identifiers from the row names.
         match <- stri_match_first_regex(
             str = rownames(assays[[1L]]),
             pattern = "^(.+)_([0-9]+)$"
         )
-        entrezIds <- as.integer(match[, 3L, drop = TRUE])
+        ncbiGeneIds <- as.integer(match[, 3L, drop = TRUE])
         assert(
-            !anyNA(entrezIds),
-            msg = "Failed to extract Entrez identifiers from rownames."
+            !anyNA(ncbiGeneIds),
+            msg = "Failed to extract NCBI gene identifiers from row names."
         )
-        ## Retired NCBI Entrez gene identifiers will return `NA` here.
-        ## These correspond to the rows we want to keep in assays.
+        ## Retired NCBI gene identifiers will return `NA` here. These correspond
+        ## to the rows we want to keep in assays.
         idx <- match(
-            x = entrezIds,
+            x = ncbiGeneIds,
             table = as.integer(rowData[["geneId"]])
         )
         if (anyNA(idx)) {
             retiredGenes <-
                 sort(match[which(is.na(idx)), 1L, drop = TRUE])
             alertWarning(sprintf(
-                "%d retired NCBI Entrez %s in data set: %s.",
+                "%d retired NCBI gene %s in data set: %s.",
                 length(retiredGenes),
                 ngettext(
                     n = length(retiredGenes),
@@ -121,10 +122,10 @@
             str = rownames(assays[[1L]]),
             pattern = "^(.+)_([0-9]+)$"
         )
-        entrezIds <- as.integer(match[, 3L, drop = TRUE])
-        assert(!anyNA(entrezIds))
+        ncbiGeneIds <- as.integer(match[, 3L, drop = TRUE])
+        assert(!anyNA(ncbiGeneIds))
         idx <- match(
-            x = entrezIds,
+            x = ncbiGeneIds,
             table = as.integer(rowData[["geneId"]])
         )
         assert(!anyNA(idx))
@@ -132,6 +133,7 @@
         rownames(rowData) <- match[, 1L, drop = TRUE]
         ## Column data (cell line annotations) ---------------------------------
         missingCells <- character()
+        ## FIXME Need to update this for new JSON metadata...
         colData <- .importCellLineSampleData(dataset = dataset)
         assert(
             areIntersectingSets(colnames(assays[[1L]]), rownames(colData)),
