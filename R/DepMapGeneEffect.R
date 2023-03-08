@@ -115,7 +115,7 @@ DepMapGeneEffect <- # nolint
         ## Metadata ------------------------------------------------------------
         metadata <- lapply(
             X = urls[["metadata"]],
-            FUN = .importGeneDataFile
+            FUN = .importBroadGeneDataFile
         )
         metadata <- append(
             x = metadata,

@@ -1,10 +1,47 @@
-#' Cache URL into package
+#' Import a Broad DepMap file containing gene identifiers
 #'
 #' @note Updated 2023-03-08.
 #' @noRd
-.cacheURL <-
+.importBroadGeneDataFile <-
     function(url) {
-        cacheURL(url = url, pkg = .pkgName)
+        df <- .importDataFile(
+            url = url,
+            colnames = TRUE,
+            engine = "base",
+            return = "DataFrame"
+        )
+        if (
+            identical(colnames(df), "Essentials") ||
+            identical(colnames(df), "Gene") ||
+            identical(colnames(df), "gene")
+        ) {
+            # e.g. DepMap 22Q4 ("Essentials", "Gene") and 22Q2 ("gene").
+            df <- stringi::stri_split_fixed(
+                str = df[[1L]],
+                pattern = " ",
+                n = 2L,
+                simplify = TRUE
+            )
+            df <- as(df, "DataFrame")
+            colnames(df) <- c("geneName", "ncbiGeneId")
+            df[["ncbiGeneId"]] <- gsub(
+                pattern = "[\\(\\)]",
+                replacement = "",
+                x = df[["ncbiGeneId"]]
+            )
+        } else if (identical(colnames(df), c("Gene_Symbol", "Gene_ID"))) {
+            ## e.g. DEMETER2.
+            colnames(df) <- c("geneName", "ncbiGeneId")
+        } else {
+            abort("Unsupported file.")
+        }
+        assert(
+            is(df, "DataFrame"),
+            identical(colnames(df), c("geneName", "ncbiGeneId"))
+        )
+        df[["ncbiGeneId"]] <- as.integer(df[["ncbiGeneId"]])
+        df <- df[order(df), , drop = FALSE]
+        df
     }
 
 
@@ -89,57 +126,6 @@ formals(.importBroadModelInfo)[["dataset"]] <-
 
 
 
-#' Import a DepMap data file
-#'
-#' @note Updated 2023-03-08.
-#' @noRd
-.importDataFile <-
-    function(url,
-             format = c("csv", "tsv"),
-             colnames = TRUE,
-             rownameCol = NULL,
-             engine = getOption(
-                 x = "acid.import.engine",
-                 default = ifelse(
-                     test = unname(isInstalled("data.table")),
-                     yes = "data.table",
-                     no = "base"
-                 )
-             ),
-             return = c("DataFrame", "matrix")) {
-        assert(
-            isAURL(url),
-            isFlag(colnames),
-            isScalar(rownameCol) || is.null(rownameCol),
-            isString(engine)
-        )
-        format <- match.arg(format)
-        return <- match.arg(return)
-        ## Engine overrides for malformed DepMap flat file downloads.
-        malformedIds <- c(31316011L, 35020903L)
-        if (isSubset(x = as.integer(basename(url)), y = malformedIds)) {
-            requireNamespaces("data.table")
-            engine <- "data.table"
-        }
-        tmpfile <- .cacheURL(url = url)
-        df <- import(
-            con = tmpfile,
-            format = format,
-            rownameCol = rownameCol,
-            colnames = colnames,
-            engine = engine
-        )
-        out <- switch(
-            EXPR = return,
-            "DataFrame" = as(df, "DataFrame"),
-            "matrix" = as.matrix(df)
-        )
-        out <- makeDimnames(out)
-        out
-    }
-
-
-
 #' Import Broad DEMETER2 RNAi cell line model info
 #'
 #' @note Updated 2023-03-08.
@@ -190,51 +176,3 @@ formals(.importBroadModelInfo)[["dataset"]] <-
     metadata(df) <- list("missingCells" = ids[["setdiff"]])
     df
 }
-
-
-
-#' Import a DepMap file containing gene identifiers
-#'
-#' @note Updated 2022-08-05.
-#' @noRd
-.importGeneDataFile <-
-    function(url) {
-        df <- .importDataFile(
-            url = url,
-            colnames = TRUE,
-            engine = "base",
-            return = "DataFrame"
-        )
-        if (
-            identical(colnames(df), "Essentials") ||
-            identical(colnames(df), "Gene") ||
-            identical(colnames(df), "gene")
-        ) {
-            # e.g. DepMap 22Q4 ("Essentials", "Gene") and 22Q2 ("gene").
-            df <- stringi::stri_split_fixed(
-                str = df[[1L]],
-                pattern = " ",
-                n = 2L,
-                simplify = TRUE
-            )
-            df <- as(df, "DataFrame")
-            colnames(df) <- c("geneName", "ncbiGeneId")
-            df[["ncbiGeneId"]] <- gsub(
-                pattern = "[\\(\\)]",
-                replacement = "",
-                x = df[["ncbiGeneId"]]
-            )
-        } else if (identical(colnames(df), c("Gene_Symbol", "Gene_ID"))) {
-            ## e.g. DEMETER2.
-            colnames(df) <- c("geneName", "ncbiGeneId")
-        } else {
-            abort("Unsupported file.")
-        }
-        assert(
-            is(df, "DataFrame"),
-            identical(colnames(df), c("geneName", "ncbiGeneId"))
-        )
-        df[["ncbiGeneId"]] <- as.integer(df[["ncbiGeneId"]])
-        df <- df[order(df), , drop = FALSE]
-        df
-    }
