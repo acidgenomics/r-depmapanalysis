@@ -9,6 +9,8 @@
 
 
 
+## FIXME Keep track of discarded samples.
+
 #' Import Broad DepMap cell line model info
 #'
 #' Sample metadata now indicates that there are merged cells we should drop
@@ -139,6 +141,8 @@ formals(.importBroadModelInfo)[["dataset"]] <-
     }
 
 
+
+## FIXME Keep track of discarded samples.
 
 #' Import Broad DEMETER2 RNAi cell line model info
 #'

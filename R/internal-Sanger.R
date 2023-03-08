@@ -20,15 +20,12 @@
         )
         alert("Filtering cell lines annotated as 'problematic' by Cellosaurus.")
         cello <- cello[!cello[["isProblematic"]], , drop = FALSE]
+        date2 <- gsub(pattern = "-", replacement = "", x = date)
         url <- pasteURL(
             "cog.sanger.ac.uk",
             "cmp",
             "download",
-            paste0(
-                "model_list_",
-                gsub(pattern = "-", replacement = "", x = date),
-                ".csv"
-            ),
+            paste0("model_list_", date2, ".csv"),
             protocol = "https"
         )
         sanger <- import(
@@ -41,6 +38,10 @@
         ids[["sanger"]] <- sanger[[1L]]
         ids[["cello"]] <- decode(cello[["sangerModelId"]])
         ids[["intersect"]] <- sort(intersect(
+            x = na.omit(ids[["sanger"]]),
+            y = na.omit(ids[["cello"]])
+        ))
+        ids[["setdiff"]] <- sort(setdiff(
             x = na.omit(ids[["sanger"]]),
             y = na.omit(ids[["cello"]])
         ))
@@ -64,6 +65,10 @@
             "cellosaurus" = I(cello),
             "sanger" = I(sanger),
             row.names = decode(cello[["sangerModelId"]])
+        )
+        metadata(df) <- list(
+            "date" = date,
+            "missingCells" = ids[["setdiff"]]
         )
         df
     }
