@@ -193,9 +193,6 @@ formals(.importBroadModelInfo)[["dataset"]] <-
 
 
 
-## FIXME Consider returning a DataFrame instead of a vector?
-## Consider using geneName and ncbiGeneId columns?
-
 #' Import a DepMap file containing gene identifiers
 #'
 #' @note Updated 2022-08-05.
