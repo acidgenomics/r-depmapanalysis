@@ -9,6 +9,12 @@
 
 
 
+## FIXME Work off the DepMap ID as input here and ensure we match to the
+## Cellosaurus database...don't assume the RRIDs are correct.
+##
+## FIXME Only return lines that map to Cellosaurus.
+## FIXME Use Cellosaurus to return the cell line metadata and join.
+
 #' Import Broad DepMap cell line model info
 #'
 #' Sample metadata now indicates that there are merged cells we should drop
@@ -17,7 +23,14 @@
 #' @note Updated 2023-03-08.
 #' @noRd
 .importBroadModelInfo <-
-    function(dataset) {
+    function(dataset, cello = NULL) {
+        if (is.null(cello)) {
+            cello <- Cellosaurus()
+        }
+        assert(
+            is(cello, "Cellosaurus"),
+            isSubset("depmapId", colnames(cello))
+        )
         key <- switch(
             EXPR = dataset,
             "depmap_public_22q4" = "Model.csv",
@@ -25,60 +38,38 @@
             "demeter2_data_v6" = "sample_info.csv"
         )
         url <- datasets[[dataset]][["files"]][[key]]
-        df <- .importDataFile(
+        assert(isAURL(url))
+        broad <- .importDataFile(
             url = url,
             format = "csv",
             rownameCol = NULL,
             colnames = TRUE,
             return = "DataFrame"
         )
-        rownames(df) <- makeNames(df[[1L]])
-        colnames(df)[colnames(df) == "Cellosaurus_NCIt_disease"] <-
-            "ncitDiseaseName"
-        colnames(df)[colnames(df) == "Cellosaurus_NCIt_id"] <-
-            "ncitDiseaseId"
-        colnames(df)[colnames(df) == "COSMICID"] <- "cosmicId"
-        colnames(df)[colnames(df) == "DepMap_ID"] <- "broadModelId"
-        colnames(df)[colnames(df) == "RRID"] <- "cellosaurusId"
-        colnames(df) <- camelCase(colnames(df), strict = TRUE)
-        if (isSubset("alias", colnames(df))) {
-            x <- df[["alias"]]
-            x <- strsplit(x = x, split = ", ", fixed = TRUE)
-            x <- CharacterList(x)
-            df[["alias"]] <- x
-        }
-        if (
-            !isSubset("cellLineName", colnames(df)) &&
-            isSubset("strippedCellLineName", colnames(df))
-        ) {
-            ## e.g. "depmap_public_20q3".
-            df[["cellLineName"]] <- df[["strippedCellLineName"]]
-        } else if (
-            !isSubset("cellLineName", colnames(df)) &&
-            isSubset("ccleId", colnames(df))
-        ) {
-            ## e.g. "demeter2_data_v6".
-            x <- df[["ccleId"]]
-            x <- vapply(
-                X = strsplit(x = x, split = "_", fixed = TRUE),
-                FUN = `[`,
-                i = 1L,
-                FUN.VALUE = character(1L)
-            )
-            df[["cellLineName"]] <- x
-        }
-        assert(isSubset("cellLineName", colnames(df)))
-        if (anyNA(df[["cellLineName"]])) {
-            assert(isSubset("strippedCellLineName", colnames(df)))
-            idx <- which(is.na(df[["cellLineName"]]))
-            df[["cellLineName"]][idx] <- df[["strippedCellLineName"]][idx]
-        }
-        ## There can be some problematic cell lines that still persist here
-        ## (e.g. ACH-002260).
-        keep <- !is.na(df[["cellLineName"]])
-        df <- df[keep, ]
-        df <- factorize(df)
-        df <- encode(df)
+        assert(allAreMatchingFixed(x = broad[[1L]], pattern = "ACH-"))
+        depmapIds <- intersect(x = broad[[1L]], y = decode(cello[["depmapId"]]))
+        broad <- broad[
+            match(x = depmapIds, table = broad[[1L]]),
+            ,
+            drop = FALSE
+        ]
+        cello <- cello[
+            match(x = depmapIds, table = cello[["depmapId"]]),
+            ,
+            drop = FALSE
+        ]
+        cello <- droplevels2(cello)
+        df <- DataFrame(
+            "cellLineName" = cello[["cellLineName"]],
+            "cellosaurusId" = cello[["accession"]],
+            "depmapId" = cello[["depmapId"]],
+            "sangerModelId" = cello[["sangerModelId"]],
+            "cellosaurus" = I(cello),
+            "broad" = I(broad),
+            row.names = makeNames(decode(cello[["depmapId"]]))
+        )
+        ## FIXME This step is currently failing, need to harden.
+        df <- droplevels2(df)
         df
     }
 
