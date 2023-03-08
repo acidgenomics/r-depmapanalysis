@@ -196,6 +196,7 @@ formals(.importBroadModelInfo)[["dataset"]] <-
         colnames = TRUE,
         return = "DataFrame"
     )
+    ## FIXME Ensure we remove problematic lines first, then double check these.
     broad <- .importBroadModelInfo()
     x <- d2[[1L]]
     y <- broad[["broad"]][["CCLEName"]]
@@ -206,13 +207,10 @@ formals(.importBroadModelInfo)[["dataset"]] <-
     x[x == "KP1NL_PANCREAS"] <- NA_character_
     x[x == "MB157_BREAST"] <- "MDAMB157_BREAST"
     x[x == "NCIH1339_LUNG"] <- NA_character_
-    #x[x == "FIXME"] <- "FIXME"
-    #x[x == "FIXME"] <- "FIXME"
-    #x[x == "FIXME"] <- "FIXME"
+    x[x == "SJRH30_SOFT_TISSUE"] <- "RH30_SOFT_TISSUE"
+    ## > x[x == "SS1A_SOFT_TISSUE"] <- NA_character_
+    ## > x[x == "SW527_BREAST"] <- "SW527_LARGE_INTESTINE"
     x <- na.omit(x)
     setdiff(x, y)
-    # "SJRH30_SOFT_TISSUE"
-    # "SS1A_SOFT_TISSUE"
-    # "SW527_BREAST"
     assert(isSubset(x, y))
 }
