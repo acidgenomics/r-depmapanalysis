@@ -9,8 +9,6 @@
 
 
 
-## FIXME Keep track of discarded samples.
-
 #' Import Broad DepMap cell line model info
 #'
 #' Sample metadata now indicates that there are merged cells we should drop
@@ -57,6 +55,10 @@
             x = na.omit(ids[["broad"]]),
             y = na.omit(ids[["cello"]])
         ))
+        ids[["setdiff"]] <- sort(setdiff(
+            x = na.omit(ids[["broad"]]),
+            y = na.omit(ids[["cello"]])
+        ))
         assert(allAreMatchingFixed(x = ids[["intersect"]], pattern = "ACH-"))
         broad <- broad[
             match(x = ids[["intersect"]], table = ids[["broad"]]),
@@ -78,6 +80,7 @@
             "broad" = I(broad),
             row.names = makeNames(decode(cello[["depmapId"]]))
         )
+        metadata(df) <- list("missingCells" = ids[["setdiff"]])
         df
     }
 
@@ -85,9 +88,6 @@ formals(.importBroadModelInfo)[["dataset"]] <-
     .formalsList[["dataset"]][[1L]]
 
 
-
-## FIXME We're running into issues with 22Q4 formatting here.
-## FIXME But this works for 22Q2...consider how to rework here.
 
 #' Import a DepMap data file
 #'
@@ -117,13 +117,11 @@ formals(.importBroadModelInfo)[["dataset"]] <-
         return <- match.arg(return)
         ## Engine overrides for malformed DepMap flat file downloads.
         malformedIds <- c(31316011L, 35020903L)
-        if (isSubset(as.integer(basename(url)), malformedIds)) {
+        if (isSubset(x = as.integer(basename(url)), y = malformedIds)) {
             requireNamespaces("data.table")
             engine <- "data.table"
         }
         tmpfile <- .cacheURL(url = url)
-        ## FIXME 22Q4 doesn't contain colnames...need to rethink.
-        ## FIXME We can just set rownameCol here instead.
         df <- import(
             con = tmpfile,
             format = format,
@@ -142,8 +140,6 @@ formals(.importBroadModelInfo)[["dataset"]] <-
 
 
 
-## FIXME Keep track of discarded samples.
-
 #' Import Broad DEMETER2 RNAi cell line model info
 #'
 #' @note Updated 2023-03-08.
@@ -161,17 +157,37 @@ formals(.importBroadModelInfo)[["dataset"]] <-
         return = "DataFrame"
     )
     broad <- .importBroadModelInfo()
-    d2Ids <- d2[[1L]]
-    d2Ids[d2Ids == "COLO699_LUNG"] <- "CHL1DM_SKIN"
-    d2Ids[d2Ids == "GISTT1_GASTROINTESTINAL_TRACT"] <- "GISTT1_STOMACH"
-    d2Ids[d2Ids == "MB157_BREAST"] <- "MDAMB157_BREAST"
-    broadIds <- broad[["broad"]][["CCLEName"]]
-    ccleIds <- sort(intersect(x = na.omit(d2Ids), y = na.omit(broadIds)))
-    d2 <- d2[match(x = ccleIds, table = d2Ids), , drop = FALSE]
-    broad <- broad[match(x = ccleIds, table = broadIds), , drop = FALSE]
+    ids <- list()
+    ids[["d2"]] <- d2[[1L]]
+    ids[["d2"]][ids[["d2"]] == "COLO699_LUNG"] <-
+        "CHL1DM_SKIN"
+    ids[["d2"]][ids[["d2"]] == "GISTT1_GASTROINTESTINAL_TRACT"] <-
+        "GISTT1_STOMACH"
+    ids[["d2"]][ids[["d2"]] == "MB157_BREAST"] <-
+        "MDAMB157_BREAST"
+    ids[["broad"]] <- broad[["broad"]][["CCLEName"]]
+    ids[["intersect"]] <- sort(intersect(
+        x = na.omit(ids[["d2"]]),
+        y = na.omit(ids[["broad"]])
+    ))
+    ids[["setdiff"]] <- sort(setdiff(
+        x = na.omit(ids[["d2"]]),
+        y = na.omit(ids[["broad"]])
+    ))
+    d2 <- d2[
+        match(x = ids[["intersect"]], table = ids[["d2"]]),
+        ,
+        drop = FALSE
+    ]
+    broad <- broad[
+        match(x = ids[["intersect"]], table = ids[["broad"]]),
+        ,
+        drop = FALSE
+    ]
     df <- broad
     df[["demeter2"]] <- d2
     rownames(df) <- makeNames(d2[[1L]])
+    metadata(df) <- list("missingCells" = ids[["setdiff"]])
     df
 }
 
