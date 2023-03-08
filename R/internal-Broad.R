@@ -41,7 +41,7 @@
         colnames(df)[colnames(df) == "Cellosaurus_NCIt_id"] <-
             "ncitDiseaseId"
         colnames(df)[colnames(df) == "COSMICID"] <- "cosmicId"
-        colnames(df)[colnames(df) == "DepMap_ID"] <- "depmapId"
+        colnames(df)[colnames(df) == "DepMap_ID"] <- "broadModelId"
         colnames(df)[colnames(df) == "RRID"] <- "cellosaurusId"
         colnames(df) <- camelCase(colnames(df), strict = TRUE)
         if (isSubset("alias", colnames(df))) {

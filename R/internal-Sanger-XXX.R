@@ -1,3 +1,4 @@
+## FIXME Ensure we use "broadModelId".
 ## FIXME rename modelId to sangerModelId
 ## FIXME rename rrid to cellosaurusId
 ## FIXME rename modelName to cellLineName
@@ -11,14 +12,14 @@
 
 
 
-#' Import Sanger CellModelPassports cell line metadata
+#' Import Sanger CellModelPassports cell line model info
 #'
-#' @note Updated 2023-03-01.
+#' @note Updated 2023-03-08.
 #' @noRd
 #'
 #' @details
 #' Alternatively, can use "model_list_latest.csv.gz".
-.importSangerMetadata <- function() {
+.importSangerModelInfo <- function() {
     url <- pasteURL(
         "cog.sanger.ac.uk", "cmp", "download", "model_list_20230110.csv",
         protocol = "https"
