@@ -2,57 +2,59 @@
   "depmap_public_22q4": {
     "metadata": {
       "date": "2022-12",
+      "figshare_download_url": "https://figshare.com/ndownloader/articles/21637199/versions/2",
+      "figshare_url": "https://figshare.com/articles/dataset/DepMap_22Q4_Public/21637199",
       "library_type": "crispr",
       "scoring_method": "chronos"
     },
-    "figshare": {
-      "AchillesCommonEssentialControls.csv"
-      "AchillesHighVarianceGeneControls.csv"
-      "AchillesNonessentialControls.csv"
-      "AchillesScreenQCReport.csv"
-      "AchillesSequenceQCReport.csv"
-      "AvanaGuideMap.csv"
-      "AvanaLogfoldChange.csv"
-      "AvanaRawReadcounts.csv"
-      "CRISPRGeneDependency.csv"
-      "CRISPRGeneEffect.csv"
-      "CRISPRInferredCommonEssentials.csv"
-      "CRISPRInferredGuideEfficacy.csv"
-      "CRISPRInferredModelEfficacy.csv"
-      "CRISPRInferredModelGrowthRate.csv"
-      "CRISPRInferredSequenceOverdispersion.csv"
-      "CRISPRScreenMap.csv"
-      "KYGuideMap.csv"
-      "KYLogfoldChange.csv"
-      "KYRawReadcounts.csv"
-      "Media.csv"
-      "Model.csv"
-      "ModelCondition.csv"
-      "OmicsCNGene.csv"
-      "OmicsCNSegmentsProfile.csv"
-      "OmicsDefaultModelConditionProfiles.csv"
-      "OmicsDefaultModelProfiles.csv"
-      "OmicsExpressionGeneSetEnrichment.csv"
-      "OmicsExpressionGeneSetEnrichmentProfile.csv"
-      "OmicsExpressionGenesExpectedCountProfile.csv"
-      "OmicsExpressionProteinCodingGenesTPMLogp1.csv"
-      "OmicsExpressionTranscriptsExpectedCountProfile.csv"
-      "OmicsFusionFiltered.csv"
-      "OmicsFusionUnfilteredProfile.csv"
-      "OmicsGuideMutationsBinaryAvana.csv"
-      "OmicsGuideMutationsBinaryHumagne.csv"
-      "OmicsGuideMutationsBinaryKY.csv"
-      "OmicsProfiles.csv"
-      "OmicsSomaticMutations.csv"
-      "OmicsSomaticMutationsMatrixDamaging.csv"
-      "OmicsSomaticMutationsMatrixHotspot.csv"
-      "OmicsSomaticMutationsProfile.csv"
-      "README.txt"
-      "ScreenGeneDependency.csv"
-      "ScreenGeneEffect.csv"
-      "ScreenGeneEffectUncorrected.csv"
-      "ScreenNaiveGeneScore.csv"
-      "ScreenSequenceMap.csv"
+    "files": {
+      "AchillesCommonEssentialControls.csv": "https://figshare.com/ndownloader/files/38357369",
+      "AchillesHighVarianceGeneControls.csv": "https://figshare.com/ndownloader/files/38357375",
+      "AchillesNonessentialControls.csv": "https://figshare.com/ndownloader/files/38357372",
+      "AchillesScreenQCReport.csv": "https://figshare.com/ndownloader/files/38357378",
+      "AchillesSequenceQCReport.csv": "https://figshare.com/ndownloader/files/38357381",
+      "AvanaGuideMap.csv": "https://figshare.com/ndownloader/files/38357384",
+      "AvanaLogfoldChange.csv": "https://figshare.com/ndownloader/files/38357468",
+      "AvanaRawReadcounts.csv": "https://figshare.com/ndownloader/files/38357396",
+      "CRISPRGeneDependency.csv": "https://figshare.com/ndownloader/files/38357387",
+      "CRISPRGeneEffect.csv": "https://figshare.com/ndownloader/files/38357390",
+      "CRISPRInferredCommonEssentials.csv": "https://figshare.com/ndownloader/files/38357399",
+      "CRISPRInferredGuideEfficacy.csv": "https://figshare.com/ndownloader/files/38357402",
+      "CRISPRInferredModelEfficacy.csv": "https://figshare.com/ndownloader/files/38357405",
+      "CRISPRInferredModelGrowthRate.csv": "https://figshare.com/ndownloader/files/38357408",
+      "CRISPRInferredSequenceOverdispersion.csv": "https://figshare.com/ndownloader/files/38357411",
+      "CRISPRScreenMap.csv": "https://figshare.com/ndownloader/files/38357414",
+      "KYGuideMap.csv": "https://figshare.com/ndownloader/files/38357417",
+      "KYLogfoldChange.csv": "https://figshare.com/ndownloader/files/38357423",
+      "KYRawReadcounts.csv": "https://figshare.com/ndownloader/files/38357420",
+      "Media.csv": "https://figshare.com/ndownloader/files/38357429",
+      "Model.csv": "https://figshare.com/ndownloader/files/38466923",
+      "ModelCondition.csv": "https://figshare.com/ndownloader/files/38466920",
+      "OmicsCNGene.csv": "https://figshare.com/ndownloader/files/38357438",
+      "OmicsCNSegmentsProfile.csv": "https://figshare.com/ndownloader/files/38357441",
+      "OmicsDefaultModelConditionProfiles.csv": "https://figshare.com/ndownloader/files/38357444",
+      "OmicsDefaultModelProfiles.csv": "https://figshare.com/ndownloader/files/38357447",
+      "OmicsExpressionGeneSetEnrichment.csv": "https://figshare.com/ndownloader/files/38357450",
+      "OmicsExpressionGeneSetEnrichmentProfile.csv": "https://figshare.com/ndownloader/files/38357456",
+      "OmicsExpressionGenesExpectedCountProfile.csv": "https://figshare.com/ndownloader/files/38357459",
+      "OmicsExpressionProteinCodingGenesTPMLogp1.csv": "https://figshare.com/ndownloader/files/38357462",
+      "OmicsExpressionTranscriptsExpectedCountProfile.csv": "https://figshare.com/ndownloader/files/38357474",
+      "OmicsFusionFiltered.csv": "https://figshare.com/ndownloader/files/38357471",
+      "OmicsFusionUnfilteredProfile.csv": "https://figshare.com/ndownloader/files/38357477",
+      "OmicsGuideMutationsBinaryAvana.csv": "https://figshare.com/ndownloader/files/38357480",
+      "OmicsGuideMutationsBinaryHumagne.csv": "https://figshare.com/ndownloader/files/38357483",
+      "OmicsGuideMutationsBinaryKY.csv": "https://figshare.com/ndownloader/files/38357486",
+      "OmicsProfiles.csv": "https://figshare.com/ndownloader/files/38357489",
+      "OmicsSomaticMutations.csv": "https://figshare.com/ndownloader/files/38357492",
+      "OmicsSomaticMutationsMatrixDamaging.csv": "https://figshare.com/ndownloader/files/38357498",
+      "OmicsSomaticMutationsMatrixHotspot.csv": "https://figshare.com/ndownloader/files/38357504",
+      "OmicsSomaticMutationsProfile.csv": "https://figshare.com/ndownloader/files/38357507",
+      "README.txt": "https://figshare.com/ndownloader/files/38357510",
+      "ScreenGeneDependency.csv": "https://figshare.com/ndownloader/files/38357513",
+      "ScreenGeneEffect.csv": "https://figshare.com/ndownloader/files/38357516",
+      "ScreenGeneEffectUncorrected.csv": "https://figshare.com/ndownloader/files/38357522",
+      "ScreenNaiveGeneScore.csv": "https://figshare.com/ndownloader/files/38357528",
+      "ScreenSequenceMap.csv": "https://figshare.com/ndownloader/files/38357531"
     }
   },
   "depmap_public_22q2": {
@@ -61,7 +63,7 @@
       "library_type": "crispr",
       "scoring_method": "chronos"
     },
-    "figshare": {
+    "files": {
       "Achilles_cell_line_efficacy.csv"
       "Achilles_cell_line_growth_rate.csv"
       "Achilles_common_essentials.csv"
@@ -113,7 +115,7 @@
       "scoring_method": "demeter2",
       "transpose_assays": false
     },
-    "figshare": {
+    "files": {
       "Ach_hp_quality_metrics.csv"
       "CCLE_mutation_data.csv"
       "D2_Achilles_CL_data.csv"
