@@ -43,7 +43,7 @@
 #'
 #' @note Updated 2023-03-08.
 #' @noRd
-.makeDepMapSE <-
+.makeBroadSE <-
     function(dataset,
              assays,
              transposeAssays = FALSE,

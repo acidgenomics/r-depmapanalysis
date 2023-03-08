@@ -126,7 +126,7 @@ DepMapGeneEffect <- # nolint
             )
         )
         ## Return --------------------------------------------------------------
-        se <- .makeDepMapSE(
+        se <- .makeBroadSE(
             dataset = dataset,
             assays = assays,
             transposeAssays = dict[["transposeAssays"]],

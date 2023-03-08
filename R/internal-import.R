@@ -9,22 +9,33 @@
 
 
 
+## FIXME Ensure that this works for all our datasets.
+## FIXME Consider renaming "modelId" to "broadModelId".
+
 #' Import cell line sample metadata
 #'
 #' Sample metadata now indicates that there are merged cells we should drop
 #' from analysis (e.g. ACH-002260).
 #'
-#' @note Updated 2022-11-08.
+#' @note Updated 2023-03-08.
 #' @noRd
 .importCellLineSampleData <-
     function(dataset) {
-        url <- datasets[[dataset]][["files"]][["sample_info"]][["url"]]
+        key <- switch(
+            EXPR = dataset,
+            "depmap_public_22q4" = "Model.csv",
+            "depmap_public_22q2" = "sample_info.csv",
+            "demeter2_data_v6" = "sample_info.csv"
+        )
+        url <- datasets[[dataset]][["files"]][[key]]
         df <- .importDataFile(
             url = url,
-            rownamesCol = 1L,
+            format = "csv",
+            rownameCol = NULL,
+            colnames = TRUE,
             return = "DataFrame"
         )
-        assert(is(df, "DataFrame"))
+        rownames(df) <- makeNames(df[[1L]])
         colnames(df)[colnames(df) == "Cellosaurus_NCIt_disease"] <-
             "ncitDiseaseName"
         colnames(df)[colnames(df) == "Cellosaurus_NCIt_id"] <-
