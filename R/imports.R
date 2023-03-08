@@ -12,7 +12,7 @@ NULL
 #' leftJoin makeDimnames makeNames mapGenesToRownames melt showHeader
 #' @importFrom BiocGenerics %in% do.call lapply mean order rbind t which
 #' @importFrom IRanges median
-#' @importFrom S4Vectors complete.cases decode head mcols metadata metadata<-
+#' @importFrom S4Vectors I complete.cases decode head mcols metadata metadata<-
 #' split unname
 #' @importFrom SummarizedExperiment assay assayNames colData colData<- rowData
 #' @importFrom methods show
