@@ -34,6 +34,7 @@ DepMapGeneEffect <- # nolint
         dataset <- match.arg(dataset)
         assert(isSubset(dataset, names(datasets)))
         json <- datasets[[dataset]]
+        urls <- unlist(x = json[["files"]], recursive = FALSE, use.names = TRUE)
         dict <- list(
             "libraryType" = json[["metadata"]][["library_type"]],
             "releaseDate" = json[["metadata"]][["date"]],
@@ -44,7 +45,8 @@ DepMapGeneEffect <- # nolint
             isString(dict[["libraryType"]]),
             isString(dict[["releaseDate"]]),
             isString(dict[["scoringMethod"]]),
-            isFlag(dict[["transposeAssays"]])
+            isFlag(dict[["transposeAssays"]]),
+            allAreURLs(urls)
         )
         h1(sprintf("{.cls %s}: {.var %s}", "DepMapGeneEffect", dataset))
         dl(c(
@@ -52,21 +54,56 @@ DepMapGeneEffect <- # nolint
             "scoringMethod" = dict[["scoringMethod"]],
             "releaseDate" = dict[["releaseDate"]]
         ))
-        urls <- list(
-            "assays" = list(
-                "effect" = json[["files"]][["screen"]][[
-                    "gene_effect"]][["url"]],
-                "probability" = json[["files"]][["screen"]][[
-                    "gene_dependency"]][["url"]]
-            ),
-            "metadata" = list(
-                "commonEssentials" = json[["files"]][["screen"]][[
-                    "common_essentials"]][["url"]],
-                "controlCommonEssentials" = json[["files"]][["screen"]][[
-                    "positive_control_genes"]][["url"]],
-                "controlNonessentials" = json[["files"]][["screen"]][[
-                    "negative_control_genes"]][["url"]]
-            )
+        switch(
+            EXPR = dataset,
+            "depmap_public_22q4" = {
+                urls <- list(
+                    "assays" = list(
+                        "effect" =
+                            urls[["CRISPRGeneEffect.csv"]],
+                        "probability" =
+                            urls[["CRISPRGeneDependency.csv"]]
+                    ),
+                    "metadata" = list(
+                        "commonEssentials" =
+                            urls[["CRISPRInferredCommonEssentials.csv"]],
+                        "controlCommonEssentials" =
+                            urls[["AchillesCommonEssentialControls.csv"]],
+                        "controlNonessentials" =
+                            urls[["AchillesNonessentialControls.csv"]]
+                    )
+                )
+            },
+            "depmap_public_22q2" = {
+                urls <- list(
+                    "assays" = list(
+                        "effect" =
+                            urls[["CRISPR_gene_effect.csv"]],
+                        "probability" =
+                            urls[["CRISPR_gene_dependency.csv"]]
+                    ),
+                    "metadata" = list(
+                        "commonEssentials" =
+                            urls[["CRISPR_common_essentials.csv"]],
+                        "controlCommonEssentials" =
+                            urls[["common_essentials.csv"]],
+                        "controlNonessentials" =
+                            urls[["nonessentials.csv"]]
+                    )
+                )
+            },
+            "demeter2_data_v6" = {
+                urls <- list(
+                    "assays" = list(
+                        "effect" = urls[["D2_combined_gene_dep_scores.csv"]],
+                        "sd" = urls[["D2_combined_seed_dep_score_SDs.csv"]]
+                    ),
+                    "metadata" = list(
+                        "controlCommonEssentials" = urls[["Hart-pos-controls.csv"]],
+                        "controlNonessentials" = urls[["Hart-neg-controls.csv"]]
+                    )
+                )
+            }
         )
         ## Assays --------------------------------------------------------------
         urls[["assays"]] <- Filter(
@@ -98,6 +135,7 @@ DepMapGeneEffect <- # nolint
                 "scoringMethod" = dict[["scoringMethod"]]
             )
         )
+        ## FIXME Consider filtering to only keep cells that map to Cellosaurus.
         se <- .makeSummarizedExperiment(
             dataset = dataset,
             assays = assays,
