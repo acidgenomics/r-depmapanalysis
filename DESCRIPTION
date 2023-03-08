@@ -34,6 +34,7 @@ Imports:
     AcidPlots (>= 0.5.4),
     AcidPlyr (>= 0.3.7),
     BiocGenerics (>= 0.44.0),
+    Cellosaurus (>= 0.5.3),
     IRanges (>= 2.32.0),
     S4Vectors (>= 0.36.0),
     ggplot2 (>= 3.4.1),
@@ -45,7 +46,6 @@ Imports:
     utils
 Suggests:
     AnnotationDbi (>= 1.60.0),
-    Cellosaurus (>= 0.5.3),
     data.table (>= 1.14.8),
     limma (>= 3.54.0),
     ontologyIndex (>= 2.10),

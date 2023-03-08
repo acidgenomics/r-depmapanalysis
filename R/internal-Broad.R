@@ -9,12 +9,6 @@
 
 
 
-## FIXME Work off the DepMap ID as input here and ensure we match to the
-## Cellosaurus database...don't assume the RRIDs are correct.
-##
-## FIXME Only return lines that map to Cellosaurus.
-## FIXME Use Cellosaurus to return the cell line metadata and join.
-
 #' Import Broad DepMap cell line model info
 #'
 #' Sample metadata now indicates that there are merged cells we should drop
@@ -29,7 +23,10 @@
         }
         assert(
             is(cello, "Cellosaurus"),
-            isSubset("depmapId", colnames(cello))
+            isSubset(
+                c("accession", "cellLineName", "depmapId", "sangerModelId"),
+                colnames(cello)
+            )
         )
         key <- switch(
             EXPR = dataset,
@@ -54,22 +51,20 @@
             drop = FALSE
         ]
         cello <- cello[
-            match(x = depmapIds, table = cello[["depmapId"]]),
+            match(x = depmapIds, table = decode(cello[["depmapId"]])),
             ,
             drop = FALSE
         ]
         cello <- droplevels2(cello)
         df <- DataFrame(
-            "cellLineName" = cello[["cellLineName"]],
-            "cellosaurusId" = cello[["accession"]],
-            "depmapId" = cello[["depmapId"]],
-            "sangerModelId" = cello[["sangerModelId"]],
+            "cellLineName" = decode(cello[["cellLineName"]]),
+            "cellosaurusId" = decode(cello[["accession"]]),
+            "depmapId" = decode(cello[["depmapId"]]),
+            "sangerModelId" = decode(cello[["sangerModelId"]]),
             "cellosaurus" = I(cello),
             "broad" = I(broad),
             row.names = makeNames(decode(cello[["depmapId"]]))
         )
-        ## FIXME This step is currently failing, need to harden.
-        df <- droplevels2(df)
         df
     }
 

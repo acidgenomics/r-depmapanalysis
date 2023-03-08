@@ -25,6 +25,13 @@
         if (is.null(cello)) {
             cello <- Cellosaurus()
         }
+        assert(
+            is(cello, "Cellosaurus"),
+            isSubset(
+                c("accession", "cellLineName", "depmapId", "sangerModelId"),
+                colnames(cello)
+            )
+        )
         date2 <- gsub(pattern = "-", replacement = "", x = date)
         url <- pasteURL(
             "cog.sanger.ac.uk",
@@ -33,41 +40,33 @@
             paste0("model_list_", date2, ".csv"),
             protocol = "https"
         )
-        con <- .cacheURL(url)
-        extra <- import(con = con, format = "csv", engine = "data.table")
-        extra <- as(extra, "DataFrame")
-        colnames(extra) <- camelCase(tolower(colnames(extra)))
-
-        ## FIXME It doesn't look like Sanger is mapping RRID to all cells correctly.
-        ## Check with ACH- ids against our current Cello annotations.
-        ## Let's just use our Cello mapping IDS (1925 vs. 1585).
-
-        df <- DataFrame()
-
-        ## Step 1: Figure out which cells with Sanger modelId map to Cello.
-        ## Get these from the Cellosaurus object
-        ## cellosaurusId
-        ## sangerModelId
-        ## cellLineName
-        ## ...
-
-
-
-        ## Nest a column named "extra" here.
-        ## broadId -> depmapId
-        ## rrid -> cellosaurusId
-        ## modelId -> sangerModelId
-        ## modelName -> cellLineName
-        ## cancerTypeNcitId -> ncitDiseaseId
-        ## cancerType -> ncitDiseaseName
-        ## sampleId -> sangerSampleId
-        ## patientId -> sangerPatientId
-        ## parentId -> sangerParentId
-        ## FIXME Consider collapsing this other metadata into a DataFrame named
-        ## Sanger?
-        ## FIXME Work on standardizing annoying names first.
-
-        ## FIXME Return with cellosaurusId, depmapId, sangerModelId, cellLineName
-        ## Also include strippedCellLineName?
+        sanger <- import(
+            con = .cacheURL(url),
+            format = "csv",
+            engine = "data.table"
+        )
+        sanger <- as(sanger, "DataFrame")
+        assert(allAreMatchingFixed(x = sanger[[1L]], pattern = "SIDM"))
+        modelIds <- intersect(x = sanger[[1L]], y = decode(cello[["sangerModelId"]]))
+        sanger <- sanger[
+            match(x = modelIds, table = sanger[[1L]]),
+            ,
+            drop = FALSE
+        ]
+        cello <- cello[
+            match(x = modelIds, table = decode(cello[["sangerModelId"]])),
+            ,
+            drop = FALSE
+        ]
+        cello <- droplevels2(cello)
+        df <- DataFrame(
+            "cellLineName" = decode(cello[["cellLineName"]]),
+            "cellosaurusId" = decode(cello[["accession"]]),
+            "depmapId" = decode(cello[["depmapId"]]),
+            "sangerModelId" = decode(cello[["sangerModelId"]]),
+            "cellosaurus" = I(cello),
+            "sanger" = I(sanger),
+            row.names = decode(cello[["sangerModelId"]])
+        )
         df
     }

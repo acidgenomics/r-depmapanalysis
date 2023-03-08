@@ -126,6 +126,8 @@ DepMapGeneEffect <- # nolint
             )
         )
         ## Return --------------------------------------------------------------
+        ## FIXME The goal here is to get to NCBI gene IDs and Cellosaurus IDs
+        ## as the row and column names respectively.
         se <- .makeBroadSE(
             dataset = dataset,
             assays = assays,
