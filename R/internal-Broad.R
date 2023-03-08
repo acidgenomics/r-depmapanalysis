@@ -9,8 +9,6 @@
 
 
 
-## FIXME Ignore cells that are contaminated (problematic).
-
 #' Import Broad DepMap cell line model info
 #'
 #' Sample metadata now indicates that there are merged cells we should drop
@@ -50,7 +48,6 @@
             colnames = TRUE,
             return = "DataFrame"
         )
-        assert(allAreMatchingFixed(x = broad[[1L]], pattern = "ACH-"))
         ids <- list()
         ids[["broad"]] <- broad[[1L]]
         ids[["cello"]] <- decode(cello[["depmapId"]])
@@ -58,6 +55,7 @@
             x = na.omit(ids[["broad"]]),
             y = na.omit(ids[["cello"]])
         ))
+        assert(allAreMatchingFixed(x = ids[["intersect"]], pattern = "ACH-"))
         broad <- broad[
             match(x = ids[["intersect"]], table = ids[["broad"]]),
             ,

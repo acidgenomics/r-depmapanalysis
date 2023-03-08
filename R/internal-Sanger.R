@@ -37,7 +37,6 @@
             engine = "data.table"
         )
         sanger <- as(sanger, "DataFrame")
-        assert(allAreMatchingFixed(x = sanger[[1L]], pattern = "SIDM"))
         ids <- list()
         ids[["sanger"]] <- sanger[[1L]]
         ids[["cello"]] <- decode(cello[["sangerModelId"]])
@@ -45,6 +44,7 @@
             x = na.omit(ids[["sanger"]]),
             y = na.omit(ids[["cello"]])
         ))
+        assert(allAreMatchingFixed(x = ids[["intersect"]], pattern = "SIDM"))
         sanger <- sanger[
             match(x = ids[["intersect"]], table = ids[["sanger"]]),
             ,
