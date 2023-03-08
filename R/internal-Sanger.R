@@ -1,32 +1,10 @@
-## FIXME Ensure we use "broadModelId".
-## FIXME rename modelId to sangerModelId
-## FIXME rename rrid to cellosaurusId
-## FIXME rename modelName to cellLineName
-## FIXNE rename cancerTypeNcitId
-## FIXME rename broadId to depmapId
-## FIXME Split the synonyms by semicolon.
-## FIXME Add "strippedCellLineName" column.
-## FIXME Add "ccleName" column.
-## FIXME Add ncitDiseaseId column.
-## FIXME Need to map ncitDiseaseName here -- use Cellosaurus code.
-## FIXME Only return lines that map to Cellosaurus.
-
-
-
-## FIXME Ignore cells that are contaminated (problematic).
-
 #' Import Sanger CellModelPassports cell line model info
 #'
 #' @note Updated 2023-03-08.
 #' @noRd
-#'
-#' @details
-#' Alternatively, can use "model_list_latest.csv.gz".
 .importSangerModelInfo <-
-    function(date = "2023-01-10", cello = NULL) {
-        if (is.null(cello)) {
-            cello <- Cellosaurus()
-        }
+    function(date = "2023-01-10") {
+        cello <- Cellosaurus()
         assert(
             is(cello, "Cellosaurus"),
             isSubset(
@@ -41,14 +19,16 @@
             )
         )
         alert("Filtering cell lines annotated as 'problematic' by Cellosaurus.")
-        keep <- !cello[["isProblematic"]]
-        cello <- cello[keep, , drop = FALSE]
-        date2 <- gsub(pattern = "-", replacement = "", x = date)
+        cello <- cello[!cello[["isProblematic"]], , drop = FALSE]
         url <- pasteURL(
             "cog.sanger.ac.uk",
             "cmp",
             "download",
-            paste0("model_list_", date2, ".csv"),
+            paste0(
+                "model_list_",
+                gsub(pattern = "-", replacement = "", x = date),
+                ".csv"
+            ),
             protocol = "https"
         )
         sanger <- import(
@@ -58,17 +38,20 @@
         )
         sanger <- as(sanger, "DataFrame")
         assert(allAreMatchingFixed(x = sanger[[1L]], pattern = "SIDM"))
-        modelIds <- sort(intersect(
-            x = sanger[[1L]],
-            y = decode(cello[["sangerModelId"]])
+        ids <- list()
+        ids[["sanger"]] <- sanger[[1L]]
+        ids[["cello"]] <- decode(cello[["sangerModelId"]])
+        ids[["intersect"]] <- sort(intersect(
+            x = na.omit(ids[["sanger"]]),
+            y = na.omit(ids[["cello"]])
         ))
         sanger <- sanger[
-            match(x = modelIds, table = sanger[[1L]]),
+            match(x = ids[["intersect"]], table = ids[["sanger"]]),
             ,
             drop = FALSE
         ]
         cello <- cello[
-            match(x = modelIds, table = decode(cello[["sangerModelId"]])),
+            match(x = ids[["intersect"]], table = ids[["cello"]]),
             ,
             drop = FALSE
         ]

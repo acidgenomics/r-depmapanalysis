@@ -19,16 +19,14 @@
 #' @note Updated 2023-03-08.
 #' @noRd
 .importBroadModelInfo <-
-    function(dataset, cello = NULL) {
+    function(dataset) {
         fileKey <- switch(
             EXPR = dataset,
             "depmap_public_22q4" = "Model.csv",
             "depmap_public_22q2" = "sample_info.csv",
             stop("Unsupported dataset.")
         )
-        if (is.null(cello)) {
-            cello <- Cellosaurus()
-        }
+        cello <- Cellosaurus()
         assert(
             is(cello, "Cellosaurus"),
             isSubset(
@@ -43,10 +41,8 @@
             )
         )
         alert("Filtering cell lines annotated as 'problematic' by Cellosaurus.")
-        keep <- !cello[["isProblematic"]]
-        cello <- cello[keep, , drop = FALSE]
+        cello <- cello[!cello[["isProblematic"]], , drop = FALSE]
         url <- datasets[[dataset]][["files"]][[fileKey]]
-        assert(isAURL(url))
         broad <- .importDataFile(
             url = url,
             format = "csv",
@@ -55,17 +51,20 @@
             return = "DataFrame"
         )
         assert(allAreMatchingFixed(x = broad[[1L]], pattern = "ACH-"))
-        depmapIds <- sort(intersect(
-            x = na.omit(broad[[1L]]),
-            y = na.omit(decode(cello[["depmapId"]]))
+        ids <- list()
+        ids[["broad"]] <- broad[[1L]]
+        ids[["cello"]] <- decode(cello[["depmapId"]])
+        ids[["intersect"]] <- sort(intersect(
+            x = na.omit(ids[["broad"]]),
+            y = na.omit(ids[["cello"]])
         ))
         broad <- broad[
-            match(x = depmapIds, table = broad[[1L]]),
+            match(x = ids[["intersect"]], table = ids[["broad"]]),
             ,
             drop = FALSE
         ]
         cello <- cello[
-            match(x = depmapIds, table = decode(cello[["depmapId"]])),
+            match(x = ids[["intersect"]], table = ids[["cello"]]),
             ,
             drop = FALSE
         ]
