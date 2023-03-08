@@ -152,7 +152,7 @@ NULL
 
 
 
-## Updated 2023-01-26.
+## Updated 2023-03-08.
 
 #' @rdname DepMapMicroRNA
 #' @export
@@ -166,7 +166,7 @@ DepMapMicroRNA <- # nolint
         ))
         gct <- .importMicroRnaGct(dataset = dataset)
         rowRanges <- .importMirbaseGff(rowData = gct[["rowData"]])
-        colData <- .importCellLineSampleData(dataset = currentDataset)
+        colData <- .importBroadModelInfo(dataset = currentDataset)
         colData <- colData[!is.na(colData[["ccleName"]]), ]
         rownames(colData) <- makeNames(as.character(colData[["ccleName"]]))
         assay <- gct[["assay"]]

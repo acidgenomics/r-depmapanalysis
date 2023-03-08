@@ -137,7 +137,7 @@
         ## Column data (cell line annotations) ---------------------------------
         missingCells <- character()
         ## FIXME Need to update this for new JSON metadata...
-        colData <- .importCellLineSampleData(dataset = dataset)
+        colData <- .importBroadModelInfo(dataset = dataset)
         assert(
             areIntersectingSets(colnames(assays[[1L]]), rownames(colData)),
             !anyNA(colData[["cellLineName"]])
@@ -202,7 +202,7 @@
 
 #' Standardize the DEMETER2 RNAi dataset
 #'
-#' @note Updated 2023-01-27.
+#' @note Updated 2023-03-08.
 #' @noRd
 .standardizeDemeter2 <- function(object) {
     assert(is(object, "SummarizedExperiment"))
@@ -214,7 +214,7 @@
     assert(isString(currentDataset))
     cd <- list(
         "x" = colData(object),
-        "y" = .importCellLineSampleData(dataset = currentDataset)
+        "y" = .importBroadModelInfo(dataset = currentDataset)
     )
     assert(
         isSubset(

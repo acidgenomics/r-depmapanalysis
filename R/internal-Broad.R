@@ -9,17 +9,14 @@
 
 
 
-## FIXME Ensure that this works for all our datasets.
-## FIXME Consider renaming "modelId" to "broadModelId".
-
-#' Import cell line sample metadata
+#' Import Broad DepMap cell line model info
 #'
 #' Sample metadata now indicates that there are merged cells we should drop
 #' from analysis (e.g. ACH-002260).
 #'
 #' @note Updated 2023-03-08.
 #' @noRd
-.importCellLineSampleData <-
+.importBroadModelInfo <-
     function(dataset) {
         key <- switch(
             EXPR = dataset,
@@ -84,6 +81,9 @@
         df <- encode(df)
         df
     }
+
+formals(.importBroadModelInfo)[["dataset"]] <-
+    .formalsList[["dataset"]][[1L]]
 
 
 

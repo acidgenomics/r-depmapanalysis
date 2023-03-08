@@ -220,7 +220,7 @@ DepMapProteomics <-  # nolint
     cd1[["cellLineName"]] <- NULL
     ## FIXME Use sanger cell line metadata here instead.
     ## FIXME Also consider dropping cell lines not in Broad DepMap here too.
-    cd2 <- .importCellLineSampleData(dataset = currentDataset)
+    cd2 <- .importBroadModelInfo(dataset = currentDataset)
     cd2 <- cd2[!is.na(cd2[["sangerModelId"]]), ]
     cd <- leftJoin(x = cd1, y = cd2, by = "sangerModelId")
     ## FIXME Drop cells without a cellosaurusId?
@@ -241,7 +241,7 @@ DepMapProteomics <-  # nolint
 
 #' Standardize the Nusinow et al 2020 proteomics dataset
 #'
-#' @note Updated 2023-03-01.
+#' @note Updated 2023-03-08.
 #' @noRd
 .standardizeNusinow2020 <- function(object) {
     assert(is(object, "SummarizedExperiment"))
@@ -257,7 +257,6 @@ DepMapProteomics <-  # nolint
         colnames(rowData) == "description"] <- "proteinDescription"
     colnames(rowData)[
         colnames(rowData) == "geneSymbol"] <- "geneName"
-
     ## FIXME Move this to AcidGenomes
     ## FIXME Also make a similar function for NcbiGeneInfo return.
     .mapGeneNamesToHgncIds <- function(hgnc, geneNames) {
@@ -331,7 +330,7 @@ DepMapProteomics <-  # nolint
     cd1[["cellLine"]] <- NULL
     cd1[["notes"]] <- NULL
     cd1[["tissueOfOrigin"]] <- NULL
-    cd2 <- .importCellLineSampleData(dataset = currentDataset)
+    cd2 <- .importBroadModelInfo(dataset = currentDataset)
     cd2 <- cd2[!is.na(cd2[["ccleName"]]), ]
     cd <- leftJoin(x = cd1, y = cd2, by = "ccleName")
     assert(
