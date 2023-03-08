@@ -9,6 +9,8 @@
 
 
 
+## FIXME Ignore cells that are contaminated (problematic).
+
 #' Import Broad DepMap cell line model info
 #'
 #' Sample metadata now indicates that there are merged cells we should drop
@@ -32,7 +34,7 @@
             EXPR = dataset,
             "depmap_public_22q4" = "Model.csv",
             "depmap_public_22q2" = "sample_info.csv",
-            "demeter2_data_v6" = "sample_info.csv"
+            stop("Unsupported dataset.")
         )
         url <- datasets[[dataset]][["files"]][[key]]
         assert(isAURL(url))
@@ -177,3 +179,40 @@ formals(.importBroadModelInfo)[["dataset"]] <-
         df <- df[order(df), , drop = FALSE]
         df
     }
+
+
+
+#' Import Broad DEMETER2 RNAi cell line model info
+#'
+#' @note Updated 2023-03-08.
+#' @noRd
+.importDemeter2ModelInfo <- function() {
+    url <- datasets[["demeter2_data_v6"]][["files"]][["sample_info.csv"]]
+    assert(isAURL(url))
+    d2 <- .importDataFile(
+        url = url,
+        format = "csv",
+        rownameCol = NULL,
+        colnames = TRUE,
+        return = "DataFrame"
+    )
+    broad <- .importBroadModelInfo()
+    x <- d2[[1L]]
+    y <- broad[["broad"]][["CCLEName"]]
+    x[x == "AZ521_STOMACH"] <- "AZ521_SMALL_INTESTINE"
+    x[x == "COLO699_LUNG"] <- "CHL1DM_SKIN"
+    x[x == "GISTT1_GASTROINTESTINAL_TRACT"] <- "GISTT1_STOMACH"
+    x[x == "HCC827GR_LUNG"] <- "HCC827GR5_LUNG"
+    x[x == "KP1NL_PANCREAS"] <- NA_character_
+    x[x == "MB157_BREAST"] <- "MDAMB157_BREAST"
+    x[x == "NCIH1339_LUNG"] <- NA_character_
+    #x[x == "FIXME"] <- "FIXME"
+    #x[x == "FIXME"] <- "FIXME"
+    #x[x == "FIXME"] <- "FIXME"
+    x <- na.omit(x)
+    setdiff(x, y)
+    # "SJRH30_SOFT_TISSUE"
+    # "SS1A_SOFT_TISSUE"
+    # "SW527_BREAST"
+    assert(isSubset(x, y))
+}

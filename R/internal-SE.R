@@ -1,4 +1,7 @@
 ## FIXME Consider renaming / taking this out?
+## FIXME Only include cell lines that are not problematic at Cellosaurus.
+
+
 
 #' Make SummarizedExperiment object from CCLE data
 #'
@@ -199,6 +202,9 @@
     }
 
 
+
+## FIXME Rethink this approach, matching to current broad annotations
+## instead.
 
 #' Standardize the DEMETER2 RNAi dataset
 #'

@@ -13,6 +13,8 @@
 
 
 
+## FIXME Ignore cells that are contaminated (problematic).
+
 #' Import Sanger CellModelPassports cell line model info
 #'
 #' @note Updated 2023-03-08.
