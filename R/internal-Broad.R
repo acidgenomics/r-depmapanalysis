@@ -55,6 +55,10 @@
 #' @noRd
 .importBroadModelInfo <-
     function(dataset) {
+        if (identical(dataset, "demeter2_data_v6")) {
+            df <- .importDemeter2ModelInfo()
+            return(df)
+        }
         fileKey <- switch(
             EXPR = dataset,
             "depmap_public_22q4" = "Model.csv",

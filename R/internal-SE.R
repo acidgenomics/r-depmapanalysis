@@ -1,43 +1,4 @@
-## FIXME Consider renaming / taking this out?
-## FIXME Only include cell lines that are not problematic at Cellosaurus.
-
-
-
-#' Make SummarizedExperiment object from CCLE data
-#'
-#' @note Updated 2023-03-08.
-#' @noRd
-.makeCcleSE <-
-    function(dataset,
-             assayKey,
-             assayName,
-             class) {
-        assert(
-            isString(dataset),
-            isString(assayKey),
-            isString(assayName),
-            isString(class)
-        )
-        h1(sprintf("{.cls %s}: {.var %s}", class, dataset))
-        url <- datasets[[dataset]][["files"]][["ccle"]][[assayKey]][["url"]]
-        assert(isAURL(url))
-        mat <- .importDataFile(
-            url = url,
-            rownamesCol = 1L,
-            return = "matrix"
-        )
-        assays <- list(mat)
-        names(assays) <- assayName
-        se <- .makeDepMapSE(
-            dataset = dataset,
-            assays = assays,
-            transposeAssays = TRUE,
-            class = class
-        )
-        se
-    }
-
-
+## Move this to "internal-Broad.R" file.
 
 ## FIXME Only keep cells that have a Cellosaurus identifier.
 ## FIXME Return the gene identifiers as the NCBI gene ID instead.
@@ -139,7 +100,6 @@
         rownames(rowData) <- match[, 1L, drop = TRUE]
         ## Column data (cell line annotations) ---------------------------------
         missingCells <- character()
-        ## FIXME Need to update this for new JSON metadata...
         colData <- .importBroadModelInfo(dataset = dataset)
         assert(
             areIntersectingSets(colnames(assays[[1L]]), rownames(colData)),
@@ -192,10 +152,8 @@
             missingCells <- append(x = missingCells, values = colnames(se)[!ok])
             se <- se[, ok]
         }
+        ## FIXME Assert that there are no missing cellLineName values.
         assert(!anyNA(assay(se)))
-        if (identical(dataset, "demeter2_data_v6")) {
-            se <- .standardizeDemeter2(se)
-        }
         ## FIXME Return the rownames as NCBI gene ID instead.
         ## FIXME Return the colnames as Cellosaurus ID instead.
         new(Class = class, se)
