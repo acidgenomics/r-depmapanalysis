@@ -7,6 +7,15 @@ setGeneric(
     }
 )
 
+#' @rdname euclidean
+#' @export
+setGeneric(
+    name = "euclidean",
+    def = function(object, ...) {
+        standardGeneric("euclidean")
+    }
+)
+
 #' @rdname findBiomarkers
 #' @export
 setGeneric(
