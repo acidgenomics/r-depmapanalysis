@@ -1,4 +1,6 @@
 ## FIXME This is the t-test code.
+## FIXME Add filters for percentage of sign flips.
+## FIXME Add filter for fold change cutoff, p value cutoff.
 
 
 
