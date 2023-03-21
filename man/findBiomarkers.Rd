@@ -30,7 +30,7 @@ FIXME Varies, depending on method.
 Find biomarkers
 }
 \note{
-Updated 2023-01-27.
+Updated 2023-03-20.
 }
 \examples{
 data(rnaseq)

@@ -7,7 +7,7 @@
 #' Find biomarkers
 #'
 #' @name findBiomarkers
-#' @note Updated 2023-01-27.
+#' @note Updated 2023-03-20.
 #'
 #' @inheritParams AcidRoxygen::params
 #'

@@ -7,14 +7,10 @@ setGeneric(
     }
 )
 
-#' @rdname euclidean
 #' @export
-setGeneric(
-    name = "euclidean",
-    def = function(object, ...) {
-        standardGeneric("euclidean")
-    }
-)
+#' @name euclidean
+#' @usage euclidean(x, y, ...)
+NULL
 
 #' @rdname findBiomarkers
 #' @export
@@ -24,6 +20,11 @@ setGeneric(
         standardGeneric("findBiomarkers")
     }
 )
+
+#' @export
+#' @name humanize
+#' @usage humanize(object, ...)
+NULL
 
 #' @rdname plotGeneEffect
 #' @export
