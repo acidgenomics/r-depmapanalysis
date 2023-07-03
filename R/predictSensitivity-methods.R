@@ -1,7 +1,3 @@
-## FIXME Add support for this.
-
-
-
 #' Predict sensitivity
 #'
 #' @name predictSensitivity
@@ -32,5 +28,5 @@ NULL
 
 `predictSensitivity,DepMapExpression` <- # nolint
     function(object, sensitive, insensitive) {
-        stop("IN PROGRESS")
+        stop("FIXME IN PROGRESS")
     }
