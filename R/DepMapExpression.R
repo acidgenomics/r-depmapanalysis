@@ -1,3 +1,8 @@
+## FIXME Do we want to support transcript-level info here?
+## FIXME Canonical file is: OmicsExpressionProteinCodingGenesTPMLogp1.csv
+
+
+
 #' Import DepMap expression data
 #'
 #' @export

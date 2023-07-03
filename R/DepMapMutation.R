@@ -1,3 +1,7 @@
+## FIXME Can we integrate OncoKB metadata here? Would be cool.
+
+
+
 #' Import DepMap mutation data
 #'
 #' @export
@@ -13,10 +17,12 @@
 DepMapMutation <- # nolint
     function(dataset) {
         dataset <- match.arg(dataset)
+        ## FIXME Need to rework this key.
         url <- datasets[[dataset]][["files"]][["ccle"]][["mutations"]][["url"]]
         assert(isAURL(url))
         df <- .importDataFile(url = url, format = "csv", rownamesCol = NULL)
         assert(is(df, "DataFrame"))
+        ## FIXME These metadata columns need to change with 23q2 update.
         colnames(df)[colnames(df) == "cDNA_Change"] <- "cdnaChange"
         colnames(df)[colnames(df) == "COSMIChsCnt"] <- "cosmicHsCnt"
         colnames(df)[colnames(df) == "DepMap_ID"] <- "depmapId"

@@ -1,6 +1,8 @@
 #+TITLE: pipette
 #+STARTUP: content
 * Development
+** TODO Can we process the new ssGSEA data?
+** TODO Can we load the transcript-level data?
 ** TODO Consider adding MD5 checksum checks for DepMap files on Figshare.
 ** TODO Integrate mutation information from OncoKB.
 ** TODO Consider supporting z score calculations using reference population without copy number amplifications, similar to cBioPortal approach.

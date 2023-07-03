@@ -9,19 +9,22 @@
 
 
 
+## FIXME If we do a nested "broad" and "cellosaurus" `DFrame` approach, we need
+## to rework these assert checks.
+
 #' Sample metadata column names, defined in `colData`
 #'
-#' @note Updated 2023-09-21.
+#' @note Updated 2023-07-03.
 #' @noRd
 .expectedColData <- list(
-    "age" = "Rle",
-    "alias" = "CompressedCharacterList",
-    "ccleName" = "Rle",
+    ##"age" = "Rle",
+    ##"alias" = "CompressedCharacterList",
+    ##"ccleName" = "Rle",
     "cellLineName" = "Rle",
     "cellosaurusId" = "Rle",
-    "cellosaurusIssues" = "Rle",
-    "cosmicId" = "Rle",
-    "defaultGrowthPattern" = "Rle",
+    ##"cellosaurusIssues" = "Rle",
+    ##"cosmicId" = "Rle",
+    ##"defaultGrowthPattern" = "Rle",
     "depmapId" = "Rle",
     "depmapPublicComments" = "Rle",
     "lineage" = "Rle",

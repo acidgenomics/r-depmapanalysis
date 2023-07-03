@@ -17,7 +17,7 @@ Dataset name.}
 DepMap gene effect in cancer cell lines
 }
 \note{
-Updated 2023-03-08.
+Updated 2023-07-03.
 }
 \section{Assays}{
 

@@ -5,7 +5,7 @@
 
 #' Make SummarizedExperiment object from Broad DepMap data
 #'
-#' @note Updated 2023-03-08.
+#' @note Updated 2023-07-03.
 #' @noRd
 .makeBroadSE <-
     function(dataset,

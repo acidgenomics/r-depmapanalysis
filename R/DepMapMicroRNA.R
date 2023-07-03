@@ -1,3 +1,4 @@
+## FIXME Consider just dropping this data type entirely.
 ## FIXME Consider reworking the cell line name mapping return.
 
 

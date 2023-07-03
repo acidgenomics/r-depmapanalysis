@@ -1,3 +1,7 @@
+## FIXME How to name the gene input here?
+
+
+
 #' Predict sensitivity
 #'
 #' @name predictSensitivity
@@ -14,10 +18,12 @@
 #'
 #' ## DepMapExpression ====
 #' object <- rnaseq
+#' genes <- c("XXX", "YYY")
 #' sensitive <- c("AAA", "BBB")
 #' insensitive <- c("CCC", "DDD")
 #' out <- predictSensitivity(
 #'     object = object,
+#'     genes = genes,
 #'     sensitive = sensitive,
 #'     insensitive = insensitive
 #' )
