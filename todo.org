@@ -1,10 +1,22 @@
 #+TITLE: pipette
 #+STARTUP: content
 * Development
+** TODO Migrate legacy CellModelPassports code here.
+    In particular, we want to be able to easily access driver mutation info.
+    Maybe we call this `DepMapDriverMutations`?
+** TODO Consider renaming `DepMapMutation` to `DepMapMutations`?
+** TODO Integrate mutation information from OncoKB.
+    Look at the approach currently used on cBioPortal website.
+** TODO Add option to download predictability data
+    https://depmap.org/portal/gene/predictability_files
+** TODO DepMapProteomics: Consider dropping the Nusinow et al. 2020 dataset in favor of just Goncalves et al 2022.
+** TODO Consider dropping `DepMapMicroRNA` from the package.
 ** TODO Can we process the new ssGSEA data?
 ** TODO Can we load the transcript-level data?
+    Should the transcript-level data go into `DepMapExpression` or a different class?
+    OmicsExpressionProteinCodingGenesTPMLogp1.csv (genes)
+    OmicsExpressionTranscriptsTPMLogp1Profile.csv (transcripts)
 ** TODO Consider adding MD5 checksum checks for DepMap files on Figshare.
-** TODO Integrate mutation information from OncoKB.
 ** TODO Consider supporting z score calculations using reference population without copy number amplifications, similar to cBioPortal approach.
     https://github.com/cBioPortal/cbioportal/blob/master/docs/Z-Score-normalization-script.md
     https://github.com/cBioPortal/cbioportal/blob/master/docs/File-Formats.md#expression-data
@@ -17,8 +29,6 @@
 ** TODO Add support for Gygi lab proteomics and new Sanger proteomics dataset.
 ** TODO Convert YAML file to JSON in a future update.
 ** TODO Work on incorporating CCLE_segment_cn.csv into analysis.
-** TODO Add option to download predictability data
-    https://depmap.org/portal/gene/predictability_files
 ** TODO `Codependencies`: Consider adding parameterized support for multiple genes into `geneName1`.
     This may be useful for quickly testing multiple genes of interest per condition.
 ** TODO Consider splitting analyses into primary and metastatic disease subtypes.
