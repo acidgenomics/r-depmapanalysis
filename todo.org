@@ -1,6 +1,7 @@
 #+TITLE: pipette
 #+STARTUP: content
 * Development
+** TODO Consider adding MD5 checksum checks for DepMap files on Figshare.
 ** TODO Integrate mutation information from OncoKB.
 ** TODO Consider supporting z score calculations using reference population without copy number amplifications, similar to cBioPortal approach.
     https://github.com/cBioPortal/cbioportal/blob/master/docs/Z-Score-normalization-script.md
