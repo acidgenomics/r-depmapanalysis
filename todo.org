@@ -1,4 +1,4 @@
-#+TITLE: pipette
+#+TITLE: DepMapAnalysis
 #+STARTUP: content
 * Development
 ** TODO Migrate legacy CellModelPassports code here.
