@@ -10,7 +10,7 @@
 #' depletion effect using `gene_effect`.
 #'
 #' @export
-#' @note Updated 2023-03-08.
+#' @note Updated 2023-07-03.
 #'
 #' @inheritParams params
 #'
@@ -48,61 +48,62 @@ DepMapGeneEffect <- # nolint
             "scoringMethod" = dict[["scoringMethod"]],
             "releaseDate" = dict[["releaseDate"]]
         ))
-        switch(
-            EXPR = dataset,
-            "depmap_public_22q4" = {
-                urls <- list(
-                    "assays" = list(
-                        "effect" =
-                            urls[["CRISPRGeneEffect.csv"]],
-                        "probability" =
-                            urls[["CRISPRGeneDependency.csv"]]
-                    ),
-                    "metadata" = list(
-                        "commonEssentials" =
-                            urls[["CRISPRInferredCommonEssentials.csv"]],
-                        "controlCommonEssentials" =
-                            urls[["AchillesCommonEssentialControls.csv"]],
-                        "controlNonessentials" =
-                            urls[["AchillesNonessentialControls.csv"]]
-                    )
+        if (identical(dataset, "demeter2_data_v6")) {
+            ## DEMETER2 RNAi dataset.
+            urls <- list(
+                "assays" = list(
+                    "effect" =
+                        urls[["D2_combined_gene_dep_scores.csv"]],
+                    "sd" =
+                        urls[["D2_combined_seed_dep_score_SDs.csv"]]
+                ),
+                "metadata" = list(
+                    "controlCommonEssentials" =
+                        urls[["Hart-pos-controls.csv"]],
+                    "controlNonessentials" =
+                        urls[["Hart-neg-controls.csv"]]
                 )
-            },
-            "depmap_public_22q2" = {
-                urls <- list(
-                    "assays" = list(
-                        "effect" =
-                            urls[["CRISPR_gene_effect.csv"]],
-                        "probability" =
-                            urls[["CRISPR_gene_dependency.csv"]]
-                    ),
-                    "metadata" = list(
-                        "commonEssentials" =
-                            urls[["CRISPR_common_essentials.csv"]],
-                        "controlCommonEssentials" =
-                            urls[["common_essentials.csv"]],
-                        "controlNonessentials" =
-                            urls[["nonessentials.csv"]]
-                    )
+            )
+        } else if (isSubset(
+            x = dataset,
+            y = c("depmap_public_22q4", "depmap_public_22q1")
+        )) {
+            ## Legacy CRISPR pipeline.
+            urls <- list(
+                "assays" = list(
+                    "effect" =
+                        urls[["CRISPR_gene_effect.csv"]],
+                    "probability" =
+                        urls[["CRISPR_gene_dependency.csv"]]
+                ),
+                "metadata" = list(
+                    "commonEssentials" =
+                        urls[["CRISPR_common_essentials.csv"]],
+                    "controlCommonEssentials" =
+                        urls[["common_essentials.csv"]],
+                    "controlNonessentials" =
+                        urls[["nonessentials.csv"]]
                 )
-            },
-            "demeter2_data_v6" = {
-                urls <- list(
-                    "assays" = list(
-                        "effect" =
-                            urls[["D2_combined_gene_dep_scores.csv"]],
-                        "sd" =
-                            urls[["D2_combined_seed_dep_score_SDs.csv"]]
-                    ),
-                    "metadata" = list(
-                        "controlCommonEssentials" =
-                            urls[["Hart-pos-controls.csv"]],
-                        "controlNonessentials" =
-                            urls[["Hart-neg-controls.csv"]]
-                    )
+            )
+        } else {
+            ## Current CRISPR pipeline.
+            urls <- list(
+                "assays" = list(
+                    "effect" =
+                        urls[["CRISPRGeneEffect.csv"]],
+                    "probability" =
+                        urls[["CRISPRGeneDependency.csv"]]
+                ),
+                "metadata" = list(
+                    "commonEssentials" =
+                        urls[["CRISPRInferredCommonEssentials.csv"]],
+                    "controlCommonEssentials" =
+                        urls[["AchillesCommonEssentialControls.csv"]],
+                    "controlNonessentials" =
+                        urls[["AchillesNonessentialControls.csv"]]
                 )
-            }
-        )
+            )
+        }
         ## Assays --------------------------------------------------------------
         assays <- lapply(
             X = urls[["assays"]],
