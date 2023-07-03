@@ -4,9 +4,7 @@
 \alias{DepMapMutation}
 \title{Import DepMap mutation data}
 \usage{
-DepMapMutation(
-  dataset = c("depmap_public_23q2", "depmap_public_22q4", "depmap_public_22q2")
-)
+DepMapMutation(dataset = "depmap_public_23q2")
 }
 \arguments{
 \item{dataset}{\code{character(1)}.

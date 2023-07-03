@@ -3,8 +3,8 @@
 
 .datasetNames <- c(
     "depmap_public_23q2",
-    "depmap_public_22q4",
-    "depmap_public_22q2",
+    ## > "depmap_public_22q4",
+    ## > "depmap_public_22q2",
     ## > "depmap_public_22q1",
     ## > "depmap_public_21q4",
     ## > "depmap_public_21q3",
