@@ -46,12 +46,14 @@
 
 
 
+## FIXME Need to add support for 23q2.
+
 #' Import Broad DepMap cell line model info
 #'
 #' Sample metadata now indicates that there are merged cells we should drop
 #' from analysis (e.g. ACH-002260).
 #'
-#' @note Updated 2023-03-08.
+#' @note Updated 2023-07-03.
 #' @noRd
 .importBroadModelInfo <-
     function(dataset) {
@@ -59,11 +61,22 @@
             df <- .importDemeter2ModelInfo()
             return(df)
         }
-        fileKey <- switch(
-            EXPR = dataset,
-            "depmap_public_22q4" = "Model.csv",
-            "depmap_public_22q2" = "sample_info.csv",
-            stop("Unsupported dataset.")
+        files <- datasets[[dataset]][["files"]]
+        if (isSubset("sample_info.csv", names(files))) {
+            ## Legacy CRISPR pipeline.
+            fileKey <- "sample_info.csv"
+        } else {
+            ## Current CRISPR pipeline.
+            fileKey <- "Model.csv"
+        }
+        assert(isSubset(fileKey, names(files)))
+        url <- datasets[[dataset]][["files"]][[fileKey]]
+        broad <- .importDataFile(
+            url = url,
+            format = "csv",
+            rownameCol = NULL,
+            colnames = TRUE,
+            return = "DataFrame"
         )
         cello <- Cellosaurus()
         assert(
@@ -81,14 +94,6 @@
         )
         alert("Filtering cell lines annotated as 'problematic' by Cellosaurus.")
         cello <- cello[!cello[["isProblematic"]], , drop = FALSE]
-        url <- datasets[[dataset]][["files"]][[fileKey]]
-        broad <- .importDataFile(
-            url = url,
-            format = "csv",
-            rownameCol = NULL,
-            colnames = TRUE,
-            return = "DataFrame"
-        )
         ids <- list()
         ids[["broad"]] <- broad[[1L]]
         ids[["cello"]] <- decode(cello[["depmapId"]])

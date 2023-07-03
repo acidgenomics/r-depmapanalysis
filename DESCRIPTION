@@ -34,7 +34,7 @@ Imports:
     AcidPlots (>= 0.5.5),
     AcidPlyr (>= 0.3.10),
     BiocGenerics (>= 0.44.0),
-    Cellosaurus (>= 0.5.3),
+    Cellosaurus (>= 0.5.4),
     IRanges (>= 2.32.0),
     S4Vectors (>= 0.36.0),
     ggplot2 (>= 3.4.2),
