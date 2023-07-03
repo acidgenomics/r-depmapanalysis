@@ -5,7 +5,8 @@
 \title{DepMap gene effect in cancer cell lines}
 \usage{
 DepMapGeneEffect(
-  dataset = c("depmap_public_22q4", "depmap_public_22q2", "demeter2_data_v6")
+  dataset = c("depmap_public_23q2", "depmap_public_22q4", "depmap_public_22q2",
+    "demeter2_data_v6")
 )
 }
 \arguments{

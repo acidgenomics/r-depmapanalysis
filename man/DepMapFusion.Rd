@@ -5,7 +5,7 @@
 \title{Import DepMap fusion call data}
 \usage{
 DepMapFusion(
-  dataset = c("depmap_public_22q4", "depmap_public_22q2"),
+  dataset = c("depmap_public_23q2", "depmap_public_22q4", "depmap_public_22q2"),
   filtered = TRUE
 )
 }

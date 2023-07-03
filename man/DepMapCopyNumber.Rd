@@ -4,7 +4,9 @@
 \alias{DepMapCopyNumber}
 \title{Import DepMap copy number data}
 \usage{
-DepMapCopyNumber(dataset = c("depmap_public_22q4", "depmap_public_22q2"))
+DepMapCopyNumber(
+  dataset = c("depmap_public_23q2", "depmap_public_22q4", "depmap_public_22q2")
+)
 }
 \arguments{
 \item{dataset}{\code{character(1)}.
