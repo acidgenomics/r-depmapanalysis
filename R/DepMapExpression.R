@@ -18,6 +18,8 @@
 DepMapExpression <- # nolint
     function(dataset) {
         ## FIXME Rethink this approach.
+        ## FIXME Yeah consider replacing all instances of makeCcleSE with
+        ## a new approach in the package.
         .makeCcleSE(
             dataset = match.arg(dataset),
             assayKey = "expression",
