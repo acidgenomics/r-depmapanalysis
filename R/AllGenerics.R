@@ -7,11 +7,6 @@ setGeneric(
     }
 )
 
-#' @export
-#' @name euclidean
-#' @usage euclidean(x, y, ...)
-NULL
-
 #' @rdname findBiomarkers
 #' @export
 setGeneric(
@@ -59,6 +54,15 @@ setGeneric(
     name = "plotTopGeneEffectPerGroup",
     def = function(object, ...) {
         standardGeneric("plotTopGeneEffectPerGroup")
+    }
+)
+
+#' @rdname predictSensitivity
+#' @export
+setGeneric(
+    name = "predictSensitivity",
+    def = function(object, ...) {
+        standardGeneric("predictSensitivity")
     }
 )
 
