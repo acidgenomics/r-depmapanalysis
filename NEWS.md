@@ -1,9 +1,9 @@
-# DepMapAnalysis 0.3.0 (2022-08-05)
+# DepMapAnalysis 0.3.0 (UNRELEASED)
 
 ## Major changes
 
+- Now requiring R 4.3 / Bioconductor 3.17.
 - Added support for 2022q2 release.
-- Now requiring R 4.2 / Bioconductor 3.15.
 - Removed strong dependencies on tidytext, tibble, and stringr.
   Now using stringi instead of stringr.
 
