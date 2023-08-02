@@ -1,16 +1,16 @@
-#' Import DepMap mutation data
+#' Import DepMap somatic mutation data
 #'
 #' @export
-#' @note Updated 2023-08-01.
+#' @note Updated 2023-08-02.
 #'
 #' @inheritParams params
 #'
-#' @return `DepMapMutation`.
+#' @return `DepMapMutations`.
 #'
 #' @examples
-#' object <- DepMapMutation()
+#' object <- DepMapMutations()
 #' dim(object)
-DepMapMutation <- # nolint
+DepMapMutations <- # nolint
     function(dataset) {
         dataset <- match.arg(dataset)
         url <- datasets[[dataset]][["files"]][["OmicsSomaticMutations.csv"]]
@@ -43,8 +43,8 @@ DepMapMutation <- # nolint
             "packageName" = .pkgName,
             "packageVersion" = .pkgVersion
         )
-        new(Class = "DepMapMutation", df)
+        new(Class = "DepMapMutations", df)
     }
 
-formals(DepMapMutation)[["dataset"]] <- # nolint
+formals(DepMapMutations)[["dataset"]] <- # nolint
     .formalsList[["depmapDataset"]]

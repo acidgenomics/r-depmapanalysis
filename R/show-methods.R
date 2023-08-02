@@ -1,7 +1,7 @@
 #' Show an object
 #'
 #' @name show
-#' @note Updated 2023-01-27.
+#' @note Updated 2023-08-02.
 #'
 #' @inheritParams AcidRoxygen::params
 #'
@@ -30,8 +30,8 @@ NULL
 
 
 
-## Updated 2023-01-27.
-`show,DepMapMutation` <- # nolint
+## Updated 2023-08-02.
+`show,DepMapMutations` <- # nolint
     function(object) {
         validObject(object)
         showHeader(object)
@@ -77,22 +77,18 @@ setMethod(
     definition = `show,DepMapFusion`
 )
 
-
-
-#' @rdname show
-#' @export
-setMethod(
-    f = "show",
-    signature = signature(object = "DepMapMutation"),
-    definition = `show,DepMapMutation`
-)
-
-
-
 #' @rdname show
 #' @export
 setMethod(
     f = "show",
     signature = signature(object = "DepMapGeneEffect"),
     definition = `show,DepMapGeneEffect`
+)
+
+#' @rdname show
+#' @export
+setMethod(
+    f = "show",
+    signature = signature(object = "DepMapMutations"),
+    definition = `show,DepMapMutations`
 )

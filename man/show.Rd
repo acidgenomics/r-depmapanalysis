@@ -3,15 +3,15 @@
 \name{show}
 \alias{show}
 \alias{show,DepMapFusion-method}
-\alias{show,DepMapMutation-method}
 \alias{show,DepMapGeneEffect-method}
+\alias{show,DepMapMutations-method}
 \title{Show an object}
 \usage{
 \S4method{show}{DepMapFusion}(object)
 
-\S4method{show}{DepMapMutation}(object)
-
 \S4method{show}{DepMapGeneEffect}(object)
+
+\S4method{show}{DepMapMutations}(object)
 }
 \arguments{
 \item{object}{Object.}
@@ -23,7 +23,7 @@ Console output.
 Show an object
 }
 \note{
-Updated 2023-01-27.
+Updated 2023-08-02.
 }
 \examples{
 data(crispr)

@@ -436,22 +436,23 @@ setValidity(
 
 
 
-#' DepMap mutation data
+#' DepMap somatic mutation data
 #'
 #' @details
 #' Inherits from `DFrame`.
 #'
-#' @note Updated 2023-01-26.
+#' @note Updated 2023-08-02.
 #' @export
 #'
-#' @return `DepMapMutation`.
+#' @return `DepMapMutations`.
 setClass(
-    Class = "DepMapMutation",
+    Class = "DepMapMutations",
     contains = "DFrame"
 )
 setValidity(
-    Class = "DepMapMutation",
+    Class = "DepMapMutations",
     method = function(object) {
+        ## FIXME Need to rework this.
         ok <- validate(
             isSubset(
                 x = c(

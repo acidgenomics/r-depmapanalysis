@@ -25,10 +25,12 @@ data(rnaseq)
 
 ## DepMapExpression ====
 object <- rnaseq
+genes <- c("XXX", "YYY")
 sensitive <- c("AAA", "BBB")
 insensitive <- c("CCC", "DDD")
 out <- predictSensitivity(
     object = object,
+    genes = genes,
     sensitive = sensitive,
     insensitive = insensitive
 )
