@@ -16,33 +16,14 @@ NULL
 
 
 
-## Updated 2023-01-27.
-`show,DepMapFusion` <- # nolint
+## Updated 2023-08-02.
+`show,DepMapFusions` <- # nolint
     function(object) {
         validObject(object)
         showHeader(object)
         list <- list(
             "fusions" = length(unique(object[["fusionName"]])),
             "cells" = length(unique(object[["depmapId"]]))
-        )
-        showSlotInfo(list)
-    }
-
-
-
-## Updated 2023-08-02.
-`show,DepMapMutations` <- # nolint
-    function(object) {
-        validObject(object)
-        showHeader(object)
-        list <- list(
-            "mutations" = nrow(object),
-            "genes" = length(unique(object[["entrezGeneId"]])),
-            "transcripts" = length(unique(object[["annotationTranscript"]])),
-            "ncbiBuild" = unique(object[["ncbiBuild"]]),
-            "variantClassification" = sort(unique(
-                object[["variantClassification"]]
-            ))
         )
         showSlotInfo(list)
     }
@@ -69,12 +50,31 @@ NULL
 
 
 
+## Updated 2023-08-02.
+`show,DepMapMutations` <- # nolint
+    function(object) {
+        validObject(object)
+        showHeader(object)
+        list <- list(
+            "mutations" = nrow(object),
+            "genes" = length(unique(object[["entrezGeneId"]])),
+            "transcripts" = length(unique(object[["annotationTranscript"]])),
+            "ncbiBuild" = unique(object[["ncbiBuild"]]),
+            "variantClassification" = sort(unique(
+                object[["variantClassification"]]
+            ))
+        )
+        showSlotInfo(list)
+    }
+
+
+
 #' @rdname show
 #' @export
 setMethod(
     f = "show",
-    signature = signature(object = "DepMapFusion"),
-    definition = `show,DepMapFusion`
+    signature = signature(object = "DepMapFusions"),
+    definition = `show,DepMapFusions`
 )
 
 #' @rdname show

@@ -243,16 +243,16 @@ setValidity(
 #' @details
 #' Inherits from `DFrame`.
 #'
-#' @note Updated 2023-01-27.
+#' @note Updated 2023-08-02.
 #' @export
 #'
-#' @return `DepMapFusion`.
+#' @return `DepMapFusions`.
 setClass(
-    Class = "DepMapFusion",
+    Class = "DepMapFusions",
     contains = "DFrame"
 )
 setValidity(
-    Class = "DepMapFusion",
+    Class = "DepMapFusions",
     method = function(object) {
         ok <- validate(
             hasRownames(object),

@@ -2,12 +2,12 @@
 % Please edit documentation in R/show-methods.R
 \name{show}
 \alias{show}
-\alias{show,DepMapFusion-method}
+\alias{show,DepMapFusions-method}
 \alias{show,DepMapGeneEffect-method}
 \alias{show,DepMapMutations-method}
 \title{Show an object}
 \usage{
-\S4method{show}{DepMapFusion}(object)
+\S4method{show}{DepMapFusions}(object)
 
 \S4method{show}{DepMapGeneEffect}(object)
 

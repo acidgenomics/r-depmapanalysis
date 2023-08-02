@@ -1,18 +1,18 @@
 #' Import DepMap fusion call data
 #'
 #' @export
-#' @note Updated 2023-01-26.
+#' @note Updated 2023-08-02.
 #'
 #' @inheritParams params
 #' @param filtered `logical(1)`.
 #' Load filtered fusion calls.
 #'
-#' @return `DepMapFusion`.
+#' @return `DepMapFusions`.
 #'
 #' @examples
-#' object <- DepMapFusion()
+#' object <- DepMapFusions()
 #' dim(object)
-DepMapFusion <- # nolint
+DepMapFusions <- # nolint
     function(dataset, filtered = TRUE) {
         dataset <- match.arg(dataset)
         assert(isFlag(filtered))
@@ -35,8 +35,8 @@ DepMapFusion <- # nolint
             "packageName" = .pkgName,
             "packageVersion" = .pkgVersion
         )
-        new(Class = "CCLEFusionData", df)
+        new(Class = "DepMapFusions", df)
     }
 
-formals(DepMapFusion)[["dataset"]] <- # nolint
+formals(DepMapFusions)[["dataset"]] <- # nolint
     .formalsList[["depmapDataset"]]
