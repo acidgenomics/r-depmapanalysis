@@ -57,12 +57,8 @@ NULL
         showHeader(object)
         list <- list(
             "mutations" = nrow(object),
-            "genes" = length(unique(object[["entrezGeneId"]])),
-            "transcripts" = length(unique(object[["annotationTranscript"]])),
-            "ncbiBuild" = unique(object[["ncbiBuild"]]),
-            "variantClassification" = sort(unique(
-                object[["variantClassification"]]
-            ))
+            "transcripts" = length(unique(object[["transcript"]])),
+            "genes" = length(unique(object[["entrezGeneId"]]))
         )
         showSlotInfo(list)
     }

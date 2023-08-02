@@ -510,7 +510,7 @@ setValidity(
                     "transcriptStrand",
                     "uniprotId",
                     "variantInfo",
-                    "variantType",
+                    "variantType"
                 ),
                 y = colnames(object)
             )
