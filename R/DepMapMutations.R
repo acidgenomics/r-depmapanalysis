@@ -70,10 +70,13 @@ DepMapMutations <- # nolint
         )
         df[["lineageAssociation"]] <-
             split(df[["lineageAssociation"]], sep = ", ")
-        ## - structuralRelation -- funky (e.g. `""ABL1,  FGFR1, JAK2 ""`).
-        ##     Note that some of these have two spaces, so need to sanitize.
-        ## - transcriptLikelyLof (by `;`).
-        ## - uniprotId (by `, `).
+        df[["structuralRelation"]] <- sanitize(df[["structuralRelation"]])
+        df[["structuralRelation"]] <-
+            split(df[["structuralRelation"]], sep = ", ")
+        df[["transcriptLikelyLof"]] <- sanitize(df[["transcriptLikelyLof"]])
+        df[["transcriptLikelyLof"]] <-
+            split(df[["transcriptLikelyLof"]], sep = ";")
+        df[["uniprotId"]] <- split(df[["uniprotId"]], sep = ", ")
         df <- encode(df)
         metadata(df) <- list(
             "date" = Sys.Date(),
