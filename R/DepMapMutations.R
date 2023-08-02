@@ -26,7 +26,7 @@ DepMapMutations <- # nolint
             x = colnames(df)
         )
         colnames(df) <- camelCase(colnames(df), strict = TRUE)
-        sanitize <- function(x) {
+        sanitizeCol <- function(x) {
             ## Remove unnecessary quoting.
             x <- sub(
                 pattern = "^[\"]+",
@@ -50,18 +50,18 @@ DepMapMutations <- # nolint
             x <- sub(pattern = "[[:space:]]+$", replacement = "", x = x)
             x
         }
-        split <- function(x, sep) {
+        splitCol <- function(x, sep) {
             x <- strsplit(x = x, split = sep, fixed = TRUE)
             x <- CharacterList(x)
             x
         }
-        df[["associatedWith"]] <- sanitize(df[["associatedWith"]])
-        df[["associatedWith"]] <- split(df[["associatedWith"]], sep = ";")
-        df[["cancerMolecularGenetics"]] <- sanitize(df[["associatedWith"]])
+        df[["associatedWith"]] <- sanitizeCol(df[["associatedWith"]])
+        df[["associatedWith"]] <- splitCol(df[["associatedWith"]], sep = ";")
+        df[["cancerMolecularGenetics"]] <- sanitizeCol(df[["associatedWith"]])
         df[["cosmicOverlappingMutations"]] <-
-            split(df[["cosmicOverlappingMutations"]], sep = " ")
-        df[["dbsnpId"]] <- split(df[["dbsnpId"]], sep = " ")
-        df[["lineageAssociation"]] <- sanitize(df[["lineageAssociation"]])
+            splitCol(df[["cosmicOverlappingMutations"]], sep = " ")
+        df[["dbsnpId"]] <- splitCol(df[["dbsnpId"]], sep = " ")
+        df[["lineageAssociation"]] <- sanitizeCol(df[["lineageAssociation"]])
         df[["lineageAssociation"]] <- gsub(
             pattern = ";",
             replacement = ", ",
@@ -69,14 +69,14 @@ DepMapMutations <- # nolint
             fixed = TRUE
         )
         df[["lineageAssociation"]] <-
-            split(df[["lineageAssociation"]], sep = ", ")
-        df[["structuralRelation"]] <- sanitize(df[["structuralRelation"]])
+            splitCol(df[["lineageAssociation"]], sep = ", ")
+        df[["structuralRelation"]] <- sanitizeCol(df[["structuralRelation"]])
         df[["structuralRelation"]] <-
-            split(df[["structuralRelation"]], sep = ", ")
-        df[["transcriptLikelyLof"]] <- sanitize(df[["transcriptLikelyLof"]])
+            splitCol(df[["structuralRelation"]], sep = ", ")
+        df[["transcriptLikelyLof"]] <- sanitizeCol(df[["transcriptLikelyLof"]])
         df[["transcriptLikelyLof"]] <-
-            split(df[["transcriptLikelyLof"]], sep = ";")
-        df[["uniprotId"]] <- split(df[["uniprotId"]], sep = ", ")
+            splitCol(df[["transcriptLikelyLof"]], sep = ";")
+        df[["uniprotId"]] <- splitCol(df[["uniprotId"]], sep = ", ")
         df <- encode(df)
         metadata(df) <- list(
             "date" = Sys.Date(),
