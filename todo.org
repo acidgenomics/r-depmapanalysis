@@ -3,7 +3,6 @@
 * Development
 ** TODO Can we add OncoKB integration to the DepMapMutations class?
     https://github.com/waldronlab/oncoKBData/blob/devel/R/oncoKB.R
-
     https://github.com/oncokb/oncokb-annotator
     https://github.com/cBioPortal/cbioportal/blob/master/docs/Import-OncoKB-annotations-as-Custom-Driver-Annotations.md
     https://github.com/taylor-lab/annotateMaf

@@ -1,11 +1,7 @@
-## FIXME Can we integrate OncoKB metadata here? Would be cool.
-
-
-
 #' Import DepMap mutation data
 #'
 #' @export
-#' @note Updated 2023-02-03.
+#' @note Updated 2023-08-01.
 #'
 #' @inheritParams params
 #'
@@ -17,25 +13,29 @@
 DepMapMutation <- # nolint
     function(dataset) {
         dataset <- match.arg(dataset)
-        ## FIXME Need to rework this key.
-        url <- datasets[[dataset]][["files"]][["ccle"]][["mutations"]][["url"]]
+        url <- datasets[[dataset]][["files"]][["OmicsSomaticMutations.csv"]]
         assert(isAURL(url))
-        df <- .importDataFile(url = url, format = "csv", rownamesCol = NULL)
+        df <- .importDataFile(url = url, format = "csv")
         assert(is(df, "DataFrame"))
-        ## FIXME These metadata columns need to change with 23q2 update.
-        colnames(df)[colnames(df) == "cDNA_Change"] <- "cdnaChange"
-        colnames(df)[colnames(df) == "COSMIChsCnt"] <- "cosmicHsCnt"
-        colnames(df)[colnames(df) == "DepMap_ID"] <- "depmapId"
-        colnames(df)[colnames(df) == "dbSNP_RS"] <- "dbsnpRs"
-        colnames(df)[colnames(df) == "dbSNP_Val_Status"] <- "dbsnpValStatus"
-        colnames(df)[colnames(df) == "ExAC_AF"] <- "exacAf"
-        colnames(df)[colnames(df) == "Hugo_Symbol"] <- "geneName"
-        colnames(df)[colnames(df) == "isCOSMIChotspot"] <- "isCosmicHotspot"
-        colnames(df)[colnames(df) == "isTCGAhotspot"] <- "isTcgaHotspot"
-        colnames(df)[colnames(df) == "RNAseq_AC"] <- "rnaseqAc"
-        colnames(df)[colnames(df) == "SangerWES_AC"] <- "sangerWesAc"
-        colnames(df)[colnames(df) == "TCGAhsCnt"] <- "tcgaHsCnt"
+        colnames(df)[colnames(df) == "GTexGene"] <- "GtexGene"
+        colnames(df)[colnames(df) == "GwasPmID"] <- "GwasPmid"
+        ## Coerce "GoF", "LoF" to proper camel case.
+        colnames(df) <- sub(
+            pattern = "([GL])oF$",
+            replacement = "\\1of",
+            x = colnames(df)
+        )
         colnames(df) <- camelCase(colnames(df), strict = TRUE)
+        ## FIXME Need to split these columns:
+        ## - associatedWith (by `;`).
+        ## - cancerMolecularGenetics -- funky (e.g. `""Dom, Rec""`).
+        ## - cosmicOverlappingMutations (by ` `).
+        ## - dbsnpId (by ` `).
+        ## - lineageAssociation -- funky (e.g. `""E, L, M""`).
+        ## - structuralRelation -- funky (e.g. `""ABL1,  FGFR1, JAK2 ""`).
+        ##     Note that some of these have two spaces, so need to sanitize.
+        ## - transcriptLikelyLof (by `;`).
+        ## - uniprotId (by `, `).
         df <- encode(df)
         metadata(df) <- list(
             "date" = Sys.Date(),
