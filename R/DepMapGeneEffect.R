@@ -14,7 +14,7 @@
 #' depletion effect using `gene_effect`.
 #'
 #' @export
-#' @note Updated 2023-07-03.
+#' @note Updated 2023-08-03.
 #'
 #' @inheritParams params
 #'
