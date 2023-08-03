@@ -1,7 +1,3 @@
-## FIXME The 23q2 release update is not matching the expected colData columns.
-
-
-
 #' DepMap gene effect in cancer cell lines
 #'
 #' @section Assays:
@@ -129,9 +125,6 @@ DepMapGeneEffect <- # nolint
             )
         )
         ## Return --------------------------------------------------------------
-        ## FIXME The goal here is to get to NCBI gene IDs and Cellosaurus IDs
-        ## as the row and column names respectively.
-        ## FIXME This step is now erroring with 23q2 dataset.
         se <- .makeBroadSE(
             dataset = dataset,
             assays = assays,

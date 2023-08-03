@@ -126,7 +126,7 @@
             "broad" = I(broad),
             row.names = makeNames(decode(cello[["depmapId"]]))
         )
-        metadata(df) <- list("missingCells" = ids[["setdiff"]])
+        metadata(df) <- list("excludedCells" = ids[["setdiff"]])
         df
     }
 
@@ -182,14 +182,11 @@ formals(.importBroadModelInfo)[["dataset"]] <-
     df <- broad
     df[["demeter2"]] <- d2
     rownames(df) <- makeNames(d2[[1L]])
-    metadata(df) <- list("missingCells" = ids[["setdiff"]])
+    metadata(df) <- list("excludedCells" = ids[["setdiff"]])
     df
 }
 
 
-
-## FIXME Return the colnames as Cellosaurus identifier.
-## FIXME Return the rownames as NCBI gene identifier.
 
 #' Make SummarizedExperiment object from Broad DepMap data
 #'
@@ -202,9 +199,11 @@ formals(.importBroadModelInfo)[["dataset"]] <-
              metadata = list(),
              class) {
         assert(
+            isString(dataset),
             is.list(assays),
             isFlag(transposeAssays),
-            is.list(metadata)
+            is.list(metadata),
+            isString(class)
         )
         ## Assays --------------------------------------------------------------
         assays <- lapply(
@@ -225,7 +224,7 @@ formals(.importBroadModelInfo)[["dataset"]] <-
             assays <- lapply(X = assays, FUN = t)
         }
         ## Row data (gene annotations) -----------------------------------------
-        retiredGenes <- character()
+        excludedGenes <- character()
         rowData <- NcbiGeneInfo(
             organism = "Homo sapiens",
             taxonomicGroup = "Mammalia"
@@ -252,17 +251,17 @@ formals(.importBroadModelInfo)[["dataset"]] <-
             table = as.integer(rowData[["geneId"]])
         )
         if (anyNA(idx)) {
-            retiredGenes <-
+            excludedGenes <-
                 sort(match[which(is.na(idx)), 1L, drop = TRUE])
             alertWarning(sprintf(
-                "%d retired NCBI gene %s in data set: %s.",
-                length(retiredGenes),
+                "%d NCBI gene %s to exclude in data set: %s.",
+                length(excludedGenes),
                 ngettext(
-                    n = length(retiredGenes),
+                    n = length(excludedGenes),
                     msg1 = "identifier",
                     msg2 = "identifiers"
                 ),
-                toInlineString(retiredGenes, n = 5L)
+                toInlineString(excludedGenes, n = 5L)
             ))
         }
         assays <- lapply(
@@ -287,24 +286,24 @@ formals(.importBroadModelInfo)[["dataset"]] <-
         rowData <- rowData[idx, , drop = FALSE]
         rownames(rowData) <- match[, 1L, drop = TRUE]
         ## Column data (cell line annotations) ---------------------------------
-        missingCells <- character()
+        excludedCells <- character()
         colData <- .importBroadModelInfo(dataset = dataset)
         assert(
             areIntersectingSets(colnames(assays[[1L]]), rownames(colData)),
             !anyNA(colData[["cellLineName"]])
         )
         if (!isSubset(colnames(assays[[1L]]), rownames(colData))) {
-            missingCells <- setdiff(colnames(assays[[1L]]), rownames(colData))
+            excludedCells <- setdiff(colnames(assays[[1L]]), rownames(colData))
             alertWarning(sprintf(
-                "%d missing cell %s in {.var %s}: %s.",
-                length(missingCells),
+                "%d cell %s to exclude in {.var %s}: %s.",
+                length(excludedCells),
                 ngettext(
-                    n = length(missingCells),
+                    n = length(excludedCells),
                     msg1 = "line",
                     msg2 = "lines"
                 ),
                 "colData",
-                toInlineString(missingCells, n = 5L)
+                toInlineString(excludedCells, n = 5L)
             ))
         }
         assays <- lapply(
@@ -326,24 +325,22 @@ formals(.importBroadModelInfo)[["dataset"]] <-
                 values = list(
                     "dataset" = dataset,
                     "json" = datasets[[dataset]],
-                    "missingCells" = missingCells,
+                    "excludedCells" = excludedCells,
+                    "excludedGenes" = excludedGenes,
                     "packageName" = .pkgName,
-                    "packageVersion" = .pkgVersion,
-                    "retiredGenes" = retiredGenes
+                    "packageVersion" = .pkgVersion
                 )
             )
         )
         args <- Filter(Negate(is.null), args)
         se <- do.call(what = makeSummarizedExperiment, args = args)
-        ok <- !is.na(colSums(assay(se)))
-        if (!all(ok)) {
-            missingCells <- append(x = missingCells, values = colnames(se)[!ok])
-            se <- se[, ok]
-        }
-        ## FIXME Assert that there are no missing cellLineName values.
-        assert(!anyNA(assay(se)))
-        ## FIXME Return the rownames as NCBI gene ID instead.
-        ## FIXME Return the colnames as Cellosaurus ID instead.
+        rownames(se) <- decode(rowData(se)[["geneId"]])
+        colnames(se) <- decode(colData(se)[["cellosaurusId"]])
+        se <- se[
+            order(as.integer(rownames(se))),
+            order(colnames(se)),
+            drop = FALSE
+        ]
         new(Class = class, se)
     }
 
@@ -402,24 +399,24 @@ formals(.importBroadModelInfo)[["dataset"]] <-
     colData(object) <- cd
     if (isTRUE(anyNA(colData(object)[["depmapId"]]))) {
         keep <- !is.na(colData(object)[["depmapId"]])
-        missingCells <- colnames(object)[!keep]
+        excludedCells <- colnames(object)[!keep]
         alertWarning(sprintf(
             "%d missing cell %s in {.var %s}: %s.",
-            length(missingCells),
+            length(excludedCells),
             ngettext(
-                n = length(missingCells),
+                n = length(excludedCells),
                 msg1 = "line",
                 msg2 = "lines"
             ),
             "colData",
-            toInlineString(missingCells, n = 5L)
+            toInlineString(excludedCells, n = 5L)
         ))
-        metadata(object)[["missingCells"]] <- append(
-            x = metadata(object)[["missingCells"]],
-            values = missingCells
+        metadata(object)[["excludedCells"]] <- append(
+            x = metadata(object)[["excludedCells"]],
+            values = excludedCells
         )
-        metadata(object)[["missingCells"]] <-
-            sort(unique(metadata(object)[["missingCells"]]))
+        metadata(object)[["excludedCells"]] <-
+            sort(unique(metadata(object)[["excludedCells"]]))
         object <- object[, keep]
     }
     colnames(object) <- makeNames(as.character(colData(object)[["depmapId"]]))
