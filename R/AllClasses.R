@@ -57,8 +57,6 @@
 
 
 
-## FIXME Rework this to use Cellosaurus identifiers.
-
 #' Validate `SummarizedExperiment` with gene-level data
 #'
 #' @note Updated 2023-08-03.
@@ -69,11 +67,11 @@
         hasColnames(object),
         allAreMatchingRegex(
             x = rownames(object),
-            pattern = "^[_A-Za-z0-9]+_[0-9]+$"
+            pattern = "^[0-9]+$"
         ),
         allAreMatchingRegex(
             x = colnames(object),
-            pattern = "^ACH_[0-9]{6}$"
+            pattern = "^CVCL_.+$"
         )
     )
     if (!isTRUE(ok)) {
