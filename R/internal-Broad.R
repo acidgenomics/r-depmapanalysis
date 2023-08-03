@@ -188,8 +188,8 @@ formals(.importBroadModelInfo)[["dataset"]] <-
 
 
 
-## FIXME Only keep cells that have a Cellosaurus identifier.
-## FIXME Return the gene identifiers as the NCBI gene ID instead.
+## FIXME Return the colnames as Cellosaurus identifier.
+## FIXME Return the rownames as NCBI gene identifier.
 
 #' Make SummarizedExperiment object from Broad DepMap data
 #'
