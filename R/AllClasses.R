@@ -1,7 +1,5 @@
 ## FIXME Consider NOT checking the validity of row and column names.
-
 ## FIXME Assert that cellosaurusID is not NA for any objects containing cells.
-
 ## FIXME Need to add DepMapProteomics
 ## FIXME Assert that no classes that extend SE contain any cellLineName
 ## with NA in colData.
@@ -9,43 +7,17 @@
 
 
 
-## FIXME If we do a nested "broad" and "cellosaurus" `DFrame` approach, we need
-## to rework these assert checks.
-
 #' Sample metadata column names, defined in `colData`
 #'
-#' @note Updated 2023-07-03.
+#' @note Updated 2023-08-03.
 #' @noRd
 .expectedColData <- list(
-    ##"age" = "Rle",
-    ##"alias" = "CompressedCharacterList",
-    ##"ccleName" = "Rle",
-    "cellLineName" = "Rle",
-    "cellosaurusId" = "Rle",
-    ##"cellosaurusIssues" = "Rle",
-    ##"cosmicId" = "Rle",
-    ##"defaultGrowthPattern" = "Rle",
-    "depmapId" = "Rle",
-    "depmapPublicComments" = "Rle",
-    "lineage" = "Rle",
-    "lineageMolecularSubtype" = "Rle",
-    "lineageSubSubtype" = "Rle",
-    "lineageSubtype" = "Rle",
-    "modelManipulation" = "Rle",
-    "modelManipulationDetails" = "Rle",
-    "ncitDiseaseId" = "Rle",
-    "ncitDiseaseName" = "Rle",
-    "parentDepmapId" = "Rle",
-    "patientId" = "Rle",
-    "primaryDisease" = "Rle",
-    "primaryOrMetastasis" = "Rle",
-    "sampleCollectionSite" = "Rle",
-    "sangerModelId" = "Rle",
-    "sex" = "Rle",
-    "source" = "Rle",
-    "strippedCellLineName" = "Rle",
-    "subtype" = "Rle",
-    "wtsiMasterCellId" = "Rle"
+    "broad" = "DFrame",
+    "cellLineName" = "character",
+    "cellosaurus" = "DFrame",
+    "cellosaurusId" = "character",
+    "depmapId" = "character",
+    "sangerModelId" = "character"
 )
 
 
@@ -85,9 +57,11 @@
 
 
 
+## FIXME Rework this to use Cellosaurus identifiers.
+
 #' Validate `SummarizedExperiment` with gene-level data
 #'
-#' @note Updated 2023-02-03.
+#' @note Updated 2023-08-03.
 #' @noRd
 .validateSE <- function(object, assayNames = NULL) {
     ok <- validate(
@@ -307,7 +281,7 @@ setValidity(
 #' Cells in columns, genes in rows.
 #'
 #' @export
-#' @note Updated 2023-01-27.
+#' @note Updated 2023-08-03.
 #'
 #' @return `DepMapGeneEffect`.
 #'
@@ -349,9 +323,9 @@ setValidity(
                 ok <- validateClasses(
                     object = metadata(object),
                     expected = list(
-                        "commonEssentials" = "character",
-                        "controlCommonEssentials" = "character",
-                        "controlNonessentials" = "character"
+                        "commonEssentials" = "DFrame",
+                        "controlCommonEssentials" = "DFrame",
+                        "controlNonessentials" = "DFrame"
                     ),
                     subset = TRUE
                 )
