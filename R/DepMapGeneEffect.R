@@ -26,7 +26,6 @@
 DepMapGeneEffect <- # nolint
     function(dataset) {
         dataset <- match.arg(dataset)
-        assert(isSubset(dataset, names(datasets)))
         json <- datasets[[dataset]]
         urls <- unlist(x = json[["files"]], recursive = FALSE, use.names = TRUE)
         dict <- list(
@@ -102,6 +101,7 @@ DepMapGeneEffect <- # nolint
                 )
             )
         }
+        assert(allAreURLs(unlist(urls, recursive = TRUE)))
         ## Assays --------------------------------------------------------------
         assays <- lapply(
             X = urls[["assays"]],
