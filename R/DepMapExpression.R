@@ -1,4 +1,4 @@
-## FIXME Do we want to support transcript-level info here?
+## FIXME Split this out into separate gene- and transcript-level classes.
 ## FIXME Canonical file is: OmicsExpressionProteinCodingGenesTPMLogp1.csv
 
 

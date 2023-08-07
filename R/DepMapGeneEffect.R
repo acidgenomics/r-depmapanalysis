@@ -1,3 +1,7 @@
+## FIXME Split this out into separate CRISPR and RNAi classes.
+
+
+
 #' DepMap gene effect in cancer cell lines
 #'
 #' @section Assays:
