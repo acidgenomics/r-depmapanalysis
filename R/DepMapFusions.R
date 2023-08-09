@@ -24,7 +24,7 @@ DepMapFusions <- # nolint
         ## FIXME Need to rework this, breaking change in new release.
         url <- datasets[[dataset]][["files"]][["ccle"]][[key]][["url"]]
         assert(isAURL(url))
-        df <- .importBroadDataFile(url = url, format = "csv", rownamesCol = NULL)
+        df <- .importBroadDataFile(url = url, format = "csv", rownameCol = NULL)
         assert(is(df, "DFrame"))
         colnames(df)[colnames(df) == "DepMap_ID"] <- "depmapId"
         colnames(df) <- camelCase(colnames(df), strict = TRUE)
