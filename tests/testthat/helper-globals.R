@@ -1,6 +1,6 @@
 data(crispr, rnai, rnaseq, envir = environment())
 
-dataset <- .datasetNames[[1L]]
+dataset <- .currentDataset
 
 ## nolint start
 isSubset <- goalie::isSubset

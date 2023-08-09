@@ -14,6 +14,7 @@
 DepMapCopyNumber <- # nolint
     function() {
         dataset <- .currentDataset
+        assert(isString(dataset))
         json <- datasets[[dataset]]
         assert(is.list(json))
         urls <- unlist(x = json[["files"]], recursive = FALSE, use.names = TRUE)
