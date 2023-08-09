@@ -31,6 +31,8 @@
             engine <- "data.table"
         }
         tmpfile <- .cacheURL(url = url)
+        ## FIXME May need to use base engine for:
+        ## https://figshare.com/ndownloader/files/40449689
         df <- import(
             con = tmpfile,
             format = format,
@@ -535,6 +537,8 @@ formals(.importBroadModelInfo)[["dataset"]] <- .currentDataset
     )
     url <- json[["files"]][[file]]
     assert(isAURL(url))
+    ## FIXME This step is crashing RStudio for DepMapTxExpression.
+    ## https://figshare.com/ndownloader/files/40449689
     assay <- .importBroadDataFile(
         url = url,
         format = "csv",
