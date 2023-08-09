@@ -224,8 +224,7 @@
 #' @note Updated 2023-08-09.
 #' @noRd
 .importBroadModelInfo <-
-    function() {
-        dataset <- .currentDataset
+    function(dataset) {
         assert(isString(dataset))
         url <- datasets[[dataset]][["files"]][["Model.csv"]]
         assert(isAURL(url))
@@ -289,6 +288,8 @@
         df
     }
 
+formals(.importBroadModelInfo)[["dataset"]] <- .currentDataset
+
 
 
 #' Import Broad DEMETER2 RNAi cell line model info
@@ -349,7 +350,7 @@
 
 #' Make SummarizedExperiment object from Broad DepMap data
 #'
-#' @note Updated 2023-08-03.
+#' @note Updated 2023-08-09.
 #' @noRd
 .makeBroadSE <-
     function(dataset,
@@ -446,7 +447,11 @@
         rownames(rowData) <- match[, 1L, drop = TRUE]
         ## Column data (cell line annotations) ---------------------------------
         excludedCells <- character()
-        colData <- .importBroadModelInfo(dataset = dataset)
+        if (identical(dataset, "demeter2_data_v6")) {
+            colData <- .importDemeter2ModelInfo()
+        } else {
+            colData <- .importBroadModelInfo(dataset = dataset)
+        }
         assert(
             areIntersectingSets(colnames(assays[[1L]]), rownames(colData)),
             !anyNA(colData[["cellLineName"]])
