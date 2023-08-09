@@ -8,8 +8,8 @@ suppressPackageStartupMessages({
 ## nolint end
 load_all()
 objs <- list(
-    "crispr" = DepMapCRISPRGeneEffect(),
-    "rnai" = DepMapRNAiGeneEffect(),
+    "crispr" = DepMapCrisprGeneEffect(),
+    "rnai" = DepMapRnaiGeneEffect(),
     "rnaseq" = DepMapGeneExpression()
 )
 genes <- sort(intersectAll(lapply(X = objs, FUN = rownames)))
