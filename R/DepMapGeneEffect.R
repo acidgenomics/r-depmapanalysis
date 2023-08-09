@@ -1,6 +1,6 @@
-#' DepMap CRISPR gene effect in cancer cell lines
+#' DepMap gene effect in cancer cell lines
 #'
-#' @export
+#' @name DepMapGeneEffect
 #' @note Updated 2023-08-09.
 #'
 #' @section Assays:
@@ -13,14 +13,36 @@
 #' depletion effect using `gene_effect`.
 #'
 #'
-#' @return `DepMapCRISPRGeneEffect`.
+#' @return `DepMapGeneEffect`.
 #'
 #' @examples
+#' ## CRISPR.
 #' object <- DepMapCRISPRGeneEffect()
 #' print(object)
+#'
+#' ## RNAi (DEMETER2).
+#' object <- DepMapRNAiGeneEffect()
+#' print(object)
+NULL
+
+
+
+#' @rdname DepMapGeneEffect
+#' @export
 DepMapCRISPRGeneEffect <- function() {
     .importBroadGeneEffect(
         dataset = .currentDataset,
         class = "DepMapCRISPRGeneEffect"
+    )
+}
+
+
+
+#' @rdname DepMapGeneEffect
+#' @export
+DepMapRNAiGeneEffect <- function() {
+    .importBroadGeneEffect(
+        dataset = "demeter2_data_v6",
+        class = "DepMapRNAiGeneEffect"
     )
 }
