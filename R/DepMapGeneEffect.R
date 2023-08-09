@@ -1,7 +1,3 @@
-## FIXME Seems like the RNAi generator is not returning any genes now?
-
-
-
 #' DepMap gene effect in cancer cell lines
 #'
 #' @name DepMapGeneEffect
@@ -41,8 +37,6 @@ DepMapCrisprGeneEffect <- function() {
 }
 
 
-
-## FIXME This is currently returning no genes, need to fix sanitization.
 
 #' @rdname DepMapGeneEffect
 #' @export
