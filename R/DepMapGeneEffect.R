@@ -1,15 +1,15 @@
-## FIXME Split this out into separate CRISPR and RNAi classes.
-##
+## FIXME Need to split out these classes:
 ## Options:
-## - DepMapCrisprGeneEffect, DepMapRnaiGeneEffect
 ## - DepMapCRISPRGeneEffect, DepMapRNAiGeneEffect
+## - DepMapCrisprGeneEffect, DepMapRnaiGeneEffect
 
 
 
-#' DepMap gene effect in cancer cell lines
+
+#' DepMap CRISPR gene effect in cancer cell lines
 #'
 #' @export
-#' @note Updated 2023-08-08.
+#' @note Updated 2023-08-09.
 #'
 #' @section Assays:
 #'
@@ -21,15 +21,16 @@
 #' depletion effect using `gene_effect`.
 #'
 #'
-#' @return `DepMapGeneEffect`.
+#' @return `DepMapCRISPRGeneEffect`.
 #'
 #' @examples
-#' ## CRISPR (default).
-#' object <- DepMapGeneEffect()
+#' ## CRISPR.
+#' object <- DepMapCRISPRGeneEffect()
 #' print(object)
 #'
 #' ## RNAi (DEMETER2).
-#' ## > object <- DepMapGeneEffect(dataset = "demeter2_data_v6")
+#' object <- DepMapRNAiGeneEffect()
+#' print(object)
 DepMapGeneEffect <- # nolint
     function() {
         dataset <- .currentDataset

@@ -46,35 +46,19 @@
 
 
 
-## FIXME Consider exporting this function.
-## FIXME Allow the user to set whether they want to discard problematic cells or
-## not from Cellosaurus database.
-
 #' Import Broad DepMap cell line model info
 #'
 #' Sample metadata now indicates that there are merged cells we should drop
 #' from analysis (e.g. ACH-002260).
 #'
-#' @note Updated 2023-08-08.
+#' @note Updated 2023-08-09.
 #' @noRd
 .importBroadModelInfo <-
-    function(dataset) {
+    function() {
+        dataset <- .currentDataset
         assert(isString(dataset))
-        if (identical(dataset, "demeter2_data_v6")) {
-            ## FIXME Rework this to just call inside of DepMapRnaiGeneEffect.
-            df <- .importDemeter2ModelInfo()
-            return(df)
-        }
-        files <- datasets[[dataset]][["files"]]
-        if (isSubset("sample_info.csv", names(files))) {
-            ## Legacy CRISPR pipeline.
-            fileKey <- "sample_info.csv"
-        } else {
-            ## Current CRISPR pipeline.
-            fileKey <- "Model.csv"
-        }
-        assert(isSubset(fileKey, names(files)))
-        url <- datasets[[dataset]][["files"]][[fileKey]]
+        url <- datasets[[dataset]][["files"]][["Model.csv"]]
+        assert(isAURL(url))
         broad <- .importDataFile(
             url = url,
             format = "csv",
@@ -82,6 +66,7 @@
             colnames = TRUE,
             return = "DataFrame"
         )
+        assert(is(broad, "DFrame"))
         cello <- Cellosaurus()
         assert(
             is(cello, "Cellosaurus"),
@@ -138,13 +123,14 @@
 
 #' Import Broad DEMETER2 RNAi cell line model info
 #'
-#' @note Updated 2023-03-08.
+#' @note Updated 2023-03-09.
 #' @noRd
 #'
 #' @details
 #' Matching the cell lines here by CCLE identifier.
 .importDemeter2ModelInfo <- function() {
     url <- datasets[["demeter2_data_v6"]][["files"]][["sample_info.csv"]]
+    assert(isAURL(url))
     d2 <- .importDataFile(
         url = url,
         format = "csv",
@@ -152,7 +138,9 @@
         colnames = TRUE,
         return = "DataFrame"
     )
+    assert(is(d2, "DFrame"))
     broad <- .importBroadModelInfo()
+    assert(is(broad, "DFrame"))
     ids <- list()
     ids[["d2"]] <- d2[[1L]]
     ids[["d2"]][ids[["d2"]] == "COLO699_LUNG"] <-
