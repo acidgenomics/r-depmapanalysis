@@ -2,6 +2,7 @@
 suppressPackageStartupMessages({
     library(devtools)
     library(usethis)
+    library(goalie)
     library(AcidBase)
     library(AcidExperiment)
 })
@@ -12,12 +13,11 @@ objs <- list(
     "rnai" = DepMapRnaiGeneEffect(),
     "rnaseq" = DepMapGeneExpression()
 )
-## FIXME Assert that all objs have non-zero dims.
-genes <- sort(intersectAll(lapply(X = objs, FUN = rownames)))
-cells <- sort(intersectAll(lapply(X = objs, FUN = colnames)))
-## FIXME Assert that genes and cells have length here.
-i <- head(genes, n = 100L)
-j <- head(cells, n = 50L)
+i <- intersectAll(lapply(X = objs, FUN = rownames))
+j <- intersectAll(lapply(X = objs, FUN = colnames))
+assert(hasLength(i), hasLength(j))
+i <- head(i, n = 100L)
+j <- head(j, n = 50L)
 objs <- lapply(X = objs, FUN = `[`, i = i, j = j)
 objs <- lapply(X = objs, FUN = droplevels2)
 crispr <- objs[["crispr"]]

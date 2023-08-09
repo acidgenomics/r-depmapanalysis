@@ -18,7 +18,10 @@
                 colnames(cello)
             )
         )
-        alert("Filtering cell lines annotated as 'problematic' by Cellosaurus.")
+        alert(paste(
+            "Filtering cell lines annotated as \"problematic\"",
+            "by Cellosaurus."
+        ))
         cello <- cello[!cello[["isProblematic"]], , drop = FALSE]
         date2 <- gsub(pattern = "-", replacement = "", x = date)
         url <- pasteURL(

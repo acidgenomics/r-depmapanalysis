@@ -27,8 +27,6 @@
             engine <- "data.table"
         }
         tmpfile <- .cacheURL(url = url)
-        ## FIXME May need to use base engine for:
-        ## https://figshare.com/ndownloader/files/40449689
         df <- import(
             con = tmpfile,
             format = format,
@@ -248,7 +246,10 @@
                 colnames(cello)
             )
         )
-        alert("Filtering cell lines annotated as 'problematic' by Cellosaurus.")
+        alert(paste(
+            "Filtering cell lines annotated as \"problematic\"",
+            "by Cellosaurus."
+        ))
         cello <- cello[!cello[["isProblematic"]], , drop = FALSE]
         ids <- list()
         ids[["broad"]] <- broad[[1L]]

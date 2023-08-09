@@ -33,6 +33,8 @@ DepMapGeneExpression <- # nolint
 ## FIXME Need to handle transcript-to-gene mapping here.
 ## FIXME This file is large and can crash RStudio on a MacBook.
 ## FIXME Add a RAM check here, and inform user that this can take a long time.
+## FIXME This uses that funky Profiles.csv file for identifiers, need to
+## rethink the mapping.
 
 #' @rdname DepMapExpression
 #' @export
