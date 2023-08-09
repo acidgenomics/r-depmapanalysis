@@ -4,6 +4,9 @@
 ## FIXME Assert that no classes that extend SE contain any cellLineName
 ## with NA in colData.
 ## FIXME Need to deal with this: anyNA(assay(crispr))
+## FIXME Set DepMapGeneEffect class and extend with the other two...
+## FIXME Set DepMapExpression class and extend with the other two...
+
 
 
 
@@ -54,6 +57,75 @@
     "taxonomyId" = "Rle",
     "typeOfGene" = "Rle"
 )
+
+
+
+#' Validate the `GeneEffect` classes
+#'
+#' @note Updated 2023-08-09.
+#' @noRd
+.validateGeneEffect <- function(object) {
+    ok <- .validateSE(object, assayNames = "effect")
+    if (!isTRUE(ok)) {
+        return(ok)
+    }
+    ok <- validateClasses(
+        object = metadata(object),
+        expected = list(
+            "libraryType" = "character",
+            "scoringMethod" = "character"
+        ),
+        subset = TRUE
+    )
+    if (!isTRUE(ok)) {
+        return(ok)
+    }
+    switch(
+        EXPR = metadata(object)[["libraryType"]],
+        "crispr" = {
+            ok <- validate(
+                isSubset("probability", assayNames(object))
+            )
+            if (!isTRUE(ok)) {
+                return(ok)
+            }
+            ok <- validateClasses(
+                object = metadata(object),
+                expected = list(
+                    "commonEssentials" = "DFrame",
+                    "controlCommonEssentials" = "DFrame",
+                    "controlNonessentials" = "DFrame"
+                ),
+                subset = TRUE
+            )
+            if (!isTRUE(ok)) {
+                return(ok)
+            }
+        },
+        "rnai" = {
+            ok <- validateClasses(
+                object = colData(object),
+                expected = list(
+                    "inAchilles" = "Rle",
+                    "inDrive" = "Rle",
+                    "inMarcotte" = "Rle",
+                    "marcotteName" = "Rle",
+                    "marcotteSubtypeIntrinsic" = "Rle",
+                    "marcotteSubtypeNeve" = "Rle",
+                    "marcotteSubtypeThreeReceptor" = "Rle",
+                    "novartisName" = "Rle",
+                    "novartisPathologistAnnotation" = "Rle",
+                    "novartisPrimarySite" = "Rle"
+                ),
+                subset = TRUE
+            )
+            if (!isTRUE(ok)) {
+                return(ok)
+            }
+        }
+    )
+    TRUE
+}
 
 
 
@@ -272,89 +344,28 @@ setValidity(
 
 
 
-#' Gene effect in cancer cell lines
+#' DepMap CRISPR gene effect
 #'
 #' @details
 #' Inherits from `SummarizedExperiment`.
 #' Cells in columns, genes in rows.
 #'
 #' @export
-#' @note Updated 2023-08-03.
+#' @note Updated 2023-08-09.
 #'
-#' @return `DepMapGeneEffect`.
+#' @return `DepMapCRISPRGeneEffect`.
 #'
 #' @seealso
 #' - https://depmap.org/portal/achilles/
 #' - https://depmap.org/ceres/
 #' - https://score.depmap.sanger.ac.uk/
 setClass(
-    Class = "DepMapGeneEffect",
+    Class = "DepMapCRISPRGeneEffect",
     contains = "SummarizedExperiment"
 )
 setValidity(
-    Class = "DepMapGeneEffect",
-    method = function(object) {
-        ok <- .validateSE(object, assayNames = "effect")
-        if (!isTRUE(ok)) {
-            return(ok)
-        }
-        ok <- validateClasses(
-            object = metadata(object),
-            expected = list(
-                "libraryType" = "character",
-                "scoringMethod" = "character"
-            ),
-            subset = TRUE
-        )
-        if (!isTRUE(ok)) {
-            return(ok)
-        }
-        switch(
-            EXPR = metadata(object)[["libraryType"]],
-            "crispr" = {
-                ok <- validate(
-                    isSubset("probability", assayNames(object))
-                )
-                if (!isTRUE(ok)) {
-                    return(ok)
-                }
-                ok <- validateClasses(
-                    object = metadata(object),
-                    expected = list(
-                        "commonEssentials" = "DFrame",
-                        "controlCommonEssentials" = "DFrame",
-                        "controlNonessentials" = "DFrame"
-                    ),
-                    subset = TRUE
-                )
-                if (!isTRUE(ok)) {
-                    return(ok)
-                }
-            },
-            "rnai" = {
-                ok <- validateClasses(
-                    object = colData(object),
-                    expected = list(
-                        "inAchilles" = "Rle",
-                        "inDrive" = "Rle",
-                        "inMarcotte" = "Rle",
-                        "marcotteName" = "Rle",
-                        "marcotteSubtypeIntrinsic" = "Rle",
-                        "marcotteSubtypeNeve" = "Rle",
-                        "marcotteSubtypeThreeReceptor" = "Rle",
-                        "novartisName" = "Rle",
-                        "novartisPathologistAnnotation" = "Rle",
-                        "novartisPrimarySite" = "Rle"
-                    ),
-                    subset = TRUE
-                )
-                if (!isTRUE(ok)) {
-                    return(ok)
-                }
-            }
-        )
-        TRUE
-    }
+    Class = "DepMapCRISPRGeneEffect",
+    method = .validateGeneEffect
 )
 
 
