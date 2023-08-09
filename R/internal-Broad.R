@@ -1,5 +1,3 @@
-## FIXME Rework this to use base engine by default.
-
 #' Import a Broad DepMap data file
 #'
 #' @note Updated 2023-08-09.
@@ -96,8 +94,6 @@
     }
 
 
-
-## FIXME This currently isn't returning genes correctly for RNAi.
 
 #' Import Broad DepMap gene effect data (CRISPR or DEMETER2 RNAi)
 #'
