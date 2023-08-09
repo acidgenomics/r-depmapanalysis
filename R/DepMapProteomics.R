@@ -143,6 +143,7 @@ DepMapProteomics <-  # nolint
         autopadZeros(colData[["protein10PlexId"]])
     ))
     url <- pasteURL(baseUrl, "table-s2-protein-quant-normalized.csv")
+    ## FIXME Can we use base engine here instead?
     ## This step can fail when using readr engine without increasing default
     ## `VROOM_CONNECTION_SIZE`. Using data.table here instead to avoid.
     df <- import(con = .cacheURL(url), engine = "data.table")

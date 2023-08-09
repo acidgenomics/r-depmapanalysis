@@ -1,3 +1,5 @@
+## FIXME Rework this to use base engine by default.
+
 #' Import a Broad DepMap data file
 #'
 #' @note Updated 2023-08-09.
@@ -9,11 +11,7 @@
              rownameCol = NULL,
              engine = getOption(
                  x = "acid.import.engine",
-                 default = ifelse(
-                     test = unname(isInstalled("data.table")),
-                     yes = "data.table",
-                     no = "base"
-                 )
+                 default = "base"
              ),
              return = c("DFrame", "matrix")) {
         assert(
@@ -24,7 +22,7 @@
         )
         format <- match.arg(format)
         return <- match.arg(return)
-        ## Engine overrides for malformed DepMap flat file downloads.
+        ## Engine overrides for malformed DepMap files.
         malformedIds <- c(31316011L, 35020903L)
         if (isSubset(x = as.integer(basename(url)), y = malformedIds)) {
             requireNamespaces("data.table")

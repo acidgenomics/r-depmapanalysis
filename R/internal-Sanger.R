@@ -28,6 +28,7 @@
             paste0("model_list_", date2, ".csv"),
             protocol = "https"
         )
+        ## FIXME Can we use the base engine here instead?
         sanger <- import(
             con = .cacheURL(url),
             format = "csv",
