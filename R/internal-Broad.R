@@ -61,6 +61,7 @@
     function(dataset) {
         assert(isString(dataset))
         if (identical(dataset, "demeter2_data_v6")) {
+            ## FIXME Rework this to just call inside of DepMapRnaiGeneEffect.
             df <- .importDemeter2ModelInfo()
             return(df)
         }

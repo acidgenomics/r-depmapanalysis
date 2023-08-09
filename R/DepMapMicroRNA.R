@@ -1,3 +1,4 @@
+## FIXME Rename to "DepMapMicroRna"?
 ## FIXME Consider just dropping this data type entirely.
 ## FIXME Consider reworking the cell line name mapping return.
 ## FIXME Only return cells that are not labeled problematic by Cellosaurus.

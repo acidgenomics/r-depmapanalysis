@@ -1,4 +1,8 @@
 ## FIXME Split this out into separate CRISPR and RNAi classes.
+##
+## Options:
+## - DepMapCrisprGeneEffect, DepMapRnaiGeneEffect
+## - DepMapCRISPRGeneEffect, DepMapRNAiGeneEffect
 
 
 
