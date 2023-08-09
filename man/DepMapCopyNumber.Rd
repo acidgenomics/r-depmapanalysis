@@ -4,11 +4,7 @@
 \alias{DepMapCopyNumber}
 \title{Import DepMap copy number data}
 \usage{
-DepMapCopyNumber(dataset = "depmap_public_23q2")
-}
-\arguments{
-\item{dataset}{\code{character(1)}.
-Dataset name.}
+DepMapCopyNumber()
 }
 \value{
 \code{DepMapCopyNumber}.
@@ -17,7 +13,7 @@ Dataset name.}
 Import DepMap copy number data
 }
 \note{
-Updated 2023-01-26.
+Updated 2023-08-08.
 }
 \examples{
 object <- DepMapCopyNumber()

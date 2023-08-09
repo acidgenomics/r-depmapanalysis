@@ -4,11 +4,7 @@
 \alias{DepMapMutations}
 \title{Import DepMap somatic mutation data}
 \usage{
-DepMapMutations(dataset = "depmap_public_23q2")
-}
-\arguments{
-\item{dataset}{\code{character(1)}.
-Dataset name.}
+DepMapMutations()
 }
 \value{
 \code{DepMapMutations}.
@@ -17,7 +13,7 @@ Dataset name.}
 Import DepMap somatic mutation data
 }
 \note{
-Updated 2023-08-02.
+Updated 2023-08-08.
 }
 \examples{
 object <- DepMapMutations()

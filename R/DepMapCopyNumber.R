@@ -4,9 +4,7 @@
 #' Import DepMap copy number data
 #'
 #' @export
-#' @note Updated 2023-08-07.
-#'
-#' @inheritParams params
+#' @note Updated 2023-08-08.
 #'
 #' @return `DepMapCopyNumber`.
 #'
@@ -14,9 +12,10 @@
 #' object <- DepMapCopyNumber()
 #' print(object)
 DepMapCopyNumber <- # nolint
-    function(dataset) {
-        dataset <- match.arg(dataset)
+    function() {
+        dataset <- .currentDataset
         json <- datasets[[dataset]]
+        assert(is.list(json))
         urls <- unlist(x = json[["files"]], recursive = FALSE, use.names = TRUE)
         dict <- list(
             "releaseDate" = json[["metadata"]][["date"]],
@@ -53,6 +52,3 @@ DepMapCopyNumber <- # nolint
         )
         se
     }
-
-formals(DepMapCopyNumber)[["dataset"]] <- # nolint
-    .formalsList[["depmapDataset"]]

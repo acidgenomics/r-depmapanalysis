@@ -4,6 +4,9 @@
 
 #' DepMap gene effect in cancer cell lines
 #'
+#' @export
+#' @note Updated 2023-08-08.
+#'
 #' @section Assays:
 #'
 #' - `effect`: **Chronos or CERES data** with principle components strongly
@@ -13,10 +16,6 @@
 #' - `probability`: **Probability** that knocking out the gene has a real
 #' depletion effect using `gene_effect`.
 #'
-#' @export
-#' @note Updated 2023-08-03.
-#'
-#' @inheritParams params
 #'
 #' @return `DepMapGeneEffect`.
 #'
@@ -28,9 +27,10 @@
 #' ## RNAi (DEMETER2).
 #' ## > object <- DepMapGeneEffect(dataset = "demeter2_data_v6")
 DepMapGeneEffect <- # nolint
-    function(dataset) {
-        dataset <- match.arg(dataset)
+    function() {
+        dataset <- .currentDataset
         json <- datasets[[dataset]]
+        assert(is.list(json))
         urls <- unlist(x = json[["files"]], recursive = FALSE, use.names = TRUE)
         dict <- list(
             "libraryType" = json[["metadata"]][["library_type"]],
@@ -138,6 +138,3 @@ DepMapGeneEffect <- # nolint
         )
         se
     }
-
-formals(DepMapGeneEffect)[["dataset"]] <- # nolint
-    .formalsList[["dataset"]]

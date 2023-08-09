@@ -16,7 +16,7 @@ Import DepMap microRNA expression data
 NanoString microRNA panel data.
 }
 \note{
-Updated 2023-01-26.
+Updated 2023-08-08.
 }
 \examples{
 object <- DepMapMicroRNA()

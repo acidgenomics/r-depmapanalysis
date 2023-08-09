@@ -1,3 +1,4 @@
+## FIXME Consider just defaulting to the new Sanger dataset?
 ## FIXME Only interested in cells that map to cellosaurus, broad, and sanger...
 
 
@@ -5,7 +6,7 @@
 #' Import DepMap proteomics data
 #'
 #' @export
-#' @note Updated 2023-03-01.
+#' @note Updated 2023-08-08.
 #'
 #' @section Nusinow et al. 2020 (Gygi lab) dataset:
 #'
@@ -204,11 +205,11 @@ DepMapProteomics <-  # nolint
 
 #' Standardize the Goncalvez et al 2022 proteomics dataset
 #'
-#' @note Updated 2023-03-01.
+#' @note Updated 2023-08-08.
 #' @noRd
 .standardizeGoncalvez2022 <- function(object) {
     assert(is(object, "SummarizedExperiment"))
-    currentDataset <- .formalsList[["dataset"]][[1L]]
+    currentDataset <- .currentDataset
     alert(sprintf(
         "Standardizing {.var %s} annotations to DepMap {.var %s}.",
         "goncalves_2022", currentDataset
@@ -241,11 +242,11 @@ DepMapProteomics <-  # nolint
 
 #' Standardize the Nusinow et al 2020 proteomics dataset
 #'
-#' @note Updated 2023-03-08.
+#' @note Updated 2023-08-08.
 #' @noRd
 .standardizeNusinow2020 <- function(object) {
     assert(is(object, "SummarizedExperiment"))
-    currentDataset <- .formalsList[["dataset"]][[1L]]
+    currentDataset <- .currentDataset
     assert(isString(currentDataset))
     alert(sprintf(
         "Standardizing {.var %s} annotations to DepMap {.var %s}.",
@@ -307,14 +308,7 @@ DepMapProteomics <-  # nolint
         ## >     }
         ## > )
         ## > names(hits) <- vec
-
-
         ## Third, match against aliases.
-
-
-
-
-
         ## FIXME Need to think about return matching like this...
         idx <- match(x = geneNames, table = uniqueGeneNames)
         xxx <- uniqueGeneNames[idx]
@@ -322,8 +316,6 @@ DepMapProteomics <-  # nolint
     }
     hgnc <- HGNC()
     geneNames <- decode(rowData[["geneName"]])
-
-
     ## Column data -------------------------------------------------------------
     cd1 <- colData(object)
     colnames(cd1)[colnames(cd1) == "ccleCode"] <- "ccleName"

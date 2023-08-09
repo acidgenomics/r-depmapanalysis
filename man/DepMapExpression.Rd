@@ -4,11 +4,7 @@
 \alias{DepMapExpression}
 \title{Import DepMap expression data}
 \usage{
-DepMapExpression(dataset = "depmap_public_23q2")
-}
-\arguments{
-\item{dataset}{\code{character(1)}.
-Dataset name.}
+DepMapExpression()
 }
 \value{
 \code{DepMapExpression}.
@@ -17,7 +13,7 @@ Dataset name.}
 Import DepMap expression data
 }
 \note{
-Updated 2022-01-26.
+Updated 2023-08-08.
 }
 \examples{
 object <- DepMapExpression()

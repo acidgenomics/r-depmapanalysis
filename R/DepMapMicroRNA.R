@@ -1,5 +1,6 @@
 ## FIXME Consider just dropping this data type entirely.
 ## FIXME Consider reworking the cell line name mapping return.
+## FIXME Only return cells that are not labeled problematic by Cellosaurus.
 
 
 
@@ -9,7 +10,7 @@
 #' NanoString microRNA panel data.
 #'
 #' @name DepMapMicroRNA
-#' @note Updated 2023-01-26.
+#' @note Updated 2023-08-08.
 #'
 #' @return `DepMapMicroRNA`.
 #'
@@ -160,7 +161,7 @@ NULL
 DepMapMicroRNA <- # nolint
     function() {
         dataset <- "CCLE_miRNA_20180525.gct"
-        currentDataset <- .formalsList[["dataset"]][[1L]]
+        currentDataset <- .currentDataset
         h1(sprintf(
             "{.cls %s}: {.var %s}",
             "CCLEMicroRNAExpressionData", dataset

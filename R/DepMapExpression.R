@@ -6,9 +6,7 @@
 #' Import DepMap expression data
 #'
 #' @export
-#' @note Updated 2022-01-26.
-#'
-#' @inheritParams params
+#' @note Updated 2023-08-08.
 #'
 #' @return `DepMapExpression`.
 #'
@@ -16,10 +14,8 @@
 #' object <- DepMapExpression()
 #' dim(object)
 DepMapExpression <- # nolint
-    function(dataset) {
+    function() {
         ## FIXME Rethink this approach.
-        ## FIXME Yeah consider replacing all instances of makeCcleSE with
-        ## a new approach in the package.
         .makeCcleSE(
             dataset = match.arg(dataset),
             assayKey = "expression",
@@ -27,6 +23,3 @@ DepMapExpression <- # nolint
             class = "DepMapExpression"
         )
     }
-
-formals(DepMapExpression)[["dataset"]] <- # nolint
-    .formalsList[["depmapDataset"]]

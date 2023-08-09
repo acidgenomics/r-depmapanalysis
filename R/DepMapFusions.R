@@ -1,9 +1,8 @@
 #' Import DepMap fusion call data
 #'
 #' @export
-#' @note Updated 2023-08-02.
+#' @note Updated 2023-08-08.
 #'
-#' @inheritParams params
 #' @param filtered `logical(1)`.
 #' Load filtered fusion calls.
 #'
@@ -13,8 +12,8 @@
 #' object <- DepMapFusions()
 #' dim(object)
 DepMapFusions <- # nolint
-    function(dataset, filtered = TRUE) {
-        dataset <- match.arg(dataset)
+    function(filtered = TRUE) {
+        dataset <- .currentDataset
         assert(isFlag(filtered))
         key <- ifelse(
             test = filtered,
@@ -37,6 +36,3 @@ DepMapFusions <- # nolint
         )
         new(Class = "DepMapFusions", df)
     }
-
-formals(DepMapFusions)[["dataset"]] <- # nolint
-    .formalsList[["depmapDataset"]]

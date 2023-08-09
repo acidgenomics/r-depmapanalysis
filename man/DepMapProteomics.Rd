@@ -13,7 +13,7 @@ DepMapProteomics(dataset = c("goncalves_2022", "nusinow_2020"))
 Import DepMap proteomics data
 }
 \note{
-Updated 2023-03-01.
+Updated 2023-08-08.
 }
 \section{Nusinow et al. 2020 (Gygi lab) dataset}{
 

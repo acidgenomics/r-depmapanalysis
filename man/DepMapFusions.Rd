@@ -4,12 +4,9 @@
 \alias{DepMapFusions}
 \title{Import DepMap fusion call data}
 \usage{
-DepMapFusions(dataset = "depmap_public_23q2", filtered = TRUE)
+DepMapFusions(filtered = TRUE)
 }
 \arguments{
-\item{dataset}{\code{character(1)}.
-Dataset name.}
-
 \item{filtered}{\code{logical(1)}.
 Load filtered fusion calls.}
 }
@@ -20,7 +17,7 @@ Load filtered fusion calls.}
 Import DepMap fusion call data
 }
 \note{
-Updated 2023-08-02.
+Updated 2023-08-08.
 }
 \examples{
 object <- DepMapFusions()

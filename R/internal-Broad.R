@@ -46,17 +46,20 @@
 
 
 
-## FIXME Need to add support for 23q2.
+## FIXME Consider exporting this function.
+## FIXME Allow the user to set whether they want to discard problematic cells or
+## not from Cellosaurus database.
 
 #' Import Broad DepMap cell line model info
 #'
 #' Sample metadata now indicates that there are merged cells we should drop
 #' from analysis (e.g. ACH-002260).
 #'
-#' @note Updated 2023-07-03.
+#' @note Updated 2023-08-08.
 #' @noRd
 .importBroadModelInfo <-
     function(dataset) {
+        assert(isString(dataset))
         if (identical(dataset, "demeter2_data_v6")) {
             df <- .importDemeter2ModelInfo()
             return(df)
@@ -129,9 +132,6 @@
         metadata(df) <- list("excludedCells" = ids[["setdiff"]])
         df
     }
-
-formals(.importBroadModelInfo)[["dataset"]] <-
-    .formalsList[["dataset"]][[1L]]
 
 
 
@@ -351,11 +351,11 @@ formals(.importBroadModelInfo)[["dataset"]] <-
 
 #' Standardize the DEMETER2 RNAi dataset
 #'
-#' @note Updated 2023-03-08.
+#' @note Updated 2023-08-08.
 #' @noRd
 .standardizeDemeter2 <- function(object) {
     assert(is(object, "SummarizedExperiment"))
-    currentDataset <- .formalsList[["dataset"]][[1L]]
+    currentDataset <- .currentDataset
     alert(sprintf(
         "Standardizing DEMETER2 annotations to DepMap {.var %s}.",
         currentDataset
