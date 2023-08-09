@@ -1,8 +1,3 @@
-## FIXME Split this out into separate gene- and transcript-level classes.
-## FIXME Canonical file is: OmicsExpressionProteinCodingGenesTPMLogp1.csv
-
-
-
 #' Import DepMap gene or transcript expression data
 #'
 #' @name DepMapExpression
@@ -26,8 +21,11 @@ NULL
 #' @export
 DepMapGeneExpression <- # nolint
     function() {
-        stop("FIXME")
-        ## FIXME Rethink this approach.
+        .makeBroadSingleAssaySE(
+            file = "OmicsExpressionProteinCodingGenesTPMLogp1.csv",
+            assayName = "log2Tpm",
+            class = "DepMapGeneExpression"
+        )
     }
 
 
@@ -36,6 +34,9 @@ DepMapGeneExpression <- # nolint
 #' @export
 DepMapTxExpression <- # nolint
     function() {
-        stop("FIXME")
-        ## FIXME Rethink this approach.
+        .makeBroadSingleAssaySE(
+            file = "OmicsExpressionTranscriptsTPMLogp1Profile.csv",
+            assayName = "log2Tpm",
+            class = "DepMapTxExpression"
+        )
     }
