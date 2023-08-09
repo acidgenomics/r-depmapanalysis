@@ -15,7 +15,7 @@ DepMapMutations <- # nolint
         url <- datasets[[dataset]][["files"]][["OmicsSomaticMutations.csv"]]
         assert(isAURL(url))
         df <- .importBroadDataFile(url = url, format = "csv")
-        assert(is(df, "DataFrame"))
+        assert(is(df, "DFrame"))
         colnames(df)[colnames(df) == "GTexGene"] <- "GtexGene"
         colnames(df)[colnames(df) == "GwasPmID"] <- "GwasPmid"
         ## Coerce "GoF", "LoF" to proper camel case.

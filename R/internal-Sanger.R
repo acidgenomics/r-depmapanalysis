@@ -33,7 +33,7 @@
             format = "csv",
             engine = "data.table"
         )
-        sanger <- as(sanger, "DataFrame")
+        sanger <- as(sanger, "DFrame")
         ids <- list()
         ids[["sanger"]] <- sanger[[1L]]
         ids[["cello"]] <- decode(cello[["sangerModelId"]])

@@ -22,7 +22,7 @@
 
 
 
-#' Expected `DataFrame` metadata
+#' Expected `DFrame` metadata
 #'
 #' @note Updated 2022-03-09.
 #' @noRd
@@ -233,9 +233,9 @@ setClass(
 #' DepMap gene effect co-dependencies
 #'
 #' @details
-#' Inherits from `DataFrame`.
+#' Inherits from `DFrame`.
 #'
-#' @note Updated 2023-01-26.
+#' @note Updated 2023-08-09.
 #' @export
 #'
 #' @return `DepMapCodependencies`.

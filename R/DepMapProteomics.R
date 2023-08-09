@@ -128,7 +128,7 @@ DepMapProteomics <-  # nolint
     baseUrl <- pasteURL(.extdataUrl, "proteomics", "nusinow-2020")
     url <- pasteURL(baseUrl, "table-s1-sample-information.csv")
     colData <- import(con = .cacheURL(url))
-    colData <- as(colData, "DataFrame")
+    colData <- as(colData, "DFrame")
     colnames(colData) <- camelCase(colnames(colData), strict = TRUE)
     assert(identical(
         sort(colnames(colData)),
@@ -162,7 +162,7 @@ DepMapProteomics <-  # nolint
     assert(all(bapply(X = assay, FUN = is.numeric)))
     assay <- as.matrix(assay)
     rowData <- df[, setdiff(colnames(df), colnames(assay))]
-    rowData <- as(rowData, "DataFrame")
+    rowData <- as(rowData, "DFrame")
     colnames(rowData) <- camelCase(colnames(rowData), strict = TRUE)
     colnames(rowData)[colnames(rowData) == "uniprotAcc"] <- "uniprotId"
     colnames(rowData)[colnames(rowData) == "uniprot"] <- "uniprotName"
@@ -254,7 +254,7 @@ DepMapProteomics <-  # nolint
     ## FIXME Also make a similar function for NcbiGeneInfo return.
     .mapGeneNamesToHgncIds <- function(hgnc, geneNames) {
         assert(is(hgnc, "HGNC"), isCharacter(geneNames))
-        hgnc <- as(hgnc, "DataFrame")
+        hgnc <- as(hgnc, "DFrame")
         rownames(hgnc) <- NULL
         hgnc <- hgnc[, c("hgncId", "symbol", "prevSymbol", "aliasSymbol")]
         uniqueGeneNames <- unique(geneNames)

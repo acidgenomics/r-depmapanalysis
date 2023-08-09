@@ -68,7 +68,7 @@ NULL
         isSubset(c("Name", "Description"), colnames(rowData))
     )
     rowData <- rowData[rownames(assay), c("Name", "Description")]
-    rowData <- as(rowData, "DataFrame")
+    rowData <- as(rowData, "DFrame")
     colnames(rowData) <- c("nanostringId", "mirName")
     rownames(rowData) <- makeNames(tolower(rowData[["mirName"]]))
     rownames(assay) <- rownames(rowData)
@@ -79,14 +79,14 @@ NULL
 
 #' Import miRBase GFF annotations
 #'
-#' @note Updated 2023-01-25.
+#' @note Updated 2023-08-09.
 #' @noRd
 #'
 #' @param df GCT expression data frame, containing microRNA annotations.
 #'
 #' @return `GRangeList`.
 .importMirbaseGff <- function(rowData) {
-    assert(is(rowData, "DataFrame"))
+    assert(is(rowData, "DFrame"))
     url <- pasteURL(
         "www.mirbase.org",
         "ftp",

@@ -15,7 +15,7 @@
                      no = "base"
                  )
              ),
-             return = c("DataFrame", "matrix")) {
+             return = c("DFrame", "matrix")) {
         assert(
             isAURL(url),
             isFlag(colnames),
@@ -40,7 +40,7 @@
         )
         out <- switch(
             EXPR = return,
-            "DataFrame" = as(df, "DataFrame"),
+            "DFrame" = as(df, "DFrame"),
             "matrix" = as.matrix(df)
         )
         out <- makeDimnames(out)
@@ -59,7 +59,7 @@
             url = url,
             colnames = TRUE,
             engine = "base",
-            return = "DataFrame"
+            return = "DFrame"
         )
         if (
             identical(colnames(df), "Essentials") ||
@@ -73,7 +73,7 @@
                 n = 2L,
                 simplify = TRUE
             )
-            df <- as(df, "DataFrame")
+            df <- as(df, "DFrame")
             colnames(df) <- c("geneName", "ncbiGeneId")
             df[["ncbiGeneId"]] <- gsub(
                 pattern = "[\\(\\)]",
@@ -87,7 +87,7 @@
             abort("Unsupported file.")
         }
         assert(
-            is(df, "DataFrame"),
+            is(df, "DFrame"),
             identical(colnames(df), c("geneName", "ncbiGeneId"))
         )
         df[["ncbiGeneId"]] <- as.integer(df[["ncbiGeneId"]])
@@ -233,7 +233,7 @@
             format = "csv",
             rownameCol = NULL,
             colnames = TRUE,
-            return = "DataFrame"
+            return = "DFrame"
         )
         assert(is(broad, "DFrame"))
         cello <- Cellosaurus()
@@ -307,7 +307,7 @@ formals(.importBroadModelInfo)[["dataset"]] <- .currentDataset
         format = "csv",
         rownameCol = NULL,
         colnames = TRUE,
-        return = "DataFrame"
+        return = "DFrame"
     )
     assert(is(d2, "DFrame"))
     broad <- .importBroadModelInfo()
@@ -393,7 +393,7 @@ formals(.importBroadModelInfo)[["dataset"]] <- .currentDataset
             is(rowData, "NcbiGeneInfo"),
             isSubset(c("geneId", "geneName"), colnames(rowData))
         )
-        rowData <- as(rowData, "DataFrame")
+        rowData <- as(rowData, "DFrame")
         ## Extract the NCBI gene identifiers from the row names.
         match <- stri_match_first_regex(
             str = rownames(assays[[1L]]),
