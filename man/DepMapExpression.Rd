@@ -2,20 +2,29 @@
 % Please edit documentation in R/DepMapExpression.R
 \name{DepMapExpression}
 \alias{DepMapExpression}
-\title{Import DepMap expression data}
+\alias{DepMapGeneExpression}
+\alias{DepMapTxExpression}
+\title{Import DepMap gene or transcript expression data}
 \usage{
-DepMapExpression()
+DepMapGeneExpression()
+
+DepMapTxExpression()
 }
 \value{
 \code{DepMapExpression}.
 }
 \description{
-Import DepMap expression data
+Import DepMap gene or transcript expression data
 }
 \note{
-Updated 2023-08-08.
+Updated 2023-08-09.
 }
 \examples{
-object <- DepMapExpression()
-dim(object)
+## Gene level.
+object <- DepMapGeneExpression()
+print(object)
+
+## Transcript level.
+object <- DepMapTxExpression()
+print(object)
 }

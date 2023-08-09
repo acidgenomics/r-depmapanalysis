@@ -3,23 +3,39 @@
 
 
 
-#' Import DepMap expression data
+#' Import DepMap gene or transcript expression data
 #'
-#' @export
-#' @note Updated 2023-08-08.
+#' @name DepMapExpression
+#' @note Updated 2023-08-09.
 #'
 #' @return `DepMapExpression`.
 #'
 #' @examples
-#' object <- DepMapExpression()
-#' dim(object)
-DepMapExpression <- # nolint
+#' ## Gene level.
+#' object <- DepMapGeneExpression()
+#' print(object)
+#'
+#' ## Transcript level.
+#' object <- DepMapTxExpression()
+#' print(object)
+NULL
+
+
+
+#' @rdname DepMapExpression
+#' @export
+DepMapGeneExpression <- # nolint
     function() {
+        stop("FIXME")
         ## FIXME Rethink this approach.
-        .makeCcleSE(
-            dataset = match.arg(dataset),
-            assayKey = "expression",
-            assayName = "log2Tpm",
-            class = "DepMapExpression"
-        )
+    }
+
+
+
+#' @rdname DepMapExpression
+#' @export
+DepMapTxExpression <- # nolint
+    function() {
+        stop("FIXME")
+        ## FIXME Rethink this approach.
     }
