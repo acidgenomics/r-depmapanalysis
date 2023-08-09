@@ -183,50 +183,26 @@ setValidity(
         if (!isTRUE(ok)) {
             return(ok)
         }
-        switch(
-            EXPR = metadata(object)[["libraryType"]],
-            "crispr" = {
-                ok <- validate(
-                    isSubset("probability", assayNames(object))
-                )
-                if (!isTRUE(ok)) {
-                    return(ok)
-                }
-                ok <- validateClasses(
-                    object = metadata(object),
-                    expected = list(
-                        "commonEssentials" = "DFrame",
-                        "controlCommonEssentials" = "DFrame",
-                        "controlNonessentials" = "DFrame"
-                    ),
-                    subset = TRUE
-                )
-                if (!isTRUE(ok)) {
-                    return(ok)
-                }
-            },
-            "rnai" = {
-                ok <- validateClasses(
-                    object = colData(object),
-                    expected = list(
-                        "inAchilles" = "Rle",
-                        "inDrive" = "Rle",
-                        "inMarcotte" = "Rle",
-                        "marcotteName" = "Rle",
-                        "marcotteSubtypeIntrinsic" = "Rle",
-                        "marcotteSubtypeNeve" = "Rle",
-                        "marcotteSubtypeThreeReceptor" = "Rle",
-                        "novartisName" = "Rle",
-                        "novartisPathologistAnnotation" = "Rle",
-                        "novartisPrimarySite" = "Rle"
-                    ),
-                    subset = TRUE
-                )
-                if (!isTRUE(ok)) {
-                    return(ok)
-                }
+        if (identical(metadata(object)[["libraryType"]], "crispr")) {
+            ok <- validate(
+                isSubset("probability", assayNames(object))
+            )
+            if (!isTRUE(ok)) {
+                return(ok)
             }
-        )
+            ok <- validateClasses(
+                object = metadata(object),
+                expected = list(
+                    "commonEssentials" = "DFrame",
+                    "controlCommonEssentials" = "DFrame",
+                    "controlNonessentials" = "DFrame"
+                ),
+                subset = TRUE
+            )
+            if (!isTRUE(ok)) {
+                return(ok)
+            }
+        }
         TRUE
     }
 )

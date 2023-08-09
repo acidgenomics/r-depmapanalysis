@@ -294,7 +294,7 @@ formals(.importBroadModelInfo)[["dataset"]] <- .currentDataset
 
 #' Import Broad DEMETER2 RNAi cell line model info
 #'
-#' @note Updated 2023-03-09.
+#' @note Updated 2023-08-09.
 #' @noRd
 #'
 #' @details

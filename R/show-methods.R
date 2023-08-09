@@ -1,7 +1,7 @@
 #' Show an object
 #'
 #' @name show
-#' @note Updated 2023-08-02.
+#' @note Updated 2023-08-09.
 #'
 #' @inheritParams AcidRoxygen::params
 #'
@@ -30,7 +30,7 @@ NULL
 
 
 
-## Updated 2023-01-27.
+## Updated 2023-08-09.
 `show,DepMapGeneEffect` <- # nolint
     function(object) {
         validObject(object)
@@ -38,7 +38,6 @@ NULL
         m <- metadata(object)
         list <- list(
             "dataset" = m[["dataset"]],
-            "libraryType" = m[["libraryType"]],
             "scoringMethod" = m[["scoringMethod"]],
             "date" = m[["date"]],
             "releaseDate" = m[["releaseDate"]]
