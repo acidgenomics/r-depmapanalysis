@@ -385,6 +385,7 @@ formals(.importBroadModelInfo)[["dataset"]] <- .currentDataset
         }
         ## Row data (gene annotations) -----------------------------------------
         excludedGenes <- character()
+        ## FIXME Need to add an option to slot transcript-level metadata here.
         rowData <- NcbiGeneInfo(
             organism = "Homo sapiens",
             taxonomicGroup = "Mammalia"
