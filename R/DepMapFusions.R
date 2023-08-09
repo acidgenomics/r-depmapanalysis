@@ -14,8 +14,11 @@
 #' dim(object)
 DepMapFusions <- # nolint
     function(filtered = TRUE) {
-        dataset <- .currentDataset
-        assert(isFlag(filtered))
+        dataset <- .currentBroadDataset
+        assert(
+            isString(dataset),
+            isFlag(filtered)
+        )
         key <- ifelse(
             test = filtered,
             yes = "fusions",

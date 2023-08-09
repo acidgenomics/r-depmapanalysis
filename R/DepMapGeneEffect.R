@@ -31,7 +31,7 @@ NULL
 #' @export
 DepMapCrisprGeneEffect <- function() {
     .importBroadGeneEffect(
-        dataset = .currentDataset,
+        dataset = .currentBroadDataset,
         class = "DepMapCrisprGeneEffect"
     )
 }

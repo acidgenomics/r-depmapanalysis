@@ -200,14 +200,15 @@ DepMapProteomics <-  # nolint
 #' @note Updated 2023-08-09.
 #' @noRd
 .standardizeGoncalvez2022 <- function(object) {
-    assert(is(object, "SummarizedExperiment"))
-    currentDataset <- .currentDataset
-    assert(isString(currentDataset))
+    currentDataset <- .currentBroadDataset
+    assert(
+        is(object, "SummarizedExperiment"),
+        isString(currentDataset)
+    )
     alert(sprintf(
         "Standardizing {.var %s} annotations to DepMap {.var %s}.",
         "goncalves_2022", currentDataset
     ))
-    assert(isString(currentDataset))
     ## FIXME Bind richer data using uniprotId matching.
     rowData <- rowData(object)
     cd1 <- colData(object)
@@ -238,9 +239,11 @@ DepMapProteomics <-  # nolint
 #' @note Updated 2023-08-09.
 #' @noRd
 .standardizeNusinow2020 <- function(object) {
-    assert(is(object, "SummarizedExperiment"))
-    currentDataset <- .currentDataset
-    assert(isString(currentDataset))
+    currentDataset <- .currentBroadDataset
+    assert(
+        is(object, "SummarizedExperiment"),
+        isString(currentDataset)
+    )
     alert(sprintf(
         "Standardizing {.var %s} annotations to DepMap {.var %s}.",
         "nusinow_2020", currentDataset

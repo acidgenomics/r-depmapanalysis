@@ -10,7 +10,7 @@
 #' dim(object)
 DepMapMutations <- # nolint
     function() {
-        dataset <- .currentDataset
+        dataset <- .currentBroadDataset
         assert(isString(dataset))
         url <- datasets[[dataset]][["files"]][["OmicsSomaticMutations.csv"]]
         assert(isAURL(url))

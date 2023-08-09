@@ -1,6 +1,7 @@
 data(crispr, rnai, rnaseq, envir = environment())
 
-dataset <- .currentDataset
+## FIXME Can we take this out?
+dataset <- .currentBroadDataset
 
 ## nolint start
 isSubset <- goalie::isSubset

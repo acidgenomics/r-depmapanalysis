@@ -287,7 +287,7 @@
         df
     }
 
-formals(.importBroadModelInfo)[["dataset"]] <- .currentDataset
+formals(.importBroadModelInfo)[["dataset"]] <- .currentBroadDataset
 
 
 
@@ -515,15 +515,15 @@ formals(.importBroadModelInfo)[["dataset"]] <- .currentDataset
 #' @note Updated 2023-08-09.
 #' @noRd
 .makeBroadSingleAssaySE <- function(file, assayName, class) {
+    dataset <- .currentBroadDataset
+    json <- datasets[[dataset]]
     assert(
+        isString(dataset),
         isString(file),
         isString(assayName),
-        isString(class)
+        isString(class),
+        is.list(json)
     )
-    dataset <- .currentDataset
-    assert(isString(dataset))
-    json <- datasets[[dataset]]
-    assert(is.list(json))
     dict <- list(
         "releaseDate" = json[["metadata"]][["date"]],
         "transposeAssays" = json[["metadata"]][["transpose_assays"]]
@@ -559,21 +559,20 @@ formals(.importBroadModelInfo)[["dataset"]] <- .currentDataset
 
 
 
-## FIXME Rethink this approach, matching to current broad annotations
-## instead.
-
 #' Standardize the DEMETER2 RNAi dataset
 #'
-#' @note Updated 2023-08-08.
+#' @note Updated 2023-08-09.
 #' @noRd
 .standardizeDemeter2 <- function(object) {
-    assert(is(object, "SummarizedExperiment"))
-    currentDataset <- .currentDataset
+    currentDataset <- .currentBroadDataset
+    assert(
+        isString(currentDataset),
+        is(object, "SummarizedExperiment")
+    )
     alert(sprintf(
         "Standardizing DEMETER2 annotations to DepMap {.var %s}.",
         currentDataset
     ))
-    assert(isString(currentDataset))
     cd <- list(
         "x" = colData(object),
         "y" = .importBroadModelInfo(dataset = currentDataset)
