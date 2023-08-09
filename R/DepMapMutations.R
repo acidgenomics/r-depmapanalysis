@@ -1,7 +1,7 @@
 #' Import DepMap somatic mutation data
 #'
 #' @export
-#' @note Updated 2023-08-08.
+#' @note Updated 2023-08-09.
 #'
 #' @return `DepMapMutations`.
 #'
@@ -11,9 +11,10 @@
 DepMapMutations <- # nolint
     function() {
         dataset <- .currentDataset
+        assert(isString(dataset))
         url <- datasets[[dataset]][["files"]][["OmicsSomaticMutations.csv"]]
         assert(isAURL(url))
-        df <- .importDataFile(url = url, format = "csv")
+        df <- .importBroadDataFile(url = url, format = "csv")
         assert(is(df, "DataFrame"))
         colnames(df)[colnames(df) == "GTexGene"] <- "GtexGene"
         colnames(df)[colnames(df) == "GwasPmID"] <- "GwasPmid"

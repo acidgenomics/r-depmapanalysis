@@ -1,10 +1,61 @@
+#' Import a Broad DepMap data file
+#'
+#' @note Updated 2023-08-09.
+#' @noRd
+.importBroadDataFile <-
+    function(url,
+             format = c("csv", "tsv"),
+             colnames = TRUE,
+             rownameCol = NULL,
+             engine = getOption(
+                 x = "acid.import.engine",
+                 default = ifelse(
+                     test = unname(isInstalled("data.table")),
+                     yes = "data.table",
+                     no = "base"
+                 )
+             ),
+             return = c("DataFrame", "matrix")) {
+        assert(
+            isAURL(url),
+            isFlag(colnames),
+            isScalar(rownameCol) || is.null(rownameCol),
+            isString(engine)
+        )
+        format <- match.arg(format)
+        return <- match.arg(return)
+        ## Engine overrides for malformed DepMap flat file downloads.
+        malformedIds <- c(31316011L, 35020903L)
+        if (isSubset(x = as.integer(basename(url)), y = malformedIds)) {
+            requireNamespaces("data.table")
+            engine <- "data.table"
+        }
+        tmpfile <- .cacheURL(url = url)
+        df <- import(
+            con = tmpfile,
+            format = format,
+            rownameCol = rownameCol,
+            colnames = colnames,
+            engine = engine
+        )
+        out <- switch(
+            EXPR = return,
+            "DataFrame" = as(df, "DataFrame"),
+            "matrix" = as.matrix(df)
+        )
+        out <- makeDimnames(out)
+        out
+    }
+
+
+
 #' Import a Broad DepMap file containing gene identifiers
 #'
-#' @note Updated 2023-03-08.
+#' @note Updated 2023-08-09.
 #' @noRd
 .importBroadGeneDataFile <-
     function(url) {
-        df <- .importDataFile(
+        df <- .importBroadDataFile(
             url = url,
             colnames = TRUE,
             engine = "base",
@@ -46,6 +97,125 @@
 
 
 
+#' Import Broad DepMap gene effect data (CRISPR or DEMETER2 RNAi)
+#'
+#' @note Updated 2023-08-09.
+#' @noRd
+.importBroadGeneEffect <- # nolint
+    function(dataset, class) {
+        assert(
+            isString(dataset),
+            isString(class)
+        )
+        json <- datasets[[dataset]]
+        assert(is.list(json))
+        urls <- unlist(x = json[["files"]], recursive = FALSE, use.names = TRUE)
+        dict <- list(
+            "libraryType" = json[["metadata"]][["library_type"]],
+            "releaseDate" = json[["metadata"]][["date"]],
+            "scoringMethod" = json[["metadata"]][["scoring_method"]],
+            "transposeAssays" = json[["metadata"]][["transpose_assays"]]
+        )
+        assert(
+            isString(dict[["libraryType"]]),
+            isString(dict[["releaseDate"]]),
+            isString(dict[["scoringMethod"]]),
+            isFlag(dict[["transposeAssays"]]),
+            allAreURLs(urls)
+        )
+        h1(sprintf("{.cls %s}: {.var %s}", class, dataset))
+        dl(c(
+            "libraryType" = dict[["libraryType"]],
+            "scoringMethod" = dict[["scoringMethod"]],
+            "releaseDate" = dict[["releaseDate"]]
+        ))
+        if (identical(dataset, "demeter2_data_v6")) {
+            ## DEMETER2 RNAi dataset.
+            urls <- list(
+                "assays" = list(
+                    "effect" =
+                        urls[["D2_combined_gene_dep_scores.csv"]],
+                    "sd" =
+                        urls[["D2_combined_seed_dep_score_SDs.csv"]]
+                ),
+                "metadata" = list(
+                    "controlCommonEssentials" =
+                        urls[["Hart-pos-controls.csv"]],
+                    "controlNonessentials" =
+                        urls[["Hart-neg-controls.csv"]]
+                )
+            )
+        } else if (isSubset("CRISPR_gene_effect.csv", names(urls))) {
+            ## Legacy CRISPR pipeline.
+            urls <- list(
+                "assays" = list(
+                    "effect" =
+                        urls[["CRISPR_gene_effect.csv"]],
+                    "probability" =
+                        urls[["CRISPR_gene_dependency.csv"]]
+                ),
+                "metadata" = list(
+                    "commonEssentials" =
+                        urls[["CRISPR_common_essentials.csv"]],
+                    "controlCommonEssentials" =
+                        urls[["common_essentials.csv"]],
+                    "controlNonessentials" =
+                        urls[["nonessentials.csv"]]
+                )
+            )
+        } else {
+            ## Current CRISPR pipeline.
+            assert(isSubset("CRISPRGeneEffect.csv", names(urls)))
+            urls <- list(
+                "assays" = list(
+                    "effect" =
+                        urls[["CRISPRGeneEffect.csv"]],
+                    "probability" =
+                        urls[["CRISPRGeneDependency.csv"]]
+                ),
+                "metadata" = list(
+                    "commonEssentials" =
+                        urls[["CRISPRInferredCommonEssentials.csv"]],
+                    "controlCommonEssentials" =
+                        urls[["AchillesCommonEssentialControls.csv"]],
+                    "controlNonessentials" =
+                        urls[["AchillesNonessentialControls.csv"]]
+                )
+            )
+        }
+        assert(allAreURLs(unlist(urls, recursive = TRUE)))
+        assays <- lapply(
+            X = urls[["assays"]],
+            FUN = .importBroadDataFile,
+            format = "csv",
+            rownameCol = 1L,
+            colnames = TRUE,
+            return = "matrix"
+        )
+        metadata <- lapply(
+            X = urls[["metadata"]],
+            FUN = .importBroadGeneDataFile
+        )
+        metadata <- append(
+            x = metadata,
+            values = list(
+                "libraryType" = dict[["libraryType"]],
+                "releaseDate" = dict[["releaseDate"]],
+                "scoringMethod" = dict[["scoringMethod"]]
+            )
+        )
+        se <- .makeBroadSE(
+            dataset = dataset,
+            assays = assays,
+            transposeAssays = dict[["transposeAssays"]],
+            metadata = metadata,
+            class = class
+        )
+        se
+    }
+
+
+
 #' Import Broad DepMap cell line model info
 #'
 #' Sample metadata now indicates that there are merged cells we should drop
@@ -59,7 +229,7 @@
         assert(isString(dataset))
         url <- datasets[[dataset]][["files"]][["Model.csv"]]
         assert(isAURL(url))
-        broad <- .importDataFile(
+        broad <- .importBroadDataFile(
             url = url,
             format = "csv",
             rownameCol = NULL,
@@ -131,7 +301,7 @@
 .importDemeter2ModelInfo <- function() {
     url <- datasets[["demeter2_data_v6"]][["files"]][["sample_info.csv"]]
     assert(isAURL(url))
-    d2 <- .importDataFile(
+    d2 <- .importBroadDataFile(
         url = url,
         format = "csv",
         rownameCol = NULL,
@@ -337,7 +507,7 @@
 
 #' Make a SummarizedExperiment from Broad DepMap with a single assay
 #'
-#' @note Updated 2023-08-08.
+#' @note Updated 2023-08-09.
 #' @noRd
 .makeBroadSingleAssaySE <- function(file, assayName, class) {
     assert(
@@ -359,7 +529,7 @@
     )
     url <- json[["files"]][[file]]
     assert(isAURL(url))
-    assay <- .importDataFile(
+    assay <- .importBroadDataFile(
         url = url,
         format = "csv",
         rownameCol = 1L,

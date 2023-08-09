@@ -1,10 +1,11 @@
 #' Import DepMap fusion call data
 #'
 #' @export
-#' @note Updated 2023-08-08.
+#' @note Updated 2023-08-09.
 #'
 #' @param filtered `logical(1)`.
 #' Load filtered fusion calls.
+#' Recommended by default.
 #'
 #' @return `DepMapFusions`.
 #'
@@ -20,9 +21,10 @@ DepMapFusions <- # nolint
             yes = "fusions",
             no = "fusions_unfiltered"
         )
+        ## FIXME Need to rework this, breaking change in new release.
         url <- datasets[[dataset]][["files"]][["ccle"]][[key]][["url"]]
         assert(isAURL(url))
-        df <- .importDataFile(url = url, format = "csv", rownamesCol = NULL)
+        df <- .importBroadDataFile(url = url, format = "csv", rownamesCol = NULL)
         assert(is(df, "DataFrame"))
         colnames(df)[colnames(df) == "DepMap_ID"] <- "depmapId"
         colnames(df) <- camelCase(colnames(df), strict = TRUE)
