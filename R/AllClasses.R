@@ -363,6 +363,23 @@ setValidity(
 
 
 
+#' DepMap RNA-seq gene expression
+#'
+#' @details
+#' Inherits from `DepMapExpression`, which extends `SummarizedExperiment`.
+#' Cells in columns, genes in rows.
+#'
+#' @export
+#' @note Updated 2023-08-09.
+#'
+#' @return `DepMapGeneExpression`.
+setClass(
+    Class = "DepMapGeneExpression",
+    contains = "DepMapExpression"
+)
+
+
+
 #' DepMap microRNA expression data
 #'
 #' @details
@@ -544,4 +561,21 @@ setValidity(
 setClass(
     Class = "DepMapRNAiGeneEffect",
     contains = "DepMapGeneEffect"
+)
+
+
+
+#' DepMap RNA-seq transcript expression
+#'
+#' @details
+#' Inherits from `DepMapExpression`, which extends `SummarizedExperiment`.
+#' Cells in columns, transcripts in rows.
+#'
+#' @export
+#' @note Updated 2023-08-09.
+#'
+#' @return `DepMapTxExpression`.
+setClass(
+    Class = "DepMapTxExpression",
+    contains = "DepMapExpression"
 )

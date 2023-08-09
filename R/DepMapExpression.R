@@ -30,6 +30,8 @@ DepMapGeneExpression <- # nolint
 
 
 
+## FIXME Need to handle transcript-to-gene mapping here.
+
 #' @rdname DepMapExpression
 #' @export
 DepMapTxExpression <- # nolint
