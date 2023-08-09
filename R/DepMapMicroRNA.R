@@ -11,7 +11,7 @@
 #' NanoString microRNA panel data.
 #'
 #' @name DepMapMicroRNA
-#' @note Updated 2023-08-08.
+#' @note Updated 2023-08-09.
 #'
 #' @return `DepMapMicroRNA`.
 #'
@@ -155,21 +155,20 @@ NULL
 
 
 
-## Updated 2023-03-08.
+## Updated 2023-08-09.
 
 #' @rdname DepMapMicroRNA
 #' @export
 DepMapMicroRNA <- # nolint
     function() {
         dataset <- "CCLE_miRNA_20180525.gct"
-        currentDataset <- .currentDataset
         h1(sprintf(
             "{.cls %s}: {.var %s}",
-            "CCLEMicroRNAExpressionData", dataset
+            "DepMapMicroRNA", dataset
         ))
         gct <- .importMicroRnaGct(dataset = dataset)
         rowRanges <- .importMirbaseGff(rowData = gct[["rowData"]])
-        colData <- .importBroadModelInfo(dataset = currentDataset)
+        colData <- .importBroadModelInfo()
         colData <- colData[!is.na(colData[["ccleName"]]), ]
         rownames(colData) <- makeNames(as.character(colData[["ccleName"]]))
         assay <- gct[["assay"]]

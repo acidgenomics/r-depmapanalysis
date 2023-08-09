@@ -6,21 +6,12 @@
 #' Import DepMap proteomics data
 #'
 #' @export
-#' @note Updated 2023-08-08.
+#' @note Updated 2023-08-09.
 #'
 #' @section Nusinow et al. 2020 (Gygi lab) dataset:
 #'
 #' Citation:
 #' https://doi.org/10.1016/j.cell.2019.12.023
-#'
-#' - [Table_S1_Sample_Information.xlsx](https://gygi.hms.harvard.edu/data/ccle/Table_S1_Sample_Information.xlsx)
-#' - [Table_S2_Protein_Quant_Normalized.xlsx](https://gygi.hms.harvard.edu/data/ccle/Table_S2_Protein_Quant_Normalized.xlsx)
-#' - [Table_S3_Biological_Replicates_Protein_Quant_Normalized.xlsx](https://gygi.hms.harvard.edu/data/ccle/Table_S3_Biological_Replicates_Protein_Quant_Normalized.xlsx)
-#' - [Table_S4_Protein_RNA_Correlation_and_Enrichments.xlsx](https://gygi.hms.harvard.edu/data/ccle/Table_S4_Protein_RNA_Correlation_and_Enrichments.xlsx)
-#' - [Table_S5_PCA_PC1_Enriched_Gene_Sets.xlsx](https://gygi.hms.harvard.edu/data/ccle/Table_S5_PCA_PC1_Enriched_Gene_Sets.xlsx)
-#' - [Table_S6_Correlation_Network_Solid_Organ_Lineages.xlsx](https://gygi.hms.harvard.edu/data/ccle/Table_S6_Correlation_Network_Solid_Organ_Lineages.xlsx)
-#' - [Table_S7_Mutation_Associations.xlsx](https://gygi.hms.harvard.edu/data/ccle/Table_S7_Mutation_Associations.xlsx)
-#' - [protein_quant_current_normalized.csv.gz](https://gygi.hms.harvard.edu/data/ccle/protein_quant_current_normalized.csv.gz)
 #'
 #' @section UniProt:
 #'
@@ -205,11 +196,12 @@ DepMapProteomics <-  # nolint
 
 #' Standardize the Goncalvez et al 2022 proteomics dataset
 #'
-#' @note Updated 2023-08-08.
+#' @note Updated 2023-08-09.
 #' @noRd
 .standardizeGoncalvez2022 <- function(object) {
     assert(is(object, "SummarizedExperiment"))
     currentDataset <- .currentDataset
+    assert(isString(currentDataset))
     alert(sprintf(
         "Standardizing {.var %s} annotations to DepMap {.var %s}.",
         "goncalves_2022", currentDataset
@@ -221,8 +213,8 @@ DepMapProteomics <-  # nolint
     cd1[["cellLineName"]] <- NULL
     ## FIXME Use sanger cell line metadata here instead.
     ## FIXME Also consider dropping cell lines not in Broad DepMap here too.
-    cd2 <- .importBroadModelInfo(dataset = currentDataset)
-    cd2 <- cd2[!is.na(cd2[["sangerModelId"]]), ]
+    cd2 <- .importBroadModelInfo()
+    cd2 <- cd2[!is.na(cd2[["sangerModelId"]]), , drop = FALSE]
     cd <- leftJoin(x = cd1, y = cd2, by = "sangerModelId")
     ## FIXME Drop cells without a cellosaurusId?
     assert(
@@ -242,7 +234,7 @@ DepMapProteomics <-  # nolint
 
 #' Standardize the Nusinow et al 2020 proteomics dataset
 #'
-#' @note Updated 2023-08-08.
+#' @note Updated 2023-08-09.
 #' @noRd
 .standardizeNusinow2020 <- function(object) {
     assert(is(object, "SummarizedExperiment"))
@@ -322,8 +314,8 @@ DepMapProteomics <-  # nolint
     cd1[["cellLine"]] <- NULL
     cd1[["notes"]] <- NULL
     cd1[["tissueOfOrigin"]] <- NULL
-    cd2 <- .importBroadModelInfo(dataset = currentDataset)
-    cd2 <- cd2[!is.na(cd2[["ccleName"]]), ]
+    cd2 <- .importBroadModelInfo()
+    cd2 <- cd2[!is.na(cd2[["ccleName"]]), , drop = FALSE]
     cd <- leftJoin(x = cd1, y = cd2, by = "ccleName")
     assert(
         identical(cd[["ccleName"]], cd1[["ccleName"]]),
