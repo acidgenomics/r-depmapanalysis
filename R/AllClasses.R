@@ -152,7 +152,7 @@ setValidity(
 #'
 #' Not intended to be used directly.
 #'
-#' `DepMapCRISPRGeneEffect` and `DepMapRNAiGeneEffect` extend this class.
+#' `DepMapCrisprGeneEffect` and `DepMapRnaiGeneEffect` extend this class.
 #'
 #' @export
 #' @note Updated 2023-08-09.
@@ -217,14 +217,14 @@ setValidity(
 #' @export
 #' @note Updated 2023-08-09.
 #'
-#' @return `DepMapCRISPRGeneEffect`.
+#' @return `DepMapCrisprGeneEffect`.
 #'
 #' @seealso
 #' - https://depmap.org/portal/achilles/
 #' - https://depmap.org/ceres/
 #' - https://score.depmap.sanger.ac.uk/
 setClass(
-    Class = "DepMapCRISPRGeneEffect",
+    Class = "DepMapCrisprGeneEffect",
     contains = "DepMapGeneEffect"
 )
 
@@ -389,15 +389,15 @@ setClass(
 #' Same as the re-released `CCLE_miRNA_20181103.gct` file.
 #'
 #' @export
-#' @note Updated 2023-01-27.
+#' @note Updated 2023-08-09.
 #'
-#' @return `DepMapMicroRNA`.
+#' @return `DepMapMicroRna`.
 setClass(
-    Class = "DepMapMicroRNA",
+    Class = "DepMapMicroRna",
     contains = "RangedSummarizedExperiment"
 )
 setValidity(
-    Class = "DepMapMicroRNA",
+    Class = "DepMapMicroRna",
     method = function(object) {
         ok <- validate(
             hasRownames(object),
@@ -557,9 +557,9 @@ setValidity(
 #' @export
 #' @note Updated 2023-08-09.
 #'
-#' @return `DepMapRNAiGeneEffect`.
+#' @return `DepMapRnaiGeneEffect`.
 setClass(
-    Class = "DepMapRNAiGeneEffect",
+    Class = "DepMapRnaiGeneEffect",
     contains = "DepMapGeneEffect"
 )
 

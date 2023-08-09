@@ -31,6 +31,7 @@ DepMapGeneExpression <- # nolint
 
 
 ## FIXME Need to handle transcript-to-gene mapping here.
+## FIXME This file is large and can crash RStudio on a MacBook.
 
 #' @rdname DepMapExpression
 #' @export

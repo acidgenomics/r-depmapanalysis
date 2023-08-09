@@ -16,7 +16,7 @@ Cells in columns, genes in rows.
 
 Not intended to be used directly.
 
-\code{DepMapCRISPRGeneEffect} and \code{DepMapRNAiGeneEffect} extend this class.
+\code{DepMapCrisprGeneEffect} and \code{DepMapRnaiGeneEffect} extend this class.
 }
 \note{
 Updated 2023-08-09.

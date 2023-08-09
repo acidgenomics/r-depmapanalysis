@@ -17,11 +17,11 @@
 #'
 #' @examples
 #' ## CRISPR.
-#' object <- DepMapCRISPRGeneEffect()
+#' object <- DepMapCrisprGeneEffect()
 #' print(object)
 #'
 #' ## RNAi (DEMETER2).
-#' object <- DepMapRNAiGeneEffect()
+#' object <- DepMapRnaiGeneEffect()
 #' print(object)
 NULL
 
@@ -29,10 +29,10 @@ NULL
 
 #' @rdname DepMapGeneEffect
 #' @export
-DepMapCRISPRGeneEffect <- function() {
+DepMapCrisprGeneEffect <- function() {
     .importBroadGeneEffect(
         dataset = .currentDataset,
-        class = "DepMapCRISPRGeneEffect"
+        class = "DepMapCrisprGeneEffect"
     )
 }
 
@@ -40,9 +40,9 @@ DepMapCRISPRGeneEffect <- function() {
 
 #' @rdname DepMapGeneEffect
 #' @export
-DepMapRNAiGeneEffect <- function() {
+DepMapRnaiGeneEffect <- function() {
     .importBroadGeneEffect(
         dataset = "demeter2_data_v6",
-        class = "DepMapRNAiGeneEffect"
+        class = "DepMapRnaiGeneEffect"
     )
 }

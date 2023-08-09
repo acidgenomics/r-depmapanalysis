@@ -10,13 +10,13 @@
 #' @details
 #' NanoString microRNA panel data.
 #'
-#' @name DepMapMicroRNA
+#' @name DepMapMicroRna
 #' @note Updated 2023-08-09.
 #'
-#' @return `DepMapMicroRNA`.
+#' @return `DepMapMicroRna`.
 #'
 #' @examples
-#' object <- DepMapMicroRNA()
+#' object <- DepMapMicroRna()
 #' dim(object)
 NULL
 
@@ -157,14 +157,14 @@ NULL
 
 ## Updated 2023-08-09.
 
-#' @rdname DepMapMicroRNA
+#' @rdname DepMapMicroRna
 #' @export
-DepMapMicroRNA <- # nolint
+DepMapMicroRna <- # nolint
     function() {
         dataset <- "CCLE_miRNA_20180525.gct"
         h1(sprintf(
             "{.cls %s}: {.var %s}",
-            "DepMapMicroRNA", dataset
+            "DepMapMicroRna", dataset
         ))
         gct <- .importMicroRnaGct(dataset = dataset)
         rowRanges <- .importMirbaseGff(rowData = gct[["rowData"]])
@@ -209,5 +209,5 @@ DepMapMicroRNA <- # nolint
             colData = colData,
             metadata = metadata
         )
-        new(Class = "DepMapMicroRNA", se)
+        new(Class = "DepMapMicroRna", se)
     }
