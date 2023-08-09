@@ -97,6 +97,8 @@
 
 
 
+## FIXME This currently isn't returning genes correctly for RNAi.
+
 #' Import Broad DepMap gene effect data (CRISPR or DEMETER2 RNAi)
 #'
 #' @note Updated 2023-08-09.
@@ -136,7 +138,7 @@
                     "effect" =
                         urls[["D2_combined_gene_dep_scores.csv"]],
                     "sd" =
-                        urls[["D2_combined_seed_dep_score_SDs.csv"]]
+                        urls[["D2_combined_gene_dep_score_SDs.csv"]]
                 ),
                 "metadata" = list(
                     "controlCommonEssentials" =

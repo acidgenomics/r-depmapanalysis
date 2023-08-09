@@ -3,6 +3,7 @@
 ## FIXME Assert that no classes that extend SE contain any cellLineName
 ## with NA in colData.
 ## FIXME Set DepMapExpression class and extend with the other two...
+## FIXME Don't allow classes to not contain rows or columns.
 
 
 

@@ -42,6 +42,8 @@ DepMapCrisprGeneEffect <- function() {
 
 
 
+## FIXME This is currently returning no genes, need to fix sanitization.
+
 #' @rdname DepMapGeneEffect
 #' @export
 DepMapRnaiGeneEffect <- function() {
