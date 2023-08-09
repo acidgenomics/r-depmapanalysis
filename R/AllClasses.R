@@ -1,4 +1,3 @@
-## FIXME Consider NOT checking the validity of row and column names.
 ## FIXME Assert that cellosaurusID is not NA for any objects containing cells.
 ## FIXME Need to add DepMapProteomics
 ## FIXME Assert that no classes that extend SE contain any cellLineName
