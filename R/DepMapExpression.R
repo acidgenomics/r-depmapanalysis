@@ -40,6 +40,9 @@ DepMapGeneExpression <- # nolint
 #' @export
 DepMapTxExpression <- # nolint
     function() {
+        ## FIXME Consider erroring unless user has > 16 GB of RAM.
+        ## FIXME Need to import "OmicsProfiles.csv" here.
+        ## FIXME Need to import "OmicsExpressionTranscriptsTPMLogp1Profile.csv" here.
         .makeBroadSingleAssaySE(
             file = "OmicsExpressionTranscriptsTPMLogp1Profile.csv",
             assayName = "log2Tpm",
