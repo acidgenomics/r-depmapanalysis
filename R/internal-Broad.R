@@ -346,6 +346,53 @@
 
 
 
+#' Make a SummarizedExperiment from Broad DepMap with a single assay
+#'
+#' @note Updated 2023-08-08.
+#' @noRd
+.makeBroadSingleAssaySE <- function(file, assayName, class) {
+    assert(
+        isString(file),
+        isString(assayName),
+        isString(class)
+    )
+    dataset <- .currentDataset
+    assert(isString(dataset))
+    json <- datasets[[dataset]]
+    assert(is.list(json))
+    dict <- list(
+        "releaseDate" = json[["metadata"]][["date"]],
+        "transposeAssays" = json[["metadata"]][["transpose_assays"]]
+    )
+    assert(
+        isString(dict[["releaseDate"]]),
+        isFlag(dict[["transposeAssays"]])
+    )
+    url <- json[["files"]][[file]]
+    assert(isAURL(url))
+    assay <- .importDataFile(
+        url = url,
+        format = "csv",
+        rownameCol = 1L,
+        colnames = TRUE,
+        return = "matrix"
+    )
+    assays <- list(assay)
+    names(assays) <- assayName
+    metadata <- list(
+        "releaseDate" = dict[["releaseDate"]]
+    )
+    .makeBroadSE(
+        dataset = dataset,
+        assays = assays,
+        transposeAssays = dict[["transposeAssays"]],
+        metadata = metadata,
+        class = class
+    )
+}
+
+
+
 ## FIXME Rethink this approach, matching to current broad annotations
 ## instead.
 
