@@ -8,7 +8,8 @@ DepMapFusions(filtered = TRUE)
 }
 \arguments{
 \item{filtered}{\code{logical(1)}.
-Load filtered fusion calls.}
+Load filtered fusion calls.
+Recommended by default.}
 }
 \value{
 \code{DepMapFusions}.
@@ -17,7 +18,7 @@ Load filtered fusion calls.}
 Import DepMap fusion call data
 }
 \note{
-Updated 2023-08-08.
+Updated 2023-08-09.
 }
 \examples{
 object <- DepMapFusions()

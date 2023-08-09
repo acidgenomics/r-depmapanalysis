@@ -3,24 +3,21 @@
 \docType{class}
 \name{DepMapGeneEffect-class}
 \alias{DepMapGeneEffect-class}
-\title{Gene effect in cancer cell lines}
+\title{DepMap \code{GeneEffect} class}
 \value{
 \code{DepMapGeneEffect}.
 }
 \description{
-Gene effect in cancer cell lines
+DepMap \code{GeneEffect} class
 }
 \details{
 Inherits from \code{SummarizedExperiment}.
 Cells in columns, genes in rows.
+
+Not intended to be used directly.
+
+\code{DepMapCRISPRGeneEffect} and \code{DepMapRNAiGeneEffect} extend this class.
 }
 \note{
-Updated 2023-08-03.
-}
-\seealso{
-\itemize{
-\item https://depmap.org/portal/achilles/
-\item https://depmap.org/ceres/
-\item https://score.depmap.sanger.ac.uk/
-}
+Updated 2023-08-09.
 }

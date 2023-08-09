@@ -60,75 +60,6 @@
 
 
 
-#' Validate the `GeneEffect` classes
-#'
-#' @note Updated 2023-08-09.
-#' @noRd
-.validateGeneEffect <- function(object) {
-    ok <- .validateSE(object, assayNames = "effect")
-    if (!isTRUE(ok)) {
-        return(ok)
-    }
-    ok <- validateClasses(
-        object = metadata(object),
-        expected = list(
-            "libraryType" = "character",
-            "scoringMethod" = "character"
-        ),
-        subset = TRUE
-    )
-    if (!isTRUE(ok)) {
-        return(ok)
-    }
-    switch(
-        EXPR = metadata(object)[["libraryType"]],
-        "crispr" = {
-            ok <- validate(
-                isSubset("probability", assayNames(object))
-            )
-            if (!isTRUE(ok)) {
-                return(ok)
-            }
-            ok <- validateClasses(
-                object = metadata(object),
-                expected = list(
-                    "commonEssentials" = "DFrame",
-                    "controlCommonEssentials" = "DFrame",
-                    "controlNonessentials" = "DFrame"
-                ),
-                subset = TRUE
-            )
-            if (!isTRUE(ok)) {
-                return(ok)
-            }
-        },
-        "rnai" = {
-            ok <- validateClasses(
-                object = colData(object),
-                expected = list(
-                    "inAchilles" = "Rle",
-                    "inDrive" = "Rle",
-                    "inMarcotte" = "Rle",
-                    "marcotteName" = "Rle",
-                    "marcotteSubtypeIntrinsic" = "Rle",
-                    "marcotteSubtypeNeve" = "Rle",
-                    "marcotteSubtypeThreeReceptor" = "Rle",
-                    "novartisName" = "Rle",
-                    "novartisPathologistAnnotation" = "Rle",
-                    "novartisPrimarySite" = "Rle"
-                ),
-                subset = TRUE
-            )
-            if (!isTRUE(ok)) {
-                return(ok)
-            }
-        }
-    )
-    TRUE
-}
-
-
-
 #' Validate `SummarizedExperiment` with gene-level data
 #'
 #' @note Updated 2023-08-03.
@@ -181,6 +112,148 @@
     }
     TRUE
 }
+
+
+
+## Classes to extend ===========================================================
+
+## FIXME Need to split out `DepMapGeneExpression` and `DepMapTxExpression`
+## from this class.
+
+#' DepMap RNA-seq expression data
+#'
+#' @details
+#'
+#' RNA-seq TPM gene expression data for just protein coding genes using RSEM.
+#' Log2 transformed, using a pseudo-count of 1.
+#'
+#' Inherits from `SummarizedExperiment`.
+#' Cells in columns, genes in rows.
+#'
+#' @export
+#' @note Updated 2023-01-27.
+#'
+#' @return `DepMapExpression`.
+setClass(
+    Class = "DepMapExpression",
+    contains = "SummarizedExperiment"
+)
+setValidity(
+    Class = "DepMapExpression",
+    method = function(object) {
+        .validateSE(object, assayNames = "log2Tpm")
+    }
+)
+
+
+
+#' DepMap `GeneEffect` class
+#'
+#' @details
+#' Inherits from `SummarizedExperiment`.
+#' Cells in columns, genes in rows.
+#'
+#' Not intended to be used directly.
+#'
+#' `DepMapCRISPRGeneEffect` and `DepMapRNAiGeneEffect` extend this class.
+#'
+#' @export
+#' @note Updated 2023-08-09.
+#'
+#' @return `DepMapGeneEffect`.
+setClass(
+    Class = "DepMapGeneEffect",
+    contains = "SummarizedExperiment"
+)
+setValidity(
+    Class = "DepMapGeneEffect",
+    method = function(object) {
+        ok <- .validateSE(object, assayNames = "effect")
+        if (!isTRUE(ok)) {
+            return(ok)
+        }
+        ok <- validateClasses(
+            object = metadata(object),
+            expected = list(
+                "libraryType" = "character",
+                "scoringMethod" = "character"
+            ),
+            subset = TRUE
+        )
+        if (!isTRUE(ok)) {
+            return(ok)
+        }
+        switch(
+            EXPR = metadata(object)[["libraryType"]],
+            "crispr" = {
+                ok <- validate(
+                    isSubset("probability", assayNames(object))
+                )
+                if (!isTRUE(ok)) {
+                    return(ok)
+                }
+                ok <- validateClasses(
+                    object = metadata(object),
+                    expected = list(
+                        "commonEssentials" = "DFrame",
+                        "controlCommonEssentials" = "DFrame",
+                        "controlNonessentials" = "DFrame"
+                    ),
+                    subset = TRUE
+                )
+                if (!isTRUE(ok)) {
+                    return(ok)
+                }
+            },
+            "rnai" = {
+                ok <- validateClasses(
+                    object = colData(object),
+                    expected = list(
+                        "inAchilles" = "Rle",
+                        "inDrive" = "Rle",
+                        "inMarcotte" = "Rle",
+                        "marcotteName" = "Rle",
+                        "marcotteSubtypeIntrinsic" = "Rle",
+                        "marcotteSubtypeNeve" = "Rle",
+                        "marcotteSubtypeThreeReceptor" = "Rle",
+                        "novartisName" = "Rle",
+                        "novartisPathologistAnnotation" = "Rle",
+                        "novartisPrimarySite" = "Rle"
+                    ),
+                    subset = TRUE
+                )
+                if (!isTRUE(ok)) {
+                    return(ok)
+                }
+            }
+        )
+        TRUE
+    }
+)
+
+
+
+## Primary classes =============================================================
+
+#' DepMap CRISPR gene effect
+#'
+#' @details
+#' Inherits from `DepMapGeneEffect`, which extends `SummarizedExperiment`.
+#' Cells in columns, genes in rows.
+#'
+#' @export
+#' @note Updated 2023-08-09.
+#'
+#' @return `DepMapCRISPRGeneEffect`.
+#'
+#' @seealso
+#' - https://depmap.org/portal/achilles/
+#' - https://depmap.org/ceres/
+#' - https://score.depmap.sanger.ac.uk/
+setClass(
+    Class = "DepMapCRISPRGeneEffect",
+    contains = "DepMapGeneEffect"
+)
 
 
 
@@ -253,33 +326,6 @@ setValidity(
 
 
 
-#' DepMap RNA-seq expression data
-#'
-#' @details
-#'
-#' RNA-seq TPM gene expression data for just protein coding genes using RSEM.
-#' Log2 transformed, using a pseudo-count of 1.
-#'
-#' Inherits from `SummarizedExperiment`.
-#' Cells in columns, genes in rows.
-#'
-#' @export
-#' @note Updated 2023-01-27.
-#'
-#' @return `DepMapExpression`.
-setClass(
-    Class = "DepMapExpression",
-    contains = "SummarizedExperiment"
-)
-setValidity(
-    Class = "DepMapExpression",
-    method = function(object) {
-        .validateSE(object, assayNames = "log2Tpm")
-    }
-)
-
-
-
 ## FIXME Check the class structure of columns here.
 
 #' DepMap fusion call data
@@ -340,32 +386,6 @@ setValidity(
         }
         TRUE
     }
-)
-
-
-
-#' DepMap CRISPR gene effect
-#'
-#' @details
-#' Inherits from `SummarizedExperiment`.
-#' Cells in columns, genes in rows.
-#'
-#' @export
-#' @note Updated 2023-08-09.
-#'
-#' @return `DepMapCRISPRGeneEffect`.
-#'
-#' @seealso
-#' - https://depmap.org/portal/achilles/
-#' - https://depmap.org/ceres/
-#' - https://score.depmap.sanger.ac.uk/
-setClass(
-    Class = "DepMapCRISPRGeneEffect",
-    contains = "SummarizedExperiment"
-)
-setValidity(
-    Class = "DepMapCRISPRGeneEffect",
-    method = .validateGeneEffect
 )
 
 
@@ -534,4 +554,21 @@ setValidity(
     method = function(object) {
         .validateSE(object)
     }
+)
+
+
+
+#' DepMap RNAi gene effect (DEMETER2)
+#'
+#' @details
+#' Inherits from `DepMapGeneEffect`, which extends `SummarizedExperiment`.
+#' Cells in columns, genes in rows.
+#'
+#' @export
+#' @note Updated 2023-08-09.
+#'
+#' @return `DepMapRNAiGeneEffect`.
+setClass(
+    Class = "DepMapRNAiGeneEffect",
+    contains = "DepMapGeneEffect"
 )
