@@ -1,8 +1,7 @@
-## FIXME Split this out into separate CRISPR and RNAi classes.
-
-
-
 #' DepMap gene effect in cancer cell lines
+#'
+#' @name DepMapGeneEffect
+#' @note Updated 2023-08-09.
 #'
 #' @section Assays:
 #'
@@ -13,131 +12,37 @@
 #' - `probability`: **Probability** that knocking out the gene has a real
 #' depletion effect using `gene_effect`.
 #'
-#' @export
-#' @note Updated 2023-08-03.
-#'
-#' @inheritParams params
 #'
 #' @return `DepMapGeneEffect`.
 #'
 #' @examples
-#' ## CRISPR (default).
-#' object <- DepMapGeneEffect()
+#' ## CRISPR.
+#' object <- DepMapCrisprGeneEffect()
 #' print(object)
 #'
 #' ## RNAi (DEMETER2).
-#' ## > object <- DepMapGeneEffect(dataset = "demeter2_data_v6")
-DepMapGeneEffect <- # nolint
-    function(dataset) {
-        dataset <- match.arg(dataset)
-        json <- datasets[[dataset]]
-        urls <- unlist(x = json[["files"]], recursive = FALSE, use.names = TRUE)
-        dict <- list(
-            "libraryType" = json[["metadata"]][["library_type"]],
-            "releaseDate" = json[["metadata"]][["date"]],
-            "scoringMethod" = json[["metadata"]][["scoring_method"]],
-            "transposeAssays" = json[["metadata"]][["transpose_assays"]]
-        )
-        assert(
-            isString(dict[["libraryType"]]),
-            isString(dict[["releaseDate"]]),
-            isString(dict[["scoringMethod"]]),
-            isFlag(dict[["transposeAssays"]]),
-            allAreURLs(urls)
-        )
-        h1(sprintf("{.cls %s}: {.var %s}", "DepMapGeneEffect", dataset))
-        dl(c(
-            "libraryType" = dict[["libraryType"]],
-            "scoringMethod" = dict[["scoringMethod"]],
-            "releaseDate" = dict[["releaseDate"]]
-        ))
-        if (identical(dataset, "demeter2_data_v6")) {
-            ## DEMETER2 RNAi dataset.
-            urls <- list(
-                "assays" = list(
-                    "effect" =
-                        urls[["D2_combined_gene_dep_scores.csv"]],
-                    "sd" =
-                        urls[["D2_combined_seed_dep_score_SDs.csv"]]
-                ),
-                "metadata" = list(
-                    "controlCommonEssentials" =
-                        urls[["Hart-pos-controls.csv"]],
-                    "controlNonessentials" =
-                        urls[["Hart-neg-controls.csv"]]
-                )
-            )
-        } else if (isSubset("CRISPR_gene_effect.csv", names(urls))) {
-            ## Legacy CRISPR pipeline.
-            urls <- list(
-                "assays" = list(
-                    "effect" =
-                        urls[["CRISPR_gene_effect.csv"]],
-                    "probability" =
-                        urls[["CRISPR_gene_dependency.csv"]]
-                ),
-                "metadata" = list(
-                    "commonEssentials" =
-                        urls[["CRISPR_common_essentials.csv"]],
-                    "controlCommonEssentials" =
-                        urls[["common_essentials.csv"]],
-                    "controlNonessentials" =
-                        urls[["nonessentials.csv"]]
-                )
-            )
-        } else {
-            ## Current CRISPR pipeline.
-            assert(isSubset("CRISPRGeneEffect.csv", names(urls)))
-            urls <- list(
-                "assays" = list(
-                    "effect" =
-                        urls[["CRISPRGeneEffect.csv"]],
-                    "probability" =
-                        urls[["CRISPRGeneDependency.csv"]]
-                ),
-                "metadata" = list(
-                    "commonEssentials" =
-                        urls[["CRISPRInferredCommonEssentials.csv"]],
-                    "controlCommonEssentials" =
-                        urls[["AchillesCommonEssentialControls.csv"]],
-                    "controlNonessentials" =
-                        urls[["AchillesNonessentialControls.csv"]]
-                )
-            )
-        }
-        assert(allAreURLs(unlist(urls, recursive = TRUE)))
-        ## Assays --------------------------------------------------------------
-        assays <- lapply(
-            X = urls[["assays"]],
-            FUN = .importDataFile,
-            format = "csv",
-            rownameCol = 1L,
-            colnames = TRUE,
-            return = "matrix"
-        )
-        ## Metadata ------------------------------------------------------------
-        metadata <- lapply(
-            X = urls[["metadata"]],
-            FUN = .importBroadGeneDataFile
-        )
-        metadata <- append(
-            x = metadata,
-            values = list(
-                "libraryType" = dict[["libraryType"]],
-                "releaseDate" = dict[["releaseDate"]],
-                "scoringMethod" = dict[["scoringMethod"]]
-            )
-        )
-        ## Return --------------------------------------------------------------
-        se <- .makeBroadSE(
-            dataset = dataset,
-            assays = assays,
-            transposeAssays = dict[["transposeAssays"]],
-            metadata = metadata,
-            class = "DepMapGeneEffect"
-        )
-        se
-    }
+#' object <- DepMapRnaiGeneEffect()
+#' print(object)
+NULL
 
-formals(DepMapGeneEffect)[["dataset"]] <- # nolint
-    .formalsList[["dataset"]]
+
+
+#' @rdname DepMapGeneEffect
+#' @export
+DepMapCrisprGeneEffect <- function() {
+    .importBroadGeneEffect(
+        dataset = .currentBroadDataset,
+        class = "DepMapCrisprGeneEffect"
+    )
+}
+
+
+
+#' @rdname DepMapGeneEffect
+#' @export
+DepMapRnaiGeneEffect <- function() {
+    .importBroadGeneEffect(
+        dataset = "demeter2_data_v6",
+        class = "DepMapRnaiGeneEffect"
+    )
+}

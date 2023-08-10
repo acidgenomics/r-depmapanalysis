@@ -2,13 +2,13 @@
 % Please edit documentation in R/DepMapGeneEffect.R
 \name{DepMapGeneEffect}
 \alias{DepMapGeneEffect}
+\alias{DepMapCrisprGeneEffect}
+\alias{DepMapRnaiGeneEffect}
 \title{DepMap gene effect in cancer cell lines}
 \usage{
-DepMapGeneEffect(dataset = c("depmap_public_23q2", "demeter2_data_v6"))
-}
-\arguments{
-\item{dataset}{\code{character(1)}.
-Dataset name.}
+DepMapCrisprGeneEffect()
+
+DepMapRnaiGeneEffect()
 }
 \value{
 \code{DepMapGeneEffect}.
@@ -17,7 +17,7 @@ Dataset name.}
 DepMap gene effect in cancer cell lines
 }
 \note{
-Updated 2023-07-03.
+Updated 2023-08-09.
 }
 \section{Assays}{
 
@@ -32,10 +32,11 @@ depletion effect using \code{gene_effect}.
 }
 
 \examples{
-## CRISPR (default).
-object <- DepMapGeneEffect()
+## CRISPR.
+object <- DepMapCrisprGeneEffect()
 print(object)
 
 ## RNAi (DEMETER2).
-## > object <- DepMapGeneEffect(dataset = "demeter2_data_v6")
+object <- DepMapRnaiGeneEffect()
+print(object)
 }

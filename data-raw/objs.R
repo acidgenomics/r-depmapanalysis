@@ -2,20 +2,22 @@
 suppressPackageStartupMessages({
     library(devtools)
     library(usethis)
+    library(goalie)
     library(AcidBase)
     library(AcidExperiment)
 })
 ## nolint end
 load_all()
 objs <- list(
-    "crispr" = DepMapGeneEffect(dataset = "depmap_public_22q2"),
-    "rnai" = DepMapGeneEffect(dataset = "demeter2_data_v6"),
-    "rnaseq" = DepMapExpression(dataset = "depmap_public_22q2")
+    "crispr" = DepMapCrisprGeneEffect(),
+    "rnai" = DepMapRnaiGeneEffect(),
+    "rnaseq" = DepMapGeneExpression()
 )
-genes <- sort(intersectAll(lapply(X = objs, FUN = rownames)))
-cells <- sort(intersectAll(lapply(X = objs, FUN = colnames)))
-i <- head(genes, n = 100L)
-j <- head(cells, n = 50L)
+i <- intersectAll(lapply(X = objs, FUN = rownames))
+j <- intersectAll(lapply(X = objs, FUN = colnames))
+assert(hasLength(i), hasLength(j))
+i <- head(i, n = 100L)
+j <- head(j, n = 50L)
 objs <- lapply(X = objs, FUN = `[`, i = i, j = j)
 objs <- lapply(X = objs, FUN = droplevels2)
 crispr <- objs[["crispr"]]

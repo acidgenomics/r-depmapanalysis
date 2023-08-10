@@ -18,7 +18,10 @@
                 colnames(cello)
             )
         )
-        alert("Filtering cell lines annotated as 'problematic' by Cellosaurus.")
+        alert(paste(
+            "Filtering cell lines annotated as \"problematic\"",
+            "by Cellosaurus."
+        ))
         cello <- cello[!cello[["isProblematic"]], , drop = FALSE]
         date2 <- gsub(pattern = "-", replacement = "", x = date)
         url <- pasteURL(
@@ -28,12 +31,13 @@
             paste0("model_list_", date2, ".csv"),
             protocol = "https"
         )
+        ## FIXME Can we use the base engine here instead?
         sanger <- import(
             con = .cacheURL(url),
             format = "csv",
             engine = "data.table"
         )
-        sanger <- as(sanger, "DataFrame")
+        sanger <- as(sanger, "DFrame")
         ids <- list()
         ids[["sanger"]] <- sanger[[1L]]
         ids[["cello"]] <- decode(cello[["sangerModelId"]])

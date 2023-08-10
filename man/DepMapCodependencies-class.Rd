@@ -11,8 +11,8 @@
 DepMap gene effect co-dependencies
 }
 \details{
-Inherits from \code{DataFrame}.
+Inherits from \code{DFrame}.
 }
 \note{
-Updated 2023-01-26.
+Updated 2023-08-09.
 }

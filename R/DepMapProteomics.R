@@ -1,3 +1,4 @@
+## FIXME Consider just defaulting to the new Sanger dataset?
 ## FIXME Only interested in cells that map to cellosaurus, broad, and sanger...
 
 
@@ -5,21 +6,12 @@
 #' Import DepMap proteomics data
 #'
 #' @export
-#' @note Updated 2023-03-01.
+#' @note Updated 2023-08-09.
 #'
 #' @section Nusinow et al. 2020 (Gygi lab) dataset:
 #'
 #' Citation:
 #' https://doi.org/10.1016/j.cell.2019.12.023
-#'
-#' - [Table_S1_Sample_Information.xlsx](https://gygi.hms.harvard.edu/data/ccle/Table_S1_Sample_Information.xlsx)
-#' - [Table_S2_Protein_Quant_Normalized.xlsx](https://gygi.hms.harvard.edu/data/ccle/Table_S2_Protein_Quant_Normalized.xlsx)
-#' - [Table_S3_Biological_Replicates_Protein_Quant_Normalized.xlsx](https://gygi.hms.harvard.edu/data/ccle/Table_S3_Biological_Replicates_Protein_Quant_Normalized.xlsx)
-#' - [Table_S4_Protein_RNA_Correlation_and_Enrichments.xlsx](https://gygi.hms.harvard.edu/data/ccle/Table_S4_Protein_RNA_Correlation_and_Enrichments.xlsx)
-#' - [Table_S5_PCA_PC1_Enriched_Gene_Sets.xlsx](https://gygi.hms.harvard.edu/data/ccle/Table_S5_PCA_PC1_Enriched_Gene_Sets.xlsx)
-#' - [Table_S6_Correlation_Network_Solid_Organ_Lineages.xlsx](https://gygi.hms.harvard.edu/data/ccle/Table_S6_Correlation_Network_Solid_Organ_Lineages.xlsx)
-#' - [Table_S7_Mutation_Associations.xlsx](https://gygi.hms.harvard.edu/data/ccle/Table_S7_Mutation_Associations.xlsx)
-#' - [protein_quant_current_normalized.csv.gz](https://gygi.hms.harvard.edu/data/ccle/protein_quant_current_normalized.csv.gz)
 #'
 #' @section UniProt:
 #'
@@ -136,7 +128,7 @@ DepMapProteomics <-  # nolint
     baseUrl <- pasteURL(.extdataUrl, "proteomics", "nusinow-2020")
     url <- pasteURL(baseUrl, "table-s1-sample-information.csv")
     colData <- import(con = .cacheURL(url))
-    colData <- as(colData, "DataFrame")
+    colData <- as(colData, "DFrame")
     colnames(colData) <- camelCase(colnames(colData), strict = TRUE)
     assert(identical(
         sort(colnames(colData)),
@@ -151,6 +143,7 @@ DepMapProteomics <-  # nolint
         autopadZeros(colData[["protein10PlexId"]])
     ))
     url <- pasteURL(baseUrl, "table-s2-protein-quant-normalized.csv")
+    ## FIXME Can we use base engine here instead?
     ## This step can fail when using readr engine without increasing default
     ## `VROOM_CONNECTION_SIZE`. Using data.table here instead to avoid.
     df <- import(con = .cacheURL(url), engine = "data.table")
@@ -170,7 +163,7 @@ DepMapProteomics <-  # nolint
     assert(all(bapply(X = assay, FUN = is.numeric)))
     assay <- as.matrix(assay)
     rowData <- df[, setdiff(colnames(df), colnames(assay))]
-    rowData <- as(rowData, "DataFrame")
+    rowData <- as(rowData, "DFrame")
     colnames(rowData) <- camelCase(colnames(rowData), strict = TRUE)
     colnames(rowData)[colnames(rowData) == "uniprotAcc"] <- "uniprotId"
     colnames(rowData)[colnames(rowData) == "uniprot"] <- "uniprotName"
@@ -204,24 +197,26 @@ DepMapProteomics <-  # nolint
 
 #' Standardize the Goncalvez et al 2022 proteomics dataset
 #'
-#' @note Updated 2023-03-01.
+#' @note Updated 2023-08-09.
 #' @noRd
 .standardizeGoncalvez2022 <- function(object) {
-    assert(is(object, "SummarizedExperiment"))
-    currentDataset <- .formalsList[["dataset"]][[1L]]
+    currentDataset <- .currentBroadDataset
+    assert(
+        is(object, "SummarizedExperiment"),
+        isString(currentDataset)
+    )
     alert(sprintf(
         "Standardizing {.var %s} annotations to DepMap {.var %s}.",
         "goncalves_2022", currentDataset
     ))
-    assert(isString(currentDataset))
     ## FIXME Bind richer data using uniprotId matching.
     rowData <- rowData(object)
     cd1 <- colData(object)
     cd1[["cellLineName"]] <- NULL
     ## FIXME Use sanger cell line metadata here instead.
     ## FIXME Also consider dropping cell lines not in Broad DepMap here too.
-    cd2 <- .importBroadModelInfo(dataset = currentDataset)
-    cd2 <- cd2[!is.na(cd2[["sangerModelId"]]), ]
+    cd2 <- .importBroadModelInfo()
+    cd2 <- cd2[!is.na(cd2[["sangerModelId"]]), , drop = FALSE]
     cd <- leftJoin(x = cd1, y = cd2, by = "sangerModelId")
     ## FIXME Drop cells without a cellosaurusId?
     assert(
@@ -241,12 +236,14 @@ DepMapProteomics <-  # nolint
 
 #' Standardize the Nusinow et al 2020 proteomics dataset
 #'
-#' @note Updated 2023-03-08.
+#' @note Updated 2023-08-09.
 #' @noRd
 .standardizeNusinow2020 <- function(object) {
-    assert(is(object, "SummarizedExperiment"))
-    currentDataset <- .formalsList[["dataset"]][[1L]]
-    assert(isString(currentDataset))
+    currentDataset <- .currentBroadDataset
+    assert(
+        is(object, "SummarizedExperiment"),
+        isString(currentDataset)
+    )
     alert(sprintf(
         "Standardizing {.var %s} annotations to DepMap {.var %s}.",
         "nusinow_2020", currentDataset
@@ -261,7 +258,7 @@ DepMapProteomics <-  # nolint
     ## FIXME Also make a similar function for NcbiGeneInfo return.
     .mapGeneNamesToHgncIds <- function(hgnc, geneNames) {
         assert(is(hgnc, "HGNC"), isCharacter(geneNames))
-        hgnc <- as(hgnc, "DataFrame")
+        hgnc <- as(hgnc, "DFrame")
         rownames(hgnc) <- NULL
         hgnc <- hgnc[, c("hgncId", "symbol", "prevSymbol", "aliasSymbol")]
         uniqueGeneNames <- unique(geneNames)
@@ -307,14 +304,7 @@ DepMapProteomics <-  # nolint
         ## >     }
         ## > )
         ## > names(hits) <- vec
-
-
         ## Third, match against aliases.
-
-
-
-
-
         ## FIXME Need to think about return matching like this...
         idx <- match(x = geneNames, table = uniqueGeneNames)
         xxx <- uniqueGeneNames[idx]
@@ -322,16 +312,14 @@ DepMapProteomics <-  # nolint
     }
     hgnc <- HGNC()
     geneNames <- decode(rowData[["geneName"]])
-
-
     ## Column data -------------------------------------------------------------
     cd1 <- colData(object)
     colnames(cd1)[colnames(cd1) == "ccleCode"] <- "ccleName"
     cd1[["cellLine"]] <- NULL
     cd1[["notes"]] <- NULL
     cd1[["tissueOfOrigin"]] <- NULL
-    cd2 <- .importBroadModelInfo(dataset = currentDataset)
-    cd2 <- cd2[!is.na(cd2[["ccleName"]]), ]
+    cd2 <- .importBroadModelInfo()
+    cd2 <- cd2[!is.na(cd2[["ccleName"]]), , drop = FALSE]
     cd <- leftJoin(x = cd1, y = cd2, by = "ccleName")
     assert(
         identical(cd[["ccleName"]], cd1[["ccleName"]]),

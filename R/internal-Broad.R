@@ -1,14 +1,61 @@
+#' Import a Broad DepMap data file
+#'
+#' @note Updated 2023-08-09.
+#' @noRd
+.importBroadDataFile <-
+    function(url,
+             format = c("csv", "tsv"),
+             colnames = TRUE,
+             rownameCol = NULL,
+             engine = getOption(
+                 x = "acid.import.engine",
+                 default = "base"
+             ),
+             return = c("DFrame", "matrix")) {
+        assert(
+            isAURL(url),
+            isFlag(colnames),
+            isScalar(rownameCol) || is.null(rownameCol),
+            isString(engine)
+        )
+        format <- match.arg(format)
+        return <- match.arg(return)
+        ## Engine overrides for malformed DepMap files.
+        malformedIds <- c(31316011L, 35020903L)
+        if (isSubset(x = as.integer(basename(url)), y = malformedIds)) {
+            requireNamespaces("data.table")
+            engine <- "data.table"
+        }
+        tmpfile <- .cacheURL(url = url)
+        df <- import(
+            con = tmpfile,
+            format = format,
+            rownameCol = rownameCol,
+            colnames = colnames,
+            engine = engine
+        )
+        out <- switch(
+            EXPR = return,
+            "DFrame" = as(df, "DFrame"),
+            "matrix" = as.matrix(df)
+        )
+        out <- makeDimnames(out)
+        out
+    }
+
+
+
 #' Import a Broad DepMap file containing gene identifiers
 #'
-#' @note Updated 2023-03-08.
+#' @note Updated 2023-08-09.
 #' @noRd
 .importBroadGeneDataFile <-
     function(url) {
-        df <- .importDataFile(
+        df <- .importBroadDataFile(
             url = url,
             colnames = TRUE,
             engine = "base",
-            return = "DataFrame"
+            return = "DFrame"
         )
         if (
             identical(colnames(df), "Essentials") ||
@@ -22,7 +69,7 @@
                 n = 2L,
                 simplify = TRUE
             )
-            df <- as(df, "DataFrame")
+            df <- as(df, "DFrame")
             colnames(df) <- c("geneName", "ncbiGeneId")
             df[["ncbiGeneId"]] <- gsub(
                 pattern = "[\\(\\)]",
@@ -36,7 +83,7 @@
             abort("Unsupported file.")
         }
         assert(
-            is(df, "DataFrame"),
+            is(df, "DFrame"),
             identical(colnames(df), c("geneName", "ncbiGeneId"))
         )
         df[["ncbiGeneId"]] <- as.integer(df[["ncbiGeneId"]])
@@ -46,38 +93,145 @@
 
 
 
-## FIXME Need to add support for 23q2.
+#' Import Broad DepMap gene effect data (CRISPR or DEMETER2 RNAi)
+#'
+#' @note Updated 2023-08-09.
+#' @noRd
+.importBroadGeneEffect <- # nolint
+    function(dataset, class) {
+        assert(
+            isString(dataset),
+            isString(class)
+        )
+        json <- datasets[[dataset]]
+        assert(is.list(json))
+        urls <- unlist(x = json[["files"]], recursive = FALSE, use.names = TRUE)
+        dict <- list(
+            "libraryType" = json[["metadata"]][["library_type"]],
+            "releaseDate" = json[["metadata"]][["date"]],
+            "scoringMethod" = json[["metadata"]][["scoring_method"]],
+            "transposeAssays" = json[["metadata"]][["transpose_assays"]]
+        )
+        assert(
+            isString(dict[["libraryType"]]),
+            isString(dict[["releaseDate"]]),
+            isString(dict[["scoringMethod"]]),
+            isFlag(dict[["transposeAssays"]]),
+            allAreURLs(urls)
+        )
+        h1(sprintf("{.cls %s}: {.var %s}", class, dataset))
+        dl(c(
+            "libraryType" = dict[["libraryType"]],
+            "scoringMethod" = dict[["scoringMethod"]],
+            "releaseDate" = dict[["releaseDate"]]
+        ))
+        if (identical(dataset, "demeter2_data_v6")) {
+            ## DEMETER2 RNAi dataset.
+            urls <- list(
+                "assays" = list(
+                    "effect" =
+                        urls[["D2_combined_gene_dep_scores.csv"]],
+                    "sd" =
+                        urls[["D2_combined_gene_dep_score_SDs.csv"]]
+                ),
+                "metadata" = list(
+                    "controlCommonEssentials" =
+                        urls[["Hart-pos-controls.csv"]],
+                    "controlNonessentials" =
+                        urls[["Hart-neg-controls.csv"]]
+                )
+            )
+        } else if (isSubset("CRISPR_gene_effect.csv", names(urls))) {
+            ## Legacy CRISPR pipeline.
+            urls <- list(
+                "assays" = list(
+                    "effect" =
+                        urls[["CRISPR_gene_effect.csv"]],
+                    "probability" =
+                        urls[["CRISPR_gene_dependency.csv"]]
+                ),
+                "metadata" = list(
+                    "commonEssentials" =
+                        urls[["CRISPR_common_essentials.csv"]],
+                    "controlCommonEssentials" =
+                        urls[["common_essentials.csv"]],
+                    "controlNonessentials" =
+                        urls[["nonessentials.csv"]]
+                )
+            )
+        } else {
+            ## Current CRISPR pipeline.
+            assert(isSubset("CRISPRGeneEffect.csv", names(urls)))
+            urls <- list(
+                "assays" = list(
+                    "effect" =
+                        urls[["CRISPRGeneEffect.csv"]],
+                    "probability" =
+                        urls[["CRISPRGeneDependency.csv"]]
+                ),
+                "metadata" = list(
+                    "commonEssentials" =
+                        urls[["CRISPRInferredCommonEssentials.csv"]],
+                    "controlCommonEssentials" =
+                        urls[["AchillesCommonEssentialControls.csv"]],
+                    "controlNonessentials" =
+                        urls[["AchillesNonessentialControls.csv"]]
+                )
+            )
+        }
+        assert(allAreURLs(unlist(urls, recursive = TRUE)))
+        assays <- lapply(
+            X = urls[["assays"]],
+            FUN = .importBroadDataFile,
+            format = "csv",
+            rownameCol = 1L,
+            colnames = TRUE,
+            return = "matrix"
+        )
+        metadata <- lapply(
+            X = urls[["metadata"]],
+            FUN = .importBroadGeneDataFile
+        )
+        metadata <- append(
+            x = metadata,
+            values = list(
+                "libraryType" = dict[["libraryType"]],
+                "releaseDate" = dict[["releaseDate"]],
+                "scoringMethod" = dict[["scoringMethod"]]
+            )
+        )
+        se <- .makeBroadSE(
+            dataset = dataset,
+            assays = assays,
+            transposeAssays = dict[["transposeAssays"]],
+            metadata = metadata,
+            class = class
+        )
+        se
+    }
+
+
 
 #' Import Broad DepMap cell line model info
 #'
 #' Sample metadata now indicates that there are merged cells we should drop
 #' from analysis (e.g. ACH-002260).
 #'
-#' @note Updated 2023-07-03.
+#' @note Updated 2023-08-09.
 #' @noRd
 .importBroadModelInfo <-
     function(dataset) {
-        if (identical(dataset, "demeter2_data_v6")) {
-            df <- .importDemeter2ModelInfo()
-            return(df)
-        }
-        files <- datasets[[dataset]][["files"]]
-        if (isSubset("sample_info.csv", names(files))) {
-            ## Legacy CRISPR pipeline.
-            fileKey <- "sample_info.csv"
-        } else {
-            ## Current CRISPR pipeline.
-            fileKey <- "Model.csv"
-        }
-        assert(isSubset(fileKey, names(files)))
-        url <- datasets[[dataset]][["files"]][[fileKey]]
-        broad <- .importDataFile(
+        assert(isString(dataset))
+        url <- datasets[[dataset]][["files"]][["Model.csv"]]
+        assert(isAURL(url))
+        broad <- .importBroadDataFile(
             url = url,
             format = "csv",
             rownameCol = NULL,
             colnames = TRUE,
-            return = "DataFrame"
+            return = "DFrame"
         )
+        assert(is(broad, "DFrame"))
         cello <- Cellosaurus()
         assert(
             is(cello, "Cellosaurus"),
@@ -92,7 +246,10 @@
                 colnames(cello)
             )
         )
-        alert("Filtering cell lines annotated as 'problematic' by Cellosaurus.")
+        alert(paste(
+            "Filtering cell lines annotated as \"problematic\"",
+            "by Cellosaurus."
+        ))
         cello <- cello[!cello[["isProblematic"]], , drop = FALSE]
         ids <- list()
         ids[["broad"]] <- broad[[1L]]
@@ -130,28 +287,30 @@
         df
     }
 
-formals(.importBroadModelInfo)[["dataset"]] <-
-    .formalsList[["dataset"]][[1L]]
+formals(.importBroadModelInfo)[["dataset"]] <- .currentBroadDataset
 
 
 
 #' Import Broad DEMETER2 RNAi cell line model info
 #'
-#' @note Updated 2023-03-08.
+#' @note Updated 2023-08-09.
 #' @noRd
 #'
 #' @details
 #' Matching the cell lines here by CCLE identifier.
 .importDemeter2ModelInfo <- function() {
     url <- datasets[["demeter2_data_v6"]][["files"]][["sample_info.csv"]]
-    d2 <- .importDataFile(
+    assert(isAURL(url))
+    d2 <- .importBroadDataFile(
         url = url,
         format = "csv",
         rownameCol = NULL,
         colnames = TRUE,
-        return = "DataFrame"
+        return = "DFrame"
     )
+    assert(is(d2, "DFrame"))
     broad <- .importBroadModelInfo()
+    assert(is(broad, "DFrame"))
     ids <- list()
     ids[["d2"]] <- d2[[1L]]
     ids[["d2"]][ids[["d2"]] == "COLO699_LUNG"] <-
@@ -190,7 +349,7 @@ formals(.importBroadModelInfo)[["dataset"]] <-
 
 #' Make SummarizedExperiment object from Broad DepMap data
 #'
-#' @note Updated 2023-08-03.
+#' @note Updated 2023-08-09.
 #' @noRd
 .makeBroadSE <-
     function(dataset,
@@ -225,6 +384,7 @@ formals(.importBroadModelInfo)[["dataset"]] <-
         }
         ## Row data (gene annotations) -----------------------------------------
         excludedGenes <- character()
+        ## FIXME Need to add an option to slot transcript-level metadata here.
         rowData <- NcbiGeneInfo(
             organism = "Homo sapiens",
             taxonomicGroup = "Mammalia"
@@ -233,7 +393,7 @@ formals(.importBroadModelInfo)[["dataset"]] <-
             is(rowData, "NcbiGeneInfo"),
             isSubset(c("geneId", "geneName"), colnames(rowData))
         )
-        rowData <- as(rowData, "DataFrame")
+        rowData <- as(rowData, "DFrame")
         ## Extract the NCBI gene identifiers from the row names.
         match <- stri_match_first_regex(
             str = rownames(assays[[1L]]),
@@ -287,7 +447,11 @@ formals(.importBroadModelInfo)[["dataset"]] <-
         rownames(rowData) <- match[, 1L, drop = TRUE]
         ## Column data (cell line annotations) ---------------------------------
         excludedCells <- character()
-        colData <- .importBroadModelInfo(dataset = dataset)
+        if (identical(dataset, "demeter2_data_v6")) {
+            colData <- .importDemeter2ModelInfo()
+        } else {
+            colData <- .importBroadModelInfo(dataset = dataset)
+        }
         assert(
             areIntersectingSets(colnames(assays[[1L]]), rownames(colData)),
             !anyNA(colData[["cellLineName"]])
@@ -346,21 +510,69 @@ formals(.importBroadModelInfo)[["dataset"]] <-
 
 
 
-## FIXME Rethink this approach, matching to current broad annotations
-## instead.
+#' Make a SummarizedExperiment from Broad DepMap with a single assay
+#'
+#' @note Updated 2023-08-09.
+#' @noRd
+.makeBroadSingleAssaySE <- function(file, assayName, class) {
+    dataset <- .currentBroadDataset
+    json <- datasets[[dataset]]
+    assert(
+        isString(dataset),
+        isString(file),
+        isString(assayName),
+        isString(class),
+        is.list(json)
+    )
+    dict <- list(
+        "releaseDate" = json[["metadata"]][["date"]],
+        "transposeAssays" = json[["metadata"]][["transpose_assays"]]
+    )
+    assert(
+        isString(dict[["releaseDate"]]),
+        isFlag(dict[["transposeAssays"]])
+    )
+    url <- json[["files"]][[file]]
+    assert(isAURL(url))
+    ## FIXME This step is crashing RStudio for DepMapTxExpression.
+    ## https://figshare.com/ndownloader/files/40449689
+    assay <- .importBroadDataFile(
+        url = url,
+        format = "csv",
+        rownameCol = 1L,
+        colnames = TRUE,
+        return = "matrix"
+    )
+    assays <- list(assay)
+    names(assays) <- assayName
+    metadata <- list(
+        "releaseDate" = dict[["releaseDate"]]
+    )
+    .makeBroadSE(
+        dataset = dataset,
+        assays = assays,
+        transposeAssays = dict[["transposeAssays"]],
+        metadata = metadata,
+        class = class
+    )
+}
+
+
 
 #' Standardize the DEMETER2 RNAi dataset
 #'
-#' @note Updated 2023-03-08.
+#' @note Updated 2023-08-09.
 #' @noRd
 .standardizeDemeter2 <- function(object) {
-    assert(is(object, "SummarizedExperiment"))
-    currentDataset <- .formalsList[["dataset"]][[1L]]
+    currentDataset <- .currentBroadDataset
+    assert(
+        isString(currentDataset),
+        is(object, "SummarizedExperiment")
+    )
     alert(sprintf(
         "Standardizing DEMETER2 annotations to DepMap {.var %s}.",
         currentDataset
     ))
-    assert(isString(currentDataset))
     cd <- list(
         "x" = colData(object),
         "y" = .importBroadModelInfo(dataset = currentDataset)
