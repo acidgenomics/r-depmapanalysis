@@ -4,12 +4,8 @@ export(DepMapCodependencies)
 export(DepMapCopyNumber)
 export(DepMapCrisprGeneEffect)
 export(DepMapFusions)
-<<<<<<< HEAD
 export(DepMapGeneEffect)
-=======
 export(DepMapGeneExpression)
-export(DepMapMicroRna)
->>>>>>> develop
 export(DepMapMutations)
 export(DepMapProteomics)
 export(DepMapRnaiGeneEffect)
