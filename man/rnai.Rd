@@ -5,7 +5,7 @@
 \alias{rnai}
 \title{RNAi example data set}
 \format{
-An object of class \code{DepMapRNAiGeneEffect} of length 1.
+An object of class \code{DepMapRnaiGeneEffect} with 100 rows and 50 columns.
 }
 \usage{
 data(rnai)

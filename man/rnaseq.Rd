@@ -5,7 +5,7 @@
 \alias{rnaseq}
 \title{RNA-seq example data set}
 \format{
-An object of class \code{DepMapGeneExpression} with 0 rows and 50 columns.
+An object of class \code{DepMapGeneExpression} with 100 rows and 50 columns.
 }
 \usage{
 data(rnaseq)
