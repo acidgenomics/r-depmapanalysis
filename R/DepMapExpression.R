@@ -41,12 +41,29 @@ DepMapGeneExpression <- # nolint
 #' @export
 DepMapTxExpression <- # nolint
     function() {
-        ## FIXME Add this as new assert check to goalie. Super useful.
-        assert(
-            AcidBase::ram() >= 24L,
-            msg = "This function requires more RAM."
-        )
         dataset <- .currentBroadDataset
+        files <- datasets[[dataset]][["files"]]
+        assert(
+            isString(dataset),
+            is.list(files)
+        )
+        assayUrl <- files[["OmicsExpressionTranscriptsTPMLogp1Profile.csv"]]
+        colDataUrl <- files[["OmicsProfiles.csv"]]
+        assert(
+            isAURL(assayUrl),
+            isAURL(colDataUrl)
+        )
+        ## This step is memory intensive and takes a while.
+        assay <- .importBroadDataFile(
+            url = assayUrl,
+            rownameCol = 1L,
+            return = "matrix"
+        )
+        assay <- t(assay)
+        colData <- .importBroadDataFile(url = colDataUrl)
+        ## Need to transpose the assay to get cells into columns.
+        ## FIXME Transcripts currently map to Ensembl/GENCODE, so use AnnotationHub
+        ## for that.
         ## FIXME Consider erroring unless user has > 16 GB of RAM.
         ## FIXME Need to import "OmicsProfiles.csv" here.
         ## FIXME Need to import "OmicsExpressionTranscriptsTPMLogp1Profile.csv" here.
