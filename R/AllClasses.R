@@ -381,54 +381,6 @@ setClass(
 
 
 
-#' DepMap microRNA expression data
-#'
-#' @details
-#' Inherits from `SummarizedExperiment`.
-#' Cells in columns, microRNAs in rows.
-#'
-#' Same as the re-released `CCLE_miRNA_20181103.gct` file.
-#'
-#' @export
-#' @note Updated 2023-08-09.
-#'
-#' @return `DepMapMicroRna`.
-setClass(
-    Class = "DepMapMicroRna",
-    contains = "RangedSummarizedExperiment"
-)
-setValidity(
-    Class = "DepMapMicroRna",
-    method = function(object) {
-        ok <- validate(
-            hasRownames(object),
-            hasColnames(object),
-            allAreMatchingRegex(
-                x = colnames(object),
-                pattern = "^ACH_[0-9]{6}$"
-            ),
-            isSubset(
-                x = .expectedColData,
-                y = colnames(colData(object))
-            ),
-            isSubset("counts", assayNames(object))
-        )
-        if (!isTRUE(ok)) {
-            return(ok)
-        }
-        ok <- validateClasses(
-            object = metadata(object),
-            expected = .expectedMetadata,
-            subset = TRUE
-        )
-        if (!isTRUE(ok)) {
-            return(ok)
-        }
-        TRUE
-    }
-)
-
-
 
 #' DepMap somatic mutation data
 #'
