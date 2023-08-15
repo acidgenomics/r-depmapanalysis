@@ -1,5 +1,7 @@
 # DepMapAnalysis
 
+![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)
+
 [Cancer Dependency Map (DepMap)][depmap] analysis toolkit.
 
 ## Installation
