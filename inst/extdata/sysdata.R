@@ -36,6 +36,9 @@ ontologyMappings <- import(
     )
 )
 colnames(ontologyMappings) <- camelCase(colnames(ontologyMappings))
+## Arrange by "oncotreeCode".
+ontologyMappings <-
+    ontologyMappings[order(ontologyMappings[["oncotreeCode"]]), , drop = FALSE]
 
 ## Save `R/sysdata.rda` ========================================================
 use_data(
