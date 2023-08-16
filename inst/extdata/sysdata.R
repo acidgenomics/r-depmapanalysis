@@ -22,6 +22,9 @@ datasets <- import(
 
 ## ontologyMappings ============================================================
 
+## FIXME Just save this in Cellosaurus and reference in DepMapAnalysis instead.
+## Consider renaming this to oncotreeMappings instead.
+
 ## OncoTree ontology mappings, which map to NCIt.
 ## @seealso
 ## - https://github.com/cBioPortal/oncotree/tree/master/scripts/
