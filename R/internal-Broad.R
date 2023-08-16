@@ -212,6 +212,9 @@
 
 
 
+## FIXME Consider exporting this with the option to not filter problematic
+## or remove cells that don't map to DepMap.
+
 #' Import Broad DepMap cell line model info
 #'
 #' Sample metadata now indicates that there are merged cells we should drop
@@ -220,8 +223,11 @@
 #' @note Updated 2023-08-09.
 #' @noRd
 .importBroadModelInfo <-
-    function(dataset) {
-        assert(isString(dataset))
+    function(dataset, filterProblematic = TRUE) {
+        assert(
+            isString(dataset),
+            isFlag(filterProblematic)
+        )
         url <- datasets[[dataset]][["files"]][["Model.csv"]]
         assert(isAURL(url))
         broad <- .importBroadDataFile(
@@ -246,11 +252,13 @@
                 colnames(cello)
             )
         )
-        alert(paste(
-            "Filtering cell lines annotated as \"problematic\"",
-            "by Cellosaurus."
-        ))
-        cello <- cello[!cello[["isProblematic"]], , drop = FALSE]
+        if (isTRUE(filterProblematic)) {
+            alert(paste(
+                "Filtering cell lines annotated as \"problematic\"",
+                "by Cellosaurus."
+            ))
+            cello <- cello[!cello[["isProblematic"]], , drop = FALSE]
+        }
         ids <- list()
         ids[["broad"]] <- broad[[1L]]
         ids[["cello"]] <- decode(cello[["depmapId"]])
