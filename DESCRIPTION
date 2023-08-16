@@ -54,5 +54,6 @@ Suggests:
     tidytext (>= 0.4.1)
 Additional_repositories: https://r.acidgenomics.com
 Config/testthat/edition: 3
+Config/testthat/parallel: true
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.2.3
