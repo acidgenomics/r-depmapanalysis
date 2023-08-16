@@ -1,7 +1,7 @@
 #' Plot gene effect
 #'
 #' @name plotGeneEffect
-#' @note Updated 2023-01-27.
+#' @note Updated 2023-08-16.
 #'
 #' @inheritParams AcidRoxygen::params
 #'
@@ -18,7 +18,7 @@ NULL
 
 
 
-## Updated 2023-01-27.
+## Updated 2023-08-16.
 `plotGeneEffect,DepMapGeneEffect` <- # nolint
     function(object,
              genes,
@@ -46,13 +46,13 @@ NULL
                 p <- ggplot(
                     data = as.data.frame(data),
                     mapping = aes(
-                        x = !!sym("value"),
+                        x = .data[["value"]],
                         y = reorder(
-                            x = !!sym("rowname"),
-                            X = !!sym("value"),
+                            x = .data[["rowname"]],
+                            X = .data[["value"]],
                             FUN = median
                         ),
-                        fill = !!sym("rowname")
+                        fill = .data[["rowname"]]
                     )
                 ) +
                     geom_boxplot(
@@ -71,13 +71,13 @@ NULL
                 p <- ggplot(
                     data = as.data.frame(data),
                     mapping = aes(
-                        x = !!sym("value"),
+                        x = .data[["value"]],
                         y = reorder(
-                            x = !!sym("rowname"),
-                            X = !!sym("value"),
+                            x = .data[["rowname"]],
+                            X = .data[["value"]],
                             FUN = median
                         ),
-                        fill = !!sym("rowname")
+                        fill = .data[["rowname"]]
                     )
                 ) +
                     geom_violin(
@@ -100,8 +100,8 @@ NULL
                 p <- ggplot(
                     data = as.data.frame(data),
                     mapping = aes(
-                        x = !!sym("value"),
-                        fill = !!sym("rowname")
+                        x = .data[["value"]],
+                        fill = .data[["rowname"]]
                     )
                 ) +
                     geom_density(
@@ -110,7 +110,7 @@ NULL
                         size = 0.75
                     ) +
                     facet_wrap(
-                        facets = vars(!!sym("rowname")),
+                        facets = vars(.data[["rowname"]]),
                         scales = "fixed"
                     ) +
                     labs(

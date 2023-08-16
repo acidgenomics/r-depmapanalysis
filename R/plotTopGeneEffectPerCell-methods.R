@@ -1,7 +1,7 @@
 #' Plot top gene effect (dependencies) per cell
 #'
 #' @name plotTopGeneEffectPerCell
-#' @note Updated 2023-01-27.
+#' @note Updated 2023-08-16.
 #'
 #' @inheritParams AcidRoxygen::params
 #'
@@ -18,7 +18,7 @@ NULL
 
 
 
-## Updated 2023-01-27.
+## Updated 2023-08-16.
 `plotTopGeneEffectPerCell,GE` <- # nolint
     function(object,
              cells,
@@ -46,13 +46,13 @@ NULL
         p <- ggplot(
             data = as.data.frame(data),
             mapping = aes(
-                x = !!sym("value"),
+                x = .data[["value"]],
                 y = tidytext::reorder_within(
-                    x = !!sym("rowname"),
-                    by = !!sym("value"),
-                    within = !!sym("colname")
+                    x = .data[["rowname"]],
+                    by = .data[["value"]],
+                    within = .data[["colname"]]
                 ),
-                color = !!sym("colname")
+                color = .data[["colname"]]
             )
         ) +
             geom_point(
@@ -66,7 +66,7 @@ NULL
                 y = "gene name"
             ) +
             facet_wrap(
-                facets = vars(!!sym("colname")),
+                facets = vars(.data[["colname"]]),
                 scales = "free"
             ) +
             tidytext::scale_y_reordered()

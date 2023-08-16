@@ -42,7 +42,7 @@ NULL
 #' @importFrom AcidCLI abort alert alertInfo alertWarning dl h1 toInlineString
 #' @importFrom AcidExperiment makeSummarizedExperiment
 #' @importFrom AcidGenomes HGNC NcbiGeneInfo emptyRanges
-#' @importFrom AcidPlots !! acid_geom_label_repel sym
+#' @importFrom AcidPlots .data acid_geom_label_repel
 #' @importFrom Cellosaurus Cellosaurus
 #' @importFrom IRanges CharacterList
 #' @importFrom S4Vectors DataFrame

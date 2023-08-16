@@ -42,7 +42,7 @@ plot.}
 Plot top gene effect per group of interest
 }
 \note{
-Updated 2023-01-27.
+Updated 2023-08-16.
 }
 \examples{
 data(crispr)

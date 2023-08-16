@@ -1,7 +1,7 @@
 #' Plot top gene effect per group of interest
 #'
 #' @name plotTopGeneEffectPerGroup
-#' @note Updated 2023-01-27.
+#' @note Updated 2023-08-16.
 #'
 #' @inheritParams AcidRoxygen::params
 #'
@@ -30,7 +30,7 @@ NULL
 
 
 
-## Updated 2023-01-27.
+## Updated 2023-08-16.
 `plotTopGeneEffectPerGroup,GE` <- # nolint
     function(object,
              gene,
@@ -102,14 +102,14 @@ NULL
         p <- ggplot(
             data = as.data.frame(data),
             mapping = aes(
-                x = !!sym("value"),
+                x = .data[["value"]],
                 y = reorder(
-                    !!sym("group"),
-                    !!sym("value"),
-                    median
+                    x = .data[["group"]],
+                    X = .data[["value"]],
+                    FUN = median
                 ),
-                color = !!sym("group"),
-                fill = !!sym("group")
+                color = .data[["group"]],
+                fill = .data[["group"]]
             )
         ) +
             geom_jitter(
