@@ -5,6 +5,7 @@
 #'
 #' @return `DepMapExpression`.
 #'
+#' @importFrom memuse Sys.meminfo memuse
 #' @examples
 #' ## Gene level.
 #' object <- DepMapGeneExpression()
@@ -54,6 +55,12 @@ DepMapTxExpression <- # nolint
             isAURL(colDataUrl)
         )
         ## This step is memory intensive and takes a while.
+
+        ## memuse library makes it easy to compare digital values
+        if (Sys.meminfo()[["totalram"]] < memuse(16, unit = 'GiB')) {
+            stop("Required RAM at least 16 GiB.")
+        }
+
         assay <- .importBroadDataFile(
             url = assayUrl,
             rownameCol = 1L,
