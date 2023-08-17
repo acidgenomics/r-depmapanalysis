@@ -51,7 +51,8 @@ Suggests:
     ontologyIndex (>= 2.11),
     org.Hs.eg.db (>= 3.17.0),
     testthat (>= 3.1.10),
-    tidytext (>= 0.4.1)
+    tidytext (>= 0.4.1),
+    BiocFileCache (>= 2.8.0)
 Additional_repositories: https://r.acidgenomics.com
 Config/testthat/edition: 3
 Config/testthat/parallel: true
