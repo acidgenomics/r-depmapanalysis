@@ -1,5 +1,9 @@
 ## FIXME I think it might be cleaner to just call this `diffExp` instead.
 
+## FIXME Need to also add a DepMapTxExpression method here.
+## Can use the new Bioconductor DifferentialRegulation package here?
+## https://www.biorxiv.org/content/10.1101/2023.08.17.553679v1
+
 ## FIXME This is the t-test code.
 ## FIXME Add filters for percentage of sign flips.
 ## FIXME Add filter for fold change cutoff, p value cutoff.
