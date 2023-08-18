@@ -1,6 +1,9 @@
+## FIXME I think it might be cleaner to just call this `diffExp` instead.
+
 ## FIXME This is the t-test code.
 ## FIXME Add filters for percentage of sign flips.
 ## FIXME Add filter for fold change cutoff, p value cutoff.
+
 
 
 
@@ -36,17 +39,7 @@ NULL
 
 
 
-## Updated 2023-01-26.
-`findBiomarkers,DepMapCopyNumber` <-
-    function(
-        object,
-        sensitiveCells,
-        insensitiveCells
-    ) {
-        stop("FIXME Still a work in progress.")
-    }
-
-
+## FIXME Need to rework by porting our Python code.
 
 ## Updated 2023-01-26.
 `findBiomarkers,DepMapExpression` <-
@@ -72,38 +65,10 @@ NULL
 
 
 
-## Updated 2022-08-17.
-`findBiomarkers,DepMapMutations` <-
-    function(
-        object,
-        sensitiveCells,
-        insensitiveCells
-    ) {
-        stop("FIXME Still a work in progress.")
-    }
-
-
-
-#' @rdname findBiomarkers
-#' @export
-setMethod(
-    f = "findBiomarkers",
-    signature = signature(object = "DepMapCopyNumber"),
-    definition = `findBiomarkers,DepMapCopyNumber`
-)
-
 #' @rdname findBiomarkers
 #' @export
 setMethod(
     f = "findBiomarkers",
     signature = signature(object = "DepMapExpression"),
     definition = `findBiomarkers,DepMapExpression`
-)
-
-#' @rdname findBiomarkers
-#' @export
-setMethod(
-    f = "findBiomarkers",
-    signature = signature(object = "DepMapMutations"),
-    definition = `findBiomarkers,DepMapMutations`
 )

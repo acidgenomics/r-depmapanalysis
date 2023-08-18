@@ -2,18 +2,12 @@
 % Please edit documentation in R/AllGenerics.R, R/findBiomarkers-methods.R
 \name{findBiomarkers}
 \alias{findBiomarkers}
-\alias{findBiomarkers,DepMapCopyNumber-method}
 \alias{findBiomarkers,DepMapExpression-method}
-\alias{findBiomarkers,DepMapMutations-method}
 \title{Find biomarkers}
 \usage{
 findBiomarkers(object, ...)
 
-\S4method{findBiomarkers}{DepMapCopyNumber}(object, sensitiveCells, insensitiveCells)
-
 \S4method{findBiomarkers}{DepMapExpression}(object, sensitiveCells, insensitiveCells)
-
-\S4method{findBiomarkers}{DepMapMutations}(object, sensitiveCells, insensitiveCells)
 }
 \arguments{
 \item{object}{Object.}
