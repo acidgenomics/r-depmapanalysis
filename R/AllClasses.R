@@ -10,115 +10,6 @@
 
 
 
-
-#' Sample metadata column names, defined in `colData`
-#'
-#' @note Updated 2023-08-03.
-#' @noRd
-.expectedColData <- list(
-    "broad" = "DFrame",
-    "cellLineName" = "character",
-    "cellosaurus" = "DFrame",
-    "cellosaurusId" = "character",
-    "depmapId" = "character",
-    "sangerModelId" = "character"
-)
-
-
-
-#' Expected `DFrame` metadata
-#'
-#' @note Updated 2022-03-09.
-#' @noRd
-.expectedMetadata <- list(
-    "dataset" = "character",
-    "date" = "Date",
-    "packageName" = "character",
-    "packageVersion" = "package_version"
-)
-
-
-
-#' Gene metadata column names, defined in `rowData`
-#'
-#' @note Updated 2023-01-27.
-#' @noRd
-.expectedRowData <- list(
-    "chromosome" = "Rle",
-    "dbXrefs" = "CompressedCharacterList",
-    "description" = "Rle",
-    "featureType" = "Rle",
-    "geneId" = "Rle",
-    "geneName" = "Rle",
-    "geneSynonyms" = "CompressedCharacterList",
-    "mapLocation" = "Rle",
-    "modificationDate" = "Rle",
-    "nomenclatureStatus" = "Rle",
-    "otherDesignations" = "CompressedCharacterList",
-    "taxonomyId" = "Rle",
-    "typeOfGene" = "Rle"
-)
-
-
-
-## FIXME Move this into our `DepMapExperiment` class instead.
-
-#' Validate `SummarizedExperiment` with gene-level data
-#'
-#' @note Updated 2023-08-03.
-#' @noRd
-.validateSE <- function(object, assayNames = NULL) {
-    ok <- validate(
-        hasRownames(object),
-        hasColnames(object),
-        allAreMatchingRegex(
-            x = rownames(object),
-            pattern = "^[0-9]+$"
-        ),
-        allAreMatchingRegex(
-            x = colnames(object),
-            pattern = "^CVCL_.+$"
-        )
-    )
-    if (!isTRUE(ok)) {
-        return(ok)
-    }
-    ## FIXME Just move this out per class instead.
-    if (!is.null(assayNames)) {
-        ok <- validate(isSubset(assayNames, assayNames(object)))
-        if (!isTRUE(ok)) {
-            return(ok)
-        }
-    }
-    ok <- validateClasses(
-        object = rowData(object),
-        expected = .expectedRowData,
-        subset = TRUE
-    )
-    if (!isTRUE(ok)) {
-        return(ok)
-    }
-    ok <- validateClasses(
-        object = colData(object),
-        expected = .expectedColData,
-        subset = TRUE
-    )
-    if (!isTRUE(ok)) {
-        return(ok)
-    }
-    ok <- validateClasses(
-        object = metadata(object),
-        expected = .expectedMetadata,
-        subset = TRUE
-    )
-    if (!isTRUE(ok)) {
-        return(ok)
-    }
-    TRUE
-}
-
-
-
 ## Classes to extend ===========================================================
 
 #' DepMap experiment
@@ -140,21 +31,72 @@ setClass(
 setValidity(
     Class = "DepMapExperiment",
     method = function(object) {
-        .validateSE(object, assayNames = "log2Tpm")
+        ok <- validate(
+            hasRownames(object),
+            hasColnames(object),
+            allAreMatchingRegex(
+                x = rownames(object),
+                pattern = "^[0-9]+$"
+            ),
+            allAreMatchingRegex(
+                x = colnames(object),
+                pattern = "^CVCL_.+$"
+            )
+        )
+        if (!isTRUE(ok)) {
+            return(ok)
+        }
+        ok <- validateClasses(
+            object = rowData(object),
+            expected = list(
+                "dataset" = "character",
+                "date" = "Date",
+                "packageName" = "character",
+                "packageVersion" = "package_version"
+            ),
+            subset = TRUE
+        )
+        if (!isTRUE(ok)) {
+            return(ok)
+        }
+        ok <- validateClasses(
+            object = colData(object),
+            expected = list(
+                "broad" = "DFrame",
+                "cellLineName" = "character",
+                "cellosaurus" = "DFrame",
+                "cellosaurusId" = "character",
+                "depmapId" = "character",
+                "sangerModelId" = "character"
+            ),
+            subset = TRUE
+        )
+        if (!isTRUE(ok)) {
+            return(ok)
+        }
+        ok <- validateClasses(
+            object = metadata(object),
+            expected = list(
+                "dataset" = "character",
+                "date" = "Date",
+                "packageName" = "character",
+                "packageVersion" = "package_version"
+            ),
+            subset = TRUE
+        )
+        if (!isTRUE(ok)) {
+            return(ok)
+        }
+        TRUE
     }
 )
 
 
 
-
-
-## FIXME Need to split out `DepMapGeneExpression` and `DepMapTxExpression`
-## from this class.
-
 #' DepMap RNA-seq expression data
 #'
 #' @export
-#' @note Updated 2023-01-27.
+#' @note Updated 2023-08-22.
 #'
 #' @details
 #' RNA-seq TPM gene expression data for just protein coding genes using RSEM.
