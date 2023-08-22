@@ -48,10 +48,19 @@ setValidity(
         ok <- validateClasses(
             object = rowData(object),
             expected = list(
-                "dataset" = "character",
-                "date" = "Date",
-                "packageName" = "character",
-                "packageVersion" = "package_version"
+                "chromosome" = "Rle",
+                "dbXrefs" = "CompressedCharacterList",
+                "description" = "Rle",
+                "featureType" = "Rle",
+                "geneId" = "Rle",
+                "geneName" = "Rle",
+                "geneSynonyms" = "CompressedCharacterList",
+                "mapLocation" = "Rle",
+                "modificationDate" = "Rle",
+                "nomenclatureStatus" = "Rle",
+                "otherDesignations" = "CompressedCharacterList",
+                "taxonomyId" = "Rle",
+                "typeOfGene" = "Rle"
             ),
             subset = TRUE
         )
