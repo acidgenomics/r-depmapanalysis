@@ -7,6 +7,17 @@ setGeneric(
     }
 )
 
+#' @rdname filterProblematic
+#' @export
+setGeneric(
+    name = "filterProblematic",
+    def = function(object, ...) {
+        standardGeneric("filterProblematic")
+    }
+)
+
+## FIXME Rework this as `diffExp`.
+
 #' @rdname findBiomarkers
 #' @export
 setGeneric(
