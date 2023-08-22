@@ -1,4 +1,6 @@
 ## FIXME Class this on DepMapExperiment
+## FIXME Consider only filtering "Problematic cell line: Contaminated." lines.
+## Can use the comments to look for this.
 
 
 
@@ -23,7 +25,7 @@ NULL
 
 
 ## Updated 2023-08-22.
-`filterProblematic,DepMapGeneEffect` <- # nolint
+`filterProblematic,DepMapExperiment` <- # nolint
     function(object) {
         assert(
             validObject(object),
@@ -47,6 +49,6 @@ NULL
 #' @export
 setMethod(
     f = "filterProblematic",
-    signature = signature(object = "DepMapGeneEffect"),
-    definition = `filterProblematic,DepMapGeneEffect`
+    signature = signature(object = "DepMapExperiment"),
+    definition = `filterProblematic,DepMapExperiment`
 )

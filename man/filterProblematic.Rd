@@ -2,12 +2,12 @@
 % Please edit documentation in R/AllGenerics.R, R/filterProblematic-methods.R
 \name{filterProblematic}
 \alias{filterProblematic}
-\alias{filterProblematic,DepMapGeneEffect-method}
+\alias{filterProblematic,DepMapExperiment-method}
 \title{Filter problematic cell lines}
 \usage{
 filterProblematic(object, ...)
 
-\S4method{filterProblematic}{DepMapGeneEffect}(object)
+\S4method{filterProblematic}{DepMapExperiment}(object)
 }
 \arguments{
 \item{object}{Object.}
