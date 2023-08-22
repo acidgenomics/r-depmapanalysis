@@ -1,6 +1,8 @@
+## FIXME Consider updating the timestamp here.
+
 #' Import Sanger CellModelPassports cell line model info
 #'
-#' @note Updated 2023-03-08.
+#' @note Updated 2023-08-22.
 #' @noRd
 .importSangerModelInfo <-
     function(date = "2023-01-10") {
@@ -18,11 +20,6 @@
                 colnames(cello)
             )
         )
-        alert(paste(
-            "Filtering cell lines annotated as \"problematic\"",
-            "by Cellosaurus."
-        ))
-        cello <- cello[!cello[["isProblematic"]], , drop = FALSE]
         date2 <- gsub(pattern = "-", replacement = "", x = date)
         url <- pasteURL(
             "cog.sanger.ac.uk",
