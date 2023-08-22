@@ -46,13 +46,13 @@ Imports:
     utils
 Suggests:
     AnnotationDbi (>= 1.62.0),
+    BiocFileCache (>= 2.8.0),
     data.table (>= 1.14.8),
     limma (>= 3.56.0),
     ontologyIndex (>= 2.11),
     org.Hs.eg.db (>= 3.17.0),
     testthat (>= 3.1.10),
-    tidytext (>= 0.4.1),
-    BiocFileCache (>= 2.8.0)
+    tidytext (>= 0.4.1)
 Additional_repositories: https://r.acidgenomics.com
 Config/testthat/edition: 3
 Config/testthat/parallel: true

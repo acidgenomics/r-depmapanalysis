@@ -2,6 +2,10 @@
 ## FIXME Consider only filtering "Problematic cell line: Contaminated." lines.
 ## Can use the comments to look for this.
 
+## FIXME Rename this to filterContaminated instead.
+## FIXME Update Cellosaurus to return `isContaminated` boolean column, which
+## is stricter than the `isProblematic` check.
+
 
 
 #' Filter problematic cell lines
