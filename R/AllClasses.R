@@ -1,3 +1,6 @@
+## FIXME Add a DepMapExperiment class that the other classes that extend
+## SE inherit...e.g. DepMapGeneEffect, DepMapGeneExpression, etc.
+
 ## FIXME Assert that cellosaurusID is not NA for any objects containing cells.
 ## FIXME Need to add DepMapProteomics
 ## FIXME Assert that no classes that extend SE contain any cellLineName
