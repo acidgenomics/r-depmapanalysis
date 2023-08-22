@@ -61,6 +61,8 @@
 
 
 
+## FIXME Move this into our `DepMapExperiment` class instead.
+
 #' Validate `SummarizedExperiment` with gene-level data
 #'
 #' @note Updated 2023-08-03.
@@ -81,6 +83,7 @@
     if (!isTRUE(ok)) {
         return(ok)
     }
+    ## FIXME Just move this out per class instead.
     if (!is.null(assayNames)) {
         ok <- validate(isSubset(assayNames, assayNames(object)))
         if (!isTRUE(ok)) {
@@ -118,21 +121,47 @@
 
 ## Classes to extend ===========================================================
 
+#' DepMap experiment
+#'
+#' @export
+#' @note Updated 2023-08-22.
+#'
+#' @details
+#' Virtual class, not intended to be worked with directly.
+#'
+#' Extends `SummarizedExperiment` class, with additional DepMap-specific
+#' validity checks.
+#'
+#' @return `DepMapExperiment`.
+setClass(
+    Class = "DepMapExperiment",
+    contains = "SummarizedExperiment"
+)
+setValidity(
+    Class = "DepMapExperiment",
+    method = function(object) {
+        .validateSE(object, assayNames = "log2Tpm")
+    }
+)
+
+
+
+
+
 ## FIXME Need to split out `DepMapGeneExpression` and `DepMapTxExpression`
 ## from this class.
 
 #' DepMap RNA-seq expression data
 #'
-#' @details
+#' @export
+#' @note Updated 2023-01-27.
 #'
+#' @details
 #' RNA-seq TPM gene expression data for just protein coding genes using RSEM.
 #' Log2 transformed, using a pseudo-count of 1.
 #'
 #' Inherits from `SummarizedExperiment`.
 #' Cells in columns, genes in rows.
-#'
-#' @export
-#' @note Updated 2023-01-27.
 #'
 #' @return `DepMapExpression`.
 setClass(
