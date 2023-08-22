@@ -7,23 +7,21 @@ setGeneric(
     }
 )
 
+#' @rdname diffExp
+#' @export
+setGeneric(
+    name = "diffExp",
+    def = function(object, ...) {
+        standardGeneric("diffExp")
+    }
+)
+
 #' @rdname filterProblematic
 #' @export
 setGeneric(
     name = "filterProblematic",
     def = function(object, ...) {
         standardGeneric("filterProblematic")
-    }
-)
-
-## FIXME Rework this as `diffExp`.
-
-#' @rdname findBiomarkers
-#' @export
-setGeneric(
-    name = "findBiomarkers",
-    def = function(object, ...) {
-        standardGeneric("findBiomarkers")
     }
 )
 

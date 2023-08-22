@@ -11,17 +11,14 @@
 
 
 
-#' Find biomarkers
-#'
-#' @name findBiomarkers
-#' @note Updated 2023-08-02.
-#'
-#' @inheritParams AcidRoxygen::params
+#' @name diffExp
+#' @inherit AcidGenerics::diffExp
+#' @note Updated 2023-08-22.
 #'
 #' @param insensitiveCells,sensitiveCells `character`.
 #' Cell line names.
 #'
-#' @return FIXME Varies, depending on method.
+#' @return `DFrame`.
 #'
 #' @seealso
 #' - limma User's Guide, Section 15.4.
@@ -45,8 +42,8 @@ NULL
 
 ## FIXME Need to rework by porting our Python code.
 
-## Updated 2023-01-26.
-`findBiomarkers,DepMapExpression` <-
+## Updated 2023-08-22.
+`diffExp,DepMapExpression` <-
     function(
         object,
         sensitiveCells,
@@ -69,10 +66,10 @@ NULL
 
 
 
-#' @rdname findBiomarkers
+#' @rdname diffExp
 #' @export
 setMethod(
-    f = "findBiomarkers",
+    f = "diffExp",
     signature = signature(object = "DepMapExpression"),
-    definition = `findBiomarkers,DepMapExpression`
+    definition = `diffExp,DepMapExpression`
 )
