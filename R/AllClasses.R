@@ -1,18 +1,13 @@
-## FIXME Add a DepMapExperiment class that the other classes that extend
-## SE inherit...e.g. DepMapGeneEffect, DepMapGeneExpression, etc.
-
-## FIXME Assert that cellosaurusID is not NA for any objects containing cells.
-## FIXME Need to add DepMapProteomics
+## FIXME Assert that cellosaurusId is not NA for any objects containing cells.
 ## FIXME Assert that no classes that extend SE contain any cellLineName
 ## with NA in colData.
-## FIXME Set DepMapExpression class and extend with the other two...
-## FIXME Don't allow classes to not contain rows or columns.
+## FIXME Need to add DepMapProteomics
 
 
 
 ## Classes to extend ===========================================================
 
-#' DepMap experiment
+#' `DepMapExperiment` virtual class
 #'
 #' @export
 #' @note Updated 2023-08-22.
@@ -22,6 +17,8 @@
 #'
 #' Extends `SummarizedExperiment` class, with additional DepMap-specific
 #' validity checks.
+#'
+#' Cells in columns, genes in rows.
 #'
 #' @return `DepMapExperiment`.
 setClass(
@@ -93,54 +90,58 @@ setValidity(
 
 
 
-#' DepMap RNA-seq expression data
+#' `DepMapExpression` virtual class
 #'
 #' @export
 #' @note Updated 2023-08-22.
 #'
 #' @details
+#' Virtual class, not intended to be worked with directly.
+#'
 #' RNA-seq TPM gene expression data for just protein coding genes using RSEM.
 #' Log2 transformed, using a pseudo-count of 1.
 #'
-#' Inherits from `SummarizedExperiment`.
-#' Cells in columns, genes in rows.
+#' Inherits from `DepMapExperiment`.
 #'
 #' @return `DepMapExpression`.
 setClass(
     Class = "DepMapExpression",
-    contains = "SummarizedExperiment"
+    contains = "DepMapExperiment"
 )
 setValidity(
     Class = "DepMapExpression",
     method = function(object) {
-        .validateSE(object, assayNames = "log2Tpm")
+        ok <- isSubset("log2Tpm", assayNames(object))
+        if (!isTRUE(ok)) {
+            return(ok)
+        }
+        TRUE
     }
 )
 
 
 
-#' DepMap `GeneEffect` class
-#'
-#' @details
-#' Inherits from `SummarizedExperiment`.
-#' Cells in columns, genes in rows.
-#'
-#' Not intended to be used directly.
-#'
-#' `DepMapCrisprGeneEffect` and `DepMapRnaiGeneEffect` extend this class.
+#' `DepMapGeneEffect` virtual class
 #'
 #' @export
-#' @note Updated 2023-08-09.
+#' @note Updated 2023-08-22.
+#'
+#' @details
+#' Not intended to be used directly.
+#'
+#' Inherits from `DepMapExperiment`.
+#'
+#' `DepMapCrisprGeneEffect` and `DepMapRnaiGeneEffect` extend this class.
 #'
 #' @return `DepMapGeneEffect`.
 setClass(
     Class = "DepMapGeneEffect",
-    contains = "SummarizedExperiment"
+    contains = "DepMapExperiment"
 )
 setValidity(
     Class = "DepMapGeneEffect",
     method = function(object) {
-        ok <- .validateSE(object, assayNames = "effect")
+        ok <- isSubset("effect", assayNames(object))
         if (!isTRUE(ok)) {
             return(ok)
         }

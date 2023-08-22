@@ -3,21 +3,20 @@
 \docType{class}
 \name{DepMapGeneEffect-class}
 \alias{DepMapGeneEffect-class}
-\title{DepMap \code{GeneEffect} class}
+\title{\code{DepMapGeneEffect} virtual class}
 \value{
 \code{DepMapGeneEffect}.
 }
 \description{
-DepMap \code{GeneEffect} class
+\code{DepMapGeneEffect} virtual class
 }
 \details{
-Inherits from \code{SummarizedExperiment}.
-Cells in columns, genes in rows.
-
 Not intended to be used directly.
+
+Inherits from \code{DepMapExperiment}.
 
 \code{DepMapCrisprGeneEffect} and \code{DepMapRnaiGeneEffect} extend this class.
 }
 \note{
-Updated 2023-08-09.
+Updated 2023-08-22.
 }

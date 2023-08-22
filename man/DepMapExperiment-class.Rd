@@ -3,18 +3,20 @@
 \docType{class}
 \name{DepMapExperiment-class}
 \alias{DepMapExperiment-class}
-\title{DepMap experiment}
+\title{\code{DepMapExperiment} virtual class}
 \value{
 \code{DepMapExperiment}.
 }
 \description{
-DepMap experiment
+\code{DepMapExperiment} virtual class
 }
 \details{
 Virtual class, not intended to be worked with directly.
 
 Extends \code{SummarizedExperiment} class, with additional DepMap-specific
 validity checks.
+
+Cells in columns, genes in rows.
 }
 \note{
 Updated 2023-08-22.

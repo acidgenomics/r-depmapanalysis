@@ -3,19 +3,20 @@
 \docType{class}
 \name{DepMapExpression-class}
 \alias{DepMapExpression-class}
-\title{DepMap RNA-seq expression data}
+\title{\code{DepMapExpression} virtual class}
 \value{
 \code{DepMapExpression}.
 }
 \description{
-DepMap RNA-seq expression data
+\code{DepMapExpression} virtual class
 }
 \details{
+Virtual class, not intended to be worked with directly.
+
 RNA-seq TPM gene expression data for just protein coding genes using RSEM.
 Log2 transformed, using a pseudo-count of 1.
 
-Inherits from \code{SummarizedExperiment}.
-Cells in columns, genes in rows.
+Inherits from \code{DepMapExperiment}.
 }
 \note{
 Updated 2023-08-22.
