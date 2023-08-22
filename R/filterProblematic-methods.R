@@ -13,8 +13,11 @@
 #'
 #' @examples
 #' data(crispr)
-#' crispr <- filterProblematic(crispr)
-#' print(crispr)
+#'
+#' ## DepMapExperiment ====
+#' object <- crispr
+#' object <- filterProblematic(object)
+#' print(object)
 NULL
 
 
@@ -22,7 +25,20 @@ NULL
 ## Updated 2023-08-22.
 `filterProblematic,DepMapGeneEffect` <- # nolint
     function(object) {
-        stop("FIXME In progress")
+        assert(
+            validObject(object),
+            isSubset(
+                x = "cellosaurus",
+                y = colnames(colData(object))
+            ),
+            isSubset(
+                x = "isProblematic",
+                y = colnames(colData(object)[["cellosaurus"]]))
+
+        )
+        keep <- !colData(object)[["cellosaurus"]][["isProblematic"]]
+        object <- object[keep, , drop = FALSE]
+        object
     }
 
 

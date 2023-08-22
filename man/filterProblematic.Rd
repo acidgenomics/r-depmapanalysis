@@ -25,6 +25,9 @@ Updated 2023-08-22.
 }
 \examples{
 data(crispr)
-crispr <- filterProblematic(crispr)
-print(crispr)
+
+## DepMapExperiment ====
+object <- crispr
+object <- filterProblematic(object)
+print(object)
 }
