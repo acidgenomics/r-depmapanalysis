@@ -1,6 +1,8 @@
 #+TITLE: DepMapAnalysis
 #+STARTUP: content
 * Development
+** TODO Only genes that map to GRCh37 should be considered for biomarker analysis.
+    Many clinical platforms only map to this reference genome.
 ** TODO Can we add OncoKB integration to the DepMapMutations class?
     https://github.com/waldronlab/oncoKBData/blob/devel/R/oncoKB.R
     https://github.com/oncokb/oncokb-annotator
