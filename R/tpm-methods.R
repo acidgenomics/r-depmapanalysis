@@ -11,7 +11,7 @@
 #' @examples
 #' data(rnaseq)
 #' tpm <- tpm(rnaseq)
-#' print(tpm)
+#' print(tpm[1L:5L, 1L:5L])
 NULL
 
 

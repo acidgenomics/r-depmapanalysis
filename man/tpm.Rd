@@ -26,5 +26,5 @@ Updated 2023-09-11.
 \examples{
 data(rnaseq)
 tpm <- tpm(rnaseq)
-print(tpm)
+print(tpm[1L:5L, 1L:5L])
 }
