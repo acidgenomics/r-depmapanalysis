@@ -49,11 +49,11 @@ NULL
 #' @importFrom ggplot2 aes facet_wrap geom_boxplot geom_density geom_jitter
 #' geom_point geom_violin geom_vline ggplot labs scale_y_discrete
 #' @importFrom goalie allAreMatchingFixed allAreMatchingRegex allAreURLs
-#' areIntersectingSets areSetEqual assert bapply hasColnames hasDuplicates
-#' hasLength hasNoDuplicates hasRownames isAFile isAURL isCharacter isFlag isInt
-#' isInstalled isPositive isScalar isString isSubset requireNamespaces validate
-#' validateClasses
-#' @importFrom matrixStats colMaxs colMins
+#' areDisjointSets areIntersectingSets areSetEqual assert bapply hasColnames
+#' hasDuplicates hasLength hasNoDuplicates hasRownames isAFile isAURL
+#' isCharacter isFlag isInt isInstalled isPositive isScalar isString isSubset
+#' requireNamespaces validate validateClasses
+#' @importFrom matrixStats rowMaxs rowMins rowSums2
 #' @importFrom methods as is new setClass setValidity validObject
 #' @importFrom pipette cacheURL
 #' @importFrom stringi stri_match_first_regex

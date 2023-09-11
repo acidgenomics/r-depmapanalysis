@@ -23,30 +23,36 @@ NULL
     function(x,
              upregulated,
              downregulated) {
-        ## FIXME Need to get the log2 TPM first.
-        ## FIXME Then need to zscore the TPM.
-        ## FIXME Then we can use the zscore df as input here.
-
-        ## Input Validation
-        assert(is.data.frame(input_df),
-               isCharacter(upGenes),
-               isCharacter(downGenes))
-
-        ## Make sure there are no duplicated genes
-        assert(!any(duplicated(colnames(input_df))))
-
-        ## Convert to data matrix
-        gene_matrix <- as.matrix(input_df[, -1])
-
-        ## Get colMax and colMin
-        gene_max <- colMaxs(gene_matrix)
-        gene_min <- colMins(gene_matrix)
-
-        ## SI and RI for up and down genes
-        si_up <- gene_max[names(gene_max) %in% up]
-        ri_up <- gene_min[names(gene_min) %in% up]
-        si_down <- gene_min[names(gene_min) %in% down]
-        ri_down <- gene_max[names(gene_max) %in% down]
+        assert(
+            validObject(x),
+            isCharacter(upregulated),
+            isCharacter(downregulated),
+            hasNoDuplicates(upregulated),
+            hasNoDuplicates(downregulated),
+            areDisjointSets(x = upregulated, y = downregulated)
+        )
+        up <- mapGenesToRownames(
+            object = x,
+            genes = upregulated,
+            strict = TRUE
+        )
+        down <- mapGenesToRownames(
+            object = x,
+            genes = downregulated,
+            strict = TRUE
+        )
+        ## We are returning genes in rows, cells in columns. Some of our legacy
+        ## Python code uses a transposed matrix here.
+        mat <- zscore(x)
+        mat <- mat[c(up, down), ]
+        ## Determine the maximum and minimum values per gene across the cells.
+        geneMax <- rowMaxs(mat)
+        geneMin <- rowMins(mat)
+        ## Calculate SI and RI per gene for up- and down-regulated genes.
+        si_up <- geneMax[names(geneMax) %in% up]
+        ri_up <- geneMin[names(geneMin) %in% up]
+        si_down <- geneMin[names(geneMin) %in% down]
+        ri_down <- geneMax[names(geneMax) %in% down]
 
         si_vector <- c(si_up, si_down)
         ri_vector <- c(ri_up, ri_down)
@@ -58,8 +64,8 @@ NULL
                              replicate(nrow(input_df), ri_vector, simplify = FALSE))
 
         ## Get Summation of euclidean distances
-        sigma_s <- matrixStats::rowSums2((gene_matrix - si_matrix) ** 2)
-        sigma_r <- matrixStats::rowSums2((gene_matrix - ri_matrix) ** 2)
+        sigma_s <- rowSums2((gene_matrix - si_matrix) ** 2)
+        sigma_r <- rowSums2((gene_matrix - ri_matrix) ** 2)
 
         ## Euclidean distance of sensitivity model
         dsj <- sqrt(sigma_s)
