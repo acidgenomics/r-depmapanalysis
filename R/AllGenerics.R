@@ -92,3 +92,13 @@ setGeneric(
         standardGeneric("selectCells")
     }
 )
+
+#' @export
+#' @name tpm
+#' @usage tpm(object, ...)
+NULL
+
+#' @export
+#' @name zscore
+#' @usage zscore(object, ...)
+NULL

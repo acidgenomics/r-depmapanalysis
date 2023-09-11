@@ -10,7 +10,7 @@ NULL
 
 #' @importFrom AcidGenerics autopadZeros camelCase diffExp droplevels2 encode
 #' euclidean factorize humanize leftJoin makeDimnames makeNames
-#' mapGenesToRownames melt showHeader
+#' mapGenesToRownames melt showHeader tpm zscore
 #' @importFrom BiocGenerics %in% do.call lapply mean order rbind t which
 #' @importFrom IRanges gsub median sub
 #' @importFrom S4Vectors I complete.cases decode head mcols metadata metadata<-
