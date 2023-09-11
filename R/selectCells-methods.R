@@ -1,3 +1,9 @@
+## FIXME Need to rethink this based on the restructing of colData between
+## Cellosaurus and Broad metadata sources. Consider just removing this from
+## the package for the time being?
+
+
+
 #' Select cells
 #'
 #' @name selectCells
