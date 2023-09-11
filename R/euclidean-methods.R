@@ -4,11 +4,16 @@
 #'
 #' @inheritParams AcidRoxygen::params
 #'
-#' @param up list of genes to be up-regulated
-#' @param down list of genes to be down-regulated
+#' @param upregulated `character`.
+#' Genes observed to be upregulated by treatment.
 #'
-#' @importFrom goalie isCharacter assert
+#' @param downregulated `character`.
+#' Genes observed to be downregulated by treatment.
+#'
 #' @importFrom matrixStats colMaxs colMins rowSums2
+#'
+#' @examples
+#' rnaseq <- DepMapGeneExpression()
 NULL
 
 
@@ -16,8 +21,8 @@ NULL
 ## Updated 2023-09-11.
 `euclidean,DepMapGeneExpression` <- # nolint
     function(x,
-             upGenes,
-             downGenes) {
+             upregulated,
+             downregulated) {
         ## FIXME Need to get the log2 TPM first.
         ## FIXME Then need to zscore the TPM.
         ## FIXME Then we can use the zscore df as input here.
@@ -34,8 +39,8 @@ NULL
         gene_matrix <- as.matrix(input_df[, -1])
 
         ## Get colMax and colMin
-        gene_max <- matrixStats::colMaxs(gene_matrix)
-        gene_min <- matrixStats::colMins(gene_matrix)
+        gene_max <- colMaxs(gene_matrix)
+        gene_min <- colMins(gene_matrix)
 
         ## SI and RI for up and down genes
         si_up <- gene_max[names(gene_max) %in% up]

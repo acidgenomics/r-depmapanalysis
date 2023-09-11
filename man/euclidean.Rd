@@ -7,16 +7,18 @@
 \usage{
 euclidean(x, ...)
 
-\S4method{euclidean}{DepMapGeneExpression}(x, upGenes, downGenes)
+\S4method{euclidean}{DepMapGeneExpression}(x, upregulated, downregulated)
 }
 \arguments{
 \item{x}{Object.}
 
 \item{...}{Additional arguments.}
 
-\item{up}{list of genes to be up-regulated}
+\item{upregulated}{\code{character}.
+Genes observed to be upregulated by treatment.}
 
-\item{down}{list of genes to be down-regulated}
+\item{downregulated}{\code{character}.
+Genes observed to be downregulated by treatment.}
 }
 \value{
 Numeric vector.
@@ -28,5 +30,5 @@ Calculate Euclidean distance
 Updated 2023-09-11.
 }
 \examples{
-showMethods("euclidean")
+rnaseq <- DepMapGeneExpression()
 }

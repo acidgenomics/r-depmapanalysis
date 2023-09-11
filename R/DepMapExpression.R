@@ -1,7 +1,11 @@
+## FIXME Need to update validity method for DepMapGeneExpression.
+
+
+
 #' Import DepMap gene or transcript expression data
 #'
 #' @name DepMapExpression
-#' @note Updated 2023-08-09.
+#' @note Updated 2023-09-11.
 #'
 #' @return `DepMapExpression`.
 #'

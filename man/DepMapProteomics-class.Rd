@@ -15,5 +15,5 @@ Inherits from \code{SummarizedExperiment}.
 Cells in columns, peptides in rows.
 }
 \note{
-Updated 2023-02-03.
+Updated 2023-09-11.
 }

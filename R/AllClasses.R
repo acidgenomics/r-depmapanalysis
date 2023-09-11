@@ -270,17 +270,21 @@ setValidity(
 #' Cells in columns, genes in rows.
 #'
 #' @export
-#' @note Updated 2023-01-26.
+#' @note Updated 2023-09-11.
 #'
 #' @return `DepMapCopyNumber`.
 setClass(
     Class = "DepMapCopyNumber",
-    contains = "SummarizedExperiment"
+    contains = "DepMapExperiment"
 )
 setValidity(
     Class = "DepMapCopyNumber",
     method = function(object) {
-        .validateSE(object, assayNames = "log2CopyNumber")
+        ok <- isSubset("log2CopyNumber", assayNames(object))
+        if (!isTRUE(ok)) {
+            return(ok)
+        }
+        TRUE
     }
 )
 
@@ -464,6 +468,8 @@ setValidity(
 
 
 
+## FIXME May need to use a custom validity method here instead.
+
 #' DepMap protein expression data
 #'
 #' @details
@@ -471,18 +477,12 @@ setValidity(
 #' Cells in columns, peptides in rows.
 #'
 #' @export
-#' @note Updated 2023-02-03.
+#' @note Updated 2023-09-11.
 #'
 #' @return `DepMapProteomics`.
 setClass(
     Class = "DepMapProteomics",
-    contains = "SummarizedExperiment"
-)
-setValidity(
-    Class = "DepMapExpression",
-    method = function(object) {
-        .validateSE(object)
-    }
+    contains = "DepMapExperiment"
 )
 
 
