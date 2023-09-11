@@ -23,8 +23,11 @@ NULL
     function(x,
              upregulated,
              downregulated) {
+        ## Our S4 generic uses "x" instead of "object" as primary object to
+        ## match the naming conventions of other common math functions.
+        object <- x
         assert(
-            validObject(x),
+            validObject(object),
             isCharacter(upregulated),
             isCharacter(downregulated),
             hasNoDuplicates(upregulated),
@@ -32,18 +35,18 @@ NULL
             areDisjointSets(x = upregulated, y = downregulated)
         )
         up <- mapGenesToRownames(
-            object = x,
+            object = object,
             genes = upregulated,
             strict = TRUE
         )
         down <- mapGenesToRownames(
-            object = x,
+            object = object,
             genes = downregulated,
             strict = TRUE
         )
         ## We are returning genes in rows, cells in columns. Some of our legacy
         ## Python code uses a transposed matrix here.
-        mat <- zscore(x)
+        mat <- zscore(object)
         mat <- mat[c(up, down), ]
         ## Determine the maximum and minimum values per gene across the cells.
         geneMax <- rowMaxs(mat)
