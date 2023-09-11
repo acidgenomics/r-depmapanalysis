@@ -111,12 +111,14 @@ NULL
             "prediction" = pred,
             row.names = colnames(object)
         )
+        ## Return with additional metadata useful for biologists.
         cd <- .simpleColData(object)
         out <- cbind(out, cd)
         ## Ensure we stash the user input in the output.
         metadata(out) <- list(
             "upregulated" = upregulated,
-            "downregulated" = downregulated
+            "downregulated" = downregulated,
+            "releaseDate" = metadata(object)[["releaseDate"]]
         )
         out
     }
