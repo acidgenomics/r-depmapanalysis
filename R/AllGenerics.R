@@ -16,6 +16,15 @@ setGeneric(
     }
 )
 
+#' @rdname euclidean
+#' @export
+setGeneric(
+    name = "euclidean",
+    def = function(x, ...) {
+        standardGeneric("euclidean")
+    }
+)
+
 #' @rdname filterProblematic
 #' @export
 setGeneric(
