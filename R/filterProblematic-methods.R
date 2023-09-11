@@ -1,3 +1,6 @@
+## FIXME Rework and rename to just `excludeContaminatedCells`, matching
+## the naming conventions in Cellosaurus package.
+
 ## FIXME Class this on DepMapExperiment
 ## FIXME Consider only filtering "Problematic cell line: Contaminated." lines.
 ## Can use the comments to look for this.
