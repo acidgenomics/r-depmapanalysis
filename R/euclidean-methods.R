@@ -1,4 +1,5 @@
 #' @name euclidean
+#' @author Nitesh Turaga, Teresa Rice, Michael Steinbaugh
 #' @inherit AcidGenerics::euclidean
 #' @note Updated 2023-09-11.
 #'

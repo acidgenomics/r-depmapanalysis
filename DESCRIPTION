@@ -12,6 +12,20 @@ Authors@R: c(
         comment = c(ORCID = "0000-0002-2403-2221")
     ),
     person(
+        given = "Teresa",
+        family = "Rice",
+        email = "teresapillars@gmail.com",
+        role = "aut",
+        comment = c(ORCID = "0000-0001-8641-6303")
+    ),
+    person(
+        given = "Nitesh",
+        family = "Turaga",
+        email = "mail@niteshturaga.com",
+        role = "aut",
+        comment = c(ORCID = "0000-0002-0224-9817")
+    ),
+    person(
         given = "Acid Genomics",
         role = c("cph", "fnd")
     ))

@@ -44,3 +44,6 @@ euc <- euclidean(
 )
 print(euc)
 }
+\author{
+Nitesh Turaga, Teresa Rice, Michael Steinbaugh
+}

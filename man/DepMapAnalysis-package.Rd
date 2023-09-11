@@ -18,6 +18,12 @@ Useful links:
 \author{
 \strong{Maintainer}: Michael Steinbaugh \email{mike@steinbaugh.com} (\href{https://orcid.org/0000-0002-2403-2221}{ORCID})
 
+Authors:
+\itemize{
+  \item Teresa Rice \email{teresapillars@gmail.com} (\href{https://orcid.org/0000-0001-8641-6303}{ORCID})
+  \item Nitesh Turaga \email{mail@niteshturaga.com} (\href{https://orcid.org/0000-0002-0224-9817}{ORCID})
+}
+
 Other contributors:
 \itemize{
   \item Acid Genomics [copyright holder, funder]
