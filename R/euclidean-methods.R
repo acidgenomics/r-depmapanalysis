@@ -1,7 +1,3 @@
-## FIXME Need to subset the object.
-
-
-
 #' @name euclidean
 #' @inherit AcidGenerics::euclidean
 #' @note Updated 2023-09-11.
@@ -117,6 +113,11 @@ NULL
         )
         cd <- .simpleColData(object)
         out <- cbind(out, cd)
+        ## Ensure we stash the user input in the output.
+        metadata(out) <- list(
+            "upregulated" = upregulated,
+            "downregulated" = downregulated
+        )
         out
     }
 
