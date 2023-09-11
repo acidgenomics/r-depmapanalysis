@@ -29,6 +29,7 @@
     df <- colData(object)[["cellosaurus"]]
     assert(isSubset(cols, colnames(df)))
     df <- as(df, "DFrame")
+    df <- df[, cols]
     df <- decode(df)
     colnames(df)[colnames(df) == "accession"] <- "cellosaurusId"
     df
