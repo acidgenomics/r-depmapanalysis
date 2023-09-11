@@ -10,8 +10,12 @@
 #' @param downregulated `character`.
 #' Genes observed to be downregulated by treatment.
 #'
+#' @return `DFrame`.
+#'
 #' @examples
 #' rnaseq <- DepMapGeneExpression()
+#' euc <- euclidean(rnaseq)
+#' print(euc)
 NULL
 
 
@@ -51,51 +55,55 @@ NULL
         geneMax <- rowMaxs(mat)
         geneMin <- rowMins(mat)
         ## Calculate SI and RI per gene for up- and down-regulated genes.
-        si_up <- geneMax[names(geneMax) %in% up]
-        ri_up <- geneMin[names(geneMin) %in% up]
-        si_down <- geneMin[names(geneMin) %in% down]
-        ri_down <- geneMax[names(geneMax) %in% down]
-
-        si_vector <- c(si_up, si_down)
-        ri_vector <- c(ri_up, ri_down)
-
-        ## Create SI and RI matrix to get max
-        si_matrix <- do.call("rbind",
-                             replicate(nrow(input_df), si_vector, simplify = FALSE))
-        ri_matrix <- do.call("rbind",
-                             replicate(nrow(input_df), ri_vector, simplify = FALSE))
-
-        ## Get Summation of euclidean distances
-        sigma_s <- rowSums2((gene_matrix - si_matrix) ** 2)
-        sigma_r <- rowSums2((gene_matrix - ri_matrix) ** 2)
-
-        ## Euclidean distance of sensitivity model
-        dsj <- sqrt(sigma_s)
-        ## Euclidean distance of insensitivity model
-        drj <- sqrt(sigma_r)
-        ratio <- dsj / drj
-
-        ## Predict call
-        pred <- ifelse(dsj <= drj, "sensitive", "insensitive")
-
-        result <- data.frame(
-            Cells = input_df$X,
-            drj = drj,
-            dsj = dsj,
-            ratio = ratio,
-            prediction = pred
+        siUp <- geneMax[names(geneMax) %in% up]
+        riUp <- geneMin[names(geneMin) %in% up]
+        siDown <- geneMin[names(geneMin) %in% down]
+        riDown <- geneMax[names(geneMax) %in% down]
+        si <- c(siUp, siDown)
+        ri <- c(riUp, riDown)
+        ## Create SI and RI matrix to get max.
+        siMat <- do.call(
+            what = cbind,
+            args = replicate(
+                n = ncol(mat),
+                expr = si,
+                simplify = FALSE
+            )
         )
-
-        print(result)
-
-        ## Write results
-        output_file <- file.path(getwd(), "calc_euclidean.csv")
-        message("Writing results to :", output_file)
-        write.csv(result,file = output_file)
-
-        ## Print sensitivity count
-        cat("sensitive count: ", sum(result$prediction %in% "sensitive"))
-
+        riMat <- do.call(
+            what = cbind,
+            args = replicate(
+                n = ncol(mat),
+                expr = ri,
+                simplify = FALSE
+            )
+        )
+        colnames(siMat) <- colnames(mat)
+        colnames(riMat) <- colnames(mat)
+        ## Calculate the summation of euclidean distances.
+        sigmaS <- colSums2((mat - siMat) ** 2L)
+        sigmaR <- colSums2((mat - riMat) ** 2L)
+        ## Euclidean distance of sensitivity model.
+        dsj <- sqrt(sigmaS)
+        ## Euclidean distance of insensitivity model.
+        drj <- sqrt(sigmaR)
+        ratio <- dsj / drj
+        ## Indicate whether we predict sensitive.
+        pred <- ifelse(
+            test = dsj <= drj,
+            yes = "sensitive",
+            no = "insensitive"
+        )
+        out <- DataFrame(
+            "drj" = drj,
+            "dsj" = dsj,
+            "ratio" = ratio,
+            "prediction" = pred,
+            row.names = colnames(object)
+        )
+        cd <- .simpleColData(object)
+        out <- cbind(out, cd)
+        out
     }
 
 

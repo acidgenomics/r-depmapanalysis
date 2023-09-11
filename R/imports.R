@@ -53,7 +53,7 @@ NULL
 #' hasDuplicates hasLength hasNoDuplicates hasRownames isAFile isAURL
 #' isCharacter isFlag isInt isInstalled isPositive isScalar isString isSubset
 #' requireNamespaces validate validateClasses
-#' @importFrom matrixStats rowMaxs rowMins rowSums2
+#' @importFrom matrixStats colSums2 rowMaxs rowMins
 #' @importFrom methods as is new setClass setValidity validObject
 #' @importFrom pipette cacheURL
 #' @importFrom stringi stri_match_first_regex

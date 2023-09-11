@@ -21,7 +21,7 @@ Genes observed to be upregulated by treatment.}
 Genes observed to be downregulated by treatment.}
 }
 \value{
-Numeric vector.
+\code{DFrame}.
 }
 \description{
 Calculate Euclidean distance
@@ -31,4 +31,6 @@ Updated 2023-09-11.
 }
 \examples{
 rnaseq <- DepMapGeneExpression()
+euc <- euclidean(rnaseq)
+print(euc)
 }
