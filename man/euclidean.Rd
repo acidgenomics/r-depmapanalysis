@@ -30,7 +30,17 @@ Calculate Euclidean distance
 Updated 2023-09-11.
 }
 \examples{
-rnaseq <- DepMapGeneExpression()
-euc <- euclidean(rnaseq)
+data(rnaseq)
+
+## DepMapGeneExpression ====
+x <- rnaseq
+genes <- rownames(x)
+upregulated <- genes[1L:5L]
+downregulated <- genes[6L:10L]
+euc <- euclidean(
+    x = x,
+    upregulated = upregulated,
+    downregulated = downregulated
+)
 print(euc)
 }
