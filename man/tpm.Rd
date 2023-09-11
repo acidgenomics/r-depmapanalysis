@@ -14,6 +14,8 @@ tpm(object, ...)
 }
 \value{
 \code{matrix}
+Log2 transcripts per million.
+Cells in columns, genes in rows.
 }
 \description{
 Transcripts per million

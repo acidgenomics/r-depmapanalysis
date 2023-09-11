@@ -4,6 +4,10 @@
 #' @inherit AcidGenerics::tpm
 #' @note Updated 2023-09-11.
 #'
+#' @return `matrix`
+#' Log2 transcripts per million.
+#' Cells in columns, genes in rows.
+#'
 #' @examples
 #' data(rnaseq)
 #' tpm <- tpm(rnaseq)
