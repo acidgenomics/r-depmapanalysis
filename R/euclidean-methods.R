@@ -10,21 +10,20 @@
 #' @param downregulated `character`.
 #' Genes observed to be downregulated by treatment.
 #'
-#' @importFrom matrixStats colMaxs colMins rowSums2
-#'
 #' @examples
 #' rnaseq <- DepMapGeneExpression()
 NULL
 
 
 
+## Our S4 generic uses "x" instead of "object" as primary object to match the
+## naming conventions of other common math functions.
+
 ## Updated 2023-09-11.
 `euclidean,DepMapGeneExpression` <- # nolint
     function(x,
              upregulated,
              downregulated) {
-        ## Our S4 generic uses "x" instead of "object" as primary object to
-        ## match the naming conventions of other common math functions.
         object <- x
         assert(
             validObject(object),
