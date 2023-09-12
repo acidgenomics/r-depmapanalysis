@@ -1,21 +1,12 @@
-## FIXME Rework this to just dispatch on Cellosaurus object stashed in colData.
-
-
-
-#' Select cells
-#'
 #' @name selectCells
+#' @inherit Cellosaurus::selectCells details
+#' @inherit AcidGenerics::selectCells description return title
 #' @note Updated 2023-09-12.
 #'
 #' @inheritParams AcidRoxygen::params
 #'
 #' @param ...
-#' Key value pairs that map to cell line metadata defined in `colData`.
-#'
-#' @return Modified object.
-#'
-#' @seealso
-#' - `AcidExperiment::selectSamples`.
+#' Key value pairs that map to cell line metadata.
 #'
 #' @examples
 #' data(crispr)

@@ -18,13 +18,16 @@ selectCells(object, ...)
 \arguments{
 \item{object}{Object.}
 
-\item{...}{Key value pairs that map to cell line metadata defined in \code{colData}.}
+\item{...}{Key value pairs that map to cell line metadata.}
 }
 \value{
 Modified object.
 }
 \description{
 Select cells
+}
+\details{
+Only exact matching is currently supported.
 }
 \note{
 Updated 2023-09-12.
@@ -41,9 +44,4 @@ all(colData(object)[["lineage"]] == lineage)
 object <- selectCells(object, lineage = lineage)
 all(colData(object)[["lineage"]] == lineage)
 dim(object)
-}
-\seealso{
-\itemize{
-\item \code{AcidExperiment::selectSamples}.
-}
 }
