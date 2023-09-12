@@ -12,17 +12,10 @@ setGeneric(
 #' @usage diffExp(object, ...)
 NULL
 
-# FIXME Need to use AcidGenerics for this. Renamed to `excludeProblematicCells`.
-# FIXME Consider just exporting `excludeContaminatedCells`.
-
-#' @rdname filterProblematic
 #' @export
-setGeneric(
-    name = "filterProblematic",
-    def = function(object, ...) {
-        standardGeneric("filterProblematic")
-    }
-)
+#' @name excludeContaminatedCells
+#' @usage excludeContaminatedCells(object, ...)
+NULL
 
 ## FIXME Export this in AcidGenerics.
 
