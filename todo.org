@@ -1,6 +1,7 @@
 #+TITLE: DepMapAnalysis
 #+STARTUP: content
 * Development
+** TODO Add plotting function to visualize correlation of two gene effects.
 ** TODO Consider classing the `predictSensitivty` return so we can plug that into plots.
 ** TODO Ensure that "cellosaurus" slotted into colData remains classed as S4 Cellosaurus.
     This makes downstream method support for `selectCells` simpler.
