@@ -2,18 +2,12 @@
 % Please edit documentation in R/AllGenerics.R, R/selectCells-methods.R
 \name{selectCells}
 \alias{selectCells}
-\alias{selectCells,DepMapCopyNumber-method}
-\alias{selectCells,DepMapExpression-method}
-\alias{selectCells,DepMapGeneEffect-method}
+\alias{selectCells,DepMapExperiment-method}
 \title{Select cells}
 \usage{
 selectCells(object, ...)
 
-\S4method{selectCells}{DepMapCopyNumber}(object, ...)
-
-\S4method{selectCells}{DepMapExpression}(object, ...)
-
-\S4method{selectCells}{DepMapGeneEffect}(object, ...)
+\S4method{selectCells}{DepMapExperiment}(object, ...)
 }
 \arguments{
 \item{object}{Object.}
