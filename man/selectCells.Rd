@@ -31,11 +31,9 @@ data(crispr)
 
 ## DepMapGeneEffect ====
 object <- crispr
-dim(object)
-lineage <- colData(object)[["lineage"]][[1L]]
-print(lineage)
-all(colData(object)[["lineage"]] == lineage)
-object <- selectCells(object, lineage = lineage)
-all(colData(object)[["lineage"]] == lineage)
-dim(object)
+print(dim(object))
+oncotreeCode <- decode(colData(object)[["cellosaurus"]][["oncotreeCode"]])
+print(oncotreeCode)
+subset <- selectCells(object, oncotreeCode = oncotreeCode)
+print(dim(object))
 }
