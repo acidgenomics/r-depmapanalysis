@@ -58,8 +58,3 @@ plotGeneEffectVsExpression(
     gene = gene
 )
 }
-\seealso{
-\itemize{
-\item DepMapAnalysis package.
-}
-}

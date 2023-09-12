@@ -1,5 +1,5 @@
 #' @name plotGeneEffectVsExpression
-#' @inherit AcidGenerics::plotGeneEffectVsExpression
+#' @inherit AcidGenerics::plotGeneEffectVsExpression description return title
 #' @note Updated 2023-09-12.
 #'
 #' @inheritParams AcidRoxygen::params
