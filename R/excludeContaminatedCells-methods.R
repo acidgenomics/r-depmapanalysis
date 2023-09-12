@@ -18,19 +18,12 @@ NULL
 ## Updated 2023-09-12.
 `excludeContaminatedCells,DepMapExperiment` <- # nolint
     function(object) {
-        assert(
-            validObject(object),
-            isSubset(
-                x = "cellosaurus",
-                y = colnames(colData(object))
-            ),
-            isSubset(
-                x = "isProblematic",
-                y = colnames(colData(object)[["cellosaurus"]]))
-
-        )
-        keep <- !colData(object)[["cellosaurus"]][["isProblematic"]]
-        object <- object[keep, , drop = FALSE]
+        assert(validObject(object))
+        cello <- colData(object)[["cellosaurus"]]
+        cello <- excludeContaminatedCells(cello)
+        i <- rownames(cello)
+        assert(isSubset(i, colnames(object)))
+        object <- object[, i, drop = FALSE]
         object
     }
 
