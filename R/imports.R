@@ -8,9 +8,9 @@ NULL
 
 ## S4 generics and methods =====================================================
 
-#' @importFrom AcidGenerics autopadZeros camelCase diffExp droplevels2 encode
-#' excludeContaminatedCells factorize leftJoin makeDimnames makeNames
-#' mapGenesToRownames melt predictSensitivity plotGeneEffect
+#' @importFrom AcidGenerics as.DataFrame autopadZeros camelCase diffExp
+#' droplevels2 encode excludeContaminatedCells factorize leftJoin makeDimnames
+#' makeNames mapGenesToRownames melt predictSensitivity plotGeneEffect
 #' plotGeneEffectVsExpression plotTopGeneEffectPerCell plotTopGeneEffectPerGroup
 #' selectCells showHeader tpm zscore
 #' @importFrom BiocGenerics %in% do.call lapply mean order rbind t which
