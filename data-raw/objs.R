@@ -1,8 +1,3 @@
-## FIXME Run droplevels2 on nested cellosaurus inside colData to reduce the
-## example object size.
-
-
-
 ## nolint start
 suppressPackageStartupMessages({
     library(devtools)
@@ -12,7 +7,7 @@ suppressPackageStartupMessages({
     library(AcidExperiment)
 })
 ## nolint end
-load_all()
+load_all(helpers = FALSE)
 objs <- list(
     "crispr" = DepMapCrisprGeneEffect(),
     "rnai" = DepMapRnaiGeneEffect(),
@@ -23,8 +18,15 @@ j <- intersectAll(lapply(X = objs, FUN = colnames))
 assert(hasLength(i), hasLength(j))
 i <- head(i, n = 100L)
 j <- head(j, n = 50L)
-objs <- lapply(X = objs, FUN = `[`, i = i, j = j)
-objs <- lapply(X = objs, FUN = droplevels2)
+objs <- lapply(
+    X = objs,
+    FUN = function(object) {
+        object <- object[i, j]
+        object <- droplevels2(object)
+        colData(object)[["cellosaurus"]] <-
+            droplevels2(colData(object)[["cellosaurus"]])
+        object
+)
 crispr <- objs[["crispr"]]
 rnai <- objs[["rnai"]]
 rnaseq <- objs[["rnaseq"]]
