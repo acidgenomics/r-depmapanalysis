@@ -1,3 +1,8 @@
+## FIXME Run droplevels2 on nested cellosaurus inside colData to reduce the
+## example object size.
+
+
+
 ## nolint start
 suppressPackageStartupMessages({
     library(devtools)
