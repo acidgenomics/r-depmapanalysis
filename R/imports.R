@@ -9,8 +9,8 @@ NULL
 ## S4 generics and methods =====================================================
 
 #' @importFrom AcidGenerics autopadZeros camelCase diffExp droplevels2 encode
-#' euclidean factorize leftJoin makeDimnames makeNames
-#' mapGenesToRownames melt showHeader tpm zscore
+#' factorize leftJoin makeDimnames makeNames mapGenesToRownames melt
+#' predictSensitivity showHeader tpm zscore
 #' @importFrom BiocGenerics %in% do.call lapply mean order rbind t which
 #' @importFrom IRanges gsub median sub
 #' @importFrom S4Vectors I complete.cases decode head mcols metadata metadata<-

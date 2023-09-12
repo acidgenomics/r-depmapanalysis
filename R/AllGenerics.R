@@ -7,28 +7,10 @@ setGeneric(
     }
 )
 
-# FIXME Need to use AcidGenerics for this.
-
-#' @rdname diffExp
 #' @export
-setGeneric(
-    name = "diffExp",
-    def = function(object, ...) {
-        standardGeneric("diffExp")
-    }
-)
-
-# FIXME Rename this to `predictSensitivity`.
-# FIXME Need to use AcidGenerics 
-
-#' @rdname euclidean
-#' @export
-setGeneric(
-    name = "euclidean",
-    def = function(x, ...) {
-        standardGeneric("euclidean")
-    }
-)
+#' @name diffExp
+#' @usage diffExp(object, ...)
+NULL
 
 # FIXME Need to use AcidGenerics for this. Renamed to `excludeProblematicCells`.
 # FIXME Consider just exporting `excludeContaminatedCells`.
@@ -42,6 +24,8 @@ setGeneric(
     }
 )
 
+## FIXME Export this in AcidGenerics.
+
 #' @rdname plotGeneEffect
 #' @export
 setGeneric(
@@ -50,6 +34,8 @@ setGeneric(
         standardGeneric("plotGeneEffect")
     }
 )
+
+## FIXME Export this in AcidGenerics.
 
 #' @rdname plotGeneEffectVsExpression
 #' @export
@@ -60,6 +46,8 @@ setGeneric(
     }
 )
 
+## FIXME Export this in AcidGenerics.
+
 #' @rdname plotTopGeneEffectPerCell
 #' @export
 setGeneric(
@@ -68,6 +56,8 @@ setGeneric(
         standardGeneric("plotTopGeneEffectPerCell")
     }
 )
+
+## FIXME Export this in AcidGenerics.
 
 #' @rdname plotTopGeneEffectPerGroup
 #' @export
@@ -78,16 +68,10 @@ setGeneric(
     }
 )
 
-# FIXME Rework our euclidean code to just use this.
-
-#' @rdname predictSensitivity
 #' @export
-setGeneric(
-    name = "predictSensitivity",
-    def = function(object, ...) {
-        standardGeneric("predictSensitivity")
-    }
-)
+#' @name predictSensitivity
+#' @usage predictSensitivity(object, ...)
+NULL
 
 # FIXME Need to move this to AcidGenerics.
 

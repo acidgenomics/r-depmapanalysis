@@ -12,8 +12,6 @@ diffExp(object, ...)
 \arguments{
 \item{object}{Object.}
 
-\item{...}{Additional arguments.}
-
 \item{insensitiveCells, sensitiveCells}{\code{character}.
 Cell line names.}
 }

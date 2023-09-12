@@ -2,37 +2,55 @@
 % Please edit documentation in R/AllGenerics.R, R/predictSensitivity-methods.R
 \name{predictSensitivity}
 \alias{predictSensitivity}
+\alias{predictSensitivity,DepMapGeneExpression-method}
 \title{Predict sensitivity}
 \usage{
 predictSensitivity(object, ...)
+
+\S4method{predictSensitivity}{DepMapGeneExpression}(object, upregulated, downregulated)
 }
 \arguments{
 \item{object}{Object.}
 
-\item{...}{Additional arguments.}
+\item{upregulated}{\code{character}.
+Genes observed to be upregulated by treatment.}
 
-\item{sensitive, insensitive}{\code{character}.
-Cell line identifiers.}
+\item{downregulated}{\code{character}.
+Genes observed to be downregulated by treatment.}
+}
+\value{
+\code{DFrame}.
 }
 \description{
 Predict sensitivity
 }
+\details{
+Predict cell line sensitivity by calculation of Euclidean distance between
+known biomarker genes up- or down-regulated by a treatment of interest.
+}
 \note{
-Updated 2023-07-03.
+Updated 2023-09-12.
 }
 \examples{
 data(rnaseq)
 
-## DepMapExpression ====
+## DepMapGeneExpression ====
 object <- rnaseq
-genes <- c("XXX", "YYY")
-sensitive <- c("AAA", "BBB")
-insensitive <- c("CCC", "DDD")
-out <- predictSensitivity(
+genes <- rownames(object)
+upregulated <- genes[1L:5L]
+downregulated <- genes[6L:10L]
+df <- predictSensitivity(
     object = object,
-    genes = genes,
-    sensitive = sensitive,
-    insensitive = insensitive
+    upregulated = upregulated,
+    downregulated = downregulated
 )
-print(out)
+print(df)
+}
+\seealso{
+\itemize{
+\item DepMapAnalysis package.
+}
+}
+\author{
+Nitesh Turaga, Teresa Rice, Michael Steinbaugh
 }
