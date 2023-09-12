@@ -15,7 +15,11 @@
 #' object <- crispr
 #' print(dim(object))
 #' oncotreeCode <-
-#'     decode(colData(object)[["cellosaurus"]][["oncotreeCode"]])[[1L]]
+#'     colData(object) |>
+#'     _[["cellosaurus"]] |>
+#'     _[["oncotreeCode"]] |>
+#'     decode() |>
+#'     _[[1L]]
 #' print(oncotreeCode)
 #' subset <- selectCells(object, oncotreeCode = oncotreeCode)
 #' print(dim(object))
