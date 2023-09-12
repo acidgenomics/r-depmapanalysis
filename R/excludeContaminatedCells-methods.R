@@ -20,6 +20,7 @@ NULL
     function(object) {
         assert(validObject(object))
         cello <- colData(object)[["cellosaurus"]]
+        assert(is(cello, "Cellosaurus"))
         cello <- excludeContaminatedCells(cello)
         i <- rownames(cello)
         assert(isSubset(i, colnames(object)))
