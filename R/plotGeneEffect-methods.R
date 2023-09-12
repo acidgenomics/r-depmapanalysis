@@ -1,9 +1,10 @@
-#' Plot gene effect
-#'
 #' @name plotGeneEffect
-#' @note Updated 2023-08-16.
+#' @inherit AcidGenerics::plotGeneEffect
+#' @note Updated 2023-09-12.
 #'
 #' @inheritParams AcidRoxygen::params
+#'
+#' @param ... Additional arguments.
 #'
 #' @return `ggplot`.
 #'

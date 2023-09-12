@@ -12,14 +12,14 @@ plotGeneEffect(object, ...)
 \arguments{
 \item{object}{Object.}
 
-\item{...}{Additional arguments.}
-
 \item{genes}{\code{character}.
 Gene identifiers.}
 
 \item{geom}{\code{character(1)}.
 Plot type. Uses \code{\link[base:match.arg]{match.arg()}} internally and defaults to
 the first argument in the \code{character} vector.}
+
+\item{...}{Additional arguments.}
 }
 \value{
 \code{ggplot}.
@@ -28,7 +28,7 @@ the first argument in the \code{character} vector.}
 Plot gene effect
 }
 \note{
-Updated 2023-08-16.
+Updated 2023-09-12.
 }
 \examples{
 data(crispr)
@@ -37,4 +37,9 @@ data(crispr)
 object <- crispr
 genes <- head(rownames(object), n = 5L)
 plotGeneEffect(object, genes = genes)
+}
+\seealso{
+\itemize{
+\item DepMapAnalysis package.
+}
 }
