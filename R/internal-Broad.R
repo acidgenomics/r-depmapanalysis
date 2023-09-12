@@ -245,6 +245,7 @@
                 colnames(cello)
             )
         )
+        cello <- excludeContaminatedCells(cello)
         ids <- list()
         ids[["broad"]] <- broad[[1L]]
         ids[["cello"]] <- decode(cello[["depmapId"]])

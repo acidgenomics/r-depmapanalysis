@@ -1,11 +1,9 @@
-## FIXME Consider updating the timestamp here.
-
 #' Import Sanger CellModelPassports cell line model info
 #'
-#' @note Updated 2023-08-22.
+#' @note Updated 2023-09-12.
 #' @noRd
 .importSangerModelInfo <-
-    function(date = "2023-01-10") {
+    function(date = "2023-08-01") {
         cello <- Cellosaurus()
         assert(
             is(cello, "Cellosaurus"),
@@ -14,12 +12,12 @@
                     "accession",
                     "cellLineName",
                     "depmapId",
-                    "isProblematic",
                     "sangerModelId"
                 ),
                 colnames(cello)
             )
         )
+        cello <- excludeContaminatedCells(cello)
         date2 <- gsub(pattern = "-", replacement = "", x = date)
         url <- pasteURL(
             "cog.sanger.ac.uk",
@@ -58,18 +56,23 @@
             drop = FALSE
         ]
         cello <- droplevels2(cello)
-        df <- DataFrame(
+        assert(
+            is(cello, "Cellosaurus"),
+            is(sanger, "DFrame"),
+            validObject(cello)
+        )
+        df <- as.DataFrame(list(
             "cellLineName" = decode(cello[["cellLineName"]]),
             "cellosaurusId" = decode(cello[["accession"]]),
             "depmapId" = decode(cello[["depmapId"]]),
             "sangerModelId" = decode(cello[["sangerModelId"]]),
-            "cellosaurus" = I(cello),
-            "sanger" = I(sanger),
-            row.names = decode(cello[["sangerModelId"]])
-        )
+            "cellosaurus" = cello,
+            "sanger" = sanger
+        ))
+        rownames(df) <- decode(df[["sangerModelId"]])
         metadata(df) <- list(
             "date" = date,
-            "missingCells" = ids[["setdiff"]]
+            "excludedCells" = ids[["setdiff"]]
         )
         df
     }
