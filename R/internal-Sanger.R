@@ -4,12 +4,15 @@
 #' @noRd
 .importSangerModelInfo <-
     function(date = "2023-08-01") {
-        date2 <- gsub(pattern = "-", replacement = "", x = date)
         url <- pasteURL(
             "cog.sanger.ac.uk",
             "cmp",
             "download",
-            paste0("model_list_", date2, ".csv"),
+            paste0(
+                "model_list_",
+                gsub(pattern = "-", replacement = "", x = date),
+                ".csv"
+            ),
             protocol = "https"
         )
         sanger <- import(con = .cacheURL(url), format = "csv")
