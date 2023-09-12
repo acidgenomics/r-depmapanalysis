@@ -12,7 +12,7 @@
 #' `DepMapExperiment` virtual class
 #'
 #' @export
-#' @note Updated 2023-08-22.
+#' @note Updated 2023-09-12.
 #'
 #' @details
 #' Virtual class, not intended to be worked with directly.
@@ -72,7 +72,7 @@ setValidity(
             expected = list(
                 "broad" = "DFrame",
                 "cellLineName" = "character",
-                "cellosaurus" = "DFrame",
+                "cellosaurus" = "Cellosaurus",
                 "cellosaurusId" = "character",
                 "depmapId" = "character",
                 "sangerModelId" = "character"
