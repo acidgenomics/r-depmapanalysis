@@ -1,3 +1,8 @@
+## FIXME Return this classed, so we can also include a corresponding plot
+## function (similar to our approach in Prism).
+
+
+
 #' @name predictSensitivity
 #' @author Nitesh Turaga, Teresa Rice, Michael Steinbaugh
 #' @inherit AcidGenerics::predictSensitivity
