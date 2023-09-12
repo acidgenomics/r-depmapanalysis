@@ -28,16 +28,18 @@ NULL
 `selectCells,DepMapExperiment` <-
     function(object, ...) {
         assert(validObject(object))
-        ## FIXME This is getting unclassed, need to rework.
         cello <- colData(object)[["cellosaurus"]]
         assert(
             is(cello, "Cellosaurus"),
-            validObject(cello)
+            validObject(cello),
+            msg = "Cellosaurus metadata not correctly saved in object."
         )
         cello <- selectCells(cello, ...)
         assert(is(cello, "Cellosaurus"))
         j <- rownames(cello)
+        assert(isSubset(colnames(object), j))
         out <- object[, j, drop = FALSE]
+        out
     }
 
 
