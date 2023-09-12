@@ -22,8 +22,6 @@ plotGeneEffectVsExpression(effect, expression, ...)
 
 \item{expression}{\code{DepMapExpression}.}
 
-\item{...}{Additional arguments.}
-
 \item{gene}{\code{character(1)}.
 Gene identifier.}
 
@@ -35,12 +33,17 @@ Column name of metadata defined in \code{colData} of \code{effect}.}
 
 \item{label}{\code{logical(1)}.
 Superimpose sample text labels on the plot.}
+
+\item{...}{Additional arguments.}
+}
+\value{
+\code{ggplot}.
 }
 \description{
 Plot gene effect vs. expression
 }
 \note{
-Updated 2023-01-27.
+Updated 2023-09-12.
 }
 \examples{
 data(crispr, rnaseq)
@@ -54,4 +57,9 @@ plotGeneEffectVsExpression(
     expression = expression,
     gene = gene
 )
+}
+\seealso{
+\itemize{
+\item DepMapAnalysis package.
+}
 }

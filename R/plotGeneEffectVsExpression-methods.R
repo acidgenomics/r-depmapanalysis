@@ -1,7 +1,6 @@
-#' Plot gene effect vs. expression
-#'
 #' @name plotGeneEffectVsExpression
-#' @note Updated 2023-01-27.
+#' @inherit AcidGenerics::plotGeneEffectVsExpression
+#' @note Updated 2023-09-12.
 #'
 #' @inheritParams AcidRoxygen::params
 #' @inheritParams params
@@ -15,6 +14,8 @@
 #'
 #' @param subtypeCol `character(1)`.
 #' Column name of metadata defined in `colData` of `effect`.
+#'
+#' @param ... Additional arguments.
 #'
 #' @examples
 #' data(crispr, rnaseq)
