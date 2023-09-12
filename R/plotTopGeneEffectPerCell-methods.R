@@ -1,11 +1,10 @@
-#' Plot top gene effect (dependencies) per cell
-#'
 #' @name plotTopGeneEffectPerCell
-#' @note Updated 2023-08-16.
+#' @inherit AcidGenerics::plotTopGeneEffectPerCell description return title
+#' @note Updated 2023-09-12.
 #'
 #' @inheritParams AcidRoxygen::params
 #'
-#' @return `ggplot`.
+#' @param ... Additional arguments.
 #'
 #' @examples
 #' data(crispr)

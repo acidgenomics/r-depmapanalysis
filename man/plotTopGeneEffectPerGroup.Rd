@@ -4,7 +4,7 @@
 \name{plotTopGeneEffectPerGroup}
 \alias{plotTopGeneEffectPerGroup}
 \alias{plotTopGeneEffectPerGroup,DepMapGeneEffect-method}
-\title{Plot top gene effect per group of interest}
+\title{Plot top gene effect per group}
 \usage{
 plotTopGeneEffectPerGroup(object, ...)
 
@@ -18,8 +18,6 @@ plotTopGeneEffectPerGroup(object, ...)
 }
 \arguments{
 \item{object}{Object.}
-
-\item{...}{Additional arguments.}
 
 \item{gene}{\code{character(1)}.
 Gene identifier.}
@@ -39,10 +37,10 @@ plot.}
 \code{ggplot}.
 }
 \description{
-Plot top gene effect per group of interest
+Plot top gene effect per group
 }
 \note{
-Updated 2023-08-16.
+Updated 2023-09-12.
 }
 \examples{
 data(crispr)

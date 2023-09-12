@@ -4,7 +4,7 @@
 \name{plotTopGeneEffectPerCell}
 \alias{plotTopGeneEffectPerCell}
 \alias{plotTopGeneEffectPerCell,DepMapGeneEffect-method}
-\title{Plot top gene effect (dependencies) per cell}
+\title{Plot top gene effect per cell}
 \usage{
 plotTopGeneEffectPerCell(object, ...)
 
@@ -13,22 +13,22 @@ plotTopGeneEffectPerCell(object, ...)
 \arguments{
 \item{object}{Object.}
 
-\item{...}{Additional arguments.}
-
 \item{cells}{\code{character}.
 Cell identifiers.}
 
 \item{n}{\code{integer(1)}.
 Number to include.}
+
+\item{...}{Additional arguments.}
 }
 \value{
 \code{ggplot}.
 }
 \description{
-Plot top gene effect (dependencies) per cell
+Plot top gene effect per cell
 }
 \note{
-Updated 2023-08-16.
+Updated 2023-09-12.
 }
 \examples{
 data(crispr)

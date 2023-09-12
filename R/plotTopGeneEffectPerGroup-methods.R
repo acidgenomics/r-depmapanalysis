@@ -1,7 +1,6 @@
-#' Plot top gene effect per group of interest
-#'
 #' @name plotTopGeneEffectPerGroup
-#' @note Updated 2023-08-16.
+#' @inherit AcidGenerics::plotTopGeneEffectPerGroup description return title
+#' @note Updated 2023-09-12.
 #'
 #' @inheritParams AcidRoxygen::params
 #'
@@ -15,8 +14,6 @@
 #' @param minNPerGroup `integer(1)`.
 #' Minimum number of samples per group to consider for inclusion in
 #' plot.
-#'
-#' @return `ggplot`.
 #'
 #' @examples
 #' data(crispr)
