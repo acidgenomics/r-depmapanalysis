@@ -212,15 +212,12 @@
 
 
 
-## FIXME Just take out the problematic filtering here...
-## Move that to `filterProblematic` generic instead.
-
 #' Import Broad DepMap cell line model info
 #'
 #' Sample metadata now indicates that there are merged cells we should drop
 #' from analysis (e.g. ACH-002260).
 #'
-#' @note Updated 2023-08-22.
+#' @note Updated 2023-09-12.
 #' @noRd
 .importBroadModelInfo <-
     function(dataset) {
@@ -243,7 +240,6 @@
                     "accession",
                     "cellLineName",
                     "depmapId",
-                    "isProblematic",
                     "sangerModelId"
                 ),
                 colnames(cello)
@@ -272,15 +268,20 @@
             drop = FALSE
         ]
         cello <- droplevels2(cello)
-        df <- DataFrame(
+        assert(
+            is(cello, "Cellosaurus"),
+            is(broad, "DFrame"),
+            validObject(cello)
+        )
+        df <- as.DataFrame(list(
             "cellLineName" = decode(cello[["cellLineName"]]),
             "cellosaurusId" = decode(cello[["accession"]]),
             "depmapId" = decode(cello[["depmapId"]]),
             "sangerModelId" = decode(cello[["sangerModelId"]]),
-            "cellosaurus" = I(cello),
-            "broad" = I(broad),
-            row.names = makeNames(decode(cello[["depmapId"]]))
-        )
+            "cellosaurus" = cello,
+            "broad" = broad
+        ))
+        rownames(df) <- makeNames(df[["cellosaurusId"]])
         metadata(df) <- list("excludedCells" = ids[["setdiff"]])
         df
     }
