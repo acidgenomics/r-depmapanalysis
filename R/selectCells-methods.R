@@ -15,7 +15,7 @@
 #' object <- crispr
 #' print(dim(object))
 #' oncotreeCode <-
-#'     levels(colData(object)[["cellosaurus"]][["oncotreeCode"]])[[1L]]
+#'     decode(colData(object)[["cellosaurus"]][["oncotreeCode"]])[[1L]]
 #' print(oncotreeCode)
 #' subset <- selectCells(object, oncotreeCode = oncotreeCode)
 #' print(dim(object))
@@ -36,7 +36,7 @@ NULL
         cello <- selectCells(cello, ...)
         assert(is(cello, "Cellosaurus"))
         j <- rownames(cello)
-        assert(isSubset(colnames(object), j))
+        assert(isSubset(j, colnames(object)))
         out <- object[, j, drop = FALSE]
         out
     }
