@@ -1,6 +1,9 @@
 #+TITLE: DepMapAnalysis
 #+STARTUP: content
 * Development
+** TODO Consider classing the `predictSensitivty` return so we can plug that into plots.
+** TODO Ensure that "cellosaurus" slotted into colData remains classed as S4 Cellosaurus.
+    This makes downstream method support for `selectCells` simpler.
 ** TODO Only genes that map to GRCh37 should be considered for biomarker analysis.
     Many clinical platforms only map to this reference genome.
 ** TODO Can we add OncoKB integration to the DepMapMutations class?
