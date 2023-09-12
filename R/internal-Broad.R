@@ -281,7 +281,7 @@
             "cellosaurus" = cello,
             "broad" = broad
         ))
-        rownames(df) <- makeNames(df[["cellosaurusId"]])
+        rownames(df) <- makeNames(df[["depmapId"]])
         metadata(df) <- list("excludedCells" = ids[["setdiff"]])
         df
     }

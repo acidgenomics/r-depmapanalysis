@@ -32,7 +32,8 @@ data(crispr)
 ## DepMapGeneEffect ====
 object <- crispr
 print(dim(object))
-oncotreeCode <- decode(colData(object)[["cellosaurus"]][["oncotreeCode"]])
+oncotreeCode <-
+    levels(colData(object)[["cellosaurus"]][["oncotreeCode"]])[[1L]]
 print(oncotreeCode)
 subset <- selectCells(object, oncotreeCode = oncotreeCode)
 print(dim(object))
