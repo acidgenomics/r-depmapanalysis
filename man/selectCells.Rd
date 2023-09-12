@@ -27,7 +27,7 @@ Modified object.
 Select cells
 }
 \note{
-Updated 2023-01-26.
+Updated 2023-09-12.
 }
 \examples{
 data(crispr)

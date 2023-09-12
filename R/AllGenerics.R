@@ -7,6 +7,8 @@ setGeneric(
     }
 )
 
+# FIXME Need to use AcidGenerics for this.
+
 #' @rdname diffExp
 #' @export
 setGeneric(
@@ -15,6 +17,9 @@ setGeneric(
         standardGeneric("diffExp")
     }
 )
+
+# FIXME Rename this to `predictSensitivity`.
+# FIXME Need to use AcidGenerics 
 
 #' @rdname euclidean
 #' @export
@@ -25,6 +30,9 @@ setGeneric(
     }
 )
 
+# FIXME Need to use AcidGenerics for this. Renamed to `excludeProblematicCells`.
+# FIXME Consider just exporting `excludeContaminatedCells`.
+
 #' @rdname filterProblematic
 #' @export
 setGeneric(
@@ -33,11 +41,6 @@ setGeneric(
         standardGeneric("filterProblematic")
     }
 )
-
-#' @export
-#' @name humanize
-#' @usage humanize(object, ...)
-NULL
 
 #' @rdname plotGeneEffect
 #' @export
@@ -75,6 +78,8 @@ setGeneric(
     }
 )
 
+# FIXME Rework our euclidean code to just use this.
+
 #' @rdname predictSensitivity
 #' @export
 setGeneric(
@@ -83,6 +88,8 @@ setGeneric(
         standardGeneric("predictSensitivity")
     }
 )
+
+# FIXME Need to move this to AcidGenerics.
 
 #' @rdname selectCells
 #' @export

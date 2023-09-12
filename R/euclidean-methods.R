@@ -1,3 +1,8 @@
+## FIXME Rename this to `predictSensitivity`.
+## FIXME Rework to use `euclidean` numeric method from AcidBase.
+
+
+
 #' @name euclidean
 #' @author Nitesh Turaga, Teresa Rice, Michael Steinbaugh
 #' @inherit AcidGenerics::euclidean

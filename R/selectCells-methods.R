@@ -1,13 +1,11 @@
-## FIXME Need to rethink this based on the restructing of colData between
-## Cellosaurus and Broad metadata sources. Consider just removing this from
-## the package for the time being?
+## FIXME Rework this to just dispatch on Cellosaurus object stashed in colData.
 
 
 
 #' Select cells
 #'
 #' @name selectCells
-#' @note Updated 2023-01-26.
+#' @note Updated 2023-09-12.
 #'
 #' @inheritParams AcidRoxygen::params
 #'

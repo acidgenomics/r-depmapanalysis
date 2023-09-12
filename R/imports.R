@@ -9,7 +9,7 @@ NULL
 ## S4 generics and methods =====================================================
 
 #' @importFrom AcidGenerics autopadZeros camelCase diffExp droplevels2 encode
-#' euclidean factorize humanize leftJoin makeDimnames makeNames
+#' euclidean factorize leftJoin makeDimnames makeNames
 #' mapGenesToRownames melt showHeader tpm zscore
 #' @importFrom BiocGenerics %in% do.call lapply mean order rbind t which
 #' @importFrom IRanges gsub median sub
