@@ -4,6 +4,16 @@
 #' @noRd
 .importSangerModelInfo <-
     function(date = "2023-08-01") {
+        date2 <- gsub(pattern = "-", replacement = "", x = date)
+        url <- pasteURL(
+            "cog.sanger.ac.uk",
+            "cmp",
+            "download",
+            paste0("model_list_", date2, ".csv"),
+            protocol = "https"
+        )
+        sanger <- import(con = .cacheURL(url), format = "csv")
+        sanger <- as(sanger, "DFrame")
         cello <- Cellosaurus()
         assert(
             is(cello, "Cellosaurus"),
@@ -18,21 +28,6 @@
             )
         )
         cello <- excludeContaminatedCells(cello)
-        date2 <- gsub(pattern = "-", replacement = "", x = date)
-        url <- pasteURL(
-            "cog.sanger.ac.uk",
-            "cmp",
-            "download",
-            paste0("model_list_", date2, ".csv"),
-            protocol = "https"
-        )
-        ## FIXME Can we use the base engine here instead?
-        sanger <- import(
-            con = .cacheURL(url),
-            format = "csv",
-            engine = "data.table"
-        )
-        sanger <- as(sanger, "DFrame")
         ids <- list()
         ids[["sanger"]] <- sanger[[1L]]
         ids[["cello"]] <- decode(cello[["sangerModelId"]])
