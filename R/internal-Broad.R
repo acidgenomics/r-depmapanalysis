@@ -1,3 +1,9 @@
+## FIXME Can we remap old NCBI gene identifiers rather than excluding?
+## "TIAF1_9220", now 399687.
+## https://www.ncbi.nlm.nih.gov/gene/?term=9220
+
+
+
 #' Import a Broad DepMap data file
 #'
 #' @note Updated 2023-08-09.
