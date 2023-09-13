@@ -40,7 +40,7 @@ NULL
 
 ## Standard functions ==========================================================
 
-#' @importFrom AcidBase pasteURL showSlotInfo
+#' @importFrom AcidBase pasteURL showSlotInfo strsplit2
 #' @importFrom AcidCLI abort alert alertInfo alertWarning dl h1 toInlineString
 #' @importFrom AcidExperiment makeSummarizedExperiment
 #' @importFrom AcidGenomes HGNC NcbiGeneInfo emptyRanges makeGRangesFromEnsembl

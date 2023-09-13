@@ -44,7 +44,7 @@ Depends:
     R (>= 4.3),
     SummarizedExperiment (>= 1.30.0)
 Imports:
-    AcidBase (>= 0.6.21),
+    AcidBase (>= 0.6.22),
     AcidCLI (>= 0.2.8),
     AcidExperiment (>= 0.4.7),
     AcidGenerics (>= 0.6.11),
