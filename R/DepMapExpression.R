@@ -70,24 +70,19 @@ DepMapTxExpression <- # nolint
             pattern = ".*(ENST[0-9]{11})$",
             replacement = "\\1",
             x = rn
-
         )
+        assert(allAreMatchingRegex(x = rn, pattern = "^ENST[0-9]{11}$"))
         rownames(assay) <- rn
-        ncol <- length(x[[1L]])
-        x <- unlist(x, recursive = FALSE, use.names = FALSE)
-        x <- matrix(data = x, ncol = ncol, byrow = TRUE)
-
-        matrix(as.numeric(unlist(strsplit(vv, " - "))), ncol = 2, byrow = TRUE)
-
-        rn <- do.call(
-            what = rbind,
-            args =
+        ## FIXME We don't want to hard code the release version here.
+        ## Alternatively, can stash the Ensembl release in the JSON metadata.
+        rowRanges <- makeGRangesFromEnsembl(
+            organism = "Homo sapiens",
+            level = "transcripts",
+            genomeBuild = "GRCh38",
+            release = 104L,
+            ignoreVersion = TRUE
         )
-
-        ##
-
-        ## Rows:
-        ## [1] "TSPAN6_ENST00000373020" "TSPAN6_ENST00000494424" "TSPAN6_ENST00000496771"
+        assert(isSubset(rownames(assay), names(rowRanges)))
         ## Columns:
         ## [1] "PR_AdBjpG" "PR_I2AzwG" "PR_5ekAAC"
         colData <- .importBroadDataFile(url = colDataUrl)
