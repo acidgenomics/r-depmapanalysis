@@ -10,15 +10,7 @@ load_all(helpers = FALSE)
 
 ## datasets ====================================================================
 
-## Datasets JSON from "datasets.json".
-datasets <- import(
-    con = system.file(
-        "extdata",
-        "datasets.json",
-        package = .pkgName,
-        mustWork = TRUE
-    )
-)
+datasets <- import("datasets.json")
 
 ## Save `R/sysdata.rda` ========================================================
 
