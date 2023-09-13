@@ -64,6 +64,7 @@ Imports:
     methods,
     utils
 Suggests:
+    memuse,
     testthat (>= 3.1.10),
     tidytext (>= 0.4.1)
 Additional_repositories: https://r.acidgenomics.com
