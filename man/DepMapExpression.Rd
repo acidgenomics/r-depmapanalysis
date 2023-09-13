@@ -17,7 +17,7 @@ DepMapTxExpression()
 Import DepMap gene or transcript expression data
 }
 \note{
-Updated 2023-09-11.
+Updated 2023-09-13.
 }
 \examples{
 ## Gene level.

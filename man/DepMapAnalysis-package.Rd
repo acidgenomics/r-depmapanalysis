@@ -26,6 +26,7 @@ Authors:
 
 Other contributors:
 \itemize{
+  \item Redona Therapeutics [funder]
   \item Acid Genomics [copyright holder, funder]
 }
 

@@ -1,15 +1,10 @@
-## FIXME Need to update validity method for DepMapGeneExpression.
-
-
-
 #' Import DepMap gene or transcript expression data
 #'
 #' @name DepMapExpression
-#' @note Updated 2023-09-11.
+#' @note Updated 2023-09-13.
 #'
 #' @return `DepMapExpression`.
 #'
-#' @importFrom memuse Sys.meminfo memuse
 #' @examples
 #' ## Gene level.
 #' object <- DepMapGeneExpression()
@@ -35,12 +30,16 @@ DepMapGeneExpression <- # nolint
 
 
 
+## FIXME This step takes too long in RStudio...consider informing the user.
 ## FIXME Need to handle transcript-to-gene mapping here.
 ## FIXME This file is large and can crash RStudio on a MacBook.
-## FIXME Add a RAM check here, and inform user that this can take a long time.
 ## FIXME This uses that funky Profiles.csv file for identifiers, need to
 ## rethink the mapping.
-## FIXME Consider adding CPU core and RAM checks into goalie.
+## Need to transpose the assay to get cells into columns.
+## FIXME Transcripts currently map to Ensembl/GENCODE, so use AnnotationHub
+## for that.
+## FIXME Need to import "OmicsProfiles.csv" here.
+## FIXME Need to import "OmicsExpressionTranscriptsTPMLogp1Profile.csv" here.
 
 #' @rdname DepMapExpression
 #' @export
@@ -50,7 +49,8 @@ DepMapTxExpression <- # nolint
         files <- datasets[[dataset]][["files"]]
         assert(
             isString(dataset),
-            is.list(files)
+            is.list(files),
+            hasRAM(n = 14L)
         )
         assayUrl <- files[["OmicsExpressionTranscriptsTPMLogp1Profile.csv"]]
         colDataUrl <- files[["OmicsProfiles.csv"]]
@@ -58,13 +58,7 @@ DepMapTxExpression <- # nolint
             isAURL(assayUrl),
             isAURL(colDataUrl)
         )
-        ## This step is memory intensive and takes a while.
-
-        ## memuse library makes it easy to compare digital values
-        if (Sys.meminfo()[["totalram"]] < memuse(16, unit = 'GiB')) {
-            stop("Required RAM at least 16 GiB.")
-        }
-
+        ## FIXME This step seems to be hanging in RStudio...need to debug.
         assay <- .importBroadDataFile(
             url = assayUrl,
             rownameCol = 1L,
@@ -72,12 +66,6 @@ DepMapTxExpression <- # nolint
         )
         assay <- t(assay)
         colData <- .importBroadDataFile(url = colDataUrl)
-        ## Need to transpose the assay to get cells into columns.
-        ## FIXME Transcripts currently map to Ensembl/GENCODE, so use AnnotationHub
-        ## for that.
-        ## FIXME Consider erroring unless user has > 16 GB of RAM.
-        ## FIXME Need to import "OmicsProfiles.csv" here.
-        ## FIXME Need to import "OmicsExpressionTranscriptsTPMLogp1Profile.csv" here.
         .makeBroadSingleAssaySE(
             file = "OmicsExpressionTranscriptsTPMLogp1Profile.csv",
             assayName = "log2Tpm",

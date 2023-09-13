@@ -19,5 +19,5 @@ validity checks.
 Cells in columns, genes in rows.
 }
 \note{
-Updated 2023-08-22.
+Updated 2023-09-12.
 }
