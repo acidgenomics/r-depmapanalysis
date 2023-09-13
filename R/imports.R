@@ -52,7 +52,7 @@ NULL
 #' geom_point geom_violin geom_vline ggplot labs scale_y_discrete
 #' @importFrom goalie allAreMatchingFixed allAreMatchingRegex allAreURLs
 #' areDisjointSets areIntersectingSets areSetEqual assert bapply hasColnames
-#' hasDuplicates hasLength hasNoDuplicates hasRownames isAFile isAURL
+#' hasDuplicates hasLength hasNoDuplicates hasRAM hasRownames isAFile isAURL
 #' isCharacter isFlag isInt isInstalled isPositive isScalar isString isSubset
 #' requireNamespaces validate validateClasses
 #' @importFrom matrixStats colSums2 rowMaxs rowMins
