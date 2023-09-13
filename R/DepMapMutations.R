@@ -1,3 +1,10 @@
+## FIXME Consider reworking using OmicsSomaticMutationsMAFProfile.maf,
+## which we can import via maftools.
+##
+## Consider filtering dataset to only include drivers.
+
+
+
 #' Import DepMap somatic mutation data
 #'
 #' @export
