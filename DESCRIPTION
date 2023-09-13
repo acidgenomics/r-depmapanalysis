@@ -27,7 +27,7 @@ Authors@R: c(
     ),
     person(
         given = "Redona Therapeutics",
-        role = c("cph", "fnd")
+        role = "fnd"
     ))
     person(
         given = "Acid Genomics",
