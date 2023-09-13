@@ -58,14 +58,43 @@ DepMapTxExpression <- # nolint
             isAURL(assayUrl),
             isAURL(colDataUrl)
         )
-        ## FIXME This step seems to be hanging in RStudio...need to debug.
         assay <- .importBroadDataFile(
             url = assayUrl,
             rownameCol = 1L,
             return = "matrix"
         )
         assay <- t(assay)
+        rn <- rownames(assay)
+        assert(allAreMatchingFixed(x = rn, pattern = "ENST"))
+        rn <- gsub(
+            pattern = ".*(ENST[0-9]{11})$",
+            replacement = "\\1",
+            x = rn
+
+        )
+        rownames(assay) <- rn
+        ncol <- length(x[[1L]])
+        x <- unlist(x, recursive = FALSE, use.names = FALSE)
+        x <- matrix(data = x, ncol = ncol, byrow = TRUE)
+
+        matrix(as.numeric(unlist(strsplit(vv, " - "))), ncol = 2, byrow = TRUE)
+
+        rn <- do.call(
+            what = rbind,
+            args =
+        )
+
+        ##
+
+        ## Rows:
+        ## [1] "TSPAN6_ENST00000373020" "TSPAN6_ENST00000494424" "TSPAN6_ENST00000496771"
+        ## Columns:
+        ## [1] "PR_AdBjpG" "PR_I2AzwG" "PR_5ekAAC"
         colData <- .importBroadDataFile(url = colDataUrl)
+
+        ## FIXME May want to match to a specific release version.
+        rowRanges <- makeGRangesFromEnsembl(organism = "Homo sapiens")
+
         .makeBroadSingleAssaySE(
             file = "OmicsExpressionTranscriptsTPMLogp1Profile.csv",
             assayName = "log2Tpm",
