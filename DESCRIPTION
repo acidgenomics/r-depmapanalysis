@@ -2,7 +2,7 @@ Package: DepMapAnalysis
 Title: DepMap Analysis Utilities
 Description: Cancer Dependency Map (DepMap) analysis toolkit.
 Version: 0.3.0.9000
-Date: 2023-09-12
+Date: 2023-09-13
 Authors@R: c(
     person(
         given = "Michael",
@@ -25,6 +25,10 @@ Authors@R: c(
         role = "aut",
         comment = c(ORCID = "0000-0002-0224-9817")
     ),
+    person(
+        given = "Redona Therapeutics",
+        role = c("cph", "fnd")
+    ))
     person(
         given = "Acid Genomics",
         role = c("cph", "fnd")
