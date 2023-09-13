@@ -43,7 +43,7 @@ NULL
 #' @importFrom AcidBase pasteURL showSlotInfo
 #' @importFrom AcidCLI abort alert alertInfo alertWarning dl h1 toInlineString
 #' @importFrom AcidExperiment makeSummarizedExperiment
-#' @importFrom AcidGenomes HGNC NcbiGeneInfo emptyRanges
+#' @importFrom AcidGenomes HGNC NcbiGeneInfo emptyRanges makeGRangesFromEnsembl
 #' @importFrom AcidPlots .data acid_geom_label_repel
 #' @importFrom Cellosaurus Cellosaurus
 #' @importFrom IRanges CharacterList
