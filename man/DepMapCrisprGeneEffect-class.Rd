@@ -12,7 +12,7 @@ DepMap CRISPR gene effect
 }
 \details{
 Inherits from \code{DepMapGeneEffect}, which extends \code{SummarizedExperiment}.
-Cells in columns, genes in rows.
+Cells in columns, NCBI genes in rows.
 }
 \note{
 Updated 2023-08-09.

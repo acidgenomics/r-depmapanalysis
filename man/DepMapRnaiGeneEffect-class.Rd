@@ -12,7 +12,7 @@ DepMap RNAi gene effect (DEMETER2)
 }
 \details{
 Inherits from \code{DepMapGeneEffect}, which extends \code{SummarizedExperiment}.
-Cells in columns, genes in rows.
+Cells in columns, NCBI genes in rows.
 }
 \note{
 Updated 2023-08-09.

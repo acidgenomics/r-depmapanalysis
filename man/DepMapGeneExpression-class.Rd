@@ -12,7 +12,7 @@ DepMap RNA-seq gene expression
 }
 \details{
 Inherits from \code{SummarizedExperiment}.
-Cells in columns, genes in rows.
+Cells in columns, NCBI genes in rows.
 }
 \note{
 Updated 2023-09-14.

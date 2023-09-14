@@ -12,7 +12,7 @@ DepMap RNA-seq transcript expression
 }
 \details{
 Inherits from \code{RangedSummarizedExperiment}.
-Cells in columns, transcripts in rows.
+Cells in columns, Ensembl transcripts in rows.
 }
 \note{
 Updated 2023-09-14.
