@@ -217,7 +217,7 @@
 #' Sample metadata now indicates that there are merged cells we should drop
 #' from analysis (e.g. ACH-002260).
 #'
-#' @note Updated 2023-09-12.
+#' @note Updated 2023-09-14.
 #' @noRd
 .importBroadModelInfo <-
     function(dataset) {
@@ -233,18 +233,6 @@
         )
         assert(is(broad, "DFrame"))
         cello <- Cellosaurus()
-        assert(
-            is(cello, "Cellosaurus"),
-            isSubset(
-                c(
-                    "accession",
-                    "cellLineName",
-                    "depmapId",
-                    "sangerModelId"
-                ),
-                colnames(cello)
-            )
-        )
         cello <- excludeContaminatedCells(cello)
         ids <- list()
         ids[["broad"]] <- broad[[1L]]
@@ -269,20 +257,11 @@
             drop = FALSE
         ]
         cello <- droplevels2(cello)
-        assert(
-            is(cello, "Cellosaurus"),
-            is(broad, "DFrame"),
-            validObject(cello)
-        )
         df <- as.DataFrame(list(
-            "cellLineName" = decode(cello[["cellLineName"]]),
-            "cellosaurusId" = decode(cello[["accession"]]),
-            "depmapId" = decode(cello[["depmapId"]]),
-            "sangerModelId" = decode(cello[["sangerModelId"]]),
             "cellosaurus" = cello,
             "broad" = broad
         ))
-        rownames(df) <- makeNames(df[["depmapId"]])
+        rownames(df) <- makeNames(decode(df[["cellosaurus"]][["depmapId"]]))
         metadata(df) <- list("excludedCells" = ids[["setdiff"]])
         df
     }
