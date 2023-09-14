@@ -47,7 +47,7 @@
         )
     )
     ok <- validateClasses(
-        object = rowData(object),
+        object = mcols(rowRanges(object)),
         expected = list(
             "broadClass" = "Rle",
             "canonicalTranscript" = "Rle",

@@ -19,6 +19,7 @@ NULL
 #' @importFrom S4Vectors I complete.cases decode head mcols metadata metadata<-
 #' split unname
 #' @importFrom SummarizedExperiment assay assayNames colData colData<- rowData
+#' rowRanges
 #' @importFrom methods show
 #' @importFrom pipette import
 NULL
