@@ -70,18 +70,19 @@ DepMapTxExpression <- # nolint
         rownames(op) <- makeNames(op[["profileId"]])
         assert(isSubset(colnames(assay), rownames(op)))
         op <- op[colnames(assay), , drop = FALSE]
-        assert(
-            identical(unique(op[["datatype"]]), "rna"),
-            hasNoDuplicates(op[["modelId"]])
-        )
         ## FIXME Consider removing duplicates here?
-        ## > sort(op[["modelId"]][which(duplicated(op[["modelId"]]))])
+        ## > bad <- sort(op[["modelId"]][which(duplicated(op[["modelId"]]))])
         ## There are funky cells with duplicate profiles here...what's going
         ## on with that?
         ##  [1] "ACH-000029" "ACH-000095" "ACH-000143" "ACH-000206" "ACH-000328"
         ##  [6] "ACH-000337" "ACH-000455" "ACH-000468" "ACH-000517" "ACH-000532"
         ## [11] "ACH-000556" "ACH-000597" "ACH-000700" "ACH-000931" "ACH-000975"
         ## [16] "ACH-001192"
+        assert(
+            identical(unique(op[["datatype"]]), "rna"),
+            hasNoDuplicates(op[["modelId"]])
+        )
+
         ## Subset to only contain relevant profiles that have transcript data.
         cells <- sort(intersect(df[["modelId"]], modelInfo[["depmapId"]]))
         ok <- df[["modelId"]] %in% cells
