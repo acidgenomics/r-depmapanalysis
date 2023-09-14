@@ -354,7 +354,6 @@ setClass(
 
 
 
-
 #' DepMap somatic mutation data
 #'
 #' @details
@@ -486,6 +485,9 @@ setClass(
 )
 
 
+
+## FIXME Need to rework this, as we will keep model info in columns, rather
+## than cells.
 
 #' DepMap RNA-seq transcript expression
 #'
