@@ -1,19 +1,21 @@
-## Benchmarks for "OmicsExpressionTranscriptsTPMLogp1Profile.csv" import
-## on AWS EC2 r6a instance:
-## - base: > 5 minutes
-## - data.table: munges the file
-## - readr: 2 minutes, 40 seconds
-
-## 23q2 release is processed against Ensembl 104. However, we're
-## intentionally using a rolling release approach here to simply remove
-## dead transcripts from analysis.
-
-
-
 #' Import DepMap transcript expression data
 #'
 #' @export
 #' @note Updated 2023-09-14.
+#'
+#' @details
+#' Benchmarks for import of `"OmicsExpressionTranscriptsTPMLogp1Profile.csv"` on
+#' AWS EC2 r6a instance:
+#'
+#' - base: > 5 minutes.
+#' - data.table: munges the file.
+#' - readr: 2 minutes, 40 seconds.
+#'
+#' @section Transcript exclusion:
+#'
+#' The 23q2 release is processed against Ensembl 104. However, we're
+#' intentionally using a rolling release approach here to simply remove
+#' dead transcripts from analysis.
 #'
 #' @return `DepMapTxExpression`.
 #'

@@ -12,9 +12,26 @@ DepMapTxExpression()
 \description{
 Import DepMap transcript expression data
 }
+\details{
+Benchmarks for import of \code{"OmicsExpressionTranscriptsTPMLogp1Profile.csv"} on
+AWS EC2 r6a instance:
+\itemize{
+\item base: > 5 minutes.
+\item data.table: munges the file.
+\item readr: 2 minutes, 40 seconds.
+}
+}
 \note{
 Updated 2023-09-14.
 }
+\section{Transcript exclusion}{
+
+
+The 23q2 release is processed against Ensembl 104. However, we're
+intentionally using a rolling release approach here to simply remove
+dead transcripts from analysis.
+}
+
 \examples{
 ## This is CPU intensive.
 ## > object <- DepMapTxExpression()
