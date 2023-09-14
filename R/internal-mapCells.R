@@ -1,3 +1,7 @@
+## FIXME Rework this to just map using internal cellosaurus data in colData.
+
+
+
 #' Map cell name input to column names
 #'
 #' @note Updated 2023-01-26.
