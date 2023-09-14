@@ -4,6 +4,10 @@
 ## - data.table: munges the file
 ## - readr: 2 minutes, 40 seconds
 
+## 23q2 release is processed against Ensembl 104. However, we're
+## intentionally using a rolling release approach here to simply remove
+## dead transcripts from analysis.
+
 
 
 #' Import DepMap transcript expression data
@@ -33,6 +37,7 @@ DepMapTxExpression <- # nolint
             isAURL(assayUrl),
             isAURL(profilesUrl)
         )
+        ## This step is CPU intensive.
         assay <- .importBroadDataFile(
             url = assayUrl,
             rownameCol = 1L,
@@ -50,9 +55,6 @@ DepMapTxExpression <- # nolint
         )
         assert(allAreMatchingRegex(x = rn, pattern = "^ENST[0-9]{11}$"))
         rownames(assay) <- rn
-        ## 23q2 release is processed against Ensembl 104. However, we're
-        ## intentionally using a rolling release approach here to simply remove
-        ## dead transcripts from analysis.
         rr <- makeGRangesFromEnsembl(
             organism = "Homo sapiens",
             level = "transcripts",
@@ -94,8 +96,10 @@ DepMapTxExpression <- # nolint
         cd <- leftJoin(x = op, y = mi, by = "modelId")
         assert(isSubset(rownames(cd), colnames(assay)))
         assay <- assay[, rownames(cd)]
+        rownames(cd) <- decode(cd[["cellosaurus"]][["accession"]])
+        colnames(assay) <- rownames(cd)
+        ## Prepare SummarizedExperiment ----------------------------------------
         assays <- list("log2Tpm" = assay)
-        ## FIXME Need to remap profile to cellosaurus ID.
         metadata <- list(
             "dataset" = dataset,
             "excludedCells" = excludedCells,

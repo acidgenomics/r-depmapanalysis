@@ -26,7 +26,7 @@
 #' @examples
 #' data(rnaseq)
 #'
-#' ## DepMapExpression ====
+#' ## DepMapGeneExpression ====
 #' object <- rnaseq
 #' sensitiveCells <- colnames(object)[c(1L:5L)]
 #' insensitiveCells <- colnames(object)[c(6L:10L)]
@@ -42,8 +42,8 @@ NULL
 
 ## FIXME Need to rework by porting our Python code.
 
-## Updated 2023-08-22.
-`diffExp,DepMapExpression` <-
+## Updated 2023-09-14.
+`diffExp,DepMapGeneExpression` <-
     function(
         object,
         sensitiveCells,
@@ -70,6 +70,6 @@ NULL
 #' @export
 setMethod(
     f = "diffExp",
-    signature = signature(object = "DepMapExpression"),
-    definition = `diffExp,DepMapExpression`
+    signature = signature(object = "DepMapGeneExpression"),
+    definition = `diffExp,DepMapGeneExpression`
 )

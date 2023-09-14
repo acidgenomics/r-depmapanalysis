@@ -13,11 +13,6 @@ setGeneric(
 NULL
 
 #' @export
-#' @name excludeContaminatedCells
-#' @usage excludeContaminatedCells(object, ...)
-NULL
-
-#' @export
 #' @name plotGeneEffect
 #' @usage plotGeneEffect(object, ...)
 NULL

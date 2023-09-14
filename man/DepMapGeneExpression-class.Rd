@@ -15,5 +15,5 @@ Inherits from \code{DepMapExpression}, which extends \code{SummarizedExperiment}
 Cells in columns, genes in rows.
 }
 \note{
-Updated 2023-08-09.
+Updated 2023-09-14.
 }

@@ -1,7 +1,8 @@
 ## S4 classes ==================================================================
 
 #' @importClassesFrom S4Vectors DFrame
-#' @importClassesFrom SummarizedExperiment SummarizedExperiment
+#' @importClassesFrom SummarizedExperiment RangedSummarizedExperiment
+#' SummarizedExperiment
 NULL
 
 

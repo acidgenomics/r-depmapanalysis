@@ -1,140 +1,159 @@
-## Classes to extend ===========================================================
+## Internal validity methods ===================================================
 
-#' `DepMapExperiment` virtual class
+## FIXME Just do this for both DepMapGeneExpression and DepMapTxExpression.
+##setValidity(
+##    Class = "DepMapExpression",
+##    method = function(object) {
+##        ok <- isSubset("log2Tpm", assayNames(object))
+##        if (!isTRUE(ok)) {
+##            return(ok)
+##        }
+##        TRUE
+##    }
+##)
+
+
+
+## Updated 2023-09-14.
+.validateNcbiGeneIds <- function(object) {
+    ok <- validate(
+        allAreMatchingRegex(
+            x = rownames(object),
+            pattern = "^[0-9]+$"
+        )
+    )
+    if (!isTRUE(ok)) {
+        return(ok)
+    }
+    ok <- validateClasses(
+        object = rowData(object),
+        expected = list(
+            "chromosome" = "Rle",
+            "dbXrefs" = "CompressedCharacterList",
+            "description" = "Rle",
+            "featureType" = "Rle",
+            "geneId" = "Rle",
+            "geneName" = "Rle",
+            "geneSynonyms" = "CompressedCharacterList",
+            "mapLocation" = "Rle",
+            "modificationDate" = "Rle",
+            "nomenclatureStatus" = "Rle",
+            "otherDesignations" = "CompressedCharacterList",
+            "taxonomyId" = "Rle",
+            "typeOfGene" = "Rle"
+        ),
+        subset = TRUE
+    )
+    if (!isTRUE(ok)) {
+        return(ok)
+    }
+    TRUE
+}
+
+
+
+## Updated 2023-09-14.
+.validateEnsemblTxIds <- function(object) {
+    ok <- validate(
+        allAreMatchingRegex(
+            x = rownames(object),
+            pattern = "^ENST[0-9]{11}$"
+        )
+    )
+    ok <- validateClasses(
+        object = rowData(object),
+        expected = list(
+            "broadClass" = "Rle",
+            "canonicalTranscript" = "Rle",
+            "description" = "Rle",
+            "gcContent" = "Rle",
+            "geneBiotype" = "Rle",
+            "geneId" = "Rle",
+            "geneIdVersion" = "Rle",
+            "geneName" = "Rle",
+            "geneSeqEnd" = "Rle",
+            "geneSeqStart" = "Rle",
+            "geneSynonyms" = "CompressedCharacterList",
+            "ncbiGeneId" = "CompressedIntegerList",
+            "seqCoordSystem" = "Rle",
+            "txBiotype" = "Rle",
+            "txCdsSeqEnd" = "Rle",
+            "txCdsSeqStart" = "Rle",
+            "txExternalName" = "Rle",
+            "txId" = "Rle",
+            "txIdVersion" = "Rle",
+            "txIsCanonical" = "Rle",
+            "txName" = "Rle",
+            "txSupportLevel" = "Rle"
+        ),
+        subset = TRUE
+    )
+    if (!isTRUE(ok)) {
+        return(ok)
+    }
+    TRUE
+}
+
+
+
+## Updated 2023-09-14.
+.validateSE <- function(object) {
+    ok <- validate(
+        hasRownames(object),
+        hasColnames(object),
+        allAreMatchingRegex(x = colnames(object), pattern = "^CVCL_.+$")
+    )
+    if (!isTRUE(ok)) {
+        return(ok)
+    }
+    ok <- validateClasses(
+        object = colData(object),
+        expected = list(
+            "broad" = "DFrame",
+            "cellosaurus" = "Cellosaurus"
+        ),
+        subset = TRUE
+    )
+    if (!isTRUE(ok)) {
+        return(ok)
+    }
+    ok <- validateClasses(
+        object = metadata(object),
+        expected = list(
+            "dataset" = "character",
+            "date" = "Date",
+            "json" = "list",
+            "packageName" = "character",
+            "packageVersion" = "package_version",
+            "sessionInfo" = "sessionInfo",
+            "wd" = "character"
+        ),
+        subset = TRUE
+    )
+    if (!isTRUE(ok)) {
+        return(ok)
+    }
+    TRUE
+}
+
+
+
+## Virtual classes =============================================================
+
+#' `DepMapGeneEffect` virtual class
 #'
 #' @export
 #' @note Updated 2023-09-14.
 #'
 #' @details
-#' Virtual class, not intended to be worked with directly.
-#'
-#' Extends `SummarizedExperiment` class, with additional DepMap-specific
-#' validity checks.
-#'
-#' Cells in columns, genes in rows.
-#'
-#' @return `DepMapExperiment`.
-setClass(
-    Class = "DepMapExperiment",
-    contains = "SummarizedExperiment"
-)
-setValidity(
-    Class = "DepMapExperiment",
-    method = function(object) {
-        ok <- validate(
-            hasRownames(object),
-            hasColnames(object),
-            allAreMatchingRegex(
-                x = rownames(object),
-                pattern = "^[0-9]+$"
-            ),
-            allAreMatchingRegex(
-                x = colnames(object),
-                pattern = "^CVCL_.+$"
-            )
-        )
-        if (!isTRUE(ok)) {
-            return(ok)
-        }
-        ok <- validateClasses(
-            object = rowData(object),
-            expected = list(
-                "chromosome" = "Rle",
-                "dbXrefs" = "CompressedCharacterList",
-                "description" = "Rle",
-                "featureType" = "Rle",
-                "geneId" = "Rle",
-                "geneName" = "Rle",
-                "geneSynonyms" = "CompressedCharacterList",
-                "mapLocation" = "Rle",
-                "modificationDate" = "Rle",
-                "nomenclatureStatus" = "Rle",
-                "otherDesignations" = "CompressedCharacterList",
-                "taxonomyId" = "Rle",
-                "typeOfGene" = "Rle"
-            ),
-            subset = TRUE
-        )
-        if (!isTRUE(ok)) {
-            return(ok)
-        }
-        ok <- validateClasses(
-            object = colData(object),
-            expected = list(
-                "broad" = "DFrame",
-                "cellosaurus" = "Cellosaurus"
-            ),
-            subset = TRUE
-        )
-        if (!isTRUE(ok)) {
-            return(ok)
-        }
-        ok <- validateClasses(
-            object = metadata(object),
-            expected = list(
-                "dataset" = "character",
-                "date" = "Date",
-                "packageName" = "character",
-                "packageVersion" = "package_version"
-            ),
-            subset = TRUE
-        )
-        if (!isTRUE(ok)) {
-            return(ok)
-        }
-        TRUE
-    }
-)
-
-
-
-#' `DepMapExpression` virtual class
-#'
-#' @export
-#' @note Updated 2023-08-22.
-#'
-#' @details
-#' Virtual class, not intended to be worked with directly.
-#'
-#' RNA-seq TPM gene expression data for just protein coding genes using RSEM.
-#' Log2 transformed, using a pseudo-count of 1.
-#'
-#' Inherits from `DepMapExperiment`.
-#'
-#' @return `DepMapExpression`.
-setClass(
-    Class = "DepMapExpression",
-    contains = "DepMapExperiment"
-)
-setValidity(
-    Class = "DepMapExpression",
-    method = function(object) {
-        ok <- isSubset("log2Tpm", assayNames(object))
-        if (!isTRUE(ok)) {
-            return(ok)
-        }
-        TRUE
-    }
-)
-
-
-
-#' `DepMapGeneEffect` virtual class
-#'
-#' @export
-#' @note Updated 2023-08-22.
-#'
-#' @details
 #' Not intended to be used directly.
-#'
-#' Inherits from `DepMapExperiment`.
 #'
 #' `DepMapCrisprGeneEffect` and `DepMapRnaiGeneEffect` extend this class.
 #'
 #' @return `DepMapGeneEffect`.
 setClass(
     Class = "DepMapGeneEffect",
-    contains = "DepMapExperiment"
+    contains = "SummarizedExperiment"
 )
 setValidity(
     Class = "DepMapGeneEffect",
@@ -242,6 +261,7 @@ setValidity(
 )
 
 
+## FIXME Check for NCBI genes here.
 
 #' DepMap copy number data
 #'
@@ -258,7 +278,7 @@ setValidity(
 #' @return `DepMapCopyNumber`.
 setClass(
     Class = "DepMapCopyNumber",
-    contains = "DepMapExperiment"
+    contains = "SummarizedExperiment"
 )
 setValidity(
     Class = "DepMapCopyNumber",
@@ -336,21 +356,23 @@ setValidity(
 )
 
 
+## FIXME Check for NCBI genes here.s
 
 #' DepMap RNA-seq gene expression
 #'
 #' @details
-#' Inherits from `DepMapExpression`, which extends `SummarizedExperiment`.
+#' Inherits from `SummarizedExperiment`.
 #' Cells in columns, genes in rows.
 #'
 #' @export
-#' @note Updated 2023-08-09.
+#' @note Updated 2023-09-14.
 #'
 #' @return `DepMapGeneExpression`.
 setClass(
     Class = "DepMapGeneExpression",
-    contains = "DepMapExpression"
+    contains = "SummarizedExperiment"
 )
+## FIXME Add gene-level specific checks here.
 
 
 
@@ -464,7 +486,7 @@ setValidity(
 #' @return `DepMapProteomics`.
 setClass(
     Class = "DepMapProteomics",
-    contains = "DepMapExperiment"
+    contains = "SummarizedExperiment"
 )
 
 
@@ -489,21 +511,24 @@ setClass(
 #' DepMap RNA-seq transcript expression
 #'
 #' @details
-#' Inherits from `DepMapExpression`, which extends `SummarizedExperiment`.
+#' Inherits from `RangedSummarizedExperiment`.
 #' Cells in columns, transcripts in rows.
 #'
 #' @export
-#' @note Updated 2023-09-09.
+#' @note Updated 2023-09-14.
 #'
 #' @return `DepMapTxExpression`.
 setClass(
     Class = "DepMapTxExpression",
-    contains = "DepMapExpression"
+    contains = "RangedSummarizedExperiment"
 )
 setValidity(
     Class = "DepMapTxExpression",
     method = function(object) {
-        ## FIXME Need to add validity check.
+        ok <- .validateEnsemblTxIds(object)
+        if (!isTRUE(ok)) {
+            return(ok)
+        }
         TRUE
     }
 )

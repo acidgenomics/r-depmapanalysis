@@ -11,9 +11,9 @@
 DepMap RNA-seq transcript expression
 }
 \details{
-Inherits from \code{DepMapExpression}, which extends \code{SummarizedExperiment}.
+Inherits from \code{RangedSummarizedExperiment}.
 Cells in columns, transcripts in rows.
 }
 \note{
-Updated 2023-08-09.
+Updated 2023-09-14.
 }

@@ -1,13 +1,13 @@
 #' @name plotGeneEffectVsExpression
 #' @inherit AcidGenerics::plotGeneEffectVsExpression description return title
-#' @note Updated 2023-09-12.
+#' @note Updated 2023-09-14.
 #'
 #' @inheritParams AcidRoxygen::params
 #' @inheritParams params
 #'
 #' @param effect `DepMapGeneEffect`.
 #'
-#' @param expression `DepMapExpression`.
+#' @param expression `DepMapGeneExpression`.
 #'
 #' @param subtype `character(1)` or `NULL`.
 #' Cell subtype name to use for filtering.
@@ -113,7 +113,7 @@ setMethod(
     f = "plotGeneEffectVsExpression",
     signature = signature(
         effect = "DepMapGeneEffect",
-        expression = "DepMapExpression"
+        expression = "DepMapGeneExpression"
     ),
     definition = `plotGeneEffectVsExpression,Effect,Expression`
 )
