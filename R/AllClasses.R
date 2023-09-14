@@ -1,19 +1,5 @@
 ## Internal validity methods ===================================================
 
-## FIXME Just do this for both DepMapGeneExpression and DepMapTxExpression.
-##setValidity(
-##    Class = "DepMapExpression",
-##    method = function(object) {
-##        ok <- isSubset("log2Tpm", assayNames(object))
-##        if (!isTRUE(ok)) {
-##            return(ok)
-##        }
-##        TRUE
-##    }
-##)
-
-
-
 ## Updated 2023-09-14.
 .validateNcbiGeneIds <- function(object) {
     ok <- validate(
@@ -158,6 +144,10 @@ setClass(
 setValidity(
     Class = "DepMapGeneEffect",
     method = function(object) {
+        ok <- .validateSE(object)
+        if (!isTRUE(ok)) {
+            return(ok)
+        }
         ok <- isSubset("effect", assayNames(object))
         if (!isTRUE(ok)) {
             return(ok)
@@ -273,7 +263,7 @@ setValidity(
 #' Cells in columns, genes in rows.
 #'
 #' @export
-#' @note Updated 2023-09-11.
+#' @note Updated 2023-09-14.
 #'
 #' @return `DepMapCopyNumber`.
 setClass(
@@ -283,6 +273,10 @@ setClass(
 setValidity(
     Class = "DepMapCopyNumber",
     method = function(object) {
+        ok <- .validateSE(object)
+        if (!isTRUE(ok)) {
+            return(ok)
+        }
         ok <- isSubset("log2CopyNumber", assayNames(object))
         if (!isTRUE(ok)) {
             return(ok)
@@ -372,7 +366,20 @@ setClass(
     Class = "DepMapGeneExpression",
     contains = "SummarizedExperiment"
 )
-## FIXME Add gene-level specific checks here.
+setValidity(
+    Class = "DepMapGeneExpression",
+    method = function(object) {
+        ok <- .validateSE(object)
+        if (!isTRUE(ok)) {
+            return(ok)
+        }
+        ok <- isSubset("log2Tpm", assayNames(object))
+        if (!isTRUE(ok)) {
+            return(ok)
+        }
+        TRUE
+    }
+)
 
 
 
@@ -472,7 +479,7 @@ setValidity(
 
 
 
-## FIXME May need to use a custom validity method here instead.
+## FIXME Need to add a validity method here.
 
 #' DepMap protein expression data
 #'
@@ -525,6 +532,14 @@ setClass(
 setValidity(
     Class = "DepMapTxExpression",
     method = function(object) {
+        ok <- .validateSE(object)
+        if (!isTRUE(ok)) {
+            return(ok)
+        }
+        ok <- isSubset("log2Tpm", assayNames(object))
+        if (!isTRUE(ok)) {
+            return(ok)
+        }
         ok <- .validateEnsemblTxIds(object)
         if (!isTRUE(ok)) {
             return(ok)
