@@ -26,6 +26,7 @@ objs <- lapply(
         colData(object)[["cellosaurus"]] <-
             droplevels2(colData(object)[["cellosaurus"]])
         object
+    }
 )
 crispr <- objs[["crispr"]]
 rnai <- objs[["rnai"]]
