@@ -486,9 +486,6 @@ setClass(
 
 
 
-## FIXME Need to rework this, as we will keep model info in columns, rather
-## than cells.
-
 #' DepMap RNA-seq transcript expression
 #'
 #' @details
@@ -496,10 +493,17 @@ setClass(
 #' Cells in columns, transcripts in rows.
 #'
 #' @export
-#' @note Updated 2023-08-09.
+#' @note Updated 2023-09-09.
 #'
 #' @return `DepMapTxExpression`.
 setClass(
     Class = "DepMapTxExpression",
     contains = "DepMapExpression"
+)
+setValidity(
+    Class = "DepMapTxExpression",
+    method = function(object) {
+        ## FIXME Need to add validity check.
+        TRUE
+    }
 )

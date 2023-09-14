@@ -478,7 +478,7 @@ formals(.importBroadModelInfo)[["dataset"]] <- .currentBroadDataset
         args <- Filter(Negate(is.null), args)
         se <- do.call(what = makeSummarizedExperiment, args = args)
         rownames(se) <- decode(rowData(se)[["geneId"]])
-        colnames(se) <- decode(colData(se)[["cellosaurusId"]])
+        colnames(se) <- decode(colData(se)[["cellosaurus"]][["accession"]])
         se <- se[
             order(as.integer(rownames(se))),
             order(colnames(se)),
