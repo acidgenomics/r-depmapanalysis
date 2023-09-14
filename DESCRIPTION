@@ -64,7 +64,8 @@ Imports:
     methods,
     utils
 Suggests:
-    memuse,
+    memuse (>= 4.2.3),
+    readr (>= 2.1.4),
     testthat (>= 3.1.10),
     tidytext (>= 0.4.1)
 Additional_repositories: https://r.acidgenomics.com

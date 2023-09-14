@@ -1,7 +1,7 @@
 #' Import DepMap gene or transcript expression data
 #'
 #' @name DepMapExpression
-#' @note Updated 2023-09-13.
+#' @note Updated 2023-09-14.
 #'
 #' @return `DepMapExpression`.
 #'
@@ -30,17 +30,6 @@ DepMapGeneExpression <- # nolint
 
 
 
-## FIXME This step takes too long in RStudio...consider informing the user.
-## FIXME Need to handle transcript-to-gene mapping here.
-## FIXME This file is large and can crash RStudio on a MacBook.
-## FIXME This uses that funky Profiles.csv file for identifiers, need to
-## rethink the mapping.
-## Need to transpose the assay to get cells into columns.
-## FIXME Transcripts currently map to Ensembl/GENCODE, so use AnnotationHub
-## for that.
-## FIXME Need to import "OmicsProfiles.csv" here.
-## FIXME Need to import "OmicsExpressionTranscriptsTPMLogp1Profile.csv" here.
-
 #' @rdname DepMapExpression
 #' @export
 DepMapTxExpression <- # nolint
@@ -48,6 +37,7 @@ DepMapTxExpression <- # nolint
         dataset <- .currentBroadDataset
         files <- datasets[[dataset]][["files"]]
         assert(
+            requireNamespaces("readr"),
             isString(dataset),
             is.list(files),
             hasRAM(n = 14L)
@@ -58,10 +48,15 @@ DepMapTxExpression <- # nolint
             isAURL(assayUrl),
             isAURL(colDataUrl)
         )
+        # Benchmarks on AWS EC2 r6a instance:
+        # - base: > 5 minutes
+        # - data.table: munges the file
+        # - readr: 2 minutes, 40 seconds
         assay <- .importBroadDataFile(
             url = assayUrl,
             rownameCol = 1L,
-            return = "matrix"
+            return = "matrix",
+            engine = "readr"
         )
         assay <- t(assay)
         rn <- rownames(assay)
