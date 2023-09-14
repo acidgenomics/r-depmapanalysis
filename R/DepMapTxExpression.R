@@ -1,41 +1,14 @@
-## FIXME Split these out into separate files.
-
-
-
-#' Import DepMap gene or transcript expression data
+#' Import DepMap transcript expression data
 #'
-#' @name DepMapExpression
+#' @export
 #' @note Updated 2023-09-14.
 #'
-#' @return `DepMapExpression`.
+#' @return `DepMapTxExpression`.
 #'
 #' @examples
-#' ## Gene level.
-#' object <- DepMapGeneExpression()
-#' print(object)
-#'
-#' ## Transcript level (CPU intensive).
+#' ## This is CPU intensive.
 #' ## > object <- DepMapTxExpression()
 #' ## > print(object)
-NULL
-
-
-
-#' @rdname DepMapExpression
-#' @export
-DepMapGeneExpression <- # nolint
-    function() {
-        .makeBroadSingleAssaySE(
-            file = "OmicsExpressionProteinCodingGenesTPMLogp1.csv",
-            assayName = "log2Tpm",
-            class = "DepMapGeneExpression"
-        )
-    }
-
-
-
-#' @rdname DepMapExpression
-#' @export
 DepMapTxExpression <- # nolint
     function() {
         dataset <- .currentBroadDataset

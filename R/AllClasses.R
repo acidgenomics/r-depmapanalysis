@@ -1,18 +1,9 @@
-## FIXME Here's an example change.
-
-## FIXME Assert that cellosaurusId is not NA for any objects containing cells.
-## FIXME Assert that no classes that extend SE contain any cellLineName
-## with NA in colData.
-## FIXME Need to add DepMapProteomics
-
-
-
 ## Classes to extend ===========================================================
 
 #' `DepMapExperiment` virtual class
 #'
 #' @export
-#' @note Updated 2023-09-12.
+#' @note Updated 2023-09-14.
 #'
 #' @details
 #' Virtual class, not intended to be worked with directly.
@@ -71,11 +62,7 @@ setValidity(
             object = colData(object),
             expected = list(
                 "broad" = "DFrame",
-                "cellLineName" = "character",
-                "cellosaurus" = "Cellosaurus",
-                "cellosaurusId" = "character",
-                "depmapId" = "character",
-                "sangerModelId" = "character"
+                "cellosaurus" = "Cellosaurus"
             ),
             subset = TRUE
         )
