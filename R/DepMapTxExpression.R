@@ -60,15 +60,39 @@ DepMapTxExpression <- # nolint
         assay <- assay[txs, , drop = FALSE]
         rowRanges <- rowRanges[txs]
         ## Columns (cells) -----------------------------------------------------
-        ## This contains multiple data types: rna, wes, wgs.
-        modelInfo <- .importBroadModelInfo(dataset = dataset)
-        df <- .importBroadDataFile(url = profilesUrl)
-        colnames(df) <- camelCase(colnames(df))
-        assert(isSubset(c("modelId", "profileId"), colnames(df)))
+        ## Using "mi" for model info.
+        mi <- .importBroadModelInfo(dataset = dataset)
+        ## Using "op" for omics profiles.
+        ## This contains multiple data types: rna, SNParray, wes, wgs.
+        op <- .importBroadDataFile(url = profilesUrl)
+        colnames(op) <- camelCase(colnames(op))
+        assert(isSubset(c("modelId", "profileId"), colnames(op)))
+        rownames(op) <- makeNames(op[["profileId"]])
+        assert(isSubset(colnames(assay), rownames(op)))
+        op <- op[colnames(assay), , drop = FALSE]
+        assert(
+            identical(unique(op[["datatype"]]), "rna"),
+            hasNoDuplicates(op[["modelId"]])
+        )
+        ## FIXME Consider removing duplicates here?
+        ## > sort(op[["modelId"]][which(duplicated(op[["modelId"]]))])
+        ## There are funky cells with duplicate profiles here...what's going
+        ## on with that?
+        ##  [1] "ACH-000029" "ACH-000095" "ACH-000143" "ACH-000206" "ACH-000328"
+        ##  [6] "ACH-000337" "ACH-000455" "ACH-000468" "ACH-000517" "ACH-000532"
+        ## [11] "ACH-000556" "ACH-000597" "ACH-000700" "ACH-000931" "ACH-000975"
+        ## [16] "ACH-001192"
+        ## Subset to only contain relevant profiles that have transcript data.
         cells <- sort(intersect(df[["modelId"]], modelInfo[["depmapId"]]))
         ok <- df[["modelId"]] %in% cells
         excludedCells <- sort(unique(df[["modelId"]][!ok]))
         df <- df[ok, , drop = FALSE]
+
+
+
+
+
+
         cd <- leftJoin(x = cd2, y = cd1, by = "depmapId")
 
         colnames(modelInfo)
