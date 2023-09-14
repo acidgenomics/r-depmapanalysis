@@ -1,3 +1,7 @@
+## FIXME Need to use "OmicsDefaultModelProfiles.csv" to resolve duplicates.
+
+
+
 #' Import DepMap transcript expression data
 #'
 #' @export
@@ -78,6 +82,11 @@ DepMapTxExpression <- # nolint
         ##  [6] "ACH-000337" "ACH-000455" "ACH-000468" "ACH-000517" "ACH-000532"
         ## [11] "ACH-000556" "ACH-000597" "ACH-000700" "ACH-000931" "ACH-000975"
         ## [16] "ACH-001192"
+
+
+        xxx <- op[op[["modelId"]] %in% bad, ]
+
+
         assert(
             identical(unique(op[["datatype"]]), "rna"),
             hasNoDuplicates(op[["modelId"]])
