@@ -222,11 +222,7 @@ setValidity(
     method = function(object) {
         ok <- validate(
             identical(
-                x = c(
-                    "geneName1",
-                    "geneName2",
-                    "pearson"
-                ),
+                x = c("geneName1", "geneName2", "pearson"),
                 y = colnames(object)
             )
         )
