@@ -1,3 +1,7 @@
+## FIXME Split these out into separate files.
+
+
+
 #' Import DepMap gene or transcript expression data
 #'
 #' @name DepMapExpression
@@ -10,9 +14,9 @@
 #' object <- DepMapGeneExpression()
 #' print(object)
 #'
-#' ## Transcript level.
-#' object <- DepMapTxExpression()
-#' print(object)
+#' ## Transcript level (CPU intensive).
+#' ## > object <- DepMapTxExpression()
+#' ## > print(object)
 NULL
 
 
@@ -43,10 +47,10 @@ DepMapTxExpression <- # nolint
             hasRAM(n = 14L)
         )
         assayUrl <- files[["OmicsExpressionTranscriptsTPMLogp1Profile.csv"]]
-        colDataUrl <- files[["OmicsProfiles.csv"]]
+        profilesUrl <- files[["OmicsProfiles.csv"]]
         assert(
             isAURL(assayUrl),
-            isAURL(colDataUrl)
+            isAURL(profilesUrl)
         )
         # Benchmarks on AWS EC2 r6a instance:
         # - base: > 5 minutes
@@ -59,6 +63,7 @@ DepMapTxExpression <- # nolint
             engine = "readr"
         )
         assay <- t(assay)
+        ## Rows (transcripts) --------------------------------------------------
         rn <- rownames(assay)
         assert(allAreMatchingFixed(x = rn, pattern = "ENST"))
         rn <- gsub(
@@ -68,26 +73,35 @@ DepMapTxExpression <- # nolint
         )
         assert(allAreMatchingRegex(x = rn, pattern = "^ENST[0-9]{11}$"))
         rownames(assay) <- rn
-        ## FIXME We don't want to hard code the release version here.
-        ## Alternatively, can stash the Ensembl release in the JSON metadata.
+        ## 23q2 release is processed against Ensembl 104. However, we're
+        ## intentionally using a rolling release approach here to simply remove
+        ## dead transcripts from analysis.
         rowRanges <- makeGRangesFromEnsembl(
             organism = "Homo sapiens",
             level = "transcripts",
             genomeBuild = "GRCh38",
-            release = 104L,
             ignoreVersion = TRUE
         )
-        assert(isSubset(rownames(assay), names(rowRanges)))
-        ## Columns:
-        ## [1] "PR_AdBjpG" "PR_I2AzwG" "PR_5ekAAC"
-        colData <- .importBroadDataFile(url = colDataUrl)
+        excludedTxs <- sort(setdiff(rownames(assay), names(rowRanges)))
+        txs <- sort(intersect(rownames(assay), names(rowRanges)))
+        assay <- assay[txs, , drop = FALSE]
+        rowRanges <- rowRanges[txs]
+        ## Columns (cells) -----------------------------------------------------
+        ## This contains multiple data types: rna, wes, wgs.
+        modelInfo <- .importBroadModelInfo(dataset = dataset)
+        df <- .importBroadDataFile(url = profilesUrl)
+        colnames(df) <- camelCase(colnames(df))
+        assert(isSubset(c("modelId", "profileId"), colnames(df)))
+        cells <- sort(intersect(df[["modelId"]], modelInfo[["depmapId"]]))
+        ok <- df[["modelId"]] %in% cells
+        excludedCells <- sort(unique(df[["modelId"]][!ok]))
+        df <- df[ok, , drop = FALSE]
+        cd <- leftJoin(x = cd2, y = cd1, by = "depmapId")
 
-        ## FIXME May want to match to a specific release version.
-        rowRanges <- makeGRangesFromEnsembl(organism = "Homo sapiens")
+        colnames(modelInfo)
 
-        .makeBroadSingleAssaySE(
-            file = "OmicsExpressionTranscriptsTPMLogp1Profile.csv",
-            assayName = "log2Tpm",
-            class = "DepMapTxExpression"
-        )
+
+        metadata(out)[["excludedCells"]] <- excludedCells
+        metadata(out)[["excludedTxs"]] <- excludedTxs
+        out
     }
