@@ -13,10 +13,8 @@
 \details{
 Not intended to be used directly.
 
-Inherits from \code{DepMapExperiment}.
-
 \code{DepMapCrisprGeneEffect} and \code{DepMapRnaiGeneEffect} extend this class.
 }
 \note{
-Updated 2023-08-22.
+Updated 2023-09-14.
 }

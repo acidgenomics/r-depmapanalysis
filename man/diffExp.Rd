@@ -2,12 +2,12 @@
 % Please edit documentation in R/AllGenerics.R, R/diffExp-methods.R
 \name{diffExp}
 \alias{diffExp}
-\alias{diffExp,DepMapExpression-method}
+\alias{diffExp,DepMapGeneExpression-method}
 \title{Differential expression}
 \usage{
 diffExp(object, ...)
 
-\S4method{diffExp}{DepMapExpression}(object, sensitiveCells, insensitiveCells)
+\S4method{diffExp}{DepMapGeneExpression}(object, sensitiveCells, insensitiveCells)
 }
 \arguments{
 \item{object}{Object.}
@@ -27,7 +27,7 @@ Updated 2023-08-22.
 \examples{
 data(rnaseq)
 
-## DepMapExpression ====
+## DepMapGeneExpression ====
 object <- rnaseq
 sensitiveCells <- colnames(object)[c(1L:5L)]
 insensitiveCells <- colnames(object)[c(6L:10L)]

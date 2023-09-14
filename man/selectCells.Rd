@@ -2,12 +2,12 @@
 % Please edit documentation in R/AllGenerics.R, R/selectCells-methods.R
 \name{selectCells}
 \alias{selectCells}
-\alias{selectCells,DepMapExperiment-method}
+\alias{selectCells,DepMapGeneEffect-method}
 \title{Select cells}
 \usage{
 selectCells(object, ...)
 
-\S4method{selectCells}{DepMapExperiment}(object, ...)
+\S4method{selectCells}{DepMapGeneEffect}(object, ...)
 }
 \arguments{
 \item{object}{Object.}
@@ -24,7 +24,7 @@ Select cells
 Only exact matching is currently supported.
 }
 \note{
-Updated 2023-09-12.
+Updated 2023-09-14.
 }
 \examples{
 data(crispr)

@@ -1,7 +1,7 @@
 #' @name selectCells
 #' @inherit Cellosaurus::selectCells details
 #' @inherit AcidGenerics::selectCells description return title
-#' @note Updated 2023-09-12.
+#' @note Updated 2023-09-14.
 #'
 #' @inheritParams AcidRoxygen::params
 #'
@@ -27,8 +27,8 @@ NULL
 
 
 
-## Updated 2023-09-12.
-`selectCells,DepMapExperiment` <-
+## Updated 2023-09-14.
+`selectCells,SE` <- # nolint
     function(object, ...) {
         assert(validObject(object))
         cello <- colData(object)[["cellosaurus"]]
@@ -47,10 +47,15 @@ NULL
 
 
 
+`selectCells,DepMapGeneEffect` <- # nolint
+    `selectCells,SE`
+
+
+
 #' @rdname selectCells
 #' @export
 setMethod(
     f = "selectCells",
-    signature = signature(object = "DepMapExperiment"),
-    definition = `selectCells,DepMapExperiment`
+    signature = signature(object = "DepMapGeneEffect"),
+    definition = `selectCells,DepMapGeneEffect`
 )
