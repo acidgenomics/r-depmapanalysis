@@ -1,5 +1,6 @@
 ## FIXME Consider just defaulting to the new Sanger dataset?
 ## FIXME Only interested in cells that map to cellosaurus, broad, and sanger...
+## FIXME Rework sangerModelId handling relative to cellosaurus stash in colData.
 
 
 
