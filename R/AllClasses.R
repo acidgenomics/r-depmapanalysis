@@ -152,6 +152,10 @@ setValidity(
         if (!isTRUE(ok)) {
             return(ok)
         }
+        ok <- .validateNcbiGeneIds(object)
+        if (!isTRUE(ok)) {
+            return(ok)
+        }
         ok <- validateClasses(
             object = metadata(object),
             expected = list(
@@ -281,6 +285,10 @@ setValidity(
         if (!isTRUE(ok)) {
             return(ok)
         }
+        ok <- .validateNcbiGeneIds(object)
+        if (!isTRUE(ok)) {
+            return(ok)
+        }
         TRUE
     }
 )
@@ -374,6 +382,10 @@ setValidity(
             return(ok)
         }
         ok <- isSubset("log2Tpm", assayNames(object))
+        if (!isTRUE(ok)) {
+            return(ok)
+        }
+        ok <- .validateNcbiGeneIds(object)
         if (!isTRUE(ok)) {
             return(ok)
         }
