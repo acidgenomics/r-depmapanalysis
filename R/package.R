@@ -20,7 +20,7 @@ NULL
 ## S4 generics and methods =====================================================
 
 #' @importFrom AcidGenerics as.DataFrame autopadZeros camelCase diffExp
-#' droplevels2 encode excludeContaminatedCells leftJoin makeDimnames
+#' droplevels2 encode excludeContaminatedCells import leftJoin makeDimnames
 #' makeNames mapGenesToRownames melt predictSensitivity plotGeneEffect
 #' plotGeneEffectVsExpression plotTopGeneEffectPerCell plotTopGeneEffectPerGroup
 #' selectCells showHeader tpm zscore
@@ -31,7 +31,6 @@ NULL
 #' @importFrom SummarizedExperiment assay assayNames colData colData<- rowData
 #' rowRanges
 #' @importFrom methods show
-#' @importFrom pipette import
 NULL
 
 #' @importMethodsFrom AcidBase showHeader
