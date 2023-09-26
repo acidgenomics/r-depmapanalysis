@@ -1,7 +1,7 @@
 #' Import DepMap transcript expression data
 #'
 #' @export
-#' @note Updated 2023-09-14.
+#' @note Updated 2023-09-26.
 #'
 #' @details
 #' Benchmarks for import of `"OmicsExpressionTranscriptsTPMLogp1Profile.csv"` on
@@ -28,7 +28,6 @@ DepMapTxExpression <- # nolint
         dataset <- .currentBroadDataset
         files <- datasets[[dataset]][["files"]]
         assert(
-            requireNamespaces("readr"),
             isString(dataset),
             is.list(files),
             hasRAM(n = 14L)
@@ -44,7 +43,11 @@ DepMapTxExpression <- # nolint
             url = assayUrl,
             rownameCol = 1L,
             return = "matrix",
-            engine = "readr"
+            engine = ifelse(
+                test = isInstalled("readr"),
+                yes = "readr",
+                no = "base"
+            )
         )
         assay <- t(assay)
         ## Rows (transcripts) --------------------------------------------------
