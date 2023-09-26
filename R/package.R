@@ -51,7 +51,7 @@ NULL
 
 ## Standard functions ==========================================================
 
-#' @importFrom AcidBase pasteURL showSlotInfo
+#' @importFrom AcidBase pasteURL showSlotInfo strMatch
 #' @importFrom AcidCLI abort alert alertInfo alertWarning dl h1 toInlineString
 #' @importFrom AcidExperiment makeSummarizedExperiment
 #' @importFrom AcidGenomes HGNC NcbiGeneInfo emptyRanges makeGRangesFromEnsembl
@@ -69,6 +69,5 @@ NULL
 #' @importFrom matrixStats colSums2 rowMaxs rowMins
 #' @importFrom methods as is new setClass setValidity validObject
 #' @importFrom pipette cacheURL
-#' @importFrom stringi stri_match_first_regex
 #' @importFrom utils capture.output packageName packageVersion
 NULL

@@ -47,7 +47,7 @@
 
 #' Import a Broad DepMap file containing gene identifiers
 #'
-#' @note Updated 2023-08-09.
+#' @note Updated 2023-09-26.
 #' @noRd
 .importBroadGeneDataFile <-
     function(url) {
@@ -63,11 +63,11 @@
             identical(colnames(df), "gene")
         ) {
             # e.g. DepMap 22Q4 ("Essentials", "Gene") and 22Q2 ("gene").
-            df <- stringi::stri_split_fixed(
-                str = df[[1L]],
+            df <- strSplit(
+                x = df[[1L]],
                 pattern = " ",
-                n = 2L,
-                simplify = TRUE
+                fixed = TRUE,
+                n = 2L
             )
             df <- as(df, "DFrame")
             colnames(df) <- c("geneName", "ncbiGeneId")

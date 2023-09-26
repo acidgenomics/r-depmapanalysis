@@ -2,7 +2,7 @@ Package: DepMapAnalysis
 Title: DepMap Analysis Utilities
 Description: Cancer Dependency Map (DepMap) analysis toolkit.
 Version: 0.3.0.9000
-Date: 2023-09-20
+Date: 2023-09-26
 Authors@R: c(
     person(
         given = "Michael",
@@ -43,24 +43,23 @@ LazyData: false
 Depends:
     R (>= 4.3)
 Imports:
-    AcidBase (>= 0.6.22),
+    AcidBase (>= 0.7.0),
     AcidCLI (>= 0.2.8),
-    AcidExperiment (>= 0.4.7),
-    AcidGenerics (>= 0.6.11),
-    AcidGenomes (>= 0.5.1),
-    AcidPlots (>= 0.6.1),
+    AcidExperiment (>= 0.4.8),
+    AcidGenerics (>= 0.6.13),
+    AcidGenomes (>= 0.5.2),
+    AcidPlots (>= 0.6.2),
     AcidPlyr (>= 0.4.2),
     BiocGenerics (>= 0.46.0),
-    Cellosaurus (>= 0.7.2),
+    Cellosaurus (>= 0.8.0),
     IRanges (>= 2.34.0),
     S4Vectors (>= 0.38.0),
     SummarizedExperiment (>= 1.30.0),
     ggplot2 (>= 3.4.3),
-    goalie (>= 0.6.15),
+    goalie (>= 0.6.19),
     matrixStats (>= 1.0.0),
-    pipette (>= 0.12.1),
-    stringi (>= 1.7.12),
-    syntactic (>= 0.6.6),
+    pipette (>= 0.14.0),
+    syntactic (>= 0.6.7),
     methods,
     utils
 Suggests:
