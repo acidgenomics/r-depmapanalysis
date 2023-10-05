@@ -30,13 +30,13 @@ DepMapTxExpression <- # nolint
         assert(
             isString(dataset),
             is.list(files),
-            hasRAM(n = 14L)
+            hasRam(n = 14L)
         )
         assayUrl <- files[["OmicsExpressionTranscriptsTPMLogp1Profile.csv"]]
         profilesUrl <- files[["OmicsDefaultModelProfiles.csv"]]
         assert(
-            isAURL(assayUrl),
-            isAURL(profilesUrl)
+            isAUrl(assayUrl),
+            isAUrl(profilesUrl)
         )
         ## This step is CPU intensive.
         assay <- .importBroadDataFile(

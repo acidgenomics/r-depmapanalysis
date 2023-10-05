@@ -4,7 +4,7 @@
 #' @noRd
 .importSangerModelInfo <-
     function(date = "2023-08-01") {
-        url <- pasteURL(
+        url <- pasteUrl(
             "cog.sanger.ac.uk",
             "cmp",
             "download",
@@ -15,7 +15,7 @@
             ),
             protocol = "https"
         )
-        sanger <- import(con = .cacheURL(url), format = "csv")
+        sanger <- import(con = .cacheUrl(url), format = "csv")
         sanger <- as(sanger, "DFrame")
         cello <- Cellosaurus()
         cello <- excludeContaminatedCells(cello)

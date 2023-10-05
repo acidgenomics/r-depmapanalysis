@@ -51,23 +51,23 @@ NULL
 
 ## Standard functions ==========================================================
 
-#' @importFrom AcidBase pasteURL showSlotInfo strMatch
+#' @importFrom AcidBase pasteUrl showSlotInfo strMatch
 #' @importFrom AcidCLI abort alert alertInfo alertWarning dl h1 toInlineString
 #' @importFrom AcidExperiment makeSummarizedExperiment
-#' @importFrom AcidGenomes HGNC NcbiGeneInfo emptyRanges makeGRangesFromEnsembl
+#' @importFrom AcidGenomes Hgnc NcbiGeneInfo emptyRanges makeGRangesFromEnsembl
 #' @importFrom AcidPlots .data acid_geom_label_repel
 #' @importFrom Cellosaurus Cellosaurus
 #' @importFrom IRanges CharacterList
 #' @importFrom S4Vectors DataFrame
 #' @importFrom ggplot2 aes facet_wrap geom_boxplot geom_density geom_jitter
 #' geom_point geom_violin geom_vline ggplot labs scale_y_discrete
-#' @importFrom goalie allAreMatchingFixed allAreMatchingRegex allAreURLs
+#' @importFrom goalie allAreMatchingFixed allAreMatchingRegex allAreUrls
 #' areDisjointSets areIntersectingSets areSetEqual assert bapply hasColnames
-#' hasDuplicates hasLength hasNoDuplicates hasRAM hasRownames isAFile isAURL
+#' hasDuplicates hasLength hasNoDuplicates hasRam hasRownames isAFile isAUrl
 #' isCharacter isFlag isInt isInstalled isPositive isScalar isString isSubset
 #' requireNamespaces validate validateClasses
 #' @importFrom matrixStats colSums2 rowMaxs rowMins
 #' @importFrom methods as is new setClass setValidity validObject
-#' @importFrom pipette cacheURL
+#' @importFrom pipette cacheUrl
 #' @importFrom utils capture.output packageName packageVersion
 NULL

@@ -22,7 +22,7 @@ AWS EC2 r6a instance:
 }
 }
 \note{
-Updated 2023-09-14.
+Updated 2023-09-26.
 }
 \section{Transcript exclusion}{
 

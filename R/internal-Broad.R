@@ -13,7 +13,7 @@
              ),
              return = c("DFrame", "matrix")) {
         assert(
-            isAURL(url),
+            isAUrl(url),
             isFlag(colnames),
             isScalar(rownameCol) || is.null(rownameCol),
             isString(engine)
@@ -26,7 +26,7 @@
             requireNamespaces("data.table")
             engine <- "data.table"
         }
-        tmpfile <- .cacheURL(url = url)
+        tmpfile <- .cacheUrl(url = url)
         df <- import(
             con = tmpfile,
             format = format,
@@ -117,7 +117,7 @@
             isString(dict[["releaseDate"]]),
             isString(dict[["scoringMethod"]]),
             isFlag(dict[["transposeAssays"]]),
-            allAreURLs(urls)
+            allAreUrls(urls)
         )
         h1(sprintf("{.cls %s}: {.var %s}", class, dataset))
         dl(c(
@@ -179,7 +179,7 @@
                 )
             )
         }
-        assert(allAreURLs(unlist(urls, recursive = TRUE)))
+        assert(allAreUrls(unlist(urls, recursive = TRUE)))
         assays <- lapply(
             X = urls[["assays"]],
             FUN = .importBroadDataFile,
@@ -223,7 +223,7 @@
     function(dataset) {
         assert(isString(dataset))
         url <- datasets[[dataset]][["files"]][["Model.csv"]]
-        assert(isAURL(url))
+        assert(isAUrl(url))
         broad <- .importBroadDataFile(
             url = url,
             format = "csv",
@@ -279,7 +279,7 @@ formals(.importBroadModelInfo)[["dataset"]] <- .currentBroadDataset
 #' Matching the cell lines here by CCLE identifier.
 .importDemeter2ModelInfo <- function() {
     url <- datasets[["demeter2_data_v6"]][["files"]][["sample_info.csv"]]
-    assert(isAURL(url))
+    assert(isAUrl(url))
     d2 <- .importBroadDataFile(
         url = url,
         format = "csv",
@@ -512,7 +512,7 @@ formals(.importBroadModelInfo)[["dataset"]] <- .currentBroadDataset
         isFlag(dict[["transposeAssays"]])
     )
     url <- json[["files"]][[file]]
-    assert(isAURL(url))
+    assert(isAUrl(url))
     ## FIXME This step is crashing RStudio for DepMapTxExpression.
     ## https://figshare.com/ndownloader/files/40449689
     assay <- .importBroadDataFile(

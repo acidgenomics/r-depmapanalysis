@@ -20,7 +20,7 @@ DepMapMutations <- # nolint
         dataset <- .currentBroadDataset
         assert(isString(dataset))
         url <- datasets[[dataset]][["files"]][["OmicsSomaticMutations.csv"]]
-        assert(isAURL(url))
+        assert(isAUrl(url))
         df <- .importBroadDataFile(url = url, format = "csv")
         assert(is(df, "DFrame"))
         colnames(df)[colnames(df) == "GTexGene"] <- "GtexGene"

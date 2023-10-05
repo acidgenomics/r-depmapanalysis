@@ -2,7 +2,7 @@
 #'
 #' @note Updated 2023-03-08.
 #' @noRd
-.cacheURL <-
+.cacheUrl <-
     function(url) {
-        cacheURL(url = url, pkg = .pkgName)
+        cacheUrl(url = url, pkg = .pkgName)
     }

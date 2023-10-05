@@ -3,7 +3,7 @@
 
 .currentBroadDataset <- "depmap_public_23q2"
 
-.extdataUrl <- pasteURL(
+.extdataUrl <- pasteUrl(
     "r.acidgenomics.com",
     "extdata",
     tolower(.pkgName),

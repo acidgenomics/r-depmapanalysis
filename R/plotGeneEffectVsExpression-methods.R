@@ -43,7 +43,7 @@ NULL
              label = FALSE) {
         assert(
             isString(gene),
-            isString(subtype, nullOK = TRUE),
+            isString(subtype, nullOk = TRUE),
             isString(subtypeCol),
             isSubset(
                 x = subtypeCol,

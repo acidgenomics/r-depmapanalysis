@@ -59,7 +59,7 @@ NULL
         assert(
             validObject(object),
             isString(gene1),
-            isString(gene2, nullOK = TRUE)
+            isString(gene2, nullOk = TRUE)
         )
         assay <- assay(object, i = "effect")
         assert(is.matrix(assay))

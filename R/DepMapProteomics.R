@@ -48,20 +48,20 @@ DepMapProteomics <-  # nolint
 #' - https://cellmodelpassports.sanger.ac.uk/downloads
 #' - https://depmap.sanger.ac.uk/documentation/datasets/proteomics/
 .importGoncalves2022 <- function() {
-    baseUrl <- pasteURL(.extdataUrl, "proteomics", "goncalves-2022")
+    baseUrl <- pasteUrl(.extdataUrl, "proteomics", "goncalves-2022")
     date <- "20221214"
     assayUrls <- c(
-        "log2" = pasteURL(
+        "log2" = pasteUrl(
             baseUrl, date,
             paste0("protein-matrix-averaged-", date, ".tsv")
         ),
-        "zscore" = pasteURL(
+        "zscore" = pasteUrl(
             baseUrl, date,
             paste0("protein-matrix-averaged-zscore-", date, ".tsv")
         )
     )
     .importAssay <- function(url) {
-        con <- .cacheURL(url)
+        con <- .cacheUrl(url)
         df <- import(con = con, colnames = FALSE, skip = 3L)
         assert(identical(df[1L, 1L], "22RV1"))
         headers <- import(con = con, format = "lines", nMax = 2L, quiet = TRUE)
@@ -126,9 +126,9 @@ DepMapProteomics <-  # nolint
 #' - https://doi.org/10.1016/j.cell.2019.12.023
 #' - https://gygi.hms.harvard.edu/publications/ccle.html
 .importNusinow2020 <- function() {
-    baseUrl <- pasteURL(.extdataUrl, "proteomics", "nusinow-2020")
-    url <- pasteURL(baseUrl, "table-s1-sample-information.csv")
-    colData <- import(con = .cacheURL(url))
+    baseUrl <- pasteUrl(.extdataUrl, "proteomics", "nusinow-2020")
+    url <- pasteUrl(baseUrl, "table-s1-sample-information.csv")
+    colData <- import(con = .cacheUrl(url))
     colData <- as(colData, "DFrame")
     colnames(colData) <- camelCase(colnames(colData), strict = TRUE)
     assert(identical(
@@ -143,11 +143,11 @@ DepMapProteomics <-  # nolint
         colData[["ccleCode"]], "_TenPx",
         autopadZeros(colData[["protein10PlexId"]])
     ))
-    url <- pasteURL(baseUrl, "table-s2-protein-quant-normalized.csv")
+    url <- pasteUrl(baseUrl, "table-s2-protein-quant-normalized.csv")
     ## FIXME Can we use base engine here instead?
     ## This step can fail when using readr engine without increasing default
     ## `VROOM_CONNECTION_SIZE`. Using data.table here instead to avoid.
-    df <- import(con = .cacheURL(url), engine = "data.table")
+    df <- import(con = .cacheUrl(url), engine = "data.table")
     assert(
         isSubset(c("Gene_Symbol", "Uniprot_Acc"), colnames(df)),
         hasNoDuplicates(df[["Uniprot_Acc"]])
@@ -258,7 +258,7 @@ DepMapProteomics <-  # nolint
     ## FIXME Move this to AcidGenomes
     ## FIXME Also make a similar function for NcbiGeneInfo return.
     .mapGeneNamesToHgncIds <- function(hgnc, geneNames) {
-        assert(is(hgnc, "HGNC"), isCharacter(geneNames))
+        assert(is(hgnc, "Hgnc"), isCharacter(geneNames))
         hgnc <- as(hgnc, "DFrame")
         rownames(hgnc) <- NULL
         hgnc <- hgnc[, c("hgncId", "symbol", "prevSymbol", "aliasSymbol")]
@@ -311,7 +311,7 @@ DepMapProteomics <-  # nolint
         xxx <- uniqueGeneNames[idx]
         xxx
     }
-    hgnc <- HGNC()
+    hgnc <- Hgnc()
     geneNames <- decode(rowData[["geneName"]])
     ## Column data -------------------------------------------------------------
     cd1 <- colData(object)
