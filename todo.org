@@ -1,6 +1,7 @@
 #+TITLE: DepMapAnalysis
 #+STARTUP: content
 * Development
+** TODO Add support for downloading BAM files from DepMap CCLE AWS bucket.** TODO Add support for downloading BAM files from DepMap CCLE AWS bucket.** TODO Add support for downloading BAM files from DepMap CCLE AWS bucket.** TODO Add support for downloading BAM files from DepMap CCLE AWS bucket.** TODO Add support for downloading BAM files from DepMap CCLE AWS bucket.** TODO Add support for downloading BAM files from DepMap CCLE AWS bucket.** TODO Add support for downloading BAM files from DepMap CCLE AWS bucket.** TODO Add support for downloading BAM files from DepMap CCLE AWS bucket.
 ** TODO clinvarToOncokb annotation mappings
 ** TODO Add plotCleveland support for predictSensitivity return.
 ** TODO Add a quick lookup function to determine if a driver mutation is present in specific cell lines.
