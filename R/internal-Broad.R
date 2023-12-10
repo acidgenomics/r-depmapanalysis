@@ -497,7 +497,7 @@ formals(.importBroadModelInfo)[["dataset"]] <- .currentBroadDataset
         is.list(json)
     )
     alert(sprintf(
-        "Making {.cls %s} against {.var %s} release with {.file %s}.",
+        "Making {.cls %s} for {.var %s} release using {.file %s}.",
         class, dataset, file
     ))
     dict <- list(

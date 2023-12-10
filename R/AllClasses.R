@@ -1,12 +1,9 @@
 ## Internal validity methods ===================================================
 
-## Updated 2023-09-14.
+## Updated 2023-12-10.
 .validateNcbiGeneIds <- function(object) {
     ok <- validate(
-        allAreMatchingRegex(
-            x = rownames(object),
-            pattern = "^[0-9]+$"
-        )
+        allAreMatchingRegex(x = rownames(object), pattern = "^[0-9]+$")
     )
     if (!isTRUE(ok)) {
         return(ok)
@@ -22,7 +19,7 @@
             "geneName" = "Rle",
             "geneSynonyms" = "CompressedCharacterList",
             "mapLocation" = "Rle",
-            "modificationDate" = "Rle",
+            "modificationDate" = "Date",
             "nomenclatureStatus" = "Rle",
             "otherDesignations" = "CompressedCharacterList",
             "taxonomyId" = "Rle",
