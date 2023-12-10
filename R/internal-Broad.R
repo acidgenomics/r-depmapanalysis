@@ -374,9 +374,8 @@ formals(.importBroadModelInfo)[["dataset"]] <- .currentBroadDataset
         )
         rowData <- as(rowData, "DFrame")
         ## Extract the NCBI gene identifiers from the row names.
-        ## FIXME Rework using our AcidPlyr variant.
-        match <- stri_match_first_regex(
-            str = rownames(assays[[1L]]),
+        match <- strMatch(
+            x = rownames(assays[[1L]]),
             pattern = "^(.+)_([0-9]+)$"
         )
         ncbiGeneIds <- as.integer(match[, 3L, drop = TRUE])
@@ -386,13 +385,9 @@ formals(.importBroadModelInfo)[["dataset"]] <- .currentBroadDataset
         )
         ## Retired NCBI gene identifiers will return `NA` here. These correspond
         ## to the rows we want to keep in assays.
-        idx <- match(
-            x = ncbiGeneIds,
-            table = as.integer(rowData[["geneId"]])
-        )
+        idx <- match(x = ncbiGeneIds, table = as.integer(rowData[["geneId"]]))
         if (anyNA(idx)) {
-            excludedGenes <-
-                sort(match[which(is.na(idx)), 1L, drop = TRUE])
+            excludedGenes <- sort(match[which(is.na(idx)), 1L, drop = TRUE])
             alertWarning(sprintf(
                 "%d NCBI gene %s to exclude in data set: %s.",
                 length(excludedGenes),
@@ -412,17 +407,13 @@ formals(.importBroadModelInfo)[["dataset"]] <- .currentBroadDataset
             }
         )
         ## Now we need to resize the rowData to match assays.
-        ## FIXME Rework using our AcidPlyr variant.
-        match <- stri_match_first_regex(
-            str = rownames(assays[[1L]]),
+        match <- strMatch(
+            x = rownames(assays[[1L]]),
             pattern = "^(.+)_([0-9]+)$"
         )
         ncbiGeneIds <- as.integer(match[, 3L, drop = TRUE])
         assert(!anyNA(ncbiGeneIds))
-        idx <- match(
-            x = ncbiGeneIds,
-            table = as.integer(rowData[["geneId"]])
-        )
+        idx <- match(x = ncbiGeneIds, table = as.integer(rowData[["geneId"]]))
         assert(!anyNA(idx))
         rowData <- rowData[idx, , drop = FALSE]
         rownames(rowData) <- match[, 1L, drop = TRUE]
@@ -493,7 +484,7 @@ formals(.importBroadModelInfo)[["dataset"]] <- .currentBroadDataset
 
 #' Make a SummarizedExperiment from Broad DepMap with a single assay
 #'
-#' @note Updated 2023-08-09.
+#' @note Updated 2023-12-10.
 #' @noRd
 .makeBroadSingleAssaySE <- function(file, assayName, class) {
     dataset <- .currentBroadDataset
@@ -505,6 +496,10 @@ formals(.importBroadModelInfo)[["dataset"]] <- .currentBroadDataset
         isString(class),
         is.list(json)
     )
+    alert(sprintf(
+        "Making {.cls %s} against {.var %s} release with {.file %s}.",
+        class, dataset, file
+    ))
     dict <- list(
         "releaseDate" = json[["metadata"]][["date"]],
         "transposeAssays" = json[["metadata"]][["transpose_assays"]]
@@ -515,7 +510,7 @@ formals(.importBroadModelInfo)[["dataset"]] <- .currentBroadDataset
     )
     url <- json[["files"]][[file]]
     assert(isAUrl(url))
-    ## FIXME This step is crashing RStudio for DepMapTxExpression.
+    ## NOTE This step can crash RStudio for DepMapTxExpression.
     ## https://figshare.com/ndownloader/files/40449689
     assay <- .importBroadDataFile(
         url = url,
@@ -526,9 +521,7 @@ formals(.importBroadModelInfo)[["dataset"]] <- .currentBroadDataset
     )
     assays <- list(assay)
     names(assays) <- assayName
-    metadata <- list(
-        "releaseDate" = dict[["releaseDate"]]
-    )
+    metadata <- list("releaseDate" = dict[["releaseDate"]])
     .makeBroadSE(
         dataset = dataset,
         assays = assays,
