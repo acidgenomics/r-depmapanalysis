@@ -328,7 +328,7 @@ formals(.importBroadModelInfo)[["dataset"]] <- .currentBroadDataset
 
 #' Make SummarizedExperiment object from Broad DepMap data
 #'
-#' @note Updated 2023-08-09.
+#' @note Updated 2023-12-10.
 #' @noRd
 .makeBroadSE <-
     function(dataset,
@@ -374,6 +374,7 @@ formals(.importBroadModelInfo)[["dataset"]] <- .currentBroadDataset
         )
         rowData <- as(rowData, "DFrame")
         ## Extract the NCBI gene identifiers from the row names.
+        ## FIXME Rework using our AcidPlyr variant.
         match <- stri_match_first_regex(
             str = rownames(assays[[1L]]),
             pattern = "^(.+)_([0-9]+)$"
@@ -411,6 +412,7 @@ formals(.importBroadModelInfo)[["dataset"]] <- .currentBroadDataset
             }
         )
         ## Now we need to resize the rowData to match assays.
+        ## FIXME Rework using our AcidPlyr variant.
         match <- stri_match_first_regex(
             str = rownames(assays[[1L]]),
             pattern = "^(.+)_([0-9]+)$"
