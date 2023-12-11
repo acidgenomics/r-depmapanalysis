@@ -7,7 +7,7 @@
 \usage{
 predictSensitivity(object, ...)
 
-\S4method{predictSensitivity}{DepMapGeneExpression}(object, upregulated, downregulated)
+\S4method{predictSensitivity}{DepMapGeneExpression}(object, upregulated, downregulated, sensitiveCutoff = 1L)
 }
 \arguments{
 \item{object}{Object.}
@@ -17,6 +17,9 @@ Genes observed to be upregulated by treatment.}
 
 \item{downregulated}{\code{character}.
 Genes observed to be downregulated by treatment.}
+
+\item{sensitiveCutoff}{\code{numeric(1)}.
+Euclidean distance (ds/dr) ratio cutoff to define as sensitive.}
 }
 \value{
 \code{DFrame}.
@@ -29,7 +32,7 @@ Predict cell line sensitivity by calculation of Euclidean distance between
 known biomarker genes up- or down-regulated by a treatment of interest.
 }
 \note{
-Updated 2023-09-12.
+Updated 2023-12-11.
 }
 \examples{
 data(rnaseq)

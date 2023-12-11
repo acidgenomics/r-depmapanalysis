@@ -64,8 +64,8 @@ NULL
 #' @importFrom goalie allAreMatchingFixed allAreMatchingRegex allAreUrls
 #' areDisjointSets areIntersectingSets areSetEqual assert bapply hasColnames
 #' hasDuplicates hasLength hasNoDuplicates hasRam hasRownames isAFile isAUrl
-#' isCharacter isFlag isInt isInstalled isPositive isScalar isString isSubset
-#' requireNamespaces validate validateClasses
+#' isCharacter isFlag isInt isInstalled isPositive isScalar isScalarNumeric
+#' isString isSubset requireNamespaces validate validateClasses
 #' @importFrom matrixStats colSums2 rowMaxs rowMins
 #' @importFrom methods as is new setClass setValidity validObject
 #' @importFrom pipette cacheUrl

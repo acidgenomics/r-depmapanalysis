@@ -1,15 +1,7 @@
-## FIXME Return this classed, so we can also include a corresponding plot
-## function (similar to our approach in Prism).
-
-## FIXME Rework this as a general method that we can inherit in
-## cBioPortalAnalysis package. Consider exporting for SummarizedExperiment?
-
-
-
 #' @name predictSensitivity
 #' @author Nitesh Turaga, Teresa Rice, Michael Steinbaugh
 #' @inherit AcidGenerics::predictSensitivity
-#' @note Updated 2023-09-12.
+#' @note Updated 2023-12-11.
 #'
 #' @details
 #' Predict cell line sensitivity by calculation of Euclidean distance between
@@ -22,6 +14,9 @@
 #'
 #' @param downregulated `character`.
 #' Genes observed to be downregulated by treatment.
+#'
+#' @param sensitiveCutoff `numeric(1)`.
+#' Euclidean distance (ds/dr) ratio cutoff to define as sensitive.
 #'
 #' @return `DFrame`.
 #'
@@ -43,18 +38,20 @@ NULL
 
 
 
-## Updated 2023-09-12.
+## Updated 2023-12-11.
 `predictSensitivity,DepMapGeneExpression` <- # nolint
     function(object,
              upregulated,
-             downregulated) {
+             downregulated,
+             sensitiveCutoff = 1L) {
         assert(
             validObject(object),
             isCharacter(upregulated),
             isCharacter(downregulated),
             hasNoDuplicates(upregulated),
             hasNoDuplicates(downregulated),
-            areDisjointSets(x = upregulated, y = downregulated)
+            areDisjointSets(x = upregulated, y = downregulated),
+            isScalarNumeric(sensitiveCutoff)
         )
         up <- mapGenesToRownames(
             object = object,
@@ -109,13 +106,13 @@ NULL
         ratio <- dsj / drj
         ## Indicate whether we predict sensitive.
         pred <- ifelse(
-            test = dsj <= drj,
+            test = ratio < sensitiveCutoff,
             yes = "sensitive",
             no = "insensitive"
         )
         out <- DataFrame(
-            "drj" = drj,
-            "dsj" = dsj,
+            "ds" = dsj,
+            "dr" = drj,
             "ratio" = ratio,
             "prediction" = pred,
             row.names = colnames(object)
