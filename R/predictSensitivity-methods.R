@@ -1,6 +1,9 @@
 ## FIXME Return this classed, so we can also include a corresponding plot
 ## function (similar to our approach in Prism).
 
+## FIXME Rework this as a general method that we can inherit in
+## cBioPortalAnalysis package. Consider exporting for SummarizedExperiment?
+
 
 
 #' @name predictSensitivity
