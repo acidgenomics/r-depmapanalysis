@@ -217,7 +217,7 @@
 #' Sample metadata now indicates that there are merged cells we should drop
 #' from analysis (e.g. ACH-002260).
 #'
-#' @note Updated 2023-09-14.
+#' @note Updated 2023-12-19.
 #' @noRd
 .importBroadModelInfo <-
     function(dataset) {
