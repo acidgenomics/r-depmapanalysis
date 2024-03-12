@@ -212,16 +212,25 @@
 
 
 
+## FIXME Export this function, which is generally useful.
+## FIXME Inform the user that `mapToCellosaurus` is slow but helps standardize
+## our cell line metadata.
+## FIXME Alternatively, allow the user to pass in a pre-saved Cellosaurus
+## object? This will speed up quite a bit here then.
+
 #' Import Broad DepMap cell line model info
 #'
 #' Sample metadata now indicates that there are merged cells we should drop
 #' from analysis (e.g. ACH-002260).
 #'
-#' @note Updated 2023-12-19.
+#' @note Updated 2023-12-20.
 #' @noRd
 .importBroadModelInfo <-
-    function(dataset) {
-        assert(isString(dataset))
+    function(dataset, mapToCellosaurus = TRUE) {
+        assert(
+            isString(dataset),
+            isFlag(mapToCellosaurus)
+        )
         url <- datasets[[dataset]][["files"]][["Model.csv"]]
         assert(isAUrl(url))
         broad <- .importBroadDataFile(
@@ -232,6 +241,11 @@
             return = "DFrame"
         )
         assert(is(broad, "DFrame"))
+        if (isFALSE(mapToCellosaurus)) {
+            return(broad)
+        }
+        ## FIXME Consider reworking to use a pre-built Cellosaurus object,
+        ## to improve the speed of this quite a bit.
         cello <- Cellosaurus()
         cello <- excludeContaminatedCells(cello)
         ids <- list()
