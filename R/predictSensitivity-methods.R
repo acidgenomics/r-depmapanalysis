@@ -1,3 +1,8 @@
+## FIXME Include a CLI message with the number and percentage of sensitive
+## hits out of the total number sampled.
+
+
+
 #' @name predictSensitivity
 #' @author Nitesh Turaga, Teresa Rice, Michael Steinbaugh
 #' @inherit AcidGenerics::predictSensitivity
